@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hx.system.mapper.HxTasteMapper">
+
+    <resultMap type="HxTaste" id="HxTasteResult">
+        <result property="tasteId"    column="taste_id"    />
+        <result property="deptId"    column="dept_id"    />
+        <result property="businessName"    column="business_name"    />
+        <result property="businessCode"    column="business_code"    />
+        <result property="customersName"    column="customers_name"    />
+        <result property="customersCode"    column="customers_code"    />
+        <result property="tasteNum"    column="taste_num"    />
+        <result property="refereeNum"    column="referee_num"    />
+        <result property="sendNum"    column="send_num"    />
+        <result property="isSupply"    column="is_supply"    />
+        <result property="isTry"    column="is_try"    />
+        <result property="visitTime"    column="visit_time"    />
+        <result property="isSmoking"    column="is_smoking"    />
+        <result property="smokingType"    column="smoking_type"    />
+        <result property="heatingWireType"    column="heating_wire_type"    />
+        <result property="heatingWireResistance"    column="heating_wire_resistance"    />
+        <result property="capacity"    column="capacity"    />
+        <result property="oilGuideCottonType"    column="oil_guide_cotton_type"    />
+        <result property="isRecyclingSmoking"    column="is_recycling_smoking"    />
+        <result property="oilRingMaterial"    column="oil_ring_material"    />
+        <result property="vg"    column="vg"    />
+        <result property="viscosity"    column="viscosity"    />
+        <result property="expectedCompletionTime"    column="expected_completion_time"    />
+        <result property="sampleRequestTime"    column="sample_request_time"    />
+        <result property="estimatedFinishTime"    column="estimated_finish_time"    />
+        <result property="matchMarket"    column="match_market"    />
+        <result property="samplesNum"    column="samples_num"    />
+        <result property="mailingInformation"    column="mailing_information"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <resultMap id="HxTasteHxTasteDetailResult" type="HxTaste" extends="HxTasteResult">
+        <collection property="hxTasteDetailList" notNullColumn="sub_id" javaType="java.util.List" resultMap="HxTasteDetailResult" />
+    </resultMap>
+
+    <resultMap type="HxTasteDetail" id="HxTasteDetailResult">
+        <result property="id"    column="sub_id"    />
+        <result property="tasteName"    column="sub_taste_name"    />
+        <result property="tasteId"    column="sub_taste_id"    />
+        <result property="tasteDetail"    column="sub_taste_detail"    />
+        <result property="isBasicTaste"    column="sub_is_basic_taste"    />
+        <result property="basicTasteName"    column="sub_basic_taste_name"    />
+        <result property="basicTasteImprovementIdeas"    column="sub_basic_taste_improvement_ideas"    />
+        <result property="capacity"    column="sub_capacity"    />
+        <result property="vg"    column="sub_vg"    />
+        <result property="nicType"    column="sub_nic_type"    />
+        <result property="nicConcentration"    column="sub_nic_concentration"    />
+        <result property="nicUnit"    column="sub_nic_unit"    />
+        <result property="perfumer"    column="sub_perfumer"    />
+        <result property="version"    column="sub_version"    />
+        <result property="createBy"    column="sub_create_by"    />
+        <result property="createTime"    column="sub_create_time"    />
+        <result property="updateBy"    column="sub_update_by"    />
+        <result property="updateTime"    column="sub_update_time"    />
+        <result property="remark"    column="sub_remark"    />
+    </resultMap>
+
+    <sql id="selectHxTasteVo">
+        select taste_id, dept_id, business_name, business_code, customers_name, customers_code, taste_num, referee_num, send_num, is_supply, is_try, visit_time, is_smoking, smoking_type, heating_wire_type, heating_wire_resistance, capacity, oil_guide_cotton_type, is_recycling_smoking, oil_ring_material, vg, viscosity, expected_completion_time, sample_request_time, estimated_finish_time, match_market, samples_num, mailing_information, create_by, create_time, update_by, update_time, remark from hx_taste
+    </sql>
+
+    <select id="selectHxTasteList" parameterType="HxTaste" resultMap="HxTasteResult">
+        <include refid="selectHxTasteVo"/>
+        <where>
+            <if test="deptId != null  and deptId != ''"> and dept_id = #{deptId}</if>
+            <if test="businessName != null  and businessName != ''"> and business_name like concat('%', #{businessName}, '%')</if>
+            <if test="businessCode != null  and businessCode != ''"> and business_code = #{businessCode}</if>
+            <if test="customersName != null  and customersName != ''"> and customers_name like concat('%', #{customersName}, '%')</if>
+            <if test="customersCode != null  and customersCode != ''"> and customers_code = #{customersCode}</if>
+            <if test="tasteNum != null  and tasteNum != ''"> and taste_num = #{tasteNum}</if>
+            <if test="refereeNum != null  and refereeNum != ''"> and referee_num = #{refereeNum}</if>
+            <if test="sendNum != null  and sendNum != ''"> and send_num = #{sendNum}</if>
+            <if test="isSupply != null "> and is_supply = #{isSupply}</if>
+            <if test="isTry != null "> and is_try = #{isTry}</if>
+            <if test="visitTime != null "> and visit_time = #{visitTime}</if>
+            <if test="isSmoking != null "> and is_smoking = #{isSmoking}</if>
+            <if test="smokingType != null "> and smoking_type = #{smokingType}</if>
+            <if test="heatingWireType != null "> and heating_wire_type = #{heatingWireType}</if>
+            <if test="heatingWireResistance != null  and heatingWireResistance != ''"> and heating_wire_resistance = #{heatingWireResistance}</if>
+            <if test="capacity != null  and capacity != ''"> and capacity = #{capacity}</if>
+            <if test="oilGuideCottonType != null "> and oil_guide_cotton_type = #{oilGuideCottonType}</if>
+            <if test="isRecyclingSmoking != null "> and is_recycling_smoking = #{isRecyclingSmoking}</if>
+            <if test="oilRingMaterial != null "> and oil_ring_material = #{oilRingMaterial}</if>
+            <if test="vg != null  and vg != ''"> and vg = #{vg}</if>
+            <if test="viscosity != null  and viscosity != ''"> and viscosity = #{viscosity}</if>
+            <if test="expectedCompletionTime != null "> and expected_completion_time = #{expectedCompletionTime}</if>
+            <if test="sampleRequestTime != null "> and sample_request_time = #{sampleRequestTime}</if>
+            <if test="estimatedFinishTime != null "> and estimated_finish_time = #{estimatedFinishTime}</if>
+            <if test="matchMarket != null  and matchMarket != ''"> and match_market = #{matchMarket}</if>
+            <if test="samplesNum != null "> and samples_num = #{samplesNum}</if>
+            <if test="mailingInformation != null  and mailingInformation != ''"> and mailing_information = #{mailingInformation}</if>
+        </where>
+    </select>
+
+    <select id="selectHxTasteByTasteId" parameterType="Long" resultMap="HxTasteHxTasteDetailResult">
+        select a.taste_id, a.dept_id, a.business_name, a.business_code, a.customers_name, a.customers_code, a.taste_num, a.referee_num, a.send_num, a.is_supply, a.is_try, a.visit_time, a.is_smoking, a.smoking_type, a.heating_wire_type, a.heating_wire_resistance, a.capacity, a.oil_guide_cotton_type, a.is_recycling_smoking, a.oil_ring_material, a.vg, a.viscosity, a.expected_completion_time, a.sample_request_time, a.estimated_finish_time, a.match_market, a.samples_num, a.mailing_information, a.create_by, a.create_time, a.update_by, a.update_time, a.remark,
+               b.id as sub_id, b.taste_name as sub_taste_name, b.taste_id as sub_taste_id, b.taste_detail as sub_taste_detail, b.is_basic_taste as sub_is_basic_taste, b.basic_taste_name as sub_basic_taste_name, b.basic_taste_improvement_ideas as sub_basic_taste_improvement_ideas, b.capacity as sub_capacity, b.vg as sub_vg, b.nic_type as sub_nic_type, b.nic_concentration as sub_nic_concentration, b.nic_unit as sub_nic_unit, b.perfumer as sub_perfumer, b.version as sub_version, b.create_by as sub_create_by, b.create_time as sub_create_time, b.update_by as sub_update_by, b.update_time as sub_update_time, b.remark as sub_remark
+        from hx_taste a
+                 left join hx_taste_detail b on b.taste_id = a.taste_id
+        where a.taste_id = #{tasteId}
+    </select>
+
+    <insert id="insertHxTaste" parameterType="HxTaste">
+        insert into hx_taste
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="tasteId != null">taste_id,</if>
+            <if test="deptId != null and deptId != ''">dept_id,</if>
+            <if test="businessName != null and businessName != ''">business_name,</if>
+            <if test="businessCode != null and businessCode != ''">business_code,</if>
+            <if test="customersName != null and customersName != ''">customers_name,</if>
+            <if test="customersCode != null and customersCode != ''">customers_code,</if>
+            <if test="tasteNum != null and tasteNum != ''">taste_num,</if>
+            <if test="refereeNum != null and refereeNum != ''">referee_num,</if>
+            <if test="sendNum != null and sendNum != ''">send_num,</if>
+            <if test="isSupply != null">is_supply,</if>
+            <if test="isTry != null">is_try,</if>
+            <if test="visitTime != null">visit_time,</if>
+            <if test="isSmoking != null">is_smoking,</if>
+            <if test="smokingType != null">smoking_type,</if>
+            <if test="heatingWireType != null">heating_wire_type,</if>
+            <if test="heatingWireResistance != null and heatingWireResistance != ''">heating_wire_resistance,</if>
+            <if test="capacity != null and capacity != ''">capacity,</if>
+            <if test="oilGuideCottonType != null">oil_guide_cotton_type,</if>
+            <if test="isRecyclingSmoking != null">is_recycling_smoking,</if>
+            <if test="oilRingMaterial != null">oil_ring_material,</if>
+            <if test="vg != null">vg,</if>
+            <if test="viscosity != null and viscosity != ''">viscosity,</if>
+            <if test="expectedCompletionTime != null">expected_completion_time,</if>
+            <if test="sampleRequestTime != null">sample_request_time,</if>
+            <if test="estimatedFinishTime != null">estimated_finish_time,</if>
+            <if test="matchMarket != null and matchMarket != ''">match_market,</if>
+            <if test="samplesNum != null">samples_num,</if>
+            <if test="mailingInformation != null and mailingInformation != ''">mailing_information,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null and remark != ''">remark,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="tasteId != null">#{tasteId},</if>
+            <if test="deptId != null and deptId != ''">#{deptId},</if>
+            <if test="businessName != null and businessName != ''">#{businessName},</if>
+            <if test="businessCode != null and businessCode != ''">#{businessCode},</if>
+            <if test="customersName != null and customersName != ''">#{customersName},</if>
+            <if test="customersCode != null and customersCode != ''">#{customersCode},</if>
+            <if test="tasteNum != null and tasteNum != ''">#{tasteNum},</if>
+            <if test="refereeNum != null and refereeNum != ''">#{refereeNum},</if>
+            <if test="sendNum != null and sendNum != ''">#{sendNum},</if>
+            <if test="isSupply != null">#{isSupply},</if>
+            <if test="isTry != null">#{isTry},</if>
+            <if test="visitTime != null">#{visitTime},</if>
+            <if test="isSmoking != null">#{isSmoking},</if>
+            <if test="smokingType != null">#{smokingType},</if>
+            <if test="heatingWireType != null">#{heatingWireType},</if>
+            <if test="heatingWireResistance != null and heatingWireResistance != ''">#{heatingWireResistance},</if>
+            <if test="capacity != null and capacity != ''">#{capacity},</if>
+            <if test="oilGuideCottonType != null">#{oilGuideCottonType},</if>
+            <if test="isRecyclingSmoking != null">#{isRecyclingSmoking},</if>
+            <if test="oilRingMaterial != null">#{oilRingMaterial},</if>
+            <if test="vg != null">#{vg},</if>
+            <if test="viscosity != null and viscosity != ''">#{viscosity},</if>
+            <if test="expectedCompletionTime != null">#{expectedCompletionTime},</if>
+            <if test="sampleRequestTime != null">#{sampleRequestTime},</if>
+            <if test="estimatedFinishTime != null">#{estimatedFinishTime},</if>
+            <if test="matchMarket != null and matchMarket != ''">#{matchMarket},</if>
+            <if test="samplesNum != null">#{samplesNum},</if>
+            <if test="mailingInformation != null and mailingInformation != ''">#{mailingInformation},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null and remark != ''">#{remark},</if>
+        </trim>
+    </insert>
+
+    <update id="updateHxTaste" parameterType="HxTaste">
+        update hx_taste
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="deptId != null and deptId != ''">dept_id = #{deptId},</if>
+            <if test="businessName != null and businessName != ''">business_name = #{businessName},</if>
+            <if test="businessCode != null and businessCode != ''">business_code = #{businessCode},</if>
+            <if test="customersName != null and customersName != ''">customers_name = #{customersName},</if>
+            <if test="customersCode != null and customersCode != ''">customers_code = #{customersCode},</if>
+            <if test="tasteNum != null and tasteNum != ''">taste_num = #{tasteNum},</if>
+            <if test="refereeNum != null and refereeNum != ''">referee_num = #{refereeNum},</if>
+            <if test="sendNum != null and sendNum != ''">send_num = #{sendNum},</if>
+            <if test="isSupply != null">is_supply = #{isSupply},</if>
+            <if test="isTry != null">is_try = #{isTry},</if>
+            <if test="visitTime != null">visit_time = #{visitTime},</if>
+            <if test="isSmoking != null">is_smoking = #{isSmoking},</if>
+            <if test="smokingType != null">smoking_type = #{smokingType},</if>
+            <if test="heatingWireType != null">heating_wire_type = #{heatingWireType},</if>
+            <if test="heatingWireResistance != null and heatingWireResistance != ''">heating_wire_resistance = #{heatingWireResistance},</if>
+            <if test="capacity != null and capacity != ''">capacity = #{capacity},</if>
+            <if test="oilGuideCottonType != null">oil_guide_cotton_type = #{oilGuideCottonType},</if>
+            <if test="isRecyclingSmoking != null">is_recycling_smoking = #{isRecyclingSmoking},</if>
+            <if test="oilRingMaterial != null">oil_ring_material = #{oilRingMaterial},</if>
+            <if test="vg != null">vg = #{vg},</if>
+            <if test="viscosity != null and viscosity != ''">viscosity = #{viscosity},</if>
+            <if test="expectedCompletionTime != null">expected_completion_time = #{expectedCompletionTime},</if>
+            <if test="sampleRequestTime != null">sample_request_time = #{sampleRequestTime},</if>
+            <if test="estimatedFinishTime != null">estimated_finish_time = #{estimatedFinishTime},</if>
+            <if test="matchMarket != null and matchMarket != ''">match_market = #{matchMarket},</if>
+            <if test="samplesNum != null">samples_num = #{samplesNum},</if>
+            <if test="mailingInformation != null and mailingInformation != ''">mailing_information = #{mailingInformation},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null and remark != ''">remark = #{remark},</if>
+        </trim>
+        where taste_id = #{tasteId}
+    </update>
+
+    <delete id="deleteHxTasteByTasteId" parameterType="String">
+        delete from hx_taste where taste_id = #{tasteId}
+    </delete>
+
+    <delete id="deleteHxTasteByTasteIds" parameterType="String">
+        delete from hx_taste where taste_id in
+        <foreach item="tasteId" collection="array" open="(" separator="," close=")">
+            #{tasteId}
+        </foreach>
+    </delete>
+
+    <delete id="deleteHxTasteDetailByTasteIds" parameterType="String">
+        delete from hx_taste_detail where taste_id in
+        <foreach item="tasteId" collection="array" open="(" separator="," close=")">
+            #{tasteId}
+        </foreach>
+    </delete>
+
+    <delete id="deleteHxTasteDetailByTasteId" parameterType="String">
+        delete from hx_taste_detail where taste_id = #{tasteId}
+    </delete>
+
+    <insert id="batchHxTasteDetail">
+        insert into hx_taste_detail( id, taste_name, taste_id, taste_detail, is_basic_taste, basic_taste_name, basic_taste_improvement_ideas, capacity, vg, nic_type, nic_concentration, nic_unit, perfumer, version, create_by, create_time, update_by, update_time, remark) values
+        <foreach item="item" index="index" collection="list" separator=",">
+            ( #{item.id}, #{item.tasteName}, #{item.tasteId}, #{item.tasteDetail}, #{item.isBasicTaste}, #{item.basicTasteName}, #{item.basicTasteImprovementIdeas}, #{item.capacity}, #{item.vg}, #{item.nicType}, #{item.nicConcentration}, #{item.nicUnit}, #{item.perfumer}, #{item.version}, #{item.createBy}, #{item.createTime}, #{item.updateBy}, #{item.updateTime}, #{item.remark})
+        </foreach>
+    </insert>
+</mapper>
