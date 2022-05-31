@@ -7,9 +7,10 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 /**
  * 启动程序
  * 
- * @author ruoyi
+ * @author lusifer
  */
-@SpringBootApplication(exclude = { DataSourceAutoConfiguration.class })
+//@SpringBootApplication(exclude = { DataSourceAutoConfiguration.class })
+@SpringBootApplication(exclude = { DataSourceAutoConfiguration.class },scanBasePackages = {"org.jeecg.modules.jmreport","com.hx"})
 public class HXApplication
 {
     public static void main(String[] args)

@@ -42,8 +42,8 @@ import DictData from '@/components/DictData'
 import 'xe-utils'
 import VXETable from 'vxe-table'
 import 'vxe-table/lib/style.css'
-
-
+// vue echarts 组件库
+import VeCharts from 've-charts'
 
 // 全局方法挂载
 Vue.prototype.getDicts = getDicts
@@ -69,6 +69,7 @@ Vue.use(directive)
 Vue.use(plugins)
 Vue.use(VueMeta)
 Vue.use(VXETable) //表格
+Vue.use(VeCharts) //vue echarts 组件库
 DictData.install()
 
 /**

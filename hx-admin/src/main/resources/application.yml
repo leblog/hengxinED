@@ -121,3 +121,6 @@ xss:
   excludes: /system/notice
   # 匹配链接
   urlPatterns: /system/*,/monitor/*,/tool/*
+# 积木报表
+minidao :
+  base-package: org.jeecg.modules.jmreport.desreport.dao*
