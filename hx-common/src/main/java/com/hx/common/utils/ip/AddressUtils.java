@@ -11,7 +11,7 @@ import com.hx.common.utils.http.HttpUtils;
 /**
  * 获取地址类
  * 
- * @author ruoyi
+ * @author ry
  */
 public class AddressUtils
 {

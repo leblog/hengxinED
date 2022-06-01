@@ -7,7 +7,7 @@ import com.hx.generator.domain.GenTable;
 /**
  * 业务 服务层
  * 
- * @author ruoyi
+ * @author ry
  */
 public interface IGenTableService
 {

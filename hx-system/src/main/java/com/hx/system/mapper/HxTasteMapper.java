@@ -19,7 +19,7 @@ public interface HxTasteMapper
      * @param tasteId 口味申请单主键
      * @return 口味申请单
      */
-    public HxTaste selectHxTasteByTasteId(Long tasteId);
+    public HxTaste selectHxTasteByTasteId(String tasteId);
 
     /**
      * 查询口味申请单列表

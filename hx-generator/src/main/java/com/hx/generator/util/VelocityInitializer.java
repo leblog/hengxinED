@@ -7,7 +7,7 @@ import com.hx.common.constant.Constants;
 /**
  * VelocityEngine工厂
  * 
- * @author ruoyi
+ * @author ry
  */
 public class VelocityInitializer
 {

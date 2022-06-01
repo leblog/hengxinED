@@ -6,7 +6,7 @@ import com.hx.common.utils.ServletUtils;
 /**
  * 表格数据处理
  * 
- * @author ruoyi
+ * @author ry
  */
 public class TableSupport
 {

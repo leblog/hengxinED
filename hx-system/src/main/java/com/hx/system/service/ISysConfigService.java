@@ -6,7 +6,7 @@ import com.hx.system.domain.SysConfig;
 /**
  * 参数配置 服务层
  * 
- * @author ruoyi
+ * @author ry
  */
 public interface ISysConfigService
 {

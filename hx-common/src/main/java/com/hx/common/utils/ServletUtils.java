@@ -12,7 +12,7 @@ import com.hx.common.core.text.Convert;
 /**
  * 客户端工具类
  * 
- * @author ruoyi
+ * @author ry
  */
 public class ServletUtils
 {

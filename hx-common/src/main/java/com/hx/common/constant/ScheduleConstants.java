@@ -3,7 +3,7 @@ package com.hx.common.constant;
 /**
  * 任务调度通用常量
  * 
- * @author ruoyi
+ * @author ry
  */
 public class ScheduleConstants
 {

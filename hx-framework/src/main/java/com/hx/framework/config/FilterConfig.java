@@ -15,7 +15,7 @@ import com.hx.common.utils.StringUtils;
 /**
  * Filter配置
  *
- * @author ruoyi
+ * @author ry
  */
 @Configuration
 public class FilterConfig

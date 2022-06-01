@@ -27,7 +27,7 @@ import com.hx.system.service.ISysUserService;
 /**
  * 个人信息 业务处理
  * 
- * @author ruoyi
+ * @author ry
  */
 @RestController
 @RequestMapping("/system/user/profile")

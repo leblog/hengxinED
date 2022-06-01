@@ -3,7 +3,7 @@ package com.hx.common.utils.sign;
 /**
  * Base64工具类
  * 
- * @author ruoyi
+ * @author ry
  */
 public final class Base64
 {

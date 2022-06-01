@@ -24,7 +24,7 @@ import com.hx.system.service.ISysDeptService;
 /**
  * 部门管理 服务实现
  * 
- * @author ruoyi
+ * @author ry
  */
 @Service
 public class SysDeptServiceImpl implements ISysDeptService

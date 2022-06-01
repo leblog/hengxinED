@@ -6,7 +6,7 @@ import com.hx.common.utils.StringUtils;
 /**
  * 定时任务调度测试
  * 
- * @author ruoyi
+ * @author ry
  */
 @Component("ryTask")
 public class RyTask

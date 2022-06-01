@@ -3,10 +3,8 @@ package com.hx.system.service.impl;
 import java.io.Console;
 import java.util.List;
 
-import cn.hutool.Hutool;
 import cn.hutool.core.util.IdUtil;
 import com.hx.common.utils.DateUtils;
-import com.hx.common.utils.uuid.IdUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
@@ -16,6 +14,8 @@ import com.hx.system.domain.HxTasteDetail;
 import com.hx.system.mapper.HxTasteMapper;
 import com.hx.system.domain.HxTaste;
 import com.hx.system.service.IHxTasteService;
+
+import static com.hx.common.utils.SecurityUtils.getUsername;
 
 /**
  * 口味申请单Service业务层处理
@@ -36,7 +36,7 @@ public class HxTasteServiceImpl implements IHxTasteService
      * @return 口味申请单
      */
     @Override
-    public HxTaste selectHxTasteByTasteId(Long tasteId)
+    public HxTaste selectHxTasteByTasteId(String tasteId)
     {
         return hxTasteMapper.selectHxTasteByTasteId(tasteId);
     }
@@ -63,14 +63,9 @@ public class HxTasteServiceImpl implements IHxTasteService
     @Override
     public int insertHxTaste(HxTaste hxTaste)
     {
-        System.out.println(" ======================================================= ");
-        System.out.println("IdUtil.nanoId() = " + IdUtil.nanoId());
-        System.out.println("IdUtil.objectId() = " + IdUtil.objectId());
-        System.out.println("IdUtil.getSnowflake() = " + IdUtil.getSnowflake());
-        System.out.println("IdUtil.getSnowflakeNextId() = " + IdUtil.getSnowflakeNextId());
-        System.out.println(" ======================================================= ");
         hxTaste.setTasteId(String.valueOf(IdUtil.getSnowflakeNextId()));
         hxTaste.setCreateTime(DateUtils.getNowDate());
+        hxTaste.setCreateBy(getUsername());
         int rows = hxTasteMapper.insertHxTaste(hxTaste);
         //插入详情表
         insertHxTasteDetail(hxTaste);
@@ -88,6 +83,7 @@ public class HxTasteServiceImpl implements IHxTasteService
     public int updateHxTaste(HxTaste hxTaste)
     {
         hxTaste.setUpdateTime(DateUtils.getNowDate());
+        hxTaste.setUpdateBy(getUsername());
         hxTasteMapper.deleteHxTasteDetailByTasteId(hxTaste.getTasteId());
         insertHxTasteDetail(hxTaste);
         return hxTasteMapper.updateHxTaste(hxTaste);

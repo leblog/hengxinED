@@ -3,7 +3,7 @@ package com.hx.common.enums;
 /**
  * 限流类型
  *
- * @author ruoyi
+ * @author ry
  */
 
 public enum LimitType

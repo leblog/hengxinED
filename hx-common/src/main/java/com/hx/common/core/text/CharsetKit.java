@@ -7,7 +7,7 @@ import com.hx.common.utils.StringUtils;
 /**
  * 字符集工具类
  * 
- * @author ruoyi
+ * @author ry
  */
 public class CharsetKit
 {

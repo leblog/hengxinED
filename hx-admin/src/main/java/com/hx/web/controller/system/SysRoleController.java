@@ -33,7 +33,7 @@ import com.hx.system.service.ISysUserService;
 /**
  * 角色信息
  * 
- * @author ruoyi
+ * @author ry
  */
 @RestController
 @RequestMapping("/system/role")

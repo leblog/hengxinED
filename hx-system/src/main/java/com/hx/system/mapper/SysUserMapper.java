@@ -7,7 +7,7 @@ import com.hx.common.core.domain.entity.SysUser;
 /**
  * 用户表 数据层
  * 
- * @author ruoyi
+ * @author ry
  */
 public interface SysUserMapper
 {

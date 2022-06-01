@@ -65,7 +65,7 @@ public class HxTasteController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('system:taste:query')")
     @GetMapping(value = "/{tasteId}")
-    public AjaxResult getInfo(@PathVariable("tasteId") Long tasteId)
+    public AjaxResult getInfo(@PathVariable("tasteId") String tasteId)
     {
         return AjaxResult.success(hxTasteService.selectHxTasteByTasteId(tasteId));
     }

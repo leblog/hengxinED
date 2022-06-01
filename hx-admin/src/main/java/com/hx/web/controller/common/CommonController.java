@@ -24,7 +24,7 @@ import com.hx.framework.config.ServerConfig;
 /**
  * 通用请求处理
  * 
- * @author ruoyi
+ * @author ry
  */
 @RestController
 @RequestMapping("/common")

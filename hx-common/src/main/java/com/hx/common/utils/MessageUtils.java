@@ -7,7 +7,7 @@ import com.hx.common.utils.spring.SpringUtils;
 /**
  * 获取i18n资源文件
  * 
- * @author ruoyi
+ * @author ry
  */
 public class MessageUtils
 {
@@ -21,6 +21,12 @@ public class MessageUtils
     public static String message(String code, Object... args)
     {
         MessageSource messageSource = SpringUtils.getBean(MessageSource.class);
+        /*堆栈溢出警告*/
+        /*MessageUtils.message("user.login.username");
+        MessageUtils.message("user.login.password");
+        MessageUtils.message("user.login.code");
+        MessageUtils.message("user.login.remember");
+        MessageUtils.message("user.login.submit");*/
         return messageSource.getMessage(code, args, LocaleContextHolder.getLocale());
     }
 }

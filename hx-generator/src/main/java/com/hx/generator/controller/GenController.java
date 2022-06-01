@@ -31,7 +31,7 @@ import com.hx.generator.service.IGenTableService;
 /**
  * 代码生成 操作处理
  * 
- * @author ruoyi
+ * @author ry
  */
 @RestController
 @RequestMapping("/tool/gen")

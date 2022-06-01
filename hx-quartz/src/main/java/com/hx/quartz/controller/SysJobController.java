@@ -30,7 +30,7 @@ import com.hx.quartz.util.ScheduleUtils;
 /**
  * 调度任务信息操作处理
  * 
- * @author ruoyi
+ * @author ry
  */
 @RestController
 @RequestMapping("/monitor/job")

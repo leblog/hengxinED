@@ -16,7 +16,7 @@ import com.hx.framework.interceptor.RepeatSubmitInterceptor;
 /**
  * 通用配置
  * 
- * @author ruoyi
+ * @author ry
  */
 @Configuration
 public class ResourcesConfig implements WebMvcConfigurer

@@ -24,7 +24,7 @@ import oshi.util.Util;
 /**
  * 服务器相关信息
  * 
- * @author ruoyi
+ * @author ry
  */
 public class Server
 {

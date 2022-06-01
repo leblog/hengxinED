@@ -3,7 +3,7 @@ package com.hx.common.enums;
 /**
  * 操作状态
  * 
- * @author ruoyi
+ * @author ry
  *
  */
 public enum BusinessStatus

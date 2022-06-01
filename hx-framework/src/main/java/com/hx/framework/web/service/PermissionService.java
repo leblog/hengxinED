@@ -11,7 +11,7 @@ import com.hx.common.utils.StringUtils;
 /**
  * RuoYi首创 自定义权限实现，ss取自SpringSecurity首字母
  * 
- * @author ruoyi
+ * @author ry
  */
 @Service("ss")
 public class PermissionService

@@ -10,7 +10,7 @@ import com.hx.common.utils.spring.SpringUtils;
 /**
  * 字典工具类
  * 
- * @author ruoyi
+ * @author ry
  */
 public class DictUtils
 {

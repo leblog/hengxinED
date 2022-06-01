@@ -45,6 +45,9 @@ import 'vxe-table/lib/style.css'
 // vue echarts 组件库
 import VeCharts from 've-charts'
 
+import i18n from './lang'  //国际化
+
+
 // 全局方法挂载
 Vue.prototype.getDicts = getDicts
 Vue.prototype.getConfigKey = getConfigKey
@@ -70,6 +73,7 @@ Vue.use(plugins)
 Vue.use(VueMeta)
 Vue.use(VXETable) //表格
 Vue.use(VeCharts) //vue echarts 组件库
+
 DictData.install()
 
 /**
@@ -82,7 +86,9 @@ DictData.install()
  */
 
 Vue.use(Element, {
-  size: Cookies.get('size') || 'medium' // set element-ui default size
+  size: Cookies.get('size') || 'medium' ,// set element-ui default size
+  // use添加i18n
+  i18n: (key, value) => i18n.t(key, value)
 })
 
 Vue.config.productionTip = false
@@ -91,5 +97,6 @@ new Vue({
   el: '#app',
   router,
   store,
+  i18n,
   render: h => h(App)
 })

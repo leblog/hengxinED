@@ -33,7 +33,7 @@ import com.hx.system.service.ISysUserService;
 /**
  * 用户 业务层处理
  * 
- * @author ruoyi
+ * @author ry
  */
 @Service
 public class SysUserServiceImpl implements ISysUserService

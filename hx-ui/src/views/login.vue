@@ -1,13 +1,14 @@
 <template>
   <div class="login">
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form">
-      <h3 class="title">天眼后台管理系统</h3>
+      <h3 class="title">{{ $t('login.title') }}</h3>
+      <lang-select class="set-language" />
       <el-form-item prop="username">
         <el-input
           v-model="loginForm.username"
           type="text"
           auto-complete="off"
-          placeholder="账号"
+          :placeholder="$t('login.username')"
         >
           <svg-icon slot="prefix" icon-class="user" class="el-input__icon input-icon" />
         </el-input>
@@ -17,7 +18,7 @@
           v-model="loginForm.password"
           type="password"
           auto-complete="off"
-          placeholder="密码"
+          :placeholder="$t('login.password')"
           @keyup.enter.native="handleLogin"
         >
           <svg-icon slot="prefix" icon-class="password" class="el-input__icon input-icon" />
@@ -27,7 +28,7 @@
         <el-input
           v-model="loginForm.code"
           auto-complete="off"
-          placeholder="验证码"
+          :placeholder="$t('login.verificationCode')"
           style="width: 63%"
           @keyup.enter.native="handleLogin"
         >
@@ -37,7 +38,7 @@
           <img :src="codeUrl" @click="getCode" class="login-code-img"/>
         </div>
       </el-form-item>
-<!--      <el-checkbox v-model="loginForm.rememberMe" style="margin:0px 0px 25px 0px;">记住密码</el-checkbox>-->
+<!--      <el-checkbox v-model="loginForm.rememberMe" style="margin:0px 0px 25px 0px;">{{$t('login.rememberMe')}}</el-checkbox>-->
       <el-form-item style="width:100%;">
         <el-button
           :loading="loading"
@@ -62,18 +63,20 @@
 </template>
 
 <script>
+import LangSelect from '@/components/LangSelect'
 import { getCodeImg } from "@/api/login";
 import Cookies from "js-cookie";
 import { encrypt, decrypt } from '@/utils/jsencrypt'
 
 export default {
   name: "Login",
+  components: { LangSelect },
   data() {
     return {
       codeUrl: "",
       loginForm: {
-        username: "test",
-        password: "123456",
+        username: "",
+        password: "",
         rememberMe: false,
         code: "",
         uuid: ""
@@ -165,8 +168,6 @@ $light_gray:#eee;
   align-items: center;
   height: 100%;
   background-color: #2d3a4b;
-  dark_gray:#889aa4;
-  light_gray:#eee;
   //background-image: url("../assets/images/login-background.jpg");
   background-size: cover;
 }

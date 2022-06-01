@@ -3,7 +3,7 @@ package com.hx.common.core.domain.model;
 /**
  * 用户登录对象
  * 
- * @author ruoyi
+ * @author ry
  */
 public class LoginBody
 {

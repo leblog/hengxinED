@@ -10,7 +10,7 @@ import com.hx.common.core.domain.entity.SysMenu;
 /**
  * Treeselect树结构实体类
  * 
- * @author ruoyi
+ * @author ry
  */
 public class TreeSelect implements Serializable
 {

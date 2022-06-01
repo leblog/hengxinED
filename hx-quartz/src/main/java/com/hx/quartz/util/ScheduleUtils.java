@@ -21,7 +21,7 @@ import com.hx.quartz.domain.SysJob;
 /**
  * 定时任务工具类
  * 
- * @author ruoyi
+ * @author ry
  *
  */
 public class ScheduleUtils

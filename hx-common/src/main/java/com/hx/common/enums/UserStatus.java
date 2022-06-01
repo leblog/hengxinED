@@ -3,7 +3,7 @@ package com.hx.common.enums;
 /**
  * 用户状态
  * 
- * @author ruoyi
+ * @author ry
  */
 public enum UserStatus
 {

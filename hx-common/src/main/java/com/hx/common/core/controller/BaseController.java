@@ -24,7 +24,7 @@ import com.hx.common.utils.sql.SqlUtil;
 /**
  * web层通用数据处理
  * 
- * @author ruoyi
+ * @author ry
  */
 public class BaseController
 {

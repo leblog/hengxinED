@@ -1,6 +1,8 @@
 package com.hx.framework.web.service;
 
 import javax.annotation.Resource;
+
+import com.hx.common.utils.sign.RsaUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -28,7 +30,7 @@ import com.hx.system.service.ISysUserService;
 /**
  * 登录校验方法
  * 
- * @author ruoyi
+ * @author ry
  */
 @Component
 public class SysLoginService
@@ -70,8 +72,10 @@ public class SysLoginService
         try
         {
             // 该方法会去调用UserDetailsServiceImpl.loadUserByUsername
-            authentication = authenticationManager
-                    .authenticate(new UsernamePasswordAuthenticationToken(username, password));
+            //authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+            // 关键代码 RsaUtils.decryptByPrivateKey(password)
+            authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, RsaUtils.decryptByPrivateKey(password)));
+
         }
         catch (Exception e)
         {

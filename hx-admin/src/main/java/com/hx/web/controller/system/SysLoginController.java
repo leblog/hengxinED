@@ -20,7 +20,7 @@ import com.hx.system.service.ISysMenuService;
 /**
  * 登录验证
  * 
- * @author ruoyi
+ * @author ry
  */
 @RestController
 public class SysLoginController

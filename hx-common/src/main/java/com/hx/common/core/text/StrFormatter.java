@@ -5,7 +5,7 @@ import com.hx.common.utils.StringUtils;
 /**
  * 字符串格式化
  * 
- * @author ruoyi
+ * @author ry
  */
 public class StrFormatter
 {

@@ -1,5 +1,7 @@
 package com.hx.web.controller.system;
 
+import cn.hutool.core.lang.Console;
+import cn.hutool.core.util.StrUtil;
 import com.hx.common.annotation.Log;
 import com.hx.common.core.controller.BaseController;
 import com.hx.common.core.domain.AjaxResult;
@@ -12,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -37,6 +41,17 @@ public class HxTasteControllerOpen extends BaseController
         List<HxTaste> list = hxTasteService.selectHxTasteList(hxTaste);
         return getDataTable(list);
     }
+    @GetMapping("/table")
+    public AjaxResult table(HxTaste hxTaste){
+        AjaxResult ajax = new AjaxResult();
+        List<HxTaste> hxTastes = hxTasteService.selectHxTasteList(hxTaste);
+        LinkedList<Object> objects = new LinkedList<>();
+        Console.log(objects+"=====");
+        HxTaste taste = new HxTaste();
+        Console.log(StrUtil.format((CharSequence) taste));
+
+        return ajax;
+    }
 
     /**
      * 导出口味申请单列表
@@ -54,7 +69,7 @@ public class HxTasteControllerOpen extends BaseController
      * 获取口味申请单详细信息
      */
     @GetMapping(value = "/{tasteId}")
-    public AjaxResult getInfo(@PathVariable("tasteId") Long tasteId)
+    public AjaxResult getInfo(@PathVariable("tasteId") String tasteId)
     {
         return AjaxResult.success(hxTasteService.selectHxTasteByTasteId(tasteId));
     }

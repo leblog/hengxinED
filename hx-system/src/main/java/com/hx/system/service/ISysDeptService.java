@@ -7,7 +7,7 @@ import com.hx.common.core.domain.entity.SysDept;
 /**
  * 部门管理 服务层
  * 
- * @author ruoyi
+ * @author ry
  */
 public interface ISysDeptService
 {
