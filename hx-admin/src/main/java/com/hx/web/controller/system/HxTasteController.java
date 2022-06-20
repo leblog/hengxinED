@@ -35,6 +35,8 @@ public class HxTasteController extends BaseController
     @Autowired
     private IHxTasteService hxTasteService;
 
+
+
     /**
      * 查询口味申请单列表
      */
