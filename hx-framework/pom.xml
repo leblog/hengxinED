@@ -16,6 +16,12 @@
     </description>
 
     <dependencies>
+        <!--   接口请求限制expiringmap     -->
+        <dependency>
+            <groupId>net.jodah</groupId>
+            <artifactId>expiringmap</artifactId>
+            <version>0.5.10</version>
+        </dependency>
 
         <!-- SpringBoot Web容器 -->
          <dependency>
