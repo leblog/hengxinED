@@ -38,7 +38,7 @@ public class reportController{
      */
     @GetMapping("/list")
     //@LimitRequest(count = 3)
-    @RepeatSubmit(interval = 3000, message = "请求过于频繁")
+    @RepeatSubmit(interval = 3000, message = "请求过于频繁，小于3秒")
     public AjaxResult reportList(HttpServletResponse resp) throws IOException{
         AjaxResult ajax = new AjaxResult();
         String url2 = "http://10.10.7.33:44346/ECharsReport/ECReport_get_Xiaoshoukouweixuqiu";
@@ -54,7 +54,7 @@ public class reportController{
                 .timeout(20000)//超时，毫秒
                 .execute().body();
         log.debug("我是接口{}",result);
-        ajax.put("list",JSONUtil.parseObj(result));
+        ajax.put("data",JSONUtil.parseObj(result));
         return ajax;
     }
 
