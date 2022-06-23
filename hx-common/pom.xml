@@ -16,6 +16,12 @@
     </description>
 
     <dependencies>
+        <!-- 自动化测试 -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>4.2.2</version>
+        </dependency>
         <!--SpringBootAdmin client-->
         <!--<dependency>
             <groupId>org.springframework.boot</groupId>
