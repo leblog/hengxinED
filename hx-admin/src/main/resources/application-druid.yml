@@ -7,17 +7,17 @@ spring:
             # 主库数据源
             master:
                 # 本机
-                #url: jdbc:mysql://localhost:3306/vue?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
-                #username: root
-                #password: root
+                url: jdbc:mysql://localhost:3306/vue?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+                username: root
+                password: root
                 # 密码加密 私钥-公钥-加密后密码
                 #privateKey:MIIBVAIBADANBgkqhkiG9w0BAQEFAASCAT4wggE6AgEAAkEAmeaRhsY/EHgt9kTEZTIqzm9/sMzDsgHEJdyq4a+5QKwZWfJQ2SwfStOlmg9UadCA7Q2MKw7HFpyy5eNJ38WihQIDAQABAkASRt6LeemtZAhZUctdFTseLwGkFn07G5iWwoEMsli2xEj1Dyy0kBYnRYlhgH9li/q/dSehpnowFvLFnw9KFilhAiEA++VGcnhsq+IgpgnviQmFv0VawLLiDQTKv3ZCye/Lmi0CIQCcaIehE1OS4AJpV9EWNFXuHGc0odh2W9sh5Nw8JEsYuQIhAKKzrjQkGrVPIx18T28pam1oQ70yDhawoLDYlz1OGSmlAiAkic7VdDxb3XTyww8XTtacL4p0ozJ8Q+0nN92zNw9MEQIgezoL+/vANJ/Y419fN+CJqgxWwGIs+DgLtcvaIGkHtF0=
                 #publicKey:MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAJnmkYbGPxB4LfZExGUyKs5vf7DMw7IBxCXcquGvuUCsGVnyUNksH0rTpZoPVGnQgO0NjCsOxxacsuXjSd/FooUCAwEAAQ==
                 #password:buekYYTyg8hoMFzfxGUF2cQdlC+XOJL2Nwd48+/abDC87vMsROL5Lyx2eEgnWzWSUdImebixSV3uXEyxTL3M1A==
                 # 远程
-                url: jdbc:mysql://1.117.33.249:8000/jimureport?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
-                username: jimureport
-                password: TbdR8c3Bo18BYUFXppv1gMhR3gEVfMtD62CnBexP6dyF5gh79ADLGeVINMr8r+z2siq/Ch43EqIDm953KDOjwg==
+                #url: jdbc:mysql://1.117.33.249:8000/jimureport?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+                #username: jimureport
+                #password: TbdR8c3Bo18BYUFXppv1gMhR3gEVfMtD62CnBexP6dyF5gh79ADLGeVINMr8r+z2siq/Ch43EqIDm953KDOjwg==
                 # 密码加密
                 #privateKey:MIIBVAIBADANBgkqhkiG9w0BAQEFAASCAT4wggE6AgEAAkEAn1MC4NozxYseRIUU74zcRXhCm3At9KyDRIianDJHN8mPN1naBcXH6Psnj7dveGQCh1G6oECqeOWjaP9tddLH4QIDAQABAkAtZSiPynwvz+iq20RQ0NC+Fnrb8QWXDkRElat/z6+NDDMymKp77D5OiQjKWxBXsraarPa0CcliZwnXoG5O8rOxAiEA776AjjB5KroTKpexw6dQlsA/X2VdBYACJ6RTzlML8kUCIQCqIJMIgsVhB0RYcqgl7oJ6hhuQZV5hiC0IROgU/gxm7QIhAMW4JcuefH9ZYG8zFd8XQOZi/KDPNu1PSfeplZhGc0bFAiAhZhe3egTJ0aVnP8sm9zYCW8WZiW0H9LXyg6SUSnOg2QIgZoxEWi9tUfdde6OvnDrJebKao+0m7EwkDOJPNPTF0wU=
                 #publicKey:MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAJ9TAuDaM8WLHkSFFO+M3EV4QptwLfSsg0SImpwyRzfJjzdZ2gXFx+j7J4+3b3hkAodRuqBAqnjlo2j/bXXSx+ECAwEAAQ==
@@ -49,8 +49,8 @@ spring:
             testWhileIdle: true
             testOnBorrow: false
             testOnReturn: false
-            # 解密加密后的密码
-            connectProperties: config.decrypt=true;config.decrypt.key=MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAJ9TAuDaM8WLHkSFFO+M3EV4QptwLfSsg0SImpwyRzfJjzdZ2gXFx+j7J4+3b3hkAodRuqBAqnjlo2j/bXXSx+ECAwEAAQ==
+            # 解密加密后的密码  false关闭
+            connectProperties: config.decrypt=false;config.decrypt.key=MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAJ9TAuDaM8WLHkSFFO+M3EV4QptwLfSsg0SImpwyRzfJjzdZ2gXFx+j7J4+3b3hkAodRuqBAqnjlo2j/bXXSx+ECAwEAAQ==
             webStatFilter:
                 enabled: true
             statViewServlet:
