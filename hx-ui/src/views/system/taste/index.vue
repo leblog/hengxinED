@@ -303,6 +303,7 @@
             ref="xTable"
             :loading="loading"
             :data="hxTasteDetailList"
+            :checkbox-config="{trigger: 'row', highlight: true, range: true}"
             :edit-config="{trigger: 'manual', mode: 'row'}"
             @cell-dblclick="doubleClick">
 <!--
@@ -467,7 +468,7 @@ row[item.prop]+'/tasteName'
             <vxe-column title="操作" width="160">
               <template #default="{ row }">
                 <template v-if="$refs.xTable.isActiveByRow(row)">
-                  <vxe-button @click="saveRowEvent(row)">保存</vxe-button>
+<!--                  <vxe-button @click="saveRowEvent(row)">保存</vxe-button>-->
                   <vxe-button @click="cancelRowEvent(row)">取消</vxe-button>
                 </template>
                 <template v-else>
@@ -489,7 +490,8 @@ row[item.prop]+'/tasteName'
     </div>
     <div slot="footer" class="dialog-footer">
       <el-button type="primary" @click="submitForm">保 存</el-button>
-      <el-button @click="cancel">重 置</el-button>
+      <el-button @click="cancel">重 置 所 有</el-button>
+<!--      <el-button @click="cancelDeatil">重 置 明 细</el-button>-->
     </div>
 
   </div>
@@ -759,6 +761,7 @@ export default {
         setTimeout(() => {
           this.loading = false
           VXETable.modal.message({content: '保存成功！', status: 'success'})
+          console.log('table:',$table)
         }, 300)
       })
     },
@@ -771,7 +774,24 @@ export default {
     },
     removeSelectEvent () {
       const $table = this.$refs.xTable
+      //删除选中
       $table.removeCheckboxRow()
+      //获取删除
+      const selectRecords = $table.getCheckboxRecords()
+      VXETable.modal.alert(selectRecords.length)
+      //console.log("删除内容2,",JSON.stringify(selectRecords))
+      //console.log("明细数据,",JSON.stringify(this.hxTasteDetailList))
+      ///
+      /*if (this.hxTasteDetailList.length == 0) {
+        this.$modal.msgError("请先选择要删除的子数据");
+      } else {
+        const crmOrderOverseasChildList = this.crmOrderOverseasChildList;
+        const checkedCrmOrderOverseasChild = this.checkedCrmOrderOverseasChild;
+        this.crmOrderOverseasChildList = crmOrderOverseasChildList.filter(function (item) {
+          return hxTasteDetailList.indexOf(item.index) == -1
+        });
+      }*/
+      ////
     },
     insertEvent () {
       const $table = this.$refs.xTable
@@ -964,8 +984,8 @@ export default {
     batchValue(e) {
       console.log("失去焦点:", JSON.stringify(e));
       this.hxTasteDetailList.length = 0
-      // exports this.from.remark = JSON.stringify(e);
-    }
+    }      // exports this.from.remark = JSON.stringify(e);
+
     ,
 
     /** 查询口味申请单列表 */
@@ -982,6 +1002,12 @@ export default {
     cancel() {
       this.open = false;
       this.reset();
+    }
+    ,
+    // 重置明细
+    cancelDeatil() {
+      this.open = false;
+      this.hxTasteDetailList = null;
     }
     ,
 // 表单重置
@@ -1032,7 +1058,7 @@ export default {
       this.getList();
     }
     ,
-    /** 重置按钮操作 */
+    /** 重置所有按钮操作 */
     resetQuery() {
       this.resetForm("queryForm");
       this.handleQuery();
