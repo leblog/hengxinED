@@ -20,7 +20,7 @@ import java.util.List;
 
 /**
  * 口味申请单Controller- 对外开放接口
- * 
+ *
  * @author lusifer
  * @date 2022-05-25
  */
@@ -41,6 +41,17 @@ public class HxTasteControllerOpen extends BaseController
         List<HxTaste> list = hxTasteService.selectHxTasteList(hxTaste);
         return getDataTable(list);
     }
+
+    /**
+     * 查询口味申请单列表--详情
+     */
+    @GetMapping("/listDetail")
+    public TableDataInfo listDetail(HxTaste hxTaste)
+    {
+        startPage();
+        List<HxTaste> listDetail = hxTasteService.selectHxTasteListDetail(hxTaste);
+        return getDataTable(listDetail);
+    }
     @GetMapping("/table")
     public AjaxResult table(HxTaste hxTaste){
         AjaxResult ajax = new AjaxResult();
@@ -49,7 +60,6 @@ public class HxTasteControllerOpen extends BaseController
         Console.log(objects+"=====");
         HxTaste taste = new HxTaste();
         Console.log(StrUtil.format((CharSequence) taste));
-
         return ajax;
     }
 
