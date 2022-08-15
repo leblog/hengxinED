@@ -128,8 +128,8 @@
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
             <el-form-item class="el-form-item el-form-item__content" label="口味专供">
               <el-radio-group v-model="form.isSupply" style="width: 100%;">
-                <el-radio v-model="radio" label="1">是</el-radio>
-                <el-radio v-model="radio" label="2">否</el-radio>
+                <el-radio v-model="radio" label="是">是</el-radio>
+                <el-radio v-model="radio" label="否">否</el-radio>
               </el-radio-group>
             </el-form-item>
           </el-col>
@@ -673,6 +673,8 @@ export default {
         vg: null,
         sweetness: null,
         coolness: null,
+        deleted: null,
+        status: null,
         viscosity: null,
         expectedCompletionTime: null,
         sampleRequestTime: null,
@@ -1316,6 +1318,8 @@ export default {
         vg: null,
         sweetness: null,
         coolness: null,
+        deleted: null,
+        status: null,
         viscosity: null,
         expectedCompletionTime: null,
         sampleRequestTime: null,

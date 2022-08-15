@@ -79,14 +79,14 @@
 <!--        <el-table-column label="上次申请单号" align="center" prop="refereeNum"/>-->
         <el-table-column label="第几次送样" align="center" prop="sendNum"/>
         <el-table-column label="口味专供" align="center" prop="isSupply">
-          <template slot-scope="scope">
+<!--          <template slot-scope="scope">
             <dict-tag :options="dict.type.hx_common_is" :value="scope.row.isSupply"/>
-          </template>
+          </template>-->
         </el-table-column>
         <el-table-column label="现场试用" align="center" prop="isTry">
-          <template slot-scope="scope">
+<!--          <template slot-scope="scope">
             <dict-tag :options="dict.type.hx_common_is" :value="scope.row.isTry"/>
-          </template>
+          </template>-->
         </el-table-column>
         <el-table-column label="来访日期" align="center" prop="visitTime" width="100">
           <template slot-scope="scope">
@@ -94,36 +94,36 @@
           </template>
         </el-table-column>
         <el-table-column label="自带烟具" align="center" prop="isSmoking">
-          <template slot-scope="scope">
+<!--          <template slot-scope="scope">
             <dict-tag :options="dict.type.hx_common_is" :value="scope.row.isSmoking"/>
-          </template>
+          </template>-->
         </el-table-column>
         <el-table-column label="烟具类型" align="center" prop="smokingType">
-          <template slot-scope="scope">
+<!--          <template slot-scope="scope">
             <dict-tag :options="dict.type.hx_common_type" :value="scope.row.smokingType"/>
-          </template>
+          </template>-->
         </el-table-column>
         <el-table-column label="发热丝类型" align="center" prop="heatingWireType">
-          <template slot-scope="scope">
+<!--          <template slot-scope="scope">
             <dict-tag :options="dict.type.hx_common_type" :value="scope.row.heatingWireType"/>
-          </template>
+          </template>-->
         </el-table-column>
         <el-table-column label="发热丝阻值" align="center" prop="heatingWireResistance"/>
         <el-table-column label="烟油仓容量" align="center" prop="capacity"/>
         <el-table-column label="导游棉类型" align="center" prop="oilGuideCottonType">
-          <template slot-scope="scope">
+<!--          <template slot-scope="scope">
             <dict-tag :options="dict.type.hx_common_type" :value="scope.row.oilGuideCottonType"/>
-          </template>
+          </template>-->
         </el-table-column>
         <el-table-column label="是否回收烟具" align="center" prop="isRecyclingSmoking">
-          <template slot-scope="scope">
+<!--          <template slot-scope="scope">
             <dict-tag :options="dict.type.hx_common_is" :value="scope.row.isRecyclingSmoking"/>
-          </template>
+          </template>-->
         </el-table-column>
         <el-table-column label="油环材质类型" align="center" prop="oilRingMaterial">
-          <template slot-scope="scope">
+<!--          <template slot-scope="scope">
             <dict-tag :options="dict.type.hx_common_type" :value="scope.row.oilRingMaterial"/>
-          </template>
+          </template>-->
         </el-table-column>
         <el-table-column label="VG" align="center" prop="vg"/>
         <el-table-column label="粘稠度" align="center" prop="viscosity"/>
@@ -215,7 +215,7 @@
         style="margin-bottom: 30px"
       />
     </div>
-    <div class="tableDiv" style="visibility: hidden">
+    <div class="tableDiv"  v-show="false">
       <vxe-table
         border
         ref="xTable"
