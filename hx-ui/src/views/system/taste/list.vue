@@ -142,9 +142,9 @@
             <span>{{ parseTime(scope.row.estimatedFinishTime, '{y}-{m}-{d}') }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="匹配市场" align="center" prop="matchMarket"/>
+        <el-table-column label="匹配市场" align="center" prop="matchMarket" />
         <el-table-column label="样品数量" align="center" prop="samplesNum"/>
-        <el-table-column label="邮寄信息" align="center" prop="mailingInformation"/>
+        <el-table-column label="邮寄信息" align="center" prop="mailingInformation" :show-overflow-tooltip="true"/>
         <el-table-column label="备注" align="center" prop="remark"/>
         <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
               <template slot-scope="scope">

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hx.system.mapper.CrmDataRegionMapper">
+
+    <resultMap type="CrmDataRegion" id="CrmDataRegionResult">
+        <result property="id"    column="id"    />
+        <result property="pid"    column="pid"    />
+        <result property="path"    column="path"    />
+        <result property="level"    column="level"    />
+        <result property="name"    column="name"    />
+        <result property="nameEn"    column="name_en"    />
+        <result property="namePinyin"    column="name_pinyin"    />
+        <result property="code"    column="code"    />
+    </resultMap>
+
+    <sql id="selectCrmDataRegionVo">
+        select id, pid, path, level, name, name_en, name_pinyin, code from crm_data_region
+    </sql>
+
+    <select id="selectCrmDataRegionList" parameterType="CrmDataRegion" resultMap="CrmDataRegionResult">
+        <include refid="selectCrmDataRegionVo"/>
+        <where>
+            <if test="pid != null "> and pid = #{pid}</if>
+            <if test="path != null  and path != ''"> and path = #{path}</if>
+            <if test="level != null "> and level = #{level}</if>
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="nameEn != null  and nameEn != ''"> and name_en = #{nameEn}</if>
+            <if test="namePinyin != null  and namePinyin != ''"> and name_pinyin = #{namePinyin}</if>
+            <if test="code != null  and code != ''"> and code = #{code}</if>
+        </where>
+    </select>
+
+    <select id="selectCrmDataRegionById" parameterType="Long" resultMap="CrmDataRegionResult">
+        <include refid="selectCrmDataRegionVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertCrmDataRegion" parameterType="CrmDataRegion" useGeneratedKeys="true" keyProperty="id">
+        insert into crm_data_region
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pid != null">pid,</if>
+            <if test="path != null">path,</if>
+            <if test="level != null">level,</if>
+            <if test="name != null">name,</if>
+            <if test="nameEn != null">name_en,</if>
+            <if test="namePinyin != null">name_pinyin,</if>
+            <if test="code != null">code,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="pid != null">#{pid},</if>
+            <if test="path != null">#{path},</if>
+            <if test="level != null">#{level},</if>
+            <if test="name != null">#{name},</if>
+            <if test="nameEn != null">#{nameEn},</if>
+            <if test="namePinyin != null">#{namePinyin},</if>
+            <if test="code != null">#{code},</if>
+        </trim>
+    </insert>
+
+    <update id="updateCrmDataRegion" parameterType="CrmDataRegion">
+        update crm_data_region
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="pid != null">pid = #{pid},</if>
+            <if test="path != null">path = #{path},</if>
+            <if test="level != null">level = #{level},</if>
+            <if test="name != null">name = #{name},</if>
+            <if test="nameEn != null">name_en = #{nameEn},</if>
+            <if test="namePinyin != null">name_pinyin = #{namePinyin},</if>
+            <if test="code != null">code = #{code},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteCrmDataRegionById" parameterType="Long">
+        delete from crm_data_region where id = #{id}
+    </delete>
+
+    <delete id="deleteCrmDataRegionByIds" parameterType="String">
+        delete from crm_data_region where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

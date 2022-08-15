@@ -62,7 +62,7 @@ public class HxTasteServiceImpl implements IHxTasteService
     /**
      * 递归列表
      */
-    private void recursionFn(List<HxTaste> list, HxTaste t)
+    /*private void recursionFn(List<HxTaste> list, HxTaste t)
     {
         // 得到子节点列表
         List<HxTaste> childList = getChildList(list, t);
@@ -74,12 +74,12 @@ public class HxTasteServiceImpl implements IHxTasteService
                 recursionFn(list, tChild);
             }
         }
-    }
+    }*/
 
     /**
      * 得到子节点列表
      */
-    private List<HxTaste> getChildList(List<HxTaste> list, HxTaste t)
+    /*private List<HxTaste> getChildList(List<HxTaste> list, HxTaste t)
     {
         List<HxTaste> tlist = new ArrayList<HxTaste>();
         Iterator<HxTaste> it = list.iterator();
@@ -92,15 +92,15 @@ public class HxTasteServiceImpl implements IHxTasteService
             }
         }
         return tlist;
-    }
+    }*/
 
     /**
      * 判断是否有子节点
      */
-    private boolean hasChild(List<HxTaste> list, HxTaste t)
+    /*private boolean hasChild(List<HxTaste> list, HxTaste t)
     {
         return getChildList(list, t).size() > 0;
-    }
+    }*/
 
     /**
      * 新增口味申请单
