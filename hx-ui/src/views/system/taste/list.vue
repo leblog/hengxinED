@@ -76,7 +76,7 @@
         <el-table-column label="客户名称" align="center" prop="customersName"/>
         <el-table-column label="客户代码" align="center" prop="customersCode"/>
         <el-table-column label="口味数量" align="center" prop="tasteNum"/>
-        <el-table-column label="上次申请单号" align="center" prop="refereeNum"/>
+<!--        <el-table-column label="上次申请单号" align="center" prop="refereeNum"/>-->
         <el-table-column label="第几次送样" align="center" prop="sendNum"/>
         <el-table-column label="口味专供" align="center" prop="isSupply">
           <template slot-scope="scope">
@@ -142,14 +142,26 @@
             <span>{{ parseTime(scope.row.estimatedFinishTime, '{y}-{m}-{d}') }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="匹配市场" align="center" prop="matchMarket" />
+        <el-table-column label="匹配市场" align="center" prop="matchMarket" :show-overflow-tooltip="true">
+          <template slot-scope="scope">
+            <el-tag>
+              {{JSON.parse(scope.row.matchMarket)}}
+            </el-tag>
+          </template>
+        </el-table-column>
         <el-table-column label="样品数量" align="center" prop="samplesNum"/>
         <el-table-column label="邮寄信息" align="center" prop="mailingInformation" :show-overflow-tooltip="true"/>
         <el-table-column label="备注" align="center" prop="remark"/>
-        <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
+        <el-table-column label="创建时间" align="center" prop="createTime" width="100">
+          <template slot-scope="scope">
+            <span>{{ parseTime(scope.row.createTime, '{y}-{m}-{d} {h}:{i}:{s}') }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="创建人" align="center" prop="createBy"/>
+        <el-table-column label="操作" align="center" width="150" class-name="small-padding fixed-width" fixed="right">
               <template slot-scope="scope">
                 <router-link :to="'/system/taste-data/index/' + scope.row.tasteId" class="link-type">
-                  <i class="el-icon-edit">修改</i>
+                  <i class="el-icon-edit" style="color: #1890ff;font-size: 12px;margin-right: 7px">详情</i>
                 </router-link>
 <!--            <el-button
               size="mini"
@@ -167,6 +179,30 @@
               v-hasPermi="['system:taste:remove']"
             >删除
             </el-button>
+              <el-button
+                size="mini"
+                type="text"
+                icon="el-icon-delete"
+                @click="handleWaste(scope.row)"
+                v-hasPermi="['system:taste:waste']"
+              >作废
+              </el-button>
+              <el-button
+                size="mini"
+                type="text"
+                icon="el-icon-folder-delete"
+                @click="handleAudit(scope.row)"
+                v-hasPermi="['system:taste:audit']"
+              >审核
+              </el-button>
+              <el-button
+                size="mini"
+                type="text"
+                icon="el-icon-printer"
+                @click="handlePrint(scope.row)"
+                v-hasPermi="['system:taste:print']"
+              >打印
+              </el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -179,13 +215,42 @@
         style="margin-bottom: 30px"
       />
     </div>
+    <div class="tableDiv" style="visibility: hidden">
+      <vxe-table
+        border
+        ref="xTable"
+        height="300"
+        :print-config="{}"
+        :data="printListDetail">
+        <vxe-column type="checkbox" width="60"></vxe-column>
+        <vxe-column type="seq" width="60"></vxe-column>
+        <vxe-column field="tasteName" title="口味名称"></vxe-column>
+        <vxe-column field="tasteDetail" title="口味描述"></vxe-column>
+        <vxe-column field="isBasicTaste" title="有基础口味"></vxe-column>
+        <vxe-column field="basicTasteImprovementIdeas" title="基础口味改善建议"></vxe-column>
+        <vxe-column field="capacity" title="容量"></vxe-column>
+        <vxe-column field="vg" title="VG"></vxe-column>
+        <vxe-column field="nicType" title="NIC类别"></vxe-column>
+        <vxe-column field="nicConcentration" title="NIC浓度"></vxe-column>
+        <vxe-column field="nicUnit" title="NIC单位"></vxe-column>
+        <vxe-column field="perfumer" title="调香师1"></vxe-column>
+        <vxe-column field="perfumer" title="调香师2"></vxe-column>
+        <template #empty>
+              <span style="color: red;">
+                <!-- <img src="https://pic2.zhimg.com/50/v2-f7031359103859e1ed38559715ef5f3f_hd.gif">-->
+                <p>没有更多数据了,请添加数据！</p>
+              </span>
+        </template>
+      </vxe-table>
+
+    </div>
 
 
 
   </div>
 </template>
 <script>
-import {listTaste, getTaste, delTaste, addTaste, updateTaste} from "@/api/system/taste";
+import {listTaste, getTaste, delTaste, addTaste, updateTaste, getWasteTaste} from "@/api/system/taste";
 import cache from '@/plugins/cache'
 import VXETable from 'vxe-table'
 //import Handsontable from 'handsontable' //excel 表格
@@ -198,6 +263,10 @@ export default {
   dicts: ['hx_common_is', 'hx_common_type'],
   data() {
     return {
+      //打印列表
+      printList:[],
+      //打印列表明细
+      printListDetail:[],
       // 遮罩层
       loading: true,
       // 选中数组
@@ -344,6 +413,175 @@ export default {
     }
   },
   methods: {
+    // 审核
+    handleAudit(row){
+      this.$message.info("TODO");
+
+    },
+    // 作废  waste
+    handleWaste(row){
+      // 作废将 status 字段状态变成 -1
+      this.$modal.confirm('是否确认作废口味ID为"' + row.tasteId + '"的数据项？').then(function() {
+        getWasteTaste(row.tasteId).then(res =>{
+          this.$message.success(res.data.message)
+        })
+        this.$message.success("已作废")
+      }).then(() => {
+        this.$message.info("已取消")
+      }).catch(() => {});
+    },
+    // 打印需要的数据处理
+    handlePrint(row){
+      // 获取分组好的数据
+      getTaste(row.tasteId).then(res =>{
+        this.printList = res.data
+        this.printListDetail = res.data.hxTasteDetailList
+        console.log("数据来了:{}"+ JSON.stringify(this.printListDetail))
+      });
+      setTimeout(()=>{
+        this.printEvent()
+      },800)
+    },
+    /*打印*/
+    printEvent() {
+      console.log("我是打印明细",JSON.stringify(this.printList))
+      const username = this.$store.state.user.name;
+      // 打印样式
+      const printStyle = `
+        .title {
+          text-align: center;
+        }
+        .my-list-row {
+          display: inline-block;
+          width: 100%;
+        }
+        .my-list-col {
+          float: left;
+          width: 33.3%;
+          height: 28px;
+          line-height: 28px;
+        }
+        .my-list-col-min {
+          width: 25%;
+          float: left;
+          margin-left: 0;
+          pandding-left: 0;
+          height: 12px;
+          line-height: 12px;
+        }
+        .my-list-col-max-l {
+          float: left;
+          width: 50%;
+          height: 28px;
+          line-height: 28px;
+          color: #F8490B;
+        }
+        .my-list-col-max-r {
+          float: right;
+          width: 50%;
+          height: 28px;
+          line-height: 28px;
+          text-align: right;
+        }
+        .my-list-col-boder {
+          float: left;
+          width: 100%;
+          height: 28px;
+          line-height: 28px;
+          border: solid 0.2px #AAA;
+        }
+        .my-top,
+        .my-bottom {
+          font-size: 12px;
+        }
+        .my-top {
+          margin-bottom: 5px;
+        }
+        .my-bottom {
+          margin-top: 30px;
+          text-align: left;
+        }
+        `
+      const topHtml = `
+        <h1 class="title">烟油口味申请表</h1>
+        <div class="my-top">
+            <div class="my-list-row">
+              <div class="my-list-col-max-l">编码: ${this.printList.tasteId} - ${this.printList.status}</div>
+              <div class="my-list-col-max-r">申请日期: ${this.printList.createTime}</div>
+              <br/>
+              <div class="my-list-col">业务姓名: ${this.printList.businessName}</div>
+              <div class="my-list-col">业务部门: ${this.printList.deptId}</div>
+              <div class="my-list-col">业务代码:${this.printList.businessCode}</div>
+              <div class="my-list-col">客户名称:${this.printList.customersName} </div>
+              <div class="my-list-col">客户代码:${this.printList.customersCode}</div>
+              <div class="my-list-col">口味数量:${this.printList.tasteNum}</div>
+              <div class="my-list-col">第几次送样:${this.printList.sendNum}</div>
+              <div class="my-list-col">来访日期:${this.printList.visitTime}</div>
+              <div class="my-list-col">发热丝种类:${this.printList.heatingWireType}</div>
+              <div class="my-list-col">口味专供:${this.printList.isSupply}</div>
+              <div class="my-list-col">现场试油:${this.printList.isTry}</div>
+              <div class="my-list-col">自带烟具:${this.printList.isSmoking}</div>
+              <div class="my-list-col">烟具类型:${this.printList.smokingType}</div>
+              <div class="my-list-col">是否回收烟具:${this.printList.isRecyclingSmoking}</div>
+              <div class="my-list-col">导油棉类型:${this.printList.oilGuideCottonType}</div>
+              <div class="my-list-col">发热丝阻值:${this.printList.heatingWireResistance}</div>
+              <div class="my-list-col">烟油仓容量:${this.printList.capacity}</div>
+              <div class="my-list-col">油环材质类型:${this.printList.oilRingMaterial}</div>
+              <div class="my-list-col">甜度(1-10):${this.printList.sweetness}</div>
+              <div class="my-list-col">凉度(1-10):${this.printList.coolness}</div>
+              <div class="my-list-col">粘稠度(1-10):${this.printList.viscosity}</div>
+              <div class="my-list-col">期望完成时间:${this.printList.expectedCompletionTime}</div>
+              <div class="my-list-col">样品数量:${this.printList.samplesNum}</div>
+              <div class="my-list-col">样品需求日期:${this.printList.sampleRequestTime}</div>
+              <div class="my-list-col">预计完成时间:${this.printList.estimatedFinishTime}</div>
+              <div class="my-list-col">匹配市场:${JSON.parse(this.printList.matchMarket)}</div>
+              <div class="my-list-col">邮寄信息:${this.printList.mailingInformation}</div>
+              <div class="my-list-col">备注:${this.printList.remark}</div>
+            </div>
+            <hr/>
+            <b>口味明细</b>
+        </div>`
+      // 打印底部内容模板
+      const bottomHtml = `
+        <div class="my-bottom">
+          <div class="my-list-row">
+            <div class="my-list-col-min">研发部(签字): </div>
+            <div class="my-list-col-min">项目组长(签字): </div>
+            <div class="my-list-col-min">业务员(签字): </div>
+            <div class="my-list-col-min">项目负责人(签字): </div>
+          </div>
+          <div class="my-list-row">
+            <div class="my-list-col-min">日期: </div>
+            <div class="my-list-col-min">日期: </div>
+            <div class="my-list-col-min">日期: </div>
+            <div class="my-list-col-min">日期: </div>
+          </div>
+        </div>
+        `
+      this.$refs.xTable.print({
+        sheetName: '打印表格',
+        style: printStyle,
+        columns: [
+          {type: 'seq'},
+          {field: 'tasteName'},
+          {field: 'tasteDetail'},
+          {field: 'isBasicTaste'},
+          {field: 'basicTasteName'},
+          {field: 'basicTasteImprovementIdeas'},
+          {field: 'capacity'},
+          {field: 'vg'},
+          {field: 'nicType'},
+          {field: 'nicConcentration'},
+          {field: 'nicUnit'},
+          {field: 'perfumer'},
+          {field: 'perfumer'},
+        ],
+        beforePrintMethod: ({content}) => {
+          // 拦截打印之前，返回自定义的 html 内容
+          return topHtml + content + bottomHtml
+        }
+      })
+    },
     /** 查询口味申请单列表 */
     getList() {
       this.loading = true;
@@ -385,6 +623,10 @@ export default {
         oilRingMaterial: null,
         vg: null,
         viscosity: null,
+        deleted: null,
+        status: null,
+        coolness: null,
+        sweetness: null,
         expectedCompletionTime: null,
         sampleRequestTime: null,
         estimatedFinishTime: null,

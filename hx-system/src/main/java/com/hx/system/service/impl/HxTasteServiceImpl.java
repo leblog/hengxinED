@@ -7,6 +7,7 @@ import java.util.List;
 import cn.hutool.core.util.IdUtil;
 import com.hx.common.core.domain.entity.SysDept;
 import com.hx.common.utils.DateUtils;
+import com.hx.system.domain.enums.TatseFolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
@@ -115,6 +116,7 @@ public class HxTasteServiceImpl implements IHxTasteService
         hxTaste.setTasteId(String.valueOf(IdUtil.getSnowflakeNextId()));
         hxTaste.setCreateTime(DateUtils.getNowDate());
         hxTaste.setCreateBy(getUsername());
+        hxTaste.setStatus(TatseFolder.NORMAL.getCode());
         int rows = hxTasteMapper.insertHxTaste(hxTaste);
         //插入详情表
         insertHxTasteDetail(hxTaste);

@@ -4,6 +4,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import com.hx.system.domain.HxTaste;
+import com.hx.system.domain.enums.TatseFolder;
+import com.hx.system.mapper.HxTasteMapper;
 import com.hx.system.service.IHxTasteService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +26,7 @@ import com.hx.common.core.page.TableDataInfo;
 
 /**
  * 口味申请单Controller
- * 
+ *
  * @author lusifer
  * @date 2022-05-25
  */
@@ -34,6 +36,8 @@ public class HxTasteController extends BaseController
 {
     @Autowired
     private IHxTasteService hxTasteService;
+    @Autowired
+    private HxTasteMapper hxTasteMapper;
 
 
 
@@ -104,4 +108,20 @@ public class HxTasteController extends BaseController
     {
         return toAjax(hxTasteService.deleteHxTasteByTasteIds(tasteIds));
     }
+
+    /**
+     * 作废口味申请单
+     */
+    @PreAuthorize("@ss.hasPermi('system:taste:waste')")
+    @Log(title = "口味申请单作废", businessType = BusinessType.UPDATE)
+    @GetMapping(value = "/waste/{tasteId}")
+    public AjaxResult waste(@PathVariable("tasteId") String tasteId)
+    {
+        AjaxResult ajax = new AjaxResult();
+        HxTaste hxTaste = hxTasteMapper.selectHxTasteByTasteId(tasteId);
+        hxTaste.setStatus(TatseFolder.WASTE.getCode());
+        return toAjax(hxTasteService.updateHxTaste(hxTaste));
+    }
+
+
 }

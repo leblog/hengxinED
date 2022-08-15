@@ -137,8 +137,8 @@
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
             <el-form-item class="el-form-item el-form-item__content" label="现场试油">
               <el-radio-group v-model="form.isTry" style="width: 100%;">
-                <el-radio v-model="radio" label="1">是</el-radio>
-                <el-radio v-model="radio" label="2">否</el-radio>
+                <el-radio v-model="radio" label="是">是</el-radio>
+                <el-radio v-model="radio" label="否">否</el-radio>
               </el-radio-group>
             </el-form-item>
           </el-col>
@@ -146,24 +146,24 @@
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
             <el-form-item class="el-form-item el-form-item__content" label="自带烟具">
               <el-radio-group v-model="form.isSmoking" style="width: 100%;">
-                <el-radio v-model="radio" label="1">是</el-radio>
-                <el-radio v-model="radio" label="2">否</el-radio>
+                <el-radio v-model="radio" label="是">是</el-radio>
+                <el-radio v-model="radio" label="否">否</el-radio>
               </el-radio-group>
             </el-form-item>
           </el-col>
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
             <el-form-item class="el-form-item el-form-item__content" label="烟具类型" prop="smokingType">
               <el-radio-group v-model="form.smokingType" style="width: 100%;">
-                <el-radio v-model="radio" label="1">一次性</el-radio>
-                <el-radio v-model="radio" label="2">换弹式</el-radio>
+                <el-radio v-model="radio" label="一次性">一次性</el-radio>
+                <el-radio v-model="radio" label="换弹式">换弹式</el-radio>
               </el-radio-group>
             </el-form-item>
           </el-col>
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
             <el-form-item class="el-form-item el-form-item__content" label="是否回收烟具">
               <el-radio-group v-model="form.isRecyclingSmoking" style="width: 100%;">
-                <el-radio v-model="radio" label="1">是</el-radio>
-                <el-radio v-model="radio" label="2">否</el-radio>
+                <el-radio v-model="radio" label="是">是</el-radio>
+                <el-radio v-model="radio" label="否">否</el-radio>
               </el-radio-group>
             </el-form-item>
           </el-col>
@@ -267,13 +267,28 @@
             </el-form-item>
           </el-col>
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
-            <el-form-item label="匹配市场" prop="matchMarket">
+
+<!--            修改回显-->
+            <el-form-item label="匹配市场" prop="matchMarket"  v-if="this.$route.params.tasteId != null">
               <el-cascader
                 v-model="form.matchMarket"
                 style="width: 100%;"
                 :options="addressJson"
                 :props="{ multiple: true }"
-                placeholder="试试搜索：中国 / 可多选"
+                placeholder="试试搜索：中国 / 可多选2"
+                filterable
+                clearable
+                @change="handleChange"
+              />
+              <!-- :collapse-tags="true" 折叠选中标签             -->
+            </el-form-item>
+            <el-form-item label="匹配市场" prop="matchMarket"  v-else>
+              <el-cascader
+                v-model="form.matchMarketTemp"
+                style="width: 100%;"
+                :options="addressJson"
+                :props="{ multiple: true }"
+                placeholder="试试搜索：中国 / 可多选1"
                 filterable
                 clearable
                 @change="handleChange"
@@ -281,6 +296,7 @@
               <!-- :collapse-tags="true" 折叠选中标签             -->
             </el-form-item>
           </el-col>
+
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
             <el-form-item label="邮寄信息" prop="mailingInformation">
               <el-input v-model="form.mailingInformation" type="textarea" placeholder="请输入内容" />
@@ -554,13 +570,6 @@ export default {
         value: '陶瓷',
         label: '陶瓷'
       }],
-      hx_common_type: [{
-        value: '类型1',
-        label: '类型1'
-      }, {
-        value: '类型2',
-        label: '类型2'
-      }],
       deptId: [{
         value: '国内业务一组',
         label: '国内业务一组'
@@ -577,12 +586,13 @@ export default {
         value: '产品支持部',
         label: '产品支持部'
       }],
-      // 烟具类型
-      radio1: '1',
+
       // 通用
-      radio: '1',
+      radio: '是',
       // 自带烟具
-      radio2: '1',
+      radio2: '是',
+      // 烟具类型
+      radio1: '是',
 
       sexList: [
         { label: '请选择', value: '请选择' },
@@ -818,18 +828,16 @@ export default {
     console.log('路由内容2:' + JSON.stringify(this.$route.params.tasteId))
     if (this.$route.params.tasteId != null) {
       getTaste(this.$route.params.tasteId).then(response => {
-        /*console.log("二维数组:",JSON.stringify(response.data.matchMarket))
-        let tempFrom = response.data.matchMarket.split(',')
-
-        console.log("数组2:",JSON.stringify(response.data.matchMarket.split(',')))
-        console.log("数组21:",JSON.stringify(tempFrom.split('洲,')))
-        this.batchValueRemark = ss.length*/
+        console.log("创建之后7:"+JSON.parse(response.data.matchMarket) )
         this.form = response.data
         this.hxTasteDetailList = response.data.hxTasteDetailList
+        response.data.matchMarket.splice(",")
+        this.form.matchMarket = response.data.matchMarket
       })
+
     }
     // this.getList()
-    // this.reset()
+    this.reset()
     // this.defultDeatil()
   },
   mounted() {
@@ -846,8 +854,12 @@ export default {
     // 地区选中
     handleChange(value) {
       console.log(JSON.stringify(value))
-      // this.form.matchMarket = JSON.stringify(value)
+      this.form.matchMarket = JSON.stringify(value)
+      console.log(JSON.stringify(this.form.matchMarket))
+      console.log(JSON.stringify(typeof this.form.matchMarket))
+      console.log("源"+JSON.stringify(value))
     },
+
     /* 渲染默认添加一行 */
     defultDeatil() {
       this.$nextTick(() => {
@@ -1309,6 +1321,7 @@ export default {
         sampleRequestTime: null,
         estimatedFinishTime: null,
         matchMarket: null,
+        matchMarketTemp: null,
         samplesNum: null,
         mailingInformation: null,
         createBy: null,
@@ -1356,6 +1369,7 @@ export default {
     },
     /** 提交按钮 */
     submitForm() {
+      console.log("内容:"+typeof this.form.matchMarket)
       this.$refs['form'].validate(valid => {
         if (valid) {
           this.form.hxTasteDetailList = this.hxTasteDetailList

@@ -42,3 +42,11 @@ export function delTaste(tasteId) {
     method: 'delete'
   })
 }
+
+// 作废口味申请单详细
+export function getWasteTaste(tasteId) {
+  return request({
+    url: '/system/taste/waste/' + tasteId,
+    method: 'get'
+  })
+}

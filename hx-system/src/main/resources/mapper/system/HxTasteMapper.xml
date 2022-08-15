@@ -27,6 +27,10 @@
         <result property="oilRingMaterial"    column="oil_ring_material"    />
         <result property="vg"    column="vg"    />
         <result property="viscosity"    column="viscosity"    />
+        <result property="deleted"    column="deleted"    />
+        <result property="status"    column="status"    />
+        <result property="sweetness"    column="sweetness"    />
+        <result property="coolness"    column="coolness"    />
         <result property="expectedCompletionTime"    column="expected_completion_time"    />
         <result property="sampleRequestTime"    column="sample_request_time"    />
         <result property="estimatedFinishTime"    column="estimated_finish_time"    />
@@ -67,7 +71,7 @@
     </resultMap>
 
     <sql id="selectHxTasteVo">
-        select taste_id, dept_id, business_name, business_code, customers_name, customers_code, taste_num, referee_num, send_num, is_supply, is_try, visit_time, is_smoking, smoking_type, heating_wire_type, heating_wire_resistance, capacity, oil_guide_cotton_type, is_recycling_smoking, oil_ring_material, vg, viscosity, expected_completion_time, sample_request_time, estimated_finish_time, match_market, samples_num, mailing_information, create_by, create_time, update_by, update_time, remark from hx_taste
+        select taste_id, dept_id, business_name, business_code, customers_name, customers_code, taste_num, referee_num, send_num, is_supply, is_try, visit_time, is_smoking, smoking_type, heating_wire_type, heating_wire_resistance, capacity, oil_guide_cotton_type, is_recycling_smoking, oil_ring_material, vg, viscosity,sweetness,coolness, expected_completion_time, sample_request_time, estimated_finish_time, match_market, samples_num, mailing_information, create_by, create_time, update_by, update_time,status,deleted remark from hx_taste
     </sql>
 
     <select id="selectHxTasteList" parameterType="HxTaste" resultMap="HxTasteResult">
@@ -94,6 +98,8 @@
             <if test="oilRingMaterial != null "> and oil_ring_material = #{oilRingMaterial}</if>
             <if test="vg != null  and vg != ''"> and vg = #{vg}</if>
             <if test="viscosity != null  and viscosity != ''"> and viscosity = #{viscosity}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+            <if test="deleted != null  and deleted != ''"> and deleted = #{deleted}</if>
             <if test="expectedCompletionTime != null "> and expected_completion_time = #{expectedCompletionTime}</if>
             <if test="sampleRequestTime != null "> and sample_request_time = #{sampleRequestTime}</if>
             <if test="estimatedFinishTime != null "> and estimated_finish_time = #{estimatedFinishTime}</if>
@@ -105,10 +111,11 @@
 
 
     <select id="selectHxTasteListDetail" parameterType="HxTaste" resultMap="HxTasteResult">
-        select a.taste_id, a.dept_id, a.business_name, a.business_code, a.customers_name, a.customers_code, a.taste_num, a.referee_num, a.send_num, a.is_supply, a.is_try, a.visit_time, a.is_smoking, a.smoking_type, a.heating_wire_type, a.heating_wire_resistance, a.capacity, a.oil_guide_cotton_type, a.is_recycling_smoking, a.oil_ring_material, a.vg, a.viscosity, a.expected_completion_time, a.sample_request_time, a.estimated_finish_time, a.match_market, a.samples_num, a.mailing_information, a.create_by, a.create_time, a.update_by, a.update_time, a.remark,
+        select a.taste_id, a.dept_id, a.business_name, a.business_code, a.customers_name, a.customers_code, a.taste_num, a.referee_num, a.send_num, a.is_supply, a.is_try, a.visit_time, a.is_smoking, a.smoking_type, a.heating_wire_type, a.heating_wire_resistance, a.capacity, a.oil_guide_cotton_type, a.is_recycling_smoking, a.oil_ring_material, a.vg, a.viscosity,a.sweetness,a.coolness, a.expected_completion_time, a.sample_request_time, a.estimated_finish_time, a.match_market, a.samples_num, a.mailing_information, a.create_by, a.create_time, a.update_by, a.update_time, a.remark, a.status, a.deleted
                b.id as sub_id, b.taste_name as sub_taste_name, b.taste_id as sub_taste_id, b.taste_detail as sub_taste_detail, b.is_basic_taste as sub_is_basic_taste, b.basic_taste_name as sub_basic_taste_name, b.basic_taste_improvement_ideas as sub_basic_taste_improvement_ideas, b.capacity as sub_capacity, b.vg as sub_vg, b.nic_type as sub_nic_type, b.nic_concentration as sub_nic_concentration, b.nic_unit as sub_nic_unit, b.perfumer as sub_perfumer, b.version as sub_version, b.create_by as sub_create_by, b.create_time as sub_create_time, b.update_by as sub_update_by, b.update_time as sub_update_time, b.remark as sub_remark
         from hx_taste a
-                 left join hx_taste_detail b on b.taste_id = a.taste_id
+        left join hx_taste_detail b on b.taste_id = a.taste_id
+        where a.deleted = '0'
 
     </select>
 
@@ -145,6 +152,10 @@
             <if test="oilRingMaterial != null">oil_ring_material,</if>
             <if test="vg != null">vg,</if>
             <if test="viscosity != null and viscosity != ''">viscosity,</if>
+            <if test="deleted != null and deleted != ''">deleted,</if>
+            <if test="status != null and status != ''">status,</if>
+            <if test="coolness != null and coolness != ''">coolness,</if>
+            <if test="sweetness != null and sweetness != ''">sweetness,</if>
             <if test="expectedCompletionTime != null">expected_completion_time,</if>
             <if test="sampleRequestTime != null">sample_request_time,</if>
             <if test="estimatedFinishTime != null">estimated_finish_time,</if>
@@ -180,6 +191,10 @@
             <if test="oilRingMaterial != null">#{oilRingMaterial},</if>
             <if test="vg != null">#{vg},</if>
             <if test="viscosity != null and viscosity != ''">#{viscosity},</if>
+            <if test="deleted != null and deleted != ''">#{deleted},</if>
+            <if test="status != null and status != ''">#{status},</if>
+            <if test="coolness != null and coolness != ''">#{coolness},</if>
+            <if test="sweetness != null and sweetness != ''">#{sweetness},</if>
             <if test="expectedCompletionTime != null">#{expectedCompletionTime},</if>
             <if test="sampleRequestTime != null">#{sampleRequestTime},</if>
             <if test="estimatedFinishTime != null">#{estimatedFinishTime},</if>
@@ -218,6 +233,10 @@
             <if test="oilRingMaterial != null">oil_ring_material = #{oilRingMaterial},</if>
             <if test="vg != null">vg = #{vg},</if>
             <if test="viscosity != null and viscosity != ''">viscosity = #{viscosity},</if>
+            <if test="deleted != null and deleted != ''">deleted = #{deleted},</if>
+            <if test="status != null and status != ''">status = #{status},</if>
+            <if test="sweetness != null and sweetness != ''">sweetness = #{sweetness},</if>
+            <if test="coolness != null and coolness != ''">coolness = #{coolness},</if>
             <if test="expectedCompletionTime != null">expected_completion_time = #{expectedCompletionTime},</if>
             <if test="sampleRequestTime != null">sample_request_time = #{sampleRequestTime},</if>
             <if test="estimatedFinishTime != null">estimated_finish_time = #{estimatedFinishTime},</if>
@@ -232,13 +251,13 @@
         </trim>
         where taste_id = #{tasteId}
     </update>
-
+    <!--逻辑删除-->
     <delete id="deleteHxTasteByTasteId" parameterType="String">
-        delete from hx_taste where taste_id = #{tasteId}
+        update hx_taste  set del_flag = '2'   where taste_id = #{tasteId}
     </delete>
 
     <delete id="deleteHxTasteByTasteIds" parameterType="String">
-        delete from hx_taste where taste_id in
+        update hx_taste where set del_flag = '2' taste_id in
         <foreach item="tasteId" collection="array" open="(" separator="," close=")">
             #{tasteId}
         </foreach>
