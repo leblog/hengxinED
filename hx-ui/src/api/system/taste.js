@@ -50,3 +50,13 @@ export function getWasteTaste(tasteId) {
     method: 'get'
   })
 }
+
+
+// 分配跟进人字典
+export function getDistribution() {
+  return request({
+    url: '/system/taste/getDistribution',
+    method: 'get'
+  })
+}
+

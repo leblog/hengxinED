@@ -28,7 +28,7 @@
         <result property="vg"    column="vg"    />
         <result property="viscosity"    column="viscosity"    />
         <result property="deleted"    column="deleted"    />
-        <result property="status"    column="status"    />
+        <result property="state"    column="state"    />
         <result property="sweetness"    column="sweetness"    />
         <result property="coolness"    column="coolness"    />
         <result property="expectedCompletionTime"    column="expected_completion_time"    />
@@ -42,6 +42,7 @@
         <result property="updateBy"    column="update_by"    />
         <result property="updateTime"    column="update_time"    />
         <result property="remark"    column="remark"    />
+        <result property="follower"    column="follower"    />
     </resultMap>
 
     <resultMap id="HxTasteHxTasteDetailResult" type="HxTaste" extends="HxTasteResult">
@@ -71,10 +72,14 @@
     </resultMap>
 
     <sql id="selectHxTasteVo">
-        select taste_id, dept_id, business_name, business_code, customers_name, customers_code, taste_num, referee_num, send_num, is_supply, is_try, visit_time, is_smoking, smoking_type, heating_wire_type, heating_wire_resistance, capacity, oil_guide_cotton_type, is_recycling_smoking, oil_ring_material, vg, viscosity,sweetness,coolness, expected_completion_time, sample_request_time, estimated_finish_time, match_market, samples_num, mailing_information, create_by, create_time, update_by, update_time,status,deleted ,remark from hx_taste
-        where deleted = '0'
-    </sql>
+        select taste_id, dept_id, business_name, business_code, customers_name, customers_code, taste_num, referee_num, send_num,
+               is_supply, is_try, visit_time, is_smoking, smoking_type, heating_wire_type, heating_wire_resistance, capacity,
+               oil_guide_cotton_type, is_recycling_smoking, oil_ring_material, vg, viscosity,sweetness,coolness, expected_completion_time,
+               sample_request_time, estimated_finish_time, match_market, samples_num, mailing_information, create_by, create_time,
+               update_by, update_time, state, deleted ,remark ,follower from `hx_taste`
 
+    </sql>
+        <!--where deleted = '0'-->
     <select id="selectHxTasteList" parameterType="HxTaste" resultMap="HxTasteResult">
         <include refid="selectHxTasteVo"/>
         <where>
@@ -99,7 +104,7 @@
             <if test="oilRingMaterial != null "> and oil_ring_material = #{oilRingMaterial}</if>
             <if test="vg != null  and vg != ''"> and vg = #{vg}</if>
             <if test="viscosity != null  and viscosity != ''"> and viscosity = #{viscosity}</if>
-            <if test="status != null  and status != ''"> and status = #{status}</if>
+            <if test="state != null  and state != ''"> and state = #{state}</if>
             <if test="deleted != null  and deleted != ''"> and deleted = #{deleted}</if>
             <if test="expectedCompletionTime != null "> and expected_completion_time = #{expectedCompletionTime}</if>
             <if test="sampleRequestTime != null "> and sample_request_time = #{sampleRequestTime}</if>
@@ -111,8 +116,9 @@
     </select>
 
 
+
     <select id="selectHxTasteListDetail" parameterType="HxTaste" resultMap="HxTasteResult">
-        select a.taste_id, a.dept_id, a.business_name, a.business_code, a.customers_name, a.customers_code, a.taste_num, a.referee_num, a.send_num, a.is_supply, a.is_try, a.visit_time, a.is_smoking, a.smoking_type, a.heating_wire_type, a.heating_wire_resistance, a.capacity, a.oil_guide_cotton_type, a.is_recycling_smoking, a.oil_ring_material, a.vg, a.viscosity,a.sweetness,a.coolness, a.expected_completion_time, a.sample_request_time, a.estimated_finish_time, a.match_market, a.samples_num, a.mailing_information, a.create_by, a.create_time, a.update_by, a.update_time, a.remark, a.status, a.deleted
+        select a.taste_id, a.dept_id, a.business_name, a.business_code, a.customers_name, a.customers_code, a.taste_num, a.referee_num, a.send_num, a.is_supply, a.is_try, a.visit_time, a.is_smoking, a.smoking_type, a.heating_wire_type, a.heating_wire_resistance, a.capacity, a.oil_guide_cotton_type, a.is_recycling_smoking, a.oil_ring_material, a.vg, a.viscosity,a.sweetness,a.coolness, a.expected_completion_time, a.sample_request_time, a.estimated_finish_time, a.match_market, a.samples_num, a.mailing_information, a.create_by, a.create_time, a.update_by, a.update_time, a.remark, a.state, a.deleted,a.follower,
                b.id as sub_id, b.taste_name as sub_taste_name, b.taste_id as sub_taste_id, b.taste_detail as sub_taste_detail, b.is_basic_taste as sub_is_basic_taste, b.basic_taste_name as sub_basic_taste_name, b.basic_taste_improvement_ideas as sub_basic_taste_improvement_ideas, b.capacity as sub_capacity, b.vg as sub_vg, b.nic_type as sub_nic_type, b.nic_concentration as sub_nic_concentration, b.nic_unit as sub_nic_unit, b.perfumer as sub_perfumer, b.version as sub_version, b.create_by as sub_create_by, b.create_time as sub_create_time, b.update_by as sub_update_by, b.update_time as sub_update_time, b.remark as sub_remark
         from hx_taste a
         left join hx_taste_detail b on b.taste_id = a.taste_id
@@ -121,7 +127,7 @@
     </select>
 
     <select id="selectHxTasteByTasteId" parameterType="String" resultMap="HxTasteHxTasteDetailResult">
-        select a.taste_id, a.dept_id, a.business_name, a.business_code, a.customers_name, a.customers_code, a.taste_num, a.referee_num, a.send_num, a.is_supply, a.is_try, a.visit_time, a.is_smoking, a.smoking_type, a.heating_wire_type, a.heating_wire_resistance, a.capacity, a.oil_guide_cotton_type, a.is_recycling_smoking, a.oil_ring_material, a.vg, a.viscosity,a.sweetness,a.coolness, a.expected_completion_time, a.sample_request_time, a.estimated_finish_time, a.match_market, a.samples_num, a.mailing_information, a.create_by, a.create_time, a.update_by, a.update_time, a.remark, a.status, a.deleted,
+        select a.taste_id, a.dept_id, a.business_name, a.business_code, a.customers_name, a.customers_code, a.taste_num, a.referee_num, a.send_num, a.is_supply, a.is_try, a.visit_time, a.is_smoking, a.smoking_type, a.heating_wire_type, a.heating_wire_resistance, a.capacity, a.oil_guide_cotton_type, a.is_recycling_smoking, a.oil_ring_material, a.vg, a.viscosity,a.sweetness,a.coolness, a.expected_completion_time, a.sample_request_time, a.estimated_finish_time, a.match_market, a.samples_num, a.mailing_information, a.create_by, a.create_time, a.update_by, a.update_time, a.remark, a.state, a.deleted,a.follower,
                b.id as sub_id, b.taste_name as sub_taste_name, b.taste_id as sub_taste_id, b.taste_detail as sub_taste_detail, b.is_basic_taste as sub_is_basic_taste, b.basic_taste_name as sub_basic_taste_name, b.basic_taste_improvement_ideas as sub_basic_taste_improvement_ideas, b.capacity as sub_capacity, b.vg as sub_vg, b.nic_type as sub_nic_type, b.nic_concentration as sub_nic_concentration, b.nic_unit as sub_nic_unit, b.perfumer as sub_perfumer, b.version as sub_version, b.create_by as sub_create_by, b.create_time as sub_create_time, b.update_by as sub_update_by, b.update_time as sub_update_time, b.remark as sub_remark
         from hx_taste a
                  left join hx_taste_detail b on b.taste_id = a.taste_id
@@ -155,7 +161,7 @@
             <if test="vg != null">vg,</if>
             <if test="viscosity != null and viscosity != ''">viscosity,</if>
             <if test="deleted != null and deleted != ''">deleted,</if>
-            <if test="status != null and status != ''">status,</if>
+            <if test="state != null and state != ''">state,</if>
             <if test="coolness != null and coolness != ''">coolness,</if>
             <if test="sweetness != null and sweetness != ''">sweetness,</if>
             <if test="expectedCompletionTime != null">expected_completion_time,</if>
@@ -169,6 +175,7 @@
             <if test="updateBy != null">update_by,</if>
             <if test="updateTime != null">update_time,</if>
             <if test="remark != null and remark != ''">remark,</if>
+            <if test="follower != null and follower != ''">follower,</if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="tasteId != null">#{tasteId},</if>
@@ -194,7 +201,7 @@
             <if test="vg != null">#{vg},</if>
             <if test="viscosity != null and viscosity != ''">#{viscosity},</if>
             <if test="deleted != null and deleted != ''">#{deleted},</if>
-            <if test="status != null and status != ''">#{status},</if>
+            <if test="state != null and state != ''">#{state},</if>
             <if test="coolness != null and coolness != ''">#{coolness},</if>
             <if test="sweetness != null and sweetness != ''">#{sweetness},</if>
             <if test="expectedCompletionTime != null">#{expectedCompletionTime},</if>
@@ -208,6 +215,7 @@
             <if test="updateBy != null">#{updateBy},</if>
             <if test="updateTime != null">#{updateTime},</if>
             <if test="remark != null and remark != ''">#{remark},</if>
+            <if test="follower != null and follower != ''">#{follower},</if>
         </trim>
     </insert>
 
@@ -236,7 +244,7 @@
             <if test="vg != null">vg = #{vg},</if>
             <if test="viscosity != null and viscosity != ''">viscosity = #{viscosity},</if>
             <if test="deleted != null and deleted != ''">deleted = #{deleted},</if>
-            <if test="status != null and status != ''">status = #{status},</if>
+            <if test="state != null and state != ''">state = #{state},</if>
             <if test="sweetness != null and sweetness != ''">sweetness = #{sweetness},</if>
             <if test="coolness != null and coolness != ''">coolness = #{coolness},</if>
             <if test="expectedCompletionTime != null">expected_completion_time = #{expectedCompletionTime},</if>
@@ -250,6 +258,7 @@
             <if test="updateBy != null">update_by = #{updateBy},</if>
             <if test="updateTime != null">update_time = #{updateTime},</if>
             <if test="remark != null and remark != ''">remark = #{remark},</if>
+            <if test="follower != null and follower != ''">follower = #{follower},</if>
         </trim>
         where taste_id = #{tasteId}
     </update>

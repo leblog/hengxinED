@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <el-form v-show="showSearch" ref="queryForm" :model="queryParams" size="small" :inline="true" label-width="68px">
+    <el-form  :label-position="labelPosition" v-show="showSearch" ref="queryForm" :model="queryParams" size="small" :inline="true" label-width="68px">
       <el-form-item label="业务部门" prop="deptId">
         <el-input
           v-model="queryParams.deptId"
@@ -49,6 +49,7 @@
         label-width="110px"
         size="mini"
         :validate-on-rule-change="true"
+        :label-position="labelPosition"
       ><!--:show-message="true"  :inline-message="true"-->
         <!--  添加业务  -->
         <el-row :gutter="24"><!--type="flex" justify="space-around"-->
@@ -275,7 +276,8 @@
                 style="width: 100%;"
                 :options="addressJson"
                 :props="{ multiple: true }"
-                placeholder="试试搜索：中国 / 可多选2"
+                placeholder="试试搜索：英国 / 可多选"
+                :collapse-tags="true"
                 filterable
                 clearable
                 @change="handleChange"
@@ -288,7 +290,9 @@
                 style="width: 100%;"
                 :options="addressJson"
                 :props="{ multiple: true }"
-                placeholder="试试搜索：中国 / 可多选1"
+                :collapse-tags="true"
+                :debounce="300"
+                placeholder="试试搜索：中国 / 可多选"
                 filterable
                 clearable
                 @change="handleChange"
@@ -481,6 +485,7 @@
       <br>
       <el-button type="primary" @click="submitForm">保 存</el-button>
       <el-button @click="cancel">重 置 所 有</el-button>
+<!--      <div>测试:{{ name }}</div>-->
       <!--      <el-button @click="cancelDeatil">重 置 明 细</el-button>-->
     </div>
 
@@ -494,6 +499,13 @@ export default {
   name: 'Taste',
   // components: {vtable},
   // dicts: ['hx_common_is', 'hx_common_type'],
+  props: {
+    name: {
+      type: String,
+      default: ""
+    },
+  },
+
   data() {
     const nameValid = ({ cellValue }) => {
       // 模拟服务端校验
@@ -508,6 +520,8 @@ export default {
       })
     }
     return {
+      // 表单对齐方式
+      labelPosition: 'right',
       // 批量列处理
       copyCollRemark: '测试数据1\n测试数据2\n测试数据3',
       // 点击每行的数据
@@ -823,11 +837,14 @@ export default {
         // 其余的单元格使用默认行为
         return null
       }
-
     }
   },
   created() {
     console.log('路由内容2:' + JSON.stringify(this.$route.params.tasteId))
+    console.log('路由内容2:' + JSON.stringify(this.$route.params.id))
+    console.log('路由内容2:' + JSON.stringify(this.$route.params.name))
+
+    // console.log('组件通讯:' + this.$props.name)
     if (this.$route.params.tasteId != null) {
       getTaste(this.$route.params.tasteId).then(response => {
         console.log("创建之后7:"+JSON.parse(response.data.matchMarket) )
@@ -846,6 +863,20 @@ export default {
     /* if (this.form.remark == null) {
       cache.session.remove('tasteList')
     } */
+  },
+  watch: {
+    // 级联选择数量限制
+    'form.matchMarketTemp'() {
+      if (this.form.matchMarketTemp.length > 5) {
+        this.$message({
+          type: 'warning',
+          message: '最多可选择五个',
+          showClose: true,
+        })
+        this.form.matchMarketTemp.splice(-1, 1);
+        this.refs.cascader.refs.cascader.refs.cascader.refs.panel.clearCheckedNodes();
+      }
+    }
   },
   methods: {
     editActivedEvent({ rowIndex, row }) {
@@ -1332,7 +1363,8 @@ export default {
         createTime: null,
         updateBy: null,
         updateTime: null,
-        remark: ''
+        remark: '',
+        follower: null
       }
       this.hxTasteDetailList = []
       // this.resetForm("form");  //TODO
@@ -1377,12 +1409,6 @@ export default {
       this.$refs['form'].validate(valid => {
         if (valid) {
           this.form.hxTasteDetailList = this.hxTasteDetailList
-          /*this.$message({
-            message: '恭喜你，这是一条成功消息,TODO  待联调',
-            type: 'success'
-          })*/
-
-          console.log('需要提交的数据:', JSON.stringify(this.form))
           this.open = false
            if (this.$route.params.tasteId != null) {
             updateTaste(this.form).then(response => {
@@ -1393,7 +1419,6 @@ export default {
           } else {
              addTaste(this.form).then(response => {
               this.$modal.msgSuccess('新增成功')
-              this.$modal.msgSuccess(JSON.stringify(this.form))
               this.open = false
               //this.getList()
             })

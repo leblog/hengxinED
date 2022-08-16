@@ -26,7 +26,7 @@ public class HxTaste extends BaseEntity
     private String tasteId;
 
     /** 部门Id */
-    @Excel(name = "部门Id")
+    @Excel(name = "部门")
     private String deptId;
 
     /** 业务姓名 */
@@ -50,7 +50,7 @@ public class HxTaste extends BaseEntity
     private String tasteNum;
 
     /** 上次申请单号 */
-    @Excel(name = "上次申请单号")
+//    @Excel(name = "上次申请单号")
     private String refereeNum;
 
     /** 第几次送样 */
@@ -115,7 +115,8 @@ public class HxTaste extends BaseEntity
     /** 粘稠度 */
     @Excel(name = "凉度")
     private String coolness;
-    private String status;
+    @Excel(name = "状态")
+    private String state;
     private String deleted;
 
     /** 期望完成时间 */
@@ -144,6 +145,9 @@ public class HxTaste extends BaseEntity
     /** 邮寄信息 */
     @Excel(name = "邮寄信息")
     private String mailingInformation;
+
+    @Excel(name = "跟进人")
+    private String follower;
 
     /** 口味申请单明细信息 */
     private List<HxTasteDetail> hxTasteDetailList;

@@ -1,22 +1,19 @@
 package com.hx.system.service.impl;
 
-import java.io.Console;
-import java.util.Iterator;
-import java.util.List;
-
 import cn.hutool.core.util.IdUtil;
-import com.hx.common.core.domain.entity.SysDept;
 import com.hx.common.utils.DateUtils;
+import com.hx.common.utils.StringUtils;
+import com.hx.system.domain.HxTaste;
+import com.hx.system.domain.HxTasteDetail;
 import com.hx.system.domain.enums.TatseFolder;
+import com.hx.system.mapper.HxTasteMapper;
+import com.hx.system.service.IHxTasteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
-import com.hx.common.utils.StringUtils;
 import org.springframework.transaction.annotation.Transactional;
-import com.hx.system.domain.HxTasteDetail;
-import com.hx.system.mapper.HxTasteMapper;
-import com.hx.system.domain.HxTaste;
-import com.hx.system.service.IHxTasteService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.hx.common.utils.SecurityUtils.getUsername;
 
@@ -31,7 +28,6 @@ public class HxTasteServiceImpl implements IHxTasteService
 {
     @Autowired
     private HxTasteMapper hxTasteMapper;
-
     /**
      * 查询口味申请单
      *
@@ -116,7 +112,7 @@ public class HxTasteServiceImpl implements IHxTasteService
         hxTaste.setTasteId(String.valueOf(IdUtil.getSnowflakeNextId()));
         hxTaste.setCreateTime(DateUtils.getNowDate());
         hxTaste.setCreateBy(getUsername());
-        hxTaste.setStatus(TatseFolder.NORMAL.getCode());
+        hxTaste.setState(TatseFolder.NORMAL.getCode());
         int rows = hxTasteMapper.insertHxTaste(hxTaste);
         //插入详情表
         insertHxTasteDetail(hxTaste);

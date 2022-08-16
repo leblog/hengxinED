@@ -1,14 +1,14 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch"  label-width="68px">
-      <el-form-item label="部门Id" prop="deptId">
+<!--      <el-form-item label="部门Id" prop="deptId">
         <el-input
           v-model="queryParams.deptId"
           placeholder="请输入部门Id"
           clearable
           @keyup.enter.native="handleQuery"
         />
-      </el-form-item>
+      </el-form-item>-->
       <el-form-item label="业务姓名" prop="businessName">
         <el-input
           v-model="queryParams.businessName"
@@ -17,14 +17,14 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="业务代码" prop="businessCode">
+<!--      <el-form-item label="业务代码" prop="businessCode">
         <el-input
           v-model="queryParams.businessCode"
           placeholder="请输入业务代码"
           clearable
           @keyup.enter.native="handleQuery"
         />
-      </el-form-item>
+      </el-form-item>-->
       <el-form-item label="客户名称" prop="customersName">
         <el-input
           v-model="queryParams.customersName"
@@ -39,7 +39,7 @@
       </el-form-item>
     </el-form>
     <el-row :gutter="10" class="mb8">
-      <el-col :span="1.5">
+<!--      <el-col :span="1.5">
         <el-button
           type="primary"
           plain
@@ -72,7 +72,7 @@
           @click="handleExport"
           v-hasPermi="['taste:export']"
         >导出</el-button>
-      </el-col>
+      </el-col>-->
 
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
@@ -81,175 +81,42 @@
         <el-table-column type="selection" width="30" align="center"/>
         <el-table-column  label="序号" type="index" align="center"/>
         <el-table-column label="单据编码" width="100" align="center" prop="tasteId"/>
-        <el-table-column label="状态" align="center" prop="state">
+        <el-table-column label="状态" width="130" align="center" prop="state">
           <template slot-scope="scope">
             <el-tag :type="stateListType">{{stateList(scope.row.state)}}</el-tag>
           </template>
         </el-table-column>
         <el-table-column label="录入人" align="center" prop="createBy"/>
-        <el-table-column label="业务姓名" align="center" prop="businessName"/>
+<!--        <el-table-column label="业务姓名" align="center" prop="businessName"/>-->
         <el-table-column label="业务部门" align="center" prop="deptId"/>
         <el-table-column label="日期" align="center" prop="createTime"/>
         <el-table-column label="客户名称" align="center" prop="customersName"/>
         <el-table-column label="客户代码" align="center" prop="customersCode"/>
         <el-table-column label="客户跟进人" align="center" prop="follower"/>
-
-
-<!--        <el-table-column label="部门Id" align="center" prop="deptId"/>
-        <el-table-column label="业务姓名" align="center" prop="businessName"/>
-        <el-table-column label="业务代码" align="center" prop="businessCode"/>
-        <el-table-column label="客户名称" align="center" prop="customersName"/>
-        <el-table-column label="客户代码" align="center" prop="customersCode"/>
-        <el-table-column label="口味数量" align="center" prop="tasteNum"/>
-&lt;!&ndash;        <el-table-column label="上次申请单号" align="center" prop="refereeNum"/>&ndash;&gt;
-        <el-table-column label="第几次送样" align="center" prop="sendNum"/>
-        <el-table-column label="口味专供" align="center" prop="isSupply">
-&lt;!&ndash;          <template slot-scope="scope">
-            <dict-tag :options="dict.type.hx_common_is" :value="scope.row.isSupply"/>
-          </template>&ndash;&gt;
-        </el-table-column>
-        <el-table-column label="现场试用" align="center" prop="isTry">
-&lt;!&ndash;          <template slot-scope="scope">
-            <dict-tag :options="dict.type.hx_common_is" :value="scope.row.isTry"/>
-          </template>&ndash;&gt;
-        </el-table-column>
-        <el-table-column label="来访日期" align="center" prop="visitTime" width="100">
-          <template slot-scope="scope">
-            <span>{{ parseTime(scope.row.visitTime, '{y}-{m}-{d}') }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="自带烟具" align="center" prop="isSmoking">
-&lt;!&ndash;          <template slot-scope="scope">
-            <dict-tag :options="dict.type.hx_common_is" :value="scope.row.isSmoking"/>
-          </template>&ndash;&gt;
-        </el-table-column>
-        <el-table-column label="烟具类型" align="center" prop="smokingType">
-&lt;!&ndash;          <template slot-scope="scope">
-            <dict-tag :options="dict.type.hx_common_type" :value="scope.row.smokingType"/>
-          </template>&ndash;&gt;
-        </el-table-column>
-        <el-table-column label="发热丝类型" align="center" prop="heatingWireType">
-&lt;!&ndash;          <template slot-scope="scope">
-            <dict-tag :options="dict.type.hx_common_type" :value="scope.row.heatingWireType"/>
-          </template>&ndash;&gt;
-        </el-table-column>
-        <el-table-column label="发热丝阻值" align="center" prop="heatingWireResistance"/>
-        <el-table-column label="烟油仓容量" align="center" prop="capacity"/>
-        <el-table-column label="导游棉类型" align="center" prop="oilGuideCottonType">
-&lt;!&ndash;          <template slot-scope="scope">
-            <dict-tag :options="dict.type.hx_common_type" :value="scope.row.oilGuideCottonType"/>
-          </template>&ndash;&gt;
-        </el-table-column>
-        <el-table-column label="是否回收烟具" align="center" prop="isRecyclingSmoking">
-&lt;!&ndash;          <template slot-scope="scope">
-            <dict-tag :options="dict.type.hx_common_is" :value="scope.row.isRecyclingSmoking"/>
-          </template>&ndash;&gt;
-        </el-table-column>
-        <el-table-column label="油环材质类型" align="center" prop="oilRingMaterial">
-&lt;!&ndash;          <template slot-scope="scope">
-            <dict-tag :options="dict.type.hx_common_type" :value="scope.row.oilRingMaterial"/>
-          </template>&ndash;&gt;
-        </el-table-column>
-        <el-table-column label="VG" align="center" prop="vg"/>
-        <el-table-column label="粘稠度" align="center" prop="viscosity"/>
-        <el-table-column label="期望完成时间" align="center" prop="expectedCompletionTime" width="100">
-          <template slot-scope="scope">
-            <span>{{ parseTime(scope.row.expectedCompletionTime, '{y}-{m}-{d}') }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="样品需求时间" align="center" prop="sampleRequestTime" width="100">
-          <template slot-scope="scope">
-            <span>{{ parseTime(scope.row.sampleRequestTime, '{y}-{m}-{d}') }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="预计完成时间" align="center" prop="estimatedFinishTime" width="100">
-          <template slot-scope="scope">
-            <span>{{ parseTime(scope.row.estimatedFinishTime, '{y}-{m}-{d}') }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="匹配市场" align="center" prop="matchMarket" :show-overflow-tooltip="true">
-          <template slot-scope="scope">
-            <el-tag>
-              {{JSON.parse(scope.row.matchMarket)}}
-            </el-tag>
-          </template>
-        </el-table-column>
-        <el-table-column label="样品数量" align="center" prop="samplesNum"/>
-        <el-table-column label="邮寄信息" align="center" prop="mailingInformation" :show-overflow-tooltip="true"/>
-        <el-table-column label="备注" align="center" prop="remark"/>
-        <el-table-column label="创建时间" align="center" prop="createTime" width="100">
-          <template slot-scope="scope">
-            <span>{{ parseTime(scope.row.createTime, '{y}-{m}-{d} {h}:{i}:{s}') }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="创建人" align="center" prop="createBy"/>-->
         <el-table-column label="操作" align="center" width="150" class-name="small-padding fixed-width" fixed="right">
           <template slot-scope="scope">
-<!--            <router-link
+            <router-link
               :to="'/system/taste-data/index/' + scope.row.tasteId"
               class="link-type"
               v-hasPermi="['taste:query']"
             >
               <i class="el-icon-edit" style="color: #1890ff;font-size: 12px;margin-right: 7px">详情</i>
-            </router-link>-->
-            <el-button
-              size="mini"
-              type="text"
-              icon="el-icon-edit"
-              @click="handleDetail(scope.row)"
-              v-hasPermi="['taste:query']"
-            >详情
-            </el-button>
+            </router-link>
             <el-button
               size="mini"
               type="text"
               icon="el-icon-delete"
               @click="handleDelete(scope.row)"
               v-hasPermi="['taste:remove']"
-            >删除
+            >退回分配
             </el-button>
-
-<!--              <el-button
-                size="mini"
-                type="text"
-                icon="el-icon-delete"
-                @click="handleWaste(scope.row)"
-                v-hasPermi="['taste:waste']"
-              >作废
-              </el-button>
-              <el-button
-                size="mini"
-                type="text"
-                icon="el-icon-folder-delete"
-                @click="handleAudit(scope.row)"
-                v-hasPermi="['taste:audit']"
-              >审核
-              </el-button>
-              <el-button
-                size="mini"
-                type="text"
-                icon="el-icon-printer"
-                @click="handlePrint(scope.row)"
-                v-hasPermi="['taste:query']"
-              >打印
-              </el-button>
-                <el-button
-                  size="mini"
-                  type="text"
-                  icon="el-icon-user"
-                  @click="
-                  handleDistribution(scope.row)"
-                  v-hasPermi="['taste:distribution']"
-                >分配跟进人
-              </el-button>-->
-
             <el-dropdown size="mini" @command="(command) => handleCommand(command, scope.row)" v-hasPermi="['monitor:job:changestate', 'monitor:job:query']">
             <span class="el-dropdown-link">
               <i class="el-icon-d-arrow-right el-icon--right"></i>更多
             </span>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item command="handleWaste" icon="el-icon-delete" v-hasPermi="['taste:waste']">作废</el-dropdown-item>
-                <el-dropdown-item command="handleAudit" icon="el-icon-folder-delete" v-hasPermi="['taste:audit']">审核</el-dropdown-item>
+                <el-dropdown-item command="handleWaste" icon="el-icon-delete" v-hasPermi="['taste:waste']">退回业务</el-dropdown-item>
+                <el-dropdown-item command="handleAudit" icon="el-icon-folder-delete" v-hasPermi="['taste:audit']">审核111</el-dropdown-item>
                 <el-dropdown-item command="handlePrint" icon="el-icon-printer" v-hasPermi="['taste:query']">打印</el-dropdown-item>
                 <el-dropdown-item command="handleDistribution" icon="el-icon-user" v-hasPermi="['taste:distribution']">分配跟进人</el-dropdown-item>
               </el-dropdown-menu>
@@ -322,15 +189,11 @@
 <script>
 import {listTaste, getTaste, delTaste, addTaste, updateTaste, getWasteTaste, getDistribution} from "@/api/system/taste";
 import cache from '@/plugins/cache'
-import atest from './index'
+
 export default {
   name: "TasteList",
-  components: {atest},
-  // dicts: ['hx_common_is', 'hx_common_type'],
   data() {
     return {
-      /*测试组件通讯*/
-      testName:'你好呀',
       /*分配跟进人集合*/
       distributionList:[],
       /*状态样式  (没有使用 )*/
@@ -350,7 +213,7 @@ export default {
       // 非多个禁用
       multiple: true,
       // 显示搜索条件
-      showSearch: false,
+      showSearch: true,
       // 总条数
       total: 0,
       // 口味申请单表格数据
@@ -392,6 +255,7 @@ export default {
         matchMarket: null,
         samplesNum: null,
         mailingInformation: null,
+        state: '7',
         deleted: '0'
       },
       // 表单参数
@@ -492,10 +356,6 @@ export default {
 
   },
   methods: {
-    /*详情*/
-    handleDetail(row){
-      this.$router.push({ path: '/system/taste-data/index/'+row.tasteId, query: {id: "1", name: "你好呀"} });
-    },
     // 更多操作触发
     handleCommand(command, row) {
       switch (command) {
@@ -572,14 +432,14 @@ export default {
         this.reset();
         getTaste(row.tasteId).then((resp)=>{
           this.form = resp.data
-          // 变更为分配跟进人状态
-          this.form.state = '7'
         })
-        getDistribution().then((res)=>{
+      console.log("1123"+ JSON.stringify(this.form ))
+      getDistribution().then((res)=>{
           this.distributionList = res.data;
         })
         this.open = true;
         this.title = "分配跟进人";
+
     },
     // 作废  waste
     handleWaste(row){

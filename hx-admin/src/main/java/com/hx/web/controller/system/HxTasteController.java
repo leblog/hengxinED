@@ -1,12 +1,17 @@
 package com.hx.web.controller.system;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletResponse;
 
+import cn.hutool.core.util.IdUtil;
+import com.hx.common.core.domain.entity.SysUser;
 import com.hx.system.domain.HxTaste;
 import com.hx.system.domain.enums.TatseFolder;
+import com.hx.system.domain.vo.OwnerVO;
 import com.hx.system.mapper.HxTasteMapper;
 import com.hx.system.service.IHxTasteService;
+import com.hx.system.service.ISysUserService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,13 +43,15 @@ public class HxTasteController extends BaseController
     private IHxTasteService hxTasteService;
     @Autowired
     private HxTasteMapper hxTasteMapper;
+    @Autowired
+    private ISysUserService userService;
 
 
 
     /**
      * 查询口味申请单列表
      */
-    @PreAuthorize("@ss.hasPermi('system:taste:list')")
+    @PreAuthorize("@ss.hasPermi('taste:list')")
     @GetMapping("/list")
     public TableDataInfo list(HxTaste hxTaste)
     {
@@ -56,8 +63,8 @@ public class HxTasteController extends BaseController
     /**
      * 导出口味申请单列表
      */
-    @PreAuthorize("@ss.hasPermi('system:taste:export')")
-    @Log(title = "口味申请单", businessType = BusinessType.EXPORT)
+    @PreAuthorize("@ss.hasPermi('taste:export')")
+    @Log(title = "口味申请单",businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, HxTaste hxTaste)
     {
@@ -69,7 +76,7 @@ public class HxTasteController extends BaseController
     /**
      * 获取口味申请单详细信息
      */
-    @PreAuthorize("@ss.hasPermi('system:taste:query')")
+    @PreAuthorize("@ss.hasPermi('taste:query')")
     @GetMapping(value = "/{tasteId}")
     public AjaxResult getInfo(@PathVariable("tasteId") String tasteId)
     {
@@ -79,8 +86,8 @@ public class HxTasteController extends BaseController
     /**
      * 新增口味申请单
      */
-    @PreAuthorize("@ss.hasPermi('system:taste:add')")
-    @Log(title = "口味申请单", businessType = BusinessType.INSERT)
+    @PreAuthorize("@ss.hasPermi('taste:add')")
+    @Log(title = "口味申请单",businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody HxTaste hxTaste)
     {
@@ -90,7 +97,7 @@ public class HxTasteController extends BaseController
     /**
      * 修改口味申请单
      */
-    @PreAuthorize("@ss.hasPermi('system:taste:edit')")
+    @PreAuthorize("@ss.hasPermi('taste:edit')")
     @Log(title = "口味申请单", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody HxTaste hxTaste)
@@ -101,7 +108,7 @@ public class HxTasteController extends BaseController
     /**
      * 删除口味申请单
      */
-    @PreAuthorize("@ss.hasPermi('system:taste:remove')")
+    @PreAuthorize("@ss.hasPermi('taste:remove')")
     @Log(title = "口味申请单", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{tasteIds}")
     public AjaxResult remove(@PathVariable String[] tasteIds)
@@ -112,15 +119,33 @@ public class HxTasteController extends BaseController
     /**
      * 作废口味申请单
      */
-    @PreAuthorize("@ss.hasPermi('system:taste:waste')")
+    @PreAuthorize("@ss.hasPermi('taste:waste')")
     @Log(title = "口味申请单作废", businessType = BusinessType.UPDATE)
     @GetMapping(value = "/waste/{tasteId}")
     public AjaxResult waste(@PathVariable("tasteId") String tasteId)
     {
         AjaxResult ajax = new AjaxResult();
         HxTaste hxTaste = hxTasteMapper.selectHxTasteByTasteId(tasteId);
-        hxTaste.setStatus(TatseFolder.WASTE.getCode());
+        hxTaste.setState(TatseFolder.WASTE.getCode());
         return toAjax(hxTasteService.updateHxTaste(hxTaste));
+    }
+
+    /**
+     * TODO
+     *  口味申请单审核  taste:audit
+     */
+
+
+    /**
+     * 查询负责人列表
+     */
+    @GetMapping("/getDistribution")
+    public AjaxResult getDistribution(){
+        List<SysUser> listUser = userService.selectUserList(new SysUser());
+        List<OwnerVO> map = listUser.stream()
+                .map(owner->new OwnerVO(owner.getUserName(), owner.getNickName(),owner.getUserId()))
+                .collect(Collectors.toList());
+        return AjaxResult.success(map);
     }
 
 

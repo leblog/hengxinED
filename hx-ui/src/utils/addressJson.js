@@ -483,8 +483,8 @@ const options = [{
     'value': '中非共和国'
   }]
 }, {
-  'label': '北美',
-  'value': '北美',
+  'label': '北美洲',
+  'value': '北美洲',
   'children': [{
     'label': '安提瓜岛和巴布达',
     'value': '安提瓜岛和巴布达'
@@ -595,8 +595,8 @@ const options = [{
     'value': '牙买加'
   }]
 }, {
-  'label': '南美',
-  'value': '南美',
+  'label': '南美洲',
+  'value': '南美洲',
   'children': [{
     'label': '阿根廷',
     'value': '阿根廷'

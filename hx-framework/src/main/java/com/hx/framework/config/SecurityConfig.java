@@ -112,8 +112,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
                 .antMatchers("/webjars/**").anonymous()
                 .antMatchers("/*/api-docs").anonymous()
                 .antMatchers("/druid/**").anonymous()
-                .antMatchers("/open/**").anonymous() //放行對外開放端口
-                .antMatchers("/jmreport/**").anonymous() //积木报表
+                //放行對外開放端口
+                .antMatchers("/open/**").anonymous()
+                //积木报表
+                .antMatchers("/jmreport/**").anonymous()
 
 
                 // 除上面外的所有请求全部需要鉴权认证
