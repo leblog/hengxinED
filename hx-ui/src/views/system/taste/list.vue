@@ -77,19 +77,21 @@
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
     <div>
-      <el-table v-loading="loading" :data="tasteList" @selection-change="handleSelectionChange">
+      <el-table v-loading="loading" :data="tasteList" @selection-change="handleSelectionChange" show-overflow-tooltip>
         <el-table-column type="selection" width="30" align="center"/>
         <el-table-column  label="序号" type="index" align="center"/>
-        <el-table-column label="单据编码" width="100" align="center" prop="tasteId"/>
-        <el-table-column label="状态" align="center" prop="state">
+        <el-table-column label="单据编码" width="180" align="center" prop="tasteId" show-overflow-tooltip/>
+        <el-table-column label="状态"  width="150" align="center" prop="state" show-overflow-tooltip>
           <template slot-scope="scope">
             <el-tag :type="stateListType">{{stateList(scope.row.state)}}</el-tag>
           </template>
         </el-table-column>
         <el-table-column label="录入人" align="center" prop="createBy"/>
-        <el-table-column label="业务姓名" align="center" prop="businessName"/>
-        <el-table-column label="业务部门" align="center" prop="deptId"/>
-        <el-table-column label="日期" align="center" prop="createTime"/>
+        <el-table-column label="业务姓名" align="center" prop="businessName" show-overflow-tooltip/>
+        <el-table-column label="业务部门" align="center" width="150" prop="deptId" show-overflow-tooltip/>
+        <el-table-column label="日期" width="150" align="center" prop="createTime" sortable show-overflow-tooltip>
+          <template slot-scope="scope">{{ parseTime(scope.row.createTime, '{y}-{m}-{d} {h}:{i}') }}</template>
+        </el-table-column>
         <el-table-column label="客户名称" align="center" prop="customersName"/>
         <el-table-column label="客户代码" align="center" prop="customersCode"/>
         <el-table-column label="客户跟进人" align="center" prop="follower"/>
@@ -183,7 +185,7 @@
           </template>
         </el-table-column>
         <el-table-column label="创建人" align="center" prop="createBy"/>-->
-        <el-table-column label="操作" align="center" width="150" class-name="small-padding fixed-width" fixed="right">
+        <el-table-column label="操作" align="center" width="200" class-name="small-padding fixed-width" fixed="right">
           <template slot-scope="scope">
 <!--            <router-link
               :to="'/system/taste-data/index/' + scope.row.tasteId"
@@ -283,7 +285,7 @@
         <vxe-column field="nicType" title="NIC类别"></vxe-column>
         <vxe-column field="nicConcentration" title="NIC浓度"></vxe-column>
         <vxe-column field="nicUnit" title="NIC单位"></vxe-column>
-        <vxe-column field="perfumer" title="指定调香师"></vxe-column>
+<!--        <vxe-column field="perfumer" title="指定调香师"></vxe-column>-->
         <vxe-column field="perfumer" title="分配调香师"></vxe-column>
         <template #empty>
               <span style="color: red;">
@@ -322,13 +324,15 @@
 <script>
 import {listTaste, getTaste, delTaste, addTaste, updateTaste, getWasteTaste, getDistribution} from "@/api/system/taste";
 import cache from '@/plugins/cache'
-import atest from './index'
+import stateList from '@/utils/stateList'
 export default {
   name: "TasteList",
-  components: {atest},
+  components: {},
   // dicts: ['hx_common_is', 'hx_common_type'],
   data() {
     return {
+      /*引入状态字典*/
+      stateList,
       /*测试组件通讯*/
       testName:'你好呀',
       /*分配跟进人集合*/
@@ -392,7 +396,10 @@ export default {
         matchMarket: null,
         samplesNum: null,
         mailingInformation: null,
-        deleted: '0'
+        deleted: '0',
+        isAsc:'desc',
+        orderByColumn:'createTime'
+
       },
       // 表单参数
       form: {},
@@ -494,7 +501,7 @@ export default {
   methods: {
     /*详情*/
     handleDetail(row){
-      this.$router.push({ path: '/system/taste-data/index/'+row.tasteId, query: {id: "1", name: "你好呀"} });
+      this.$router.push({ path: '/system/taste-data/index/'+row.tasteId });
     },
     // 更多操作触发
     handleCommand(command, row) {
@@ -515,53 +522,7 @@ export default {
           break;
       }
     },
-    /*字典 type = {success,info,warning,danger}*/
-    stateList(e){
-        switch (e) {
-          case '-1':
-            return '已作废'
-          case '0':
-            return '保存'
-          case '1':
-            return '已保存'
-          case '2':
-            return '已撤回'
-          case '3':
-            return '产品退回'
-          case '4':
-            return '已驳回'
-          case '5':
-            return '已提交'
-          case '6':
-            return '已审核'
-          case '7':
-            return '分配产品跟进人'
-          case '8':
-            return '跟进中'
-          case '9':
-            return '分配调香师'
-          case '10':
-            return '任务退回'
-          case '11':
-            return '分配调香师完毕'
-          case '12':
-            return '已推送研发'
-          case '13':
-            return '配方开发中'
-          case '14':
-            return '配方完成'
-          case '15':
-            return '口味确认中'
-          case '16':
-            return '打印口味确认书'
-          case '17':
-            return '口味确认完毕'
-          case '18':
-            return '结案'
-          default:
-            return '未知'
-        }
-    },
+
     // 审核
     handleAudit(row){
       this.$message.info("TODO");
@@ -592,6 +553,9 @@ export default {
       }).catch(() => {
         this.$modal.msgSuccess('已取消');
       });
+    },
+    fatherMethod() {
+      console.log('测试');
     },
     // 打印需要的数据处理
     handlePrint(row){
@@ -740,7 +704,7 @@ export default {
           {field: 'nicConcentration'},
           {field: 'nicUnit'},
           {field: 'perfumer'},
-          {field: 'perfumer'},
+          /*{field: 'perfumer'},*/
         ],
         beforePrintMethod: ({content}) => {
           // 拦截打印之前，返回自定义的 html 内容
@@ -769,6 +733,7 @@ export default {
       this.form = {
         tasteId: null,
         deptId: null,
+        tasteCopyId: null,
         businessName: null,
         businessCode: null,
         customersName: null,

@@ -7,6 +7,7 @@
 
     <div class="right-menu">
       <template v-if="device!=='mobile'">
+        <ChangeLang class="set-language" />
 <!--        <search id="header-search" class="right-menu-item" />
 
         <el-tooltip content="源码地址" effect="dark" placement="bottom">
@@ -56,6 +57,7 @@ import SizeSelect from '@/components/SizeSelect'
 import Search from '@/components/HeaderSearch'
 import RuoYiGit from '@/components/RuoYi/Git'
 import RuoYiDoc from '@/components/RuoYi/Doc'
+import ChangeLang from '@/components/LangSelect'
 
 export default {
   components: {
@@ -66,7 +68,9 @@ export default {
     SizeSelect,
     Search,
     RuoYiGit,
-    RuoYiDoc
+    RuoYiDoc,
+    ChangeLang
+
   },
   computed: {
     ...mapGetters([

@@ -138,10 +138,10 @@ export const dynamicRoutes = [
     path: '/system/taste-data',
     component: Layout,
     hidden: true,
-    permissions: ['system:taste:list'],
+    permissions: ['taste:query'],
     children: [
       {
-        path: 'index/:tasteId(\\d+)',
+        path: 'index/:tasteId(\\d+)',  //'index/:tasteId(\\d+)',
         component: () => import('@/views/system/taste/index'),
         name: 'Detail',
         meta: { title: '口味数据', activeMenu: '/system/taste' }

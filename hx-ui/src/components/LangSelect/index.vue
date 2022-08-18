@@ -1,7 +1,8 @@
 <template>
   <el-dropdown trigger="click" class="international" @command="handleSetLanguage">
     <div>
-      <svg-icon class-name="international-icon" icon-class="language" />
+      <svg-icon  class-name="international-icon" icon-class="language" />
+      <i>{{ $t('login.changeLang') }}</i>
     </div>
     <el-dropdown-menu slot="dropdown">
       <el-dropdown-item :disabled="language==='zh'" command="zh">
@@ -16,6 +17,7 @@
 
 <script>
 export default {
+  name: 'ChangeLang',
   computed: {
     language() {
       return this.$store.getters.language

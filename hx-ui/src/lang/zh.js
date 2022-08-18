@@ -5,7 +5,8 @@ export default {
     username: '账号',
     password: '密码',
     verificationCode: '验证码',
-    rememberMe: '记住密码'
+    rememberMe: '记住密码',
+    changeLang: '切换语言'
   },
   tagsView: {
     refresh: '刷新',

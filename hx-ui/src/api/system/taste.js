@@ -60,3 +60,11 @@ export function getDistribution() {
   })
 }
 
+// 查询口味申请单日志
+export function getLog(tasteId) {
+  return request({
+    url: '/system/taste/log/' + tasteId,
+    method: 'get'
+  })
+}
+

@@ -7,10 +7,13 @@ import javax.servlet.http.HttpServletResponse;
 import cn.hutool.core.util.IdUtil;
 import com.hx.common.core.domain.entity.SysUser;
 import com.hx.system.domain.HxTaste;
+import com.hx.system.domain.SysOperLog;
 import com.hx.system.domain.enums.TatseFolder;
+import com.hx.system.domain.vo.LogVO;
 import com.hx.system.domain.vo.OwnerVO;
 import com.hx.system.mapper.HxTasteMapper;
 import com.hx.system.service.IHxTasteService;
+import com.hx.system.service.ISysOperLogService;
 import com.hx.system.service.ISysUserService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +48,8 @@ public class HxTasteController extends BaseController
     private HxTasteMapper hxTasteMapper;
     @Autowired
     private ISysUserService userService;
+    @Autowired
+    private ISysOperLogService operLogService;
 
 
 
@@ -135,6 +140,11 @@ public class HxTasteController extends BaseController
      *  口味申请单审核  taste:audit
      */
 
+    /**
+     * TODO
+     *  口味申请单溯源 taste:audit  tasteCopyId
+     */
+
 
     /**
      * 查询负责人列表
@@ -144,6 +154,29 @@ public class HxTasteController extends BaseController
         List<SysUser> listUser = userService.selectUserList(new SysUser());
         List<OwnerVO> map = listUser.stream()
                 .map(owner->new OwnerVO(owner.getUserName(), owner.getNickName(),owner.getUserId()))
+                .collect(Collectors.toList());
+        return AjaxResult.success(map);
+    }
+
+    /**
+     *  单子的操作日志 taste:log  查询表
+     */
+    @GetMapping("value = /log/{tasteId}")
+    //@Log(title = "口味申请单日志", businessType = BusinessType.UPDATE)
+    public AjaxResult log(@PathVariable("tasteId") String tasteId){
+        SysOperLog log = new SysOperLog();
+        log.setOperUrl(tasteId);
+        List<SysOperLog> logList = operLogService.selectOperLogList(log);
+        List<LogVO> map  = logList.stream()
+                .map(i->new LogVO(
+                        i.getTitle(),
+                        i.getMethod(),
+                        i.getRequestMethod(),
+                        i.getOperUrl(),
+                        i.getOperIp(),
+                        i.getOperParam(),
+                        i.getJsonResult()
+                ))
                 .collect(Collectors.toList());
         return AjaxResult.success(map);
     }

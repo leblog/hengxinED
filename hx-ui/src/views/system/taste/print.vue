@@ -1,0 +1,70 @@
+<template>
+  <div class="tableDiv"  v-show="false">
+    <vxe-table
+      border
+      ref="xTable"
+      height="300"
+      :print-config="{}"
+      :data="printListDetail">
+      <vxe-column type="seq" width="10"></vxe-column>
+      <vxe-column field="tasteName" width="100" title="口味名称"></vxe-column>
+      <vxe-column field="tasteDetail" title="口味描述"></vxe-column>
+      <vxe-column field="isBasicTaste" title="有基础口味"></vxe-column>
+      <vxe-column field="basicTasteImprovementIdeas" title="基础口味改善建议"></vxe-column>
+      <vxe-column field="capacity" title="容量"></vxe-column>
+      <vxe-column field="vg" title="VG"></vxe-column>
+      <vxe-column field="nicType" title="NIC类别"></vxe-column>
+      <vxe-column field="nicConcentration" title="NIC浓度"></vxe-column>
+      <vxe-column field="nicUnit" title="NIC单位"></vxe-column>
+      <!--        <vxe-column field="perfumer" title="指定调香师"></vxe-column>-->
+      <vxe-column field="perfumer" title="分配调香师"></vxe-column>
+      <template #empty>
+              <span style="color: red;">
+                <!-- <img src="https://pic2.zhimg.com/50/v2-f7031359103859e1ed38559715ef5f3f_hd.gif">-->
+                <p>没有更多数据了,请添加数据！</p>
+              </span>
+      </template>
+    </vxe-table>
+
+  </div>
+</template>
+
+<script>
+import {getTaste} from "@/api/system/taste";
+
+export default {
+  name: "print",
+  data(){
+    return{
+      //打印列表
+      printList:[],
+      //打印列表明细
+      printListDetail:[],
+    }
+  },
+  created() {
+    // 打印需要的数据处理
+    // 获取分组好的数据
+    getTaste(this.$router.params.tasteId).then(res =>{
+      this.printList = res.data
+      this.printListDetail = res.data.hxTasteDetailList
+      console.log("数据来了:{}"+ JSON.stringify(this.printListDetail))
+    });
+    setTimeout(()=>{
+      this.printEvent()
+    },800)
+  },
+  methods:{
+    /*打印*/
+    printEvent() {
+      console.log("我是打印明细",JSON.stringify(this.printList))
+      const username = this.$store.state.user.name;
+
+    }
+  }
+}
+</script>
+
+<style scoped>
+
+</style>

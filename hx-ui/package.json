@@ -3,7 +3,7 @@
   "version": "3.8.2",
   "description": "天眼管理系统",
   "author": "天眼",
-  "license": "MIT",
+  "license": "",
   "scripts": {
     "dev": "vue-cli-service serve",
     "build:prod": "vue-cli-service build",

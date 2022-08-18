@@ -95,30 +95,29 @@
         <el-table-column label="客户跟进人" align="center" prop="follower"/>
         <el-table-column label="操作" align="center" width="150" class-name="small-padding fixed-width" fixed="right">
           <template slot-scope="scope">
-            <router-link
-              :to="'/system/taste-data/index/' + scope.row.tasteId"
-              class="link-type"
-              v-hasPermi="['taste:query']"
-            >
-              <i class="el-icon-edit" style="color: #1890ff;font-size: 12px;margin-right: 7px">详情</i>
-            </router-link>
             <el-button
               size="mini"
               type="text"
-              icon="el-icon-delete"
-              @click="handleDelete(scope.row)"
-              v-hasPermi="['taste:remove']"
-            >退回分配
+              icon="el-icon-edit"
+              @click="handleDetail(scope.row)"
+              v-hasPermi="['taste:query']"
+            >详情
             </el-button>
             <el-dropdown size="mini" @command="(command) => handleCommand(command, scope.row)" v-hasPermi="['monitor:job:changestate', 'monitor:job:query']">
             <span class="el-dropdown-link">
               <i class="el-icon-d-arrow-right el-icon--right"></i>更多
             </span>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item command="handleWaste" icon="el-icon-delete" v-hasPermi="['taste:waste']">退回业务</el-dropdown-item>
-                <el-dropdown-item command="handleAudit" icon="el-icon-folder-delete" v-hasPermi="['taste:audit']">审核111</el-dropdown-item>
+                <el-dropdown-item command="handle1" icon="el-icon-coordinate" v-hasPermi="['taste:handle1']">退回分配</el-dropdown-item>
+                <el-dropdown-item command="handle2" icon="el-icon-delete" v-hasPermi="['taste:handle2']">退回业务</el-dropdown-item>
+                <el-dropdown-item command="handle3" icon="el-icon-folder-delete" v-hasPermi="['taste:handle3']">调整</el-dropdown-item>
                 <el-dropdown-item command="handlePrint" icon="el-icon-printer" v-hasPermi="['taste:query']">打印</el-dropdown-item>
-                <el-dropdown-item command="handleDistribution" icon="el-icon-user" v-hasPermi="['taste:distribution']">分配跟进人</el-dropdown-item>
+                <el-dropdown-item command="handle4" icon="el-icon-video-play" v-hasPermi="['taste:handle4']">开始</el-dropdown-item>
+                <el-dropdown-item command="handle5" icon="el-icon-s-promotion" v-hasPermi="['taste:handle5']">提交研发</el-dropdown-item>
+                <el-dropdown-item command="handle6" icon="el-icon-d-arrow-left" v-hasPermi="['taste:handle6']">确认配方</el-dropdown-item>
+                <el-dropdown-item command="handle7" icon="el-icon-d-arrow-right" v-hasPermi="['taste:handle7']">反确认配方</el-dropdown-item>
+                <el-dropdown-item command="handle8" icon="el-icon-finished" v-hasPermi="['taste:handle8']">打印配方确认单</el-dropdown-item>
+                <el-dropdown-item command="handle9" icon="el-icon-check" v-hasPermi="['taste:handle9']">完成跟进</el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
           </template>
@@ -150,7 +149,7 @@
         <vxe-column field="nicType" title="NIC类别"></vxe-column>
         <vxe-column field="nicConcentration" title="NIC浓度"></vxe-column>
         <vxe-column field="nicUnit" title="NIC单位"></vxe-column>
-        <vxe-column field="perfumer" title="指定调香师"></vxe-column>
+        <!--<vxe-column field="perfumer" title="指定调香师"></vxe-column>-->
         <vxe-column field="perfumer" title="分配调香师"></vxe-column>
         <template #empty>
               <span style="color: red;">
@@ -187,13 +186,14 @@
   </div>
 </template>
 <script>
-import {listTaste, getTaste, delTaste, addTaste, updateTaste, getWasteTaste, getDistribution} from "@/api/system/taste";
+import {listTaste, getTaste, delTaste, addTaste, updateTaste, getWasteTaste, getDistribution, getLog} from "@/api/system/taste";
 import cache from '@/plugins/cache'
-
+import stateList from '@/utils/stateList'
 export default {
   name: "TasteList",
   data() {
     return {
+      stateList,
       /*分配跟进人集合*/
       distributionList:[],
       /*状态样式  (没有使用 )*/
@@ -260,87 +260,6 @@ export default {
       },
       // 表单参数
       form: {},
-      // 表单校验
-      rules: {
-        follower: [
-          {required: true, message: "分配跟进人不能为空", trigger: "change"}
-        ],
-        // deptId: [
-        //   {required: true, message: "部门Id不能为空", trigger: "blur"}
-        // ],
-        businessName: [
-          {required: true, message: "业务姓名不能为空", trigger: "blur"}
-        ],
-        businessCode: [
-          {required: true, message: "业务代码不能为空", trigger: "blur"}
-        ],
-        customersName: [
-          {required: true, message: "客户名称不能为空", trigger: "blur"}
-        ],
-        customersCode: [
-          {required: true, message: "客户代码不能为空", trigger: "blur"}
-        ],
-        tasteNum: [
-          {required: true, message: "口味数量不能为空", trigger: "blur"}
-        ],
-        refereeNum: [
-          {required: true, message: "上次申请单号不能为空", trigger: "blur"}
-        ],
-        sendNum: [
-          {required: true, message: "第几次送样不能为空", trigger: "blur"}
-        ],
-        isSupply: [
-          {required: true, message: "口味专供不能为空", trigger: "blur"}
-        ],
-        isTry: [
-          {required: true, message: "现场试用不能为空", trigger: "blur"}
-        ],
-        visitTime: [
-          {required: true, message: "来访日期不能为空", trigger: "blur"}
-        ],
-        isSmoking: [
-          {required: true, message: "自带烟具不能为空", trigger: "blur"}
-        ],
-        smokingType: [
-          {required: true, message: "烟具类型不能为空", trigger: "change"}
-        ],
-        heatingWireType: [
-          {required: true, message: "发热丝类型不能为空", trigger: "change"}
-        ],
-        heatingWireResistance: [
-          {required: true, message: "发热丝阻值不能为空", trigger: "blur"}
-        ],
-        capacity: [
-          {required: true, message: "烟油仓容量不能为空", trigger: "blur"}
-        ],
-        oilGuideCottonType: [
-          {required: true, message: "导游棉类型不能为空", trigger: "change"}
-        ],
-        isRecyclingSmoking: [
-          {required: true, message: "是否回收烟具不能为空", trigger: "blur"}
-        ],
-        oilRingMaterial: [
-          {required: true, message: "油环材质类型不能为空", trigger: "change"}
-        ],
-        viscosity: [
-          {required: true, message: "粘稠度不能为空", trigger: "blur"}
-        ],
-        expectedCompletionTime: [
-          {required: true, message: "期望完成时间不能为空", trigger: "blur"}
-        ],
-        estimatedFinishTime: [
-          {required: true, message: "预计完成时间不能为空", trigger: "blur"}
-        ],
-        matchMarket: [
-          {required: true, message: "匹配市场不能为空", trigger: "blur"}
-        ],
-        mailingInformation: [
-          {required: true, message: "邮寄信息不能为空", trigger: "blur"}
-        ],
-        remark: [
-          {required: true, message: "备注不能为空", trigger: "blur"}
-        ]
-      }
     };
   },
   created() {
@@ -356,6 +275,10 @@ export default {
 
   },
   methods: {
+    /*详情*/
+    handleDetail(row){
+      this.$router.push({ path: '/system/taste-data/index/'+row.tasteId });
+    },
     // 更多操作触发
     handleCommand(command, row) {
       switch (command) {
@@ -371,61 +294,77 @@ export default {
         case "handleDistribution":
           this.handleDistribution(row);
           break;
+        case "handle1":
+          this.handle1(row);
+          break;
+        case "handle2":
+          this.handle2(row);
+          break;
+        case "handle3":
+          this.handle3(row);
+          break;
+        case "handle4":
+          this.handle4(row);
+          break;
+        case "handle5":
+          this.handle5(row);
+          break;
+        case "handle6":
+          this.handle6(row);
+          break;
+        case "handle7":
+          this.handle7(row);
+          break;
+        case "handle8":
+          this.handle8(row);
+          break;
+        case "handle9":
+          this.handle9(row);
+          break;
         default:
           break;
       }
     },
-    /*字典 type = {success,info,warning,danger}*/
-    stateList(e){
-        switch (e) {
-          case '-1':
-            return '已作废'
-          case '0':
-            return '保存'
-          case '1':
-            return '已保存'
-          case '2':
-            return '已撤回'
-          case '3':
-            return '产品退回'
-          case '4':
-            return '已驳回'
-          case '5':
-            return '已提交'
-          case '6':
-            return '已审核'
-          case '7':
-            return '分配产品跟进人'
-          case '8':
-            return '跟进中'
-          case '9':
-            return '分配调香师'
-          case '10':
-            return '任务退回'
-          case '11':
-            return '分配调香师完毕'
-          case '12':
-            return '已推送研发'
-          case '13':
-            return '配方开发中'
-          case '14':
-            return '配方完成'
-          case '15':
-            return '口味确认中'
-          case '16':
-            return '打印口味确认书'
-          case '17':
-            return '口味确认完毕'
-          case '18':
-            return '结案'
-          default:
-            return '未知'
-        }
+    /*退回分配*/
+    handle1(row){
+      this.$message.info("退回分配TODO");
+    },
+    /*退回业务*/
+    handle2(row){
+      this.$message.info("退回业务TODO");
+    },
+    /*调整*/
+    handle3(row){
+      this.$message.info("调整TODO");
+    },
+    /*开始  关联研发表*/
+    handle4(row){
+      this.$message.info("开始TODO");
+    },
+    /*提交研发*/
+    handle5(row){
+      this.$message.info("提交研发TODO");
+    },
+    /*确认配方*/
+    handle6(row){
+      this.$message.info("确认配方TODO");
+    },
+    /*反确认配方*/
+    handle7(row){
+      this.$message.info("反确认配方TODO");
+    },
+    /*打印配方确认单*/
+    handle8(row){
+      this.$message.info("打印配方确认单TODO");
+    },
+    /*完成跟进*/
+    handle9(row){
+      this.$message.info("完成跟进TODO");
+      getLog(row.tasteId)
     },
     // 审核
     handleAudit(row){
       this.$message.info("TODO");
-
     },
     /*分配跟进人*/
     handleDistribution(row){
@@ -599,7 +538,6 @@ export default {
           {field: 'nicType'},
           {field: 'nicConcentration'},
           {field: 'nicUnit'},
-          {field: 'perfumer'},
           {field: 'perfumer'},
         ],
         beforePrintMethod: ({content}) => {

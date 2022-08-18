@@ -54,6 +54,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="operName != null and operName != ''">
 				AND oper_name like concat('%', #{operName}, '%')
 			</if>
+			<if test="operUrl != null and operUrl != ''">
+				AND oper_url like concat('%', #{operUrl}, '%')
+			</if>
+
 			<if test="params.beginTime != null and params.beginTime != ''"><!-- 开始时间检索 -->
 				and date_format(oper_time,'%y%m%d') &gt;= date_format(#{params.beginTime},'%y%m%d')
 			</if>
