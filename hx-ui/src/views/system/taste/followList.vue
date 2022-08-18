@@ -118,11 +118,6 @@
         <vxe-column field="nicConcentration" title="NIC浓度"></vxe-column>
         <vxe-column field="nicUnit" title="NIC单位"></vxe-column>
         <vxe-column field="perfumer" title="分配调香师"></vxe-column>
-        <template #empty>
-              <span style="color: red;">
-                <p>没有更多数据了,请添加数据！</p>
-              </span>
-        </template>
       </vxe-table>
     </div>
 
@@ -143,17 +138,25 @@
             :key="index"
             :timestamp="parseTime(item.operTime, '{y}-{m}-{d} {h}:{i}:{s}')"
             placement="top">
-            <el-card>
-              <b>{{item.title}}</b>
-              <p>请求方式:
-                <el-tag v-if="item.requestMethod = 'GET'" type="success">{{item.requestMethod}}</el-tag>
-                <el-tag v-else-if="item.requestMethod  = 'DELETE'" type="danger">{{item.requestMethod}}</el-tag>
-              </p>
-              <p>请求参数: {{item.operParam}}</p>
-              <p>api: {{item.operUrl}}</p>
-              <p>响应结果: {{item.jsonResult}}</p>
-              <p>IP: {{item.operIp}}</p>
-            </el-card>
+<!--            <el-card></el-card>-->
+              <el-tabs type="border-card">
+                <el-tab-pane label="操作日志">
+                  <b>{{item.title}}</b>
+                  <p>操作人:{{item.operName}}</p>
+                  <p>操作人部门:{{item.deptName}}</p>
+                  <p>IP: {{item.operIp}}</p>
+                </el-tab-pane>
+                <el-tab-pane label="参数日志">
+                  <p>请求方式:
+                    <el-tag v-if="item.requestMethod = 'GET'" type="success">{{item.requestMethod}}</el-tag>
+                    <el-tag v-else-if="item.requestMethod  = 'DELETE'" type="danger">{{item.requestMethod}}</el-tag>
+                  </p>
+                  <p>请求参数: {{item.operParam}}</p>
+                  <p>api: {{item.operUrl}}</p>
+                  <p>响应结果: {{item.jsonResult}}</p>
+                </el-tab-pane>
+              </el-tabs>
+
           </el-timeline-item>
         </el-timeline>
 

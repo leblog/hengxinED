@@ -91,7 +91,8 @@
         <el-table-column label="单据编码" width="180" align="center" prop="tasteId" show-overflow-tooltip/>
         <el-table-column label="状态"  width="150" align="center" prop="state" show-overflow-tooltip>
           <template slot-scope="scope">
-            <el-tag :type="stateListType">{{stateList(scope.row.state)}}</el-tag>
+            <el-tag v-show="scope.row.state === '-1'" type="danger">{{stateList(scope.row.state)}}</el-tag>
+            <el-tag v-show="scope.row.state !== '-1'" >{{stateList(scope.row.state)}}</el-tag>
           </template>
         </el-table-column>
         <el-table-column label="录入人" align="center" prop="createBy"/>
@@ -103,105 +104,8 @@
         <el-table-column label="客户名称" align="center" prop="customersName"/>
         <el-table-column label="客户代码" align="center" prop="customersCode"/>
         <el-table-column label="客户跟进人" align="center" prop="follower"/>
-
-
-<!--        <el-table-column label="部门Id" align="center" prop="deptId"/>
-        <el-table-column label="业务姓名" align="center" prop="businessName"/>
-        <el-table-column label="业务代码" align="center" prop="businessCode"/>
-        <el-table-column label="客户名称" align="center" prop="customersName"/>
-        <el-table-column label="客户代码" align="center" prop="customersCode"/>
-        <el-table-column label="口味数量" align="center" prop="tasteNum"/>
-&lt;!&ndash;        <el-table-column label="上次申请单号" align="center" prop="refereeNum"/>&ndash;&gt;
-        <el-table-column label="第几次送样" align="center" prop="sendNum"/>
-        <el-table-column label="口味专供" align="center" prop="isSupply">
-&lt;!&ndash;          <template slot-scope="scope">
-            <dict-tag :options="dict.type.hx_common_is" :value="scope.row.isSupply"/>
-          </template>&ndash;&gt;
-        </el-table-column>
-        <el-table-column label="现场试用" align="center" prop="isTry">
-&lt;!&ndash;          <template slot-scope="scope">
-            <dict-tag :options="dict.type.hx_common_is" :value="scope.row.isTry"/>
-          </template>&ndash;&gt;
-        </el-table-column>
-        <el-table-column label="来访日期" align="center" prop="visitTime" width="100">
-          <template slot-scope="scope">
-            <span>{{ parseTime(scope.row.visitTime, '{y}-{m}-{d}') }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="自带烟具" align="center" prop="isSmoking">
-&lt;!&ndash;          <template slot-scope="scope">
-            <dict-tag :options="dict.type.hx_common_is" :value="scope.row.isSmoking"/>
-          </template>&ndash;&gt;
-        </el-table-column>
-        <el-table-column label="烟具类型" align="center" prop="smokingType">
-&lt;!&ndash;          <template slot-scope="scope">
-            <dict-tag :options="dict.type.hx_common_type" :value="scope.row.smokingType"/>
-          </template>&ndash;&gt;
-        </el-table-column>
-        <el-table-column label="发热丝类型" align="center" prop="heatingWireType">
-&lt;!&ndash;          <template slot-scope="scope">
-            <dict-tag :options="dict.type.hx_common_type" :value="scope.row.heatingWireType"/>
-          </template>&ndash;&gt;
-        </el-table-column>
-        <el-table-column label="发热丝阻值" align="center" prop="heatingWireResistance"/>
-        <el-table-column label="烟油仓容量" align="center" prop="capacity"/>
-        <el-table-column label="导游棉类型" align="center" prop="oilGuideCottonType">
-&lt;!&ndash;          <template slot-scope="scope">
-            <dict-tag :options="dict.type.hx_common_type" :value="scope.row.oilGuideCottonType"/>
-          </template>&ndash;&gt;
-        </el-table-column>
-        <el-table-column label="是否回收烟具" align="center" prop="isRecyclingSmoking">
-&lt;!&ndash;          <template slot-scope="scope">
-            <dict-tag :options="dict.type.hx_common_is" :value="scope.row.isRecyclingSmoking"/>
-          </template>&ndash;&gt;
-        </el-table-column>
-        <el-table-column label="油环材质类型" align="center" prop="oilRingMaterial">
-&lt;!&ndash;          <template slot-scope="scope">
-            <dict-tag :options="dict.type.hx_common_type" :value="scope.row.oilRingMaterial"/>
-          </template>&ndash;&gt;
-        </el-table-column>
-        <el-table-column label="VG" align="center" prop="vg"/>
-        <el-table-column label="粘稠度" align="center" prop="viscosity"/>
-        <el-table-column label="期望完成时间" align="center" prop="expectedCompletionTime" width="100">
-          <template slot-scope="scope">
-            <span>{{ parseTime(scope.row.expectedCompletionTime, '{y}-{m}-{d}') }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="样品需求时间" align="center" prop="sampleRequestTime" width="100">
-          <template slot-scope="scope">
-            <span>{{ parseTime(scope.row.sampleRequestTime, '{y}-{m}-{d}') }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="预计完成时间" align="center" prop="estimatedFinishTime" width="100">
-          <template slot-scope="scope">
-            <span>{{ parseTime(scope.row.estimatedFinishTime, '{y}-{m}-{d}') }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="匹配市场" align="center" prop="matchMarket" :show-overflow-tooltip="true">
-          <template slot-scope="scope">
-            <el-tag>
-              {{JSON.parse(scope.row.matchMarket)}}
-            </el-tag>
-          </template>
-        </el-table-column>
-        <el-table-column label="样品数量" align="center" prop="samplesNum"/>
-        <el-table-column label="邮寄信息" align="center" prop="mailingInformation" :show-overflow-tooltip="true"/>
-        <el-table-column label="备注" align="center" prop="remark"/>
-        <el-table-column label="创建时间" align="center" prop="createTime" width="100">
-          <template slot-scope="scope">
-            <span>{{ parseTime(scope.row.createTime, '{y}-{m}-{d} {h}:{i}:{s}') }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="创建人" align="center" prop="createBy"/>-->
         <el-table-column label="操作" align="center" width="200" class-name="small-padding fixed-width" fixed="right">
           <template slot-scope="scope">
-<!--            <router-link
-              :to="'/system/taste-data/index/' + scope.row.tasteId"
-              class="link-type"
-              v-hasPermi="['taste:query']"
-            >
-              <i class="el-icon-edit" style="color: #1890ff;font-size: 12px;margin-right: 7px">详情</i>
-            </router-link>-->
             <el-button
               size="mini"
               type="text"
@@ -218,41 +122,6 @@
               v-hasPermi="['taste:remove']"
             >删除
             </el-button>
-
-<!--              <el-button
-                size="mini"
-                type="text"
-                icon="el-icon-delete"
-                @click="handleWaste(scope.row)"
-                v-hasPermi="['taste:waste']"
-              >作废
-              </el-button>
-              <el-button
-                size="mini"
-                type="text"
-                icon="el-icon-folder-delete"
-                @click="handleAudit(scope.row)"
-                v-hasPermi="['taste:audit']"
-              >审核
-              </el-button>
-              <el-button
-                size="mini"
-                type="text"
-                icon="el-icon-printer"
-                @click="handlePrint(scope.row)"
-                v-hasPermi="['taste:query']"
-              >打印
-              </el-button>
-                <el-button
-                  size="mini"
-                  type="text"
-                  icon="el-icon-user"
-                  @click="
-                  handleDistribution(scope.row)"
-                  v-hasPermi="['taste:distribution']"
-                >分配跟进人
-              </el-button>-->
-
             <el-dropdown size="mini" @command="(command) => handleCommand(command, scope.row)"><!-- v-hasPermi="['monitor:job:changestate', 'monitor:job:query']"-->
             <span class="el-dropdown-link">
               <i class="el-icon-d-arrow-right el-icon--right"></i>更多
@@ -295,12 +164,6 @@
         <vxe-column field="nicUnit" title="NIC单位"></vxe-column>
 <!--        <vxe-column field="perfumer" title="指定调香师"></vxe-column>-->
         <vxe-column field="perfumer" title="分配调香师"></vxe-column>
-        <template #empty>
-              <span style="color: red;">
-                <!-- <img src="https://pic2.zhimg.com/50/v2-f7031359103859e1ed38559715ef5f3f_hd.gif">-->
-                <p>没有更多数据了,请添加数据！</p>
-              </span>
-        </template>
       </vxe-table>
 
     </div>
@@ -326,11 +189,10 @@
     </el-dialog>
 
 
-
   </div>
 </template>
 <script>
-import {listTaste, getTaste, delTaste, addTaste, updateTaste, getWasteTaste, getDistribution} from "@/api/system/taste";
+import {listTaste, getTaste, delTaste, addTaste, updateTaste, getWasteTaste, getDistribution, getAuditTaste} from "@/api/system/taste";
 import cache from '@/plugins/cache'
 import stateList from '@/utils/stateList'
 export default {
@@ -534,17 +396,27 @@ export default {
 
     // 审核
     handleAudit(row){
-      this.$message.info("TODO");
+      // 作废将 state 字段状态变成 6
+      this.$modal.confirm('您将强制审核通过"' + row.tasteId + '"口味单是否确认？').then(function() {
+        getAuditTaste(row.tasteId)
+      }).then(() => {
+        this.$modal.msgSuccess('已审核通过');
+        this.getList();
+      }).catch(() => {
+        this.$modal.msgSuccess('已取消');
+      });
 
     },
     /*分配跟进人*/
     handleDistribution(row){
         this.reset();
+        // 获取以一些数据
         getTaste(row.tasteId).then((resp)=>{
           this.form = resp.data
           // 变更为分配跟进人状态
           this.form.state = '7'
         })
+        // 作废接口
         getDistribution().then((res)=>{
           this.distributionList = res.data;
         })

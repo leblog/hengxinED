@@ -52,7 +52,7 @@ export function getWasteTaste(tasteId) {
 }
 
 
-// 分配跟进人字典
+// 分配跟进人字典-获取分配人字典数据
 export function getDistribution() {
   return request({
     url: '/system/taste/getDistribution',
@@ -60,7 +60,7 @@ export function getDistribution() {
   })
 }
 
-// 查询口味申请单日志
+/*查询口味申请单日志*/
 export function getLog(tasteId) {
   return request({
     url: '/system/taste/oper/' + tasteId,
@@ -72,3 +72,10 @@ export function getLog(tasteId) {
   })
 }
 
+/*强制审核通过口味申请单*/
+export function getAuditTaste(tasteId) {
+  return request({
+    url: '/system/taste/audit/' + tasteId,
+    method: 'get'
+  })
+}

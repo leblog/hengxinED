@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import cn.hutool.core.util.IdUtil;
 import com.hx.common.core.domain.entity.SysUser;
+import com.hx.common.exception.ServiceException;
 import com.hx.system.domain.HxTaste;
 import com.hx.system.domain.SysOperLog;
 import com.hx.system.domain.enums.TatseFolder;
@@ -129,20 +130,37 @@ public class HxTasteController extends BaseController
     @GetMapping(value = "/waste/{tasteId}")
     public AjaxResult waste(@PathVariable("tasteId") String tasteId)
     {
-        AjaxResult ajax = new AjaxResult();
         HxTaste hxTaste = hxTasteMapper.selectHxTasteByTasteId(tasteId);
+        // 校验
+        if(hxTaste.getState().equals(TatseFolder.WASTE.getCode())){
+            throw new ServiceException("该单已作废不可重复作废");
+        }
         hxTaste.setState(TatseFolder.WASTE.getCode());
         return toAjax(hxTasteService.updateHxTaste(hxTaste));
     }
 
     /**
-     * TODO
-     *  口味申请单审核  taste:audit
+     *  口味申请单强制审核通过  taste:audit
      */
+    @PreAuthorize("@ss.hasPermi('taste:audit')")
+    @Log(title = "口味申请单强制审核通过", businessType = BusinessType.UPDATE)
+    @GetMapping(value = "/audit/{tasteId}")
+    public AjaxResult audit(@PathVariable("tasteId") String tasteId)
+    {
+        HxTaste hxTaste = hxTasteMapper.selectHxTasteByTasteId(tasteId);
+        // 校验
+        if(hxTaste.getState().equals(TatseFolder.AUDIT.getCode())){
+            throw new ServiceException("该单已审核通过不可重复审核");
+        }
+        hxTaste.setState(TatseFolder.AUDIT.getCode());
+        return toAjax(hxTasteService.updateHxTaste(hxTaste));
+    }
+
+
 
     /**
      * TODO
-     *  口味申请单溯源 taste:audit  tasteCopyId
+     *  口味申请单溯源 taste:audit  tasteCopyId   递归树结构
      */
 
 
@@ -166,7 +184,9 @@ public class HxTasteController extends BaseController
         SysOperLog log = new SysOperLog();
         log.setOperUrl(tasteId);
         List<SysOperLog> logList = operLogService.selectOperLogList(log);
-        List<LogVO> map  = logList.stream()
+        List<SysOperLog> map = logList.stream()
+                .collect(Collectors.toList());
+        /*List<LogVO> map  = logList.stream()
                 .map(i->new LogVO(
                         i.getTitle(),
                         i.getMethod(),
@@ -175,9 +195,11 @@ public class HxTasteController extends BaseController
                         i.getOperIp(),
                         i.getOperParam(),
                         i.getJsonResult(),
+                        i.getOperName(),
+                        i.getDeptName(),
                         i.getOperTime()
                 ))
-                .collect(Collectors.toList());
+                .collect(Collectors.toList());*/
         return AjaxResult.success(map);
     }
 

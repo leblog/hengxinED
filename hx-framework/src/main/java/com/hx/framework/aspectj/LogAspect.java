@@ -80,6 +80,8 @@ public class LogAspect
             if (loginUser != null)
             {
                 operLog.setOperName(loginUser.getUsername());
+                //2022-8-18 16:18:58 添加
+                operLog.setDeptName(loginUser.getDeptId().toString());
             }
 
             if (e != null)

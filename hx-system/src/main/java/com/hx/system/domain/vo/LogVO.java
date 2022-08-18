@@ -23,6 +23,8 @@ public class LogVO {
     public String operIp;
     public String operParam;
     public String jsonResult;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    public String operName;
+    public String deptName;
     public Date operTime;
+
 }

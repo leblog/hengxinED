@@ -346,6 +346,7 @@
             <el-button type="danger" icon="el-icon-delete" size="mini" @click="removeSelectEvent()">删除选中</el-button>
           </el-col>-->
         </el-row>
+
         <br>
         <div class="tableDiv">
           <vxe-table
@@ -355,7 +356,7 @@
             show-overflow
             :show-header-overflow="true"
             :show-header="true"
-            :data="hxTasteDetailList"
+            :data="form.hxTasteDetailList"
             :edit-rules="validRules"
             :tooltip-config="{showAll: true, enterable: true, contentMethod: showTooltipMethod}"
             :edit-config="{trigger: 'click', mode: 'row'}"
@@ -363,7 +364,7 @@
             @edit-actived="editActivedEvent"
           >
             <vxe-column type="seq" title="序号" width="50"/>
-            <vxe-column field="tasteName" :edit-render="{}" width="100"><!--show-header-overflow-->
+            <vxe-column field="tasteName" :edit-render="{}"  width="100"><!--show-header-overflow-->
               <template slot="header"><!--:title-help="{message: '自定义图标', icon: 'fa fa-bell'}"-->
                 <span @dblclick="reduce('tasteName')">口味名称</span>
               </template>
@@ -492,7 +493,7 @@
         <el-button type="primary" @click="edit">修改</el-button>
         <el-button type="warning" @click="copyList">复制一份</el-button>
         <el-button type="info" @click="printList">打印</el-button>
-        <el-button type="warning" @click="copyListDetail">复制明细</el-button>
+        <el-button type="warning" @click="copyListDetail">导出明细</el-button>
         <el-button type="info" @click="auditList">查看审批详情</el-button>
         <el-button type="warning" @click="auditUpdateList">更新审批结果</el-button>
       </div>
@@ -505,12 +506,14 @@
       <!--      <div>测试:{{ name }}</div>-->
       <!--      <el-button @click="cancelDeatil">重 置 明 细</el-button>-->
     </div>
+
     <div class="tableDiv" v-show="false">
       <vxe-table
         border
         ref="xTable"
         height="300"
         :print-config="{}"
+        :export-config="{}"
         :data="form.hxTasteDetailList">
         <vxe-column type="seq" width="10"></vxe-column>
         <vxe-column field="tasteName" width="100" title="口味名称"></vxe-column>
@@ -533,6 +536,7 @@
       </vxe-table>
 
     </div>
+
 
   </div>
 </template>
@@ -928,6 +932,7 @@ export default {
     copyList() {
       let tasteCopyId = this.form.tasteId
       delete this.form.tasteId
+      delete this.form.follower
       for (let i = 0; i < this.form.hxTasteDetailList.length; i++) {
         delete this.form.hxTasteDetailList[i].id
         delete this.form.hxTasteDetailList[i].tasteId
@@ -944,7 +949,6 @@ export default {
     },
     /*打印该申请单*/
     printList() {
-      this.$modal.msgSuccess("TODO");
       // 打印样式
       const printStyle = `
         .title {
@@ -1075,7 +1079,7 @@ export default {
           {field: 'nicType'},
           {field: 'nicConcentration'},
           {field: 'nicUnit'},
-          {field: 'perfumer'},
+          {field: 'perfumer'}
           /*{field: 'perfumer'},*/
         ],
         beforePrintMethod: ({content}) => {
@@ -1086,7 +1090,18 @@ export default {
     },
     /*复制该申请单明细*/
     copyListDetail() {
-      this.$modal.msgSuccess("TODO");
+      this.loading = true
+      this.$refs.xTable.openExport({ types: ['csv'] })
+      setTimeout(() => {
+        this.$refs.xTable.exportData({
+          filename: '自定义文件名',
+          type: 'csv',
+          isHeader: true,
+          isFooter: true,
+          data: this.form.hxTasteDetailList
+        })
+        this.loading = false
+      }, 100)
     },
     /*查看该申请单审批结果*/
     auditList() {
