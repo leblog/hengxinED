@@ -84,6 +84,7 @@
     <select id="selectHxTasteList" parameterType="HxTaste" resultMap="HxTasteResult">
         <include refid="selectHxTasteVo"/>
         <where>
+            <if test="tasteId != null  and tasteId != ''"> and taste_id = #{tasteId}</if>
             <if test="deptId != null  and deptId != ''"> and dept_id = #{deptId}</if>
             <if test="businessName != null  and businessName != ''"> and business_name like concat('%', #{businessName}, '%')</if>
             <if test="businessCode != null  and businessCode != ''"> and business_code = #{businessCode}</if>

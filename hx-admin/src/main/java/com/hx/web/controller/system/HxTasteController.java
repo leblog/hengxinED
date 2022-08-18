@@ -161,8 +161,7 @@ public class HxTasteController extends BaseController
     /**
      *  单子的操作日志 taste:log  查询表
      */
-    @GetMapping("value = /log/{tasteId}")
-    //@Log(title = "口味申请单日志", businessType = BusinessType.UPDATE)
+    @GetMapping("/oper/{tasteId}")
     public AjaxResult log(@PathVariable("tasteId") String tasteId){
         SysOperLog log = new SysOperLog();
         log.setOperUrl(tasteId);
@@ -175,7 +174,8 @@ public class HxTasteController extends BaseController
                         i.getOperUrl(),
                         i.getOperIp(),
                         i.getOperParam(),
-                        i.getJsonResult()
+                        i.getJsonResult(),
+                        i.getOperTime()
                 ))
                 .collect(Collectors.toList());
         return AjaxResult.success(map);

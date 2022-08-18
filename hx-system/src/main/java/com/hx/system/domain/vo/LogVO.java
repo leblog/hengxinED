@@ -1,8 +1,11 @@
 package com.hx.system.domain.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.ToString;
+
+import java.util.Date;
 
 /**
  * @Author: lusifer
@@ -20,4 +23,6 @@ public class LogVO {
     public String operIp;
     public String operParam;
     public String jsonResult;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    public Date operTime;
 }

@@ -1,10 +1,18 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch"  label-width="68px">
-      <el-form-item label="部门Id" prop="deptId">
+      <el-form-item label="口味编码" prop="deptId">
+        <el-input
+          v-model="queryParams.tasteId"
+          placeholder="请输入口味编码"
+          clearable
+          @keyup.enter.native="handleQuery"
+        />
+      </el-form-item>
+      <el-form-item label="部门" prop="deptId">
         <el-input
           v-model="queryParams.deptId"
-          placeholder="请输入部门Id"
+          placeholder="请输入部门"
           clearable
           @keyup.enter.native="handleQuery"
         />
@@ -245,7 +253,7 @@
                 >分配跟进人
               </el-button>-->
 
-            <el-dropdown size="mini" @command="(command) => handleCommand(command, scope.row)" v-hasPermi="['monitor:job:changestate', 'monitor:job:query']">
+            <el-dropdown size="mini" @command="(command) => handleCommand(command, scope.row)"><!-- v-hasPermi="['monitor:job:changestate', 'monitor:job:query']"-->
             <span class="el-dropdown-link">
               <i class="el-icon-d-arrow-right el-icon--right"></i>更多
             </span>
@@ -369,6 +377,7 @@ export default {
       queryParams: {
         pageNum: 1,
         pageSize: 10,
+        tasteId: null,
         deptId: null,
         businessName: null,
         businessCode: null,

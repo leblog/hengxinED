@@ -39,41 +39,6 @@
       </el-form-item>
     </el-form>
     <el-row :gutter="10" class="mb8">
-<!--      <el-col :span="1.5">
-        <el-button
-          type="primary"
-          plain
-          icon="el-icon-plus"
-          size="mini"
-          @click="handleAdd"
-          v-hasPermi="['taste:add']"
-        >新增
-        </el-button>
-      </el-col>
-
-      <el-col :span="1.5">
-        <el-button
-          type="danger"
-          plain
-          icon="el-icon-delete"
-          size="mini"
-          :disabled="multiple"
-          @click="handleDelete"
-          v-hasPermi="['taste:remove']"
-        >删除
-        </el-button>
-      </el-col>
-      <el-col :span="1.5">
-        <el-button
-          type="warning"
-          plain
-          icon="el-icon-download"
-          size="mini"
-          @click="handleExport"
-          v-hasPermi="['taste:export']"
-        >导出</el-button>
-      </el-col>-->
-
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
     <div>
@@ -103,7 +68,7 @@
               v-hasPermi="['taste:query']"
             >详情
             </el-button>
-            <el-dropdown size="mini" @command="(command) => handleCommand(command, scope.row)" v-hasPermi="['monitor:job:changestate', 'monitor:job:query']">
+            <el-dropdown size="mini" @command="(command) => handleCommand(command, scope.row)" ><!--v-hasPermi="['taste:changestate', 'taste:query']"-->
             <span class="el-dropdown-link">
               <i class="el-icon-d-arrow-right el-icon--right"></i>更多
             </span>
@@ -118,6 +83,7 @@
                 <el-dropdown-item command="handle7" icon="el-icon-d-arrow-right" v-hasPermi="['taste:handle7']">反确认配方</el-dropdown-item>
                 <el-dropdown-item command="handle8" icon="el-icon-finished" v-hasPermi="['taste:handle8']">打印配方确认单</el-dropdown-item>
                 <el-dropdown-item command="handle9" icon="el-icon-check" v-hasPermi="['taste:handle9']">完成跟进</el-dropdown-item>
+                <el-dropdown-item command="handle10" icon="el-icon-view" v-hasPermi="['taste:handle10']">详细日志</el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
           </template>
@@ -132,6 +98,8 @@
         style="margin-bottom: 30px"
       />
     </div>
+
+    <!--打印-->
     <div class="tableDiv"  v-show="false">
       <vxe-table
         border
@@ -149,38 +117,51 @@
         <vxe-column field="nicType" title="NIC类别"></vxe-column>
         <vxe-column field="nicConcentration" title="NIC浓度"></vxe-column>
         <vxe-column field="nicUnit" title="NIC单位"></vxe-column>
-        <!--<vxe-column field="perfumer" title="指定调香师"></vxe-column>-->
         <vxe-column field="perfumer" title="分配调香师"></vxe-column>
         <template #empty>
               <span style="color: red;">
-                <!-- <img src="https://pic2.zhimg.com/50/v2-f7031359103859e1ed38559715ef5f3f_hd.gif">-->
                 <p>没有更多数据了,请添加数据！</p>
               </span>
         </template>
       </vxe-table>
-
     </div>
 
-    <!-- 添加或修改全球地区对话框 -->
-    <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
-      <el-form ref="form" :model="form" :rules="rules" label-width="120px">
-        <el-form-item label="分配跟进人" prop="follower">
-          <el-select v-model="form.follower" filterable placeholder="试试搜索 销售昵称">
-            <el-option
-              v-for="item in distributionList"
-              :key="item.nickName"
-              :label="item.nickName"
-              :value="item.nickName">
-            </el-option>
-          </el-select>
-        </el-form-item>
-      </el-form>
+
+    <!-- 详细日志 -->
+    <el-dialog title="详细操作日志" :visible.sync="open" width="700px" append-to-body>
+      <div class="block">
+        <div class="radio" style="margin-bottom: 20px">
+          排序：
+          <el-radio-group v-model="reverse">
+            <el-radio :label="false">倒序</el-radio>
+            <el-radio :label="true">正序</el-radio>
+          </el-radio-group>
+        </div>
+        <el-timeline :reverse="reverse" >
+          <el-timeline-item
+            v-for="(item,index) in logList"
+            :key="index"
+            :timestamp="parseTime(item.operTime, '{y}-{m}-{d} {h}:{i}:{s}')"
+            placement="top">
+            <el-card>
+              <b>{{item.title}}</b>
+              <p>请求方式:
+                <el-tag v-if="item.requestMethod = 'GET'" type="success">{{item.requestMethod}}</el-tag>
+                <el-tag v-else-if="item.requestMethod  = 'DELETE'" type="danger">{{item.requestMethod}}</el-tag>
+              </p>
+              <p>请求参数: {{item.operParam}}</p>
+              <p>api: {{item.operUrl}}</p>
+              <p>响应结果: {{item.jsonResult}}</p>
+              <p>IP: {{item.operIp}}</p>
+            </el-card>
+          </el-timeline-item>
+        </el-timeline>
+
+      </div>
       <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="submitForm">确 定</el-button>
-        <el-button @click="cancel">取 消</el-button>
+        <el-button @click="open = false">关 闭</el-button>
       </div>
     </el-dialog>
-
 
 
   </div>
@@ -189,10 +170,16 @@
 import {listTaste, getTaste, delTaste, addTaste, updateTaste, getWasteTaste, getDistribution, getLog} from "@/api/system/taste";
 import cache from '@/plugins/cache'
 import stateList from '@/utils/stateList'
+import {parseTime} from "@/utils/ruoyi";
 export default {
   name: "TasteList",
   data() {
     return {
+      /*日志倒序*/
+      reverse: true,
+      /*日志内容*/
+      logList:[],
+      /*状态字典*/
       stateList,
       /*分配跟进人集合*/
       distributionList:[],
@@ -321,6 +308,9 @@ export default {
         case "handle9":
           this.handle9(row);
           break;
+        case "handle10":
+          this.handle10(row);
+          break;
         default:
           break;
       }
@@ -360,7 +350,13 @@ export default {
     /*完成跟进*/
     handle9(row){
       this.$message.info("完成跟进TODO");
-      getLog(row.tasteId)
+    },
+    /*详细日志*/
+    handle10(row){
+      getLog(row.tasteId).then((res)=>{
+        this.logList = res.data
+      })
+      this.open = true
     },
     // 审核
     handleAudit(row){
