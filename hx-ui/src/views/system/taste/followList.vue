@@ -348,7 +348,16 @@ export default {
     },
     /*打印配方确认单*/
     handle8(row){
-      this.$message.info("打印配方确认单TODO");
+      this.$modal.loading("加载打印插件中，请稍候...");
+      getTaste(row.tasteId).then(res =>{
+        this.printList = res.data
+        this.printListDetail = res.data.hxTasteDetailList
+        console.log("数据来了:{}"+ JSON.stringify(this.printListDetail))
+      });
+      setTimeout(()=>{
+        this.$modal.closeLoading()
+        this.printEvent()
+      },800)
     },
     /*完成跟进*/
     handle9(row){
@@ -394,12 +403,14 @@ export default {
     // 打印需要的数据处理
     handlePrint(row){
       // 获取分组好的数据
+      this.$modal.loading("加载打印插件中，请稍候...");
       getTaste(row.tasteId).then(res =>{
         this.printList = res.data
         this.printListDetail = res.data.hxTasteDetailList
         console.log("数据来了:{}"+ JSON.stringify(this.printListDetail))
       });
       setTimeout(()=>{
+        this.$modal.closeLoading()
         this.printEvent()
       },800)
     },

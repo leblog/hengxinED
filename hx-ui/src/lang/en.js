@@ -2,6 +2,8 @@ export default {
   login: {
     title: 'HX Login Form',
     logIn: 'Log in',
+    logIng: 'Logging in',
+    register: 'Register',
     username: 'Username',
     password: 'Password',
     verificationCode: 'Verification Code',
@@ -19,6 +21,7 @@ export default {
     theme: 'Theme Color',
     tagsView: 'Open Tags-View',
     fixedHeader: 'Fixed Header',
-    sidebarLogo: 'Sidebar Logo'
+    sidebarLogo: 'Sidebar Logo',
+    setLang: 'Language Set Successfully'
   }
 }

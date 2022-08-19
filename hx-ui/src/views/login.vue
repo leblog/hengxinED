@@ -47,11 +47,11 @@
           style="width:100%;"
           @click.native.prevent="handleLogin"
         >
-          <span v-if="!loading">登 录</span>
-          <span v-else>登 录 中...</span>
+          <span v-if="!loading">{{$t('login.logIn')}}</span>
+          <span v-else>{{$t('login.logIng')}}...</span>
         </el-button>
         <div style="float: right;" v-if="register">
-          <router-link class="link-type" :to="'/register'">立即注册</router-link>
+          <router-link class="link-type" :to="'/register'">{{$t('login.register')}}</router-link>
         </div>
       </el-form-item>
     </el-form>

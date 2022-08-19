@@ -2,6 +2,8 @@ export default {
   login: {
     title: 'HX后台管理系统',
     logIn: '登录',
+    logIng: '登录中',
+    register: '注册',
     username: '账号',
     password: '密码',
     verificationCode: '验证码',
@@ -19,6 +21,7 @@ export default {
     theme: '主题色',
     tagsView: '开启 Tags-View',
     fixedHeader: '固定 Header',
-    sidebarLogo: '侧边栏 Logo'
+    sidebarLogo: '侧边栏 Logo',
+    setLang: '设置语言成功'
   }
 }

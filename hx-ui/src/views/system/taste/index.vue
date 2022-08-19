@@ -1090,7 +1090,8 @@ export default {
     },
     /*复制该申请单明细*/
     copyListDetail() {
-      this.loading = true
+      // 打开遮罩层
+      this.$modal.loading("正在导出数据，请稍后...");
       this.$refs.xTable.openExport({ types: ['csv'] })
       setTimeout(() => {
         this.$refs.xTable.exportData({
@@ -1100,7 +1101,8 @@ export default {
           isFooter: true,
           data: this.form.hxTasteDetailList
         })
-        this.loading = false
+        // 关闭遮罩层
+        this.$modal.closeLoading();
       }, 100)
     },
     /*查看该申请单审批结果*/
