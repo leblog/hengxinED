@@ -16,7 +16,7 @@ import com.hx.common.xss.Xss;
 
 /**
  * 用户对象 sys_user
- * 
+ *
  * @author ry
  */
 public class SysUser extends BaseEntity
@@ -30,6 +30,10 @@ public class SysUser extends BaseEntity
     /** 部门ID */
     @Excel(name = "部门编号", type = Type.IMPORT)
     private Long deptId;
+
+    /** 企业微信id */
+    @Excel(name = "企业微信id", type = Type.IMPORT)
+    private String wxUserId;
 
     /** 用户账号 */
     @Excel(name = "登录名称")
@@ -314,11 +318,20 @@ public class SysUser extends BaseEntity
         this.roleId = roleId;
     }
 
+    public String getWxUserId() {
+        return wxUserId;
+    }
+
+    public void setWxUserId(String wxUserId) {
+        this.wxUserId = wxUserId;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
             .append("userId", getUserId())
             .append("deptId", getDeptId())
+            .append("wxUserId", getWxUserId())
             .append("userName", getUserName())
             .append("nickName", getNickName())
             .append("email", getEmail())

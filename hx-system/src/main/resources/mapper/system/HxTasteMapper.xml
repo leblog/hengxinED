@@ -8,6 +8,7 @@
         <result property="tasteId"    column="taste_id"    />
         <result property="deptId"    column="dept_id"    />
         <result property="tasteCopyId"    column="taste_copy_id"    />
+        <result property="spNo"    column="sp_no"    />
         <result property="businessName"    column="business_name"    />
         <result property="businessCode"    column="business_code"    />
         <result property="customersName"    column="customers_name"    />
@@ -73,7 +74,7 @@
     </resultMap>
 
     <sql id="selectHxTasteVo">
-        select taste_id, dept_id,taste_copy_id, business_name, business_code, customers_name, customers_code, taste_num, referee_num, send_num,
+        select taste_id, dept_id,taste_copy_id, sp_no, business_name, business_code, customers_name, customers_code, taste_num, referee_num, send_num,
                is_supply, is_try, visit_time, is_smoking, smoking_type, heating_wire_type, heating_wire_resistance, capacity,
                oil_guide_cotton_type, is_recycling_smoking, oil_ring_material, vg, viscosity,sweetness,coolness, expected_completion_time,
                sample_request_time, estimated_finish_time, match_market, samples_num, mailing_information, create_by, create_time,
@@ -86,6 +87,7 @@
         <where>
             <if test="tasteId != null  and tasteId != ''"> and taste_id = #{tasteId}</if>
             <if test="deptId != null  and deptId != ''"> and dept_id = #{deptId}</if>
+            <if test="spNo != null  and spNo != ''"> and sp_no = #{spNo}</if>
             <if test="businessName != null  and businessName != ''"> and business_name like concat('%', #{businessName}, '%')</if>
             <if test="businessCode != null  and businessCode != ''"> and business_code = #{businessCode}</if>
             <if test="customersName != null  and customersName != ''"> and customers_name like concat('%', #{customersName}, '%')</if>
@@ -120,7 +122,7 @@
 
 
     <select id="selectHxTasteListDetail" parameterType="HxTaste" resultMap="HxTasteResult">
-        select a.taste_id, a.dept_id, a.taste_copy_id, a.business_name, a.business_code, a.customers_name, a.customers_code, a.taste_num, a.referee_num, a.send_num, a.is_supply, a.is_try, a.visit_time, a.is_smoking, a.smoking_type, a.heating_wire_type, a.heating_wire_resistance, a.capacity, a.oil_guide_cotton_type, a.is_recycling_smoking, a.oil_ring_material, a.vg, a.viscosity,a.sweetness,a.coolness, a.expected_completion_time, a.sample_request_time, a.estimated_finish_time, a.match_market, a.samples_num, a.mailing_information, a.create_by, a.create_time, a.update_by, a.update_time, a.remark, a.state, a.deleted,a.follower,
+        select a.taste_id, a.dept_id, a.taste_copy_id, a.sp_no, a.business_name, a.business_code, a.customers_name, a.customers_code, a.taste_num, a.referee_num, a.send_num, a.is_supply, a.is_try, a.visit_time, a.is_smoking, a.smoking_type, a.heating_wire_type, a.heating_wire_resistance, a.capacity, a.oil_guide_cotton_type, a.is_recycling_smoking, a.oil_ring_material, a.vg, a.viscosity,a.sweetness,a.coolness, a.expected_completion_time, a.sample_request_time, a.estimated_finish_time, a.match_market, a.samples_num, a.mailing_information, a.create_by, a.create_time, a.update_by, a.update_time, a.remark, a.state, a.deleted,a.follower,
                b.id as sub_id, b.taste_name as sub_taste_name, b.taste_id as sub_taste_id, b.taste_detail as sub_taste_detail, b.is_basic_taste as sub_is_basic_taste, b.basic_taste_name as sub_basic_taste_name, b.basic_taste_improvement_ideas as sub_basic_taste_improvement_ideas, b.capacity as sub_capacity, b.vg as sub_vg, b.nic_type as sub_nic_type, b.nic_concentration as sub_nic_concentration, b.nic_unit as sub_nic_unit, b.perfumer as sub_perfumer, b.version as sub_version, b.create_by as sub_create_by, b.create_time as sub_create_time, b.update_by as sub_update_by, b.update_time as sub_update_time, b.remark as sub_remark
         from hx_taste a
         left join hx_taste_detail b on b.taste_id = a.taste_id
@@ -129,10 +131,10 @@
     </select>
 
     <select id="selectHxTasteByTasteId" parameterType="String" resultMap="HxTasteHxTasteDetailResult">
-        select a.taste_id, a.dept_id, a.taste_copy_id,a.business_name, a.business_code, a.customers_name, a.customers_code, a.taste_num, a.referee_num, a.send_num, a.is_supply, a.is_try, a.visit_time, a.is_smoking, a.smoking_type, a.heating_wire_type, a.heating_wire_resistance, a.capacity, a.oil_guide_cotton_type, a.is_recycling_smoking, a.oil_ring_material, a.vg, a.viscosity,a.sweetness,a.coolness, a.expected_completion_time, a.sample_request_time, a.estimated_finish_time, a.match_market, a.samples_num, a.mailing_information, a.create_by, a.create_time, a.update_by, a.update_time, a.remark, a.state, a.deleted,a.follower,
+        select a.taste_id, a.dept_id, a.taste_copy_id, a.sp_no, a.business_name, a.business_code, a.customers_name, a.customers_code, a.taste_num, a.referee_num, a.send_num, a.is_supply, a.is_try, a.visit_time, a.is_smoking, a.smoking_type, a.heating_wire_type, a.heating_wire_resistance, a.capacity, a.oil_guide_cotton_type, a.is_recycling_smoking, a.oil_ring_material, a.vg, a.viscosity,a.sweetness,a.coolness, a.expected_completion_time, a.sample_request_time, a.estimated_finish_time, a.match_market, a.samples_num, a.mailing_information, a.create_by, a.create_time, a.update_by, a.update_time, a.remark, a.state, a.deleted,a.follower,
                b.id as sub_id, b.taste_name as sub_taste_name, b.taste_id as sub_taste_id, b.taste_detail as sub_taste_detail, b.is_basic_taste as sub_is_basic_taste, b.basic_taste_name as sub_basic_taste_name, b.basic_taste_improvement_ideas as sub_basic_taste_improvement_ideas, b.capacity as sub_capacity, b.vg as sub_vg, b.nic_type as sub_nic_type, b.nic_concentration as sub_nic_concentration, b.nic_unit as sub_nic_unit, b.perfumer as sub_perfumer, b.version as sub_version, b.create_by as sub_create_by, b.create_time as sub_create_time, b.update_by as sub_update_by, b.update_time as sub_update_time, b.remark as sub_remark
         from hx_taste a
-                 left join hx_taste_detail b on b.taste_id = a.taste_id
+        left join hx_taste_detail b on b.taste_id = a.taste_id
         where a.taste_id = #{tasteId}
         and a.deleted = '0'
     </select>
@@ -143,6 +145,7 @@
             <if test="tasteId != null">taste_id,</if>
             <if test="deptId != null and deptId != ''">dept_id,</if>
             <if test="tasteCopyId != null and tasteCopyId != ''">taste_copy_id,</if>
+            <if test="spNo != null and spNo != ''">sp_no,</if>
             <if test="businessName != null and businessName != ''">business_name,</if>
             <if test="businessCode != null and businessCode != ''">business_code,</if>
             <if test="customersName != null and customersName != ''">customers_name,</if>
@@ -184,6 +187,7 @@
             <if test="tasteId != null">#{tasteId},</if>
             <if test="deptId != null and deptId != ''">#{deptId},</if>
             <if test="tasteCopyId != null and tasteCopyId != ''">#{tasteCopyId},</if>
+            <if test="spNo != null and spNo != ''">#{spNo},</if>
             <if test="businessName != null and businessName != ''">#{businessName},</if>
             <if test="businessCode != null and businessCode != ''">#{businessCode},</if>
             <if test="customersName != null and customersName != ''">#{customersName},</if>
@@ -228,6 +232,7 @@
         <trim prefix="SET" suffixOverrides=",">
             <if test="deptId != null and deptId != ''">dept_id = #{deptId},</if>
             <if test="tasteCopyId != null and tasteCopyId != ''">taste_copy_id = #{tasteCopyId},</if>
+            <if test="spNo != null and spNo != ''">sp_no = #{spNo},</if>
             <if test="businessName != null and businessName != ''">business_name = #{businessName},</if>
             <if test="businessCode != null and businessCode != ''">business_code = #{businessCode},</if>
             <if test="customersName != null and customersName != ''">customers_name = #{customersName},</if>

@@ -490,12 +490,13 @@
         <el-button type="danger" @click="cancel">重置所有</el-button>
       </div>
       <div v-show="this.isEdit === 2">
-        <el-button type="primary" @click="edit">修改</el-button>
-        <el-button type="warning" @click="copyList">复制一份</el-button>
-        <el-button type="info" @click="printList">打印</el-button>
-        <el-button type="warning" @click="copyListDetail">导出明细</el-button>
-        <el-button type="info" @click="auditList">查看审批详情</el-button>
-        <el-button type="warning" @click="auditUpdateList">更新审批结果</el-button>
+        <el-button type="primary" size="small" @click="edit">修改</el-button>
+        <el-button type="danger" size="small" @click="copyList">复制一份</el-button>
+        <el-button type="primary" size="small" @click="printList">打印</el-button>
+        <el-button type="primary" size="small" @click="copyListDetail">导出明细</el-button>
+        <el-button type="danger" size="small" @click="auditPush">推送审核</el-button>
+        <el-button type="primary" size="small" @click="auditList">查看审批详情</el-button>
+        <el-button type="danger" size="small" @click="auditUpdateList">更新审批结果</el-button>
       </div>
 
       <!--      <el-button type="primary">主要按钮</el-button>
@@ -538,12 +539,40 @@
     </div>
 
 
+    <!-- 审批详情 -->
+    <el-dialog title="审批详情" :visible.sync="open" width="700px" append-to-body>
+      <div class="block">
+        <el-card>
+          <p>审批单名称:  {{auitDetailList.sp_name}}</p>
+          <p>审批编号:  {{auitDetailList.sp_no}}</p>
+          <p>提交时间:  {{parseTime(auitDetailList.apply_time)}}</p>
+          <p>审批状态:  <el-tag>{{spStatus(auitDetailList.sp_status)}}</el-tag></p>
+<!--          <p>单据编号:{{this.auitDetailList.apply_data.contents[0].value.text}}</p>
+          <p>客户姓名:{{this.auitDetailList.apply_data.contents[4].value.text}}</p>-->
+<!--          <div style="height: 300px;">
+            <el-steps direction="vertical" :active="1">
+              <el-step title="抄送人">1{{auitDetailList.notifyer}}</el-step>
+              <div v-for="(item , index) in auitDetailListObj" :key="index">
+                <el-step :title="item.approverattr" :description="spStatusChild(item.sp_status)">{{item.notifyer}}</el-step>
+              </div>
+            </el-steps>
+          </div>-->
+        </el-card>
+      </div>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="open = false">关 闭</el-button>
+      </div>
+    </el-dialog>
+
+
   </div>
 </template>
 <script>
-import {listTaste, getTaste, delTaste, addTaste, updateTaste} from "@/api/system/taste";
+import {listTaste, getTaste, delTaste, addTaste, updateTaste, getUserDetail, commitPush, auitDetail, updateAuitDetail} from "@/api/system/taste";
 import addressJson from '@/utils/addressJson'
 import stateList from '@/utils/stateList'
+import spStatus from '@/utils/wx/sp_status'
+import spStatusChild from '@/utils/wx/sp_status_child'
 
 export default {
   name: 'Taste',
@@ -563,6 +592,12 @@ export default {
       })
     }
     return {
+      /*声明字典*/
+      spStatus,
+      spStatusChild,
+      /*审批详情*/
+      auitDetailList:[],
+      auitDetailListObj:{},
       /*地区详情回显*/
       matchMarketTemp:[],
       /*详情按钮控制，修改控制暂时不提供*/
@@ -887,9 +922,12 @@ export default {
     }
   },
   created() {
+    this.reset()
     if (this.$route.params.tasteId != null) {
+
       getTaste(this.$route.params.tasteId).then(response => {
         this.form = response.data
+        //console.log("form:",JSON.stringify(this.form))
         this.hxTasteDetailList = response.data.hxTasteDetailList
         this.matchMarketTemp = eval(JSON.stringify(JSON.parse(this.form.matchMarket)))
         //var str=eval(this.matchMarketTemp);
@@ -901,7 +939,7 @@ export default {
     }else{
       this.isEdit = 1;
     }
-    this.reset()
+
   },
   mounted() {
     /* if (this.form.remark == null) {
@@ -930,22 +968,27 @@ export default {
     },
     /*复制一份该申请单*/
     copyList() {
-      let tasteCopyId = this.form.tasteId
-      delete this.form.tasteId
-      delete this.form.follower
-      for (let i = 0; i < this.form.hxTasteDetailList.length; i++) {
-        delete this.form.hxTasteDetailList[i].id
-        delete this.form.hxTasteDetailList[i].tasteId
-      }
-      this.form.tasteCopyId = tasteCopyId
-      //直接调用保存方法
-      addTaste(this.form).then(response => {
-        this.$modal.msgSuccess('复制成功')
-      })
-      //跳转到,列表中查看新复制的
-      setTimeout(() => {
-        this.$router.push({path: '/kouwei/tasteList/'});
-      }, 1000)
+      this.$modal.confirm('确认复制该口味单的信息吗?').then(function() {
+        let tasteCopyId = this.form.tasteId
+        delete this.form.tasteId
+        delete this.form.follower
+        for (let i = 0; i < this.form.hxTasteDetailList.length; i++) {
+          delete this.form.hxTasteDetailList[i].id
+          delete this.form.hxTasteDetailList[i].tasteId
+        }
+        this.form.tasteCopyId = tasteCopyId
+        //直接调用保存方法
+        addTaste(this.form).then(response => {
+          this.$modal.msgSuccess('复制成功')
+        })
+        //跳转到,列表中查看新复制的
+        setTimeout(() => {
+          this.$router.push({path: '/kouwei/tasteList/'});
+        }, 1000)
+      }).then(() => {
+        this.$modal.msgSuccess('复制成功,请到列表页中查看')
+      }).catch(() => {});
+
     },
     /*打印该申请单*/
     printList() {
@@ -1105,13 +1148,53 @@ export default {
         this.$modal.closeLoading();
       }, 100)
     },
+    /*推送该申请单在企业微信中审批*/
+    auditPush() {
+      this.$modal.confirm('确认推送审批吗?').then(function() {
+      }).then(() => {
+        // 校验是否绑定企业微信
+      getUserDetail().then(response => {
+        if(response.data.wxUserId != null){
+          commitPush(this.form.tasteId).then((res) => {
+            //console.log("请求结果:",JSON.stringify(res))
+            this.$modal.msgError("");
+          })
+        }else{
+          this.$modal.msgError("未绑定企业微信,请联系管理员申请绑定");
+        }
+      });
+      }).catch(() => {});
+    },
     /*查看该申请单审批结果*/
     auditList() {
-      this.$modal.msgSuccess("TODO");
+      getTaste(this.form.tasteId).then(response => {
+        if(response.data.spNo != null){
+          auitDetail(response.data.spNo).then((res)=>{
+            //console.log(JSON.stringify(res))
+            this.auitDetailList = res.data.info
+            this.auitDetailListObj = res.data.info.sp_record
+            console.log(JSON.stringify(this.auitDetailListObj))
+            this.open = true
+          })
+        }else{
+          this.$modal.msgError("该单还没有申请审批,不能查看审批详情");
+        }
+      })
     },
     /*更新该申请单审批结果*/
     auditUpdateList() {
-      this.$modal.msgSuccess("TODO");
+      this.$modal.confirm('确认更新审批吗?').then(function() {
+      }).then(() => {
+        getTaste(this.form.tasteId).then(response => {
+          if(response.data.spNo != null){
+            updateAuitDetail(response.data.spNo).then((res)=>{
+              console.log(JSON.stringify(res))
+            })
+          }else{
+            this.$modal.msgError("该单还没有申请审批,不能进行同步更新审批审批结果");
+          }
+        })
+      }).catch(() => {});
     },
     /**/
     editActivedEvent({rowIndex, row}) {
@@ -1576,6 +1659,7 @@ export default {
         tasteId: null,
         deptId: null,
         tasteCopyId: null,
+        spNo: null,
         businessName: null,
         businessCode: null,
         customersName: null,

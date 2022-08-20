@@ -205,5 +205,17 @@ public class HxTasteController extends BaseController
         return AjaxResult.success(map);
     }
 
+    /**
+     *  判断用户是否已经绑定了企业微信
+     */
+    @GetMapping(value = "/userDetail")
+    public AjaxResult userDetail()
+    {
+        return AjaxResult.success(userService.selectUserById(getUserId()));
+    }
+
+
+
+
 
 }

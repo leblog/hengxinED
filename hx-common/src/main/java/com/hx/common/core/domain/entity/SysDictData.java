@@ -11,7 +11,7 @@ import com.hx.common.core.domain.BaseEntity;
 
 /**
  * 字典数据表 sys_dict_data
- * 
+ *
  * @author ry
  */
 public class SysDictData extends BaseEntity
@@ -85,7 +85,7 @@ public class SysDictData extends BaseEntity
     }
 
     @NotBlank(message = "字典键值不能为空")
-    @Size(min = 0, max = 100, message = "字典键值长度不能超过100个字符")
+    @Size(min = 0, max = 1000, message = "字典键值长度不能超过1000个字符")
     public String getDictValue()
     {
         return dictValue;
@@ -153,7 +153,7 @@ public class SysDictData extends BaseEntity
     {
         this.status = status;
     }
-    
+
     @Override
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)

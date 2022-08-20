@@ -32,6 +32,8 @@ public class HxTaste extends BaseEntity
     /**  被复制的口味申请单ID 可溯源*/
     private String tasteCopyId;
 
+    /**  企业微信审批编码*/
+    private String spNo;
     /** 业务姓名 */
     @Excel(name = "业务姓名")
     private String businessName;

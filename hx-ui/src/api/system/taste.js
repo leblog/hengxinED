@@ -79,3 +79,34 @@ export function getAuditTaste(tasteId) {
     method: 'get'
   })
 }
+/*查询个人信息接口*/
+export function getUserDetail() {
+  return request({
+    url: '/system/taste/userDetail',
+    method: 'get'
+  })
+}
+
+/*烟油单审批推送接口*/
+export function commitPush(tasteId) {
+  return request({
+    url: '/system/wx/callback/push/'+ tasteId,
+    method: 'get'
+  })
+}
+
+/*审批详情接口*/
+export function auitDetail(spNo) {
+  return request({
+    url: '/system/wx/callback/auitDetail/'+ spNo,
+    method: 'get'
+  })
+}
+
+/*更新(同步)审批接口*/
+export function updateAuitDetail(spNo) {
+  return request({
+    url: '/system/wx/callback/updateAuitDetail/'+ spNo,
+    method: 'get'
+  })
+}
