@@ -540,7 +540,8 @@
 
 
     <!-- 审批详情 -->
-    <el-dialog title="审批详情" :visible.sync="open" width="700px" append-to-body>
+    <div v-if="open">
+    <el-dialog title="审批详情" :visible.sync="open" width="700px" >
       <div class="block">
         <el-card>
           <p>审批单名称:  {{auitDetailList.sp_name}}</p>
@@ -549,33 +550,51 @@
           <p>审批状态:  <el-tag>{{spStatus(auitDetailList.sp_status)}}</el-tag></p>
 <!--          <p>单据编号:{{this.auitDetailList.apply_data.contents[0].value.text}}</p>
           <p>客户姓名:{{this.auitDetailList.apply_data.contents[4].value.text}}</p>-->
-<!--          <div style="height: 300px;">
-            <el-steps direction="vertical" :active="1">
-              <el-step title="抄送人">1{{auitDetailList.notifyer}}</el-step>
-              <div v-for="(item , index) in auitDetailListObj" :key="index">
-                <el-step :title="item.approverattr" :description="spStatusChild(item.sp_status)">{{item.notifyer}}</el-step>
+          <div style="height: 300px;">
+            <el-divider/>
+            <h4>审批流程</h4>
+              <ul>
+                <b>审批步骤状态</b>
+                <div v-for="(item,index) in auitDetailListObj.sp_record" :key="index">
+                  <li>{{index+1}}、 审批流程: <el-tag> {{spStatus(item.sp_status)}} </el-tag></li>
+                  <ul><li>审批人:{{item.details[0].approver.userid}}</li></ul>
+                </div>
+              </ul>
+            <ul>
+              <b>抄送人</b>
+              <div v-for="(item,index) in auitDetailListObj.notifyer" :key="index">
+              <li>{{item.userid}}</li>
               </div>
-            </el-steps>
-          </div>-->
+            </ul>
+          </div>
         </el-card>
       </div>
+
       <div slot="footer" class="dialog-footer">
         <el-button @click="open = false">关 闭</el-button>
+        <el-button @click="auitBack">撤销审批</el-button>
       </div>
     </el-dialog>
+    </div>
 
 
   </div>
 </template>
+<script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
 <script>
 import {listTaste, getTaste, delTaste, addTaste, updateTaste, getUserDetail, commitPush, auitDetail, updateAuitDetail} from "@/api/system/taste";
 import addressJson from '@/utils/addressJson'
 import stateList from '@/utils/stateList'
 import spStatus from '@/utils/wx/sp_status'
 import spStatusChild from '@/utils/wx/sp_status_child'
+import axios from "axios";
+import {getToken} from "@/utils/auth";
+import {blobValidate} from "@/utils/ruoyi";
+import iFrame from "@/components/iFrame";
 
 export default {
   name: 'Taste',
+  components: { iFrame },
   // components: {vtable},
   // dicts: ['hx_common_is', 'hx_common_type'],
   data() {
@@ -597,7 +616,7 @@ export default {
       spStatusChild,
       /*审批详情*/
       auitDetailList:[],
-      auitDetailListObj:{},
+      auitDetailListObj:[],
       /*地区详情回显*/
       matchMarketTemp:[],
       /*详情按钮控制，修改控制暂时不提供*/
@@ -923,6 +942,21 @@ export default {
   },
   created() {
     this.reset()
+    wx.config({
+      beta: true,// 必须这么写，否则wx.invoke调用形式的jsapi会有问题
+      debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+      appId: '', // 必填，企业微信的corpID
+      timestamp: '', // 必填，生成签名的时间戳
+      nonceStr: '', // 必填，生成签名的随机串
+      signature: '',// 必填，签名，见附录1
+      jsApiList: [] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+    });
+    wx.ready(function(){
+      // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
+    });
+    wx.error(function(res){
+      // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+    });
     if (this.$route.params.tasteId != null) {
 
       getTaste(this.$route.params.tasteId).then(response => {
@@ -1157,7 +1191,7 @@ export default {
         if(response.data.wxUserId != null){
           commitPush(this.form.tasteId).then((res) => {
             //console.log("请求结果:",JSON.stringify(res))
-            this.$modal.msgError("");
+            this.$modal.msgSuccess(res);
           })
         }else{
           this.$modal.msgError("未绑定企业微信,请联系管理员申请绑定");
@@ -1167,17 +1201,26 @@ export default {
     },
     /*查看该申请单审批结果*/
     auditList() {
+      this.$modal.loading("正在加载微信数据，请稍候...");
       getTaste(this.form.tasteId).then(response => {
         if(response.data.spNo != null){
           auitDetail(response.data.spNo).then((res)=>{
             //console.log(JSON.stringify(res))
             this.auitDetailList = res.data.info
-            this.auitDetailListObj = res.data.info.sp_record
-            console.log(JSON.stringify(this.auitDetailListObj))
-            this.open = true
+            this.auitDetailListObj = res.data.info
+            /*console.log(JSON.stringify(this.auitDetailListObj.applyer.userid))
+            console.log(JSON.stringify(this.auitDetailListObj.sp_record[0].sp_status))
+            console.log(JSON.stringify(this.auitDetailListObj.sp_record[0].details[0].sptime))
+            console.log(JSON.stringify(this.auitDetailListObj.notifyer[0].userid))
+            console.log(JSON.stringify(this.auitDetailList))*/
+            setTimeout(()=>{
+              this.open = true
+            },800)
+            this.$modal.closeLoading()
           })
         }else{
           this.$modal.msgError("该单还没有申请审批,不能查看审批详情");
+          this.$modal.closeLoading()
         }
       })
     },
@@ -1189,11 +1232,55 @@ export default {
           if(response.data.spNo != null){
             updateAuitDetail(response.data.spNo).then((res)=>{
               console.log(JSON.stringify(res))
+              this.$modal.msgSuccess(res);
             })
           }else{
             this.$modal.msgError("该单还没有申请审批,不能进行同步更新审批审批结果");
           }
         })
+      }).catch(() => {});
+    },
+    /*撤销审批*/
+    auitBack() {
+      this.$modal.confirm('确认撤销审批吗?').then(function() {
+      }).then(() => {
+        if(this.form.spNo != null){
+          wx.checkJsApi({
+            jsApiList: ['chooseImage'], // 需要检测的JS接口列表，所有JS接口列表见附录2,
+            success: function(res) {
+              // 以键值对的形式返回，可用的api值true，不可用为false
+              // 如：{"checkResult":{"chooseImage":true},"errMsg":"checkJsApi:ok"}
+            }
+          });
+
+
+
+          /*//发送鉴权请求
+          let url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wwa3240966154cab12&redirect_uri=http://myweb.com:8081/open/wx/callback/code&response_type=code&scope=snsapi_base&state=STATE&agentid=AGENTID#wechat_redirect"
+          //let url = "http://myweb.com:8081/open/wx/callback/oauth2"
+          axios({
+            method: 'get',
+            url: url,
+            //headers: { 'Authorization': 'Bearer ' + getToken() }
+          }).then( (res) => {
+            console.log(JSON.stringify(res))
+            if(res.data.length >= 866){
+              this.open = false;
+              console.log(JSON.stringify(res.request))
+              this.$notify({
+                title: '微信错误提示',
+                dangerouslyUseHTMLString: true,
+                message: res.data,
+                duration: 0
+              });
+            }
+
+          }).catch(err=>{
+            console.log(err);
+          });*/
+        }else{
+          this.$modal.msgError("该单还没有申请审批,不能进行撤销审批");
+        }
       }).catch(() => {});
     },
     /**/
@@ -1699,6 +1786,8 @@ export default {
         follower: null
       }
       this.hxTasteDetailList = []
+      this.auitDetailList = []
+      this.auitDetailListObj = []
       // this.resetForm("form");  //TODO
       this.isTable = false
     },

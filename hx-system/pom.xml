@@ -16,6 +16,11 @@
     </description>
 
     <dependencies>
+        <!--解析XML -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-xml</artifactId>
+        </dependency>
 
         <!-- 通用工具-->
         <dependency>

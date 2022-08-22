@@ -7,14 +7,18 @@ import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
+import com.hx.common.annotation.Log;
 import com.hx.common.annotation.RepeatSubmit;
 import com.hx.common.constant.HttpStatus;
 import com.hx.common.core.domain.AjaxResult;
 import com.hx.common.core.domain.entity.SysUser;
+import com.hx.common.enums.BusinessType;
 import com.hx.common.exception.ServiceException;
 import com.hx.common.utils.DateUtils;
 import com.hx.common.utils.StringUtils;
 import com.hx.system.domain.HxTaste;
+import com.hx.system.domain.vo.WxTxtMsgReqVo;
+import com.hx.system.domain.vo.WxTxtMsgResVo;
 import com.hx.system.service.IHxTasteService;
 import com.hx.system.service.ISysUserService;
 import lombok.extern.slf4j.Slf4j;
@@ -22,8 +26,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.awt.*;
 import java.security.Timestamp;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.List;
 
@@ -79,11 +85,12 @@ public class WxCallback {
      * @throws InterruptedException
      */
     @RepeatSubmit(interval = 1000, message = "请求过于频繁")
+    @Log(title = "口味申请单-增加微信审批单号", businessType = BusinessType.INSERT)
     @GetMapping("/push/{tasteId}")
     public AjaxResult push(@PathVariable("tasteId") String tasteId) {
         HxTaste hxTaste = hxTasteService.selectHxTasteByTasteId(tasteId);
         if(StrUtil.isNotEmpty(hxTaste.getSpNo())){
-            throw new ServiceException("该单已提交审批不可重复审批,若状态未更新请点击更新状态");
+            throw new ServiceException("该单已提交审批不可重复审批,若状态未更新请点击更新审批结果");
         }else{
             getToken();
             commitPush(tasteId);
@@ -119,6 +126,8 @@ public class WxCallback {
                 .body(tempJson)
                 .timeout(20000)
                 .execute().body();
+       /* AjaxResult ajax = new AjaxResult();
+        ajax.put("info",JSONUtil.parseObj(res));*/
         return AjaxResult.success("ok",JSONUtil.parseObj(res));
     }
 
@@ -128,6 +137,7 @@ public class WxCallback {
      * @return
      */
     @RepeatSubmit(interval = 1000, message = "请求过于频繁")
+    @Log(title = "口味申请单-更新审批状态", businessType = BusinessType.UPDATE)
     @GetMapping("/updateAuitDetail/{spNo}")
     public AjaxResult updateAuitDetail(@PathVariable("spNo") String spNo) {
         getToken();
@@ -142,18 +152,43 @@ public class WxCallback {
         hxTaste.setSpNo(spNo);
         List<HxTaste> list = hxTasteService.selectHxTasteList(hxTaste);
         String state = list.get(0).getState();
-        if(str == state){
-            throw new ServiceException("该单已提交审批,状态与研发系统一致,不能强制同步更新状态");
+        if(Objects.equals(str, state)){
+            throw new ServiceException("状态与研发系统一致,不能重复强制同步更新状态");
         }else{
             //状态不一致  同步更新
             HxTaste hxTasteT = new HxTaste();
             hxTasteT.setTasteId(list.get(0).getTasteId());
             hxTasteT.setState(str);
             int i = hxTasteService.updateHxTaste(hxTasteT);
-            return AjaxResult.success("状态不一致,已更新审核单状态",i);
+            return AjaxResult.success("状态不一致,已更新审核单状态");
         }
 
     }
+
+    /**
+     * 获取审批状态变化回调
+     */
+    /**
+     * curl -X POST 'http://localhost:8080/xml/callback' -H 'content-type:application/xml' -d '<xml><URL><![CDATA[https://hhui.top]]></URL><ToUserName><![CDATA[一灰灰blog]]></ToUserName><FromUserName><![CDATA[123]]></FromUserName><CreateTime>1655700579</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[测试]]></Content><MsgId>11111111</MsgId></xml>' -i
+     *
+     * @param msg
+     * @param request
+     * @return
+     */
+    @PostMapping(path = "xml/callback",
+            consumes = {"application/xml", "text/xml"},
+            produces = "application/xml;charset=utf-8")
+    public WxTxtMsgResVo callBack(@RequestBody WxTxtMsgReqVo msg, HttpServletRequest request) {
+        WxTxtMsgResVo res = new WxTxtMsgResVo();
+        res.setFromUserName(msg.getToUserName());
+        res.setToUserName(msg.getFromUserName());
+        res.setCreateTime(System.currentTimeMillis() / 1000);
+        res.setMsgType("text");
+        res.setContent("hello: " + LocalDateTime.now());
+        return res;
+    }
+
+
 
     /**
      * 处理JSON 参数用于提交
