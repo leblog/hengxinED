@@ -67,12 +67,15 @@ import LangSelect from '@/components/LangSelect'
 import { getCodeImg } from "@/api/login";
 import Cookies from "js-cookie";
 import { encrypt, decrypt } from '@/utils/jsencrypt'
+import axios from "axios";
+import {getToken, setWxCode} from "@/utils/auth";
 
 export default {
   name: "Login",
   components: { LangSelect },
   data() {
     return {
+      Cookies,
       codeUrl: "",
       loginForm: {
         username: "",
@@ -109,6 +112,20 @@ export default {
   created() {
     this.getCode();
     this.getCookie();
+    // 获取微信绑定内容
+    //console.log("路由{}",this.$route.query.redirect)
+    console.log("路由{}",this.$route.query.code)
+    //var strings = this.$route.query.redirect.split('/index?code=');
+    //console.log("截取{}",strings[1])
+    setWxCode(this.$route.query.code);
+    /*let token = "3zwY7IgtKdGq3CP0FNde_Es-E15NqAfAgNPdVVGyix0Ix7rAyqfK1jJridN_hqB5FR83hAfDRt8Bmvcpm56AnRV_oR5empyDcZx0iKUbBeN5wKa04C1mAqiBJQz-2HdOAMg13m8e_3Nb-JuWjlkZqQ6TbSwouj9BIyFaZaQVTjlGrJA-HOmH9HyilNcAKyqHwt9MLeD4Pk9yiOXAsJU1zw"
+    // 获取微信接口
+    axios({
+      method: 'get',
+      url: "https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo?access_token="+token+"&code="+this.$route.query.code,
+    }).then(async (res) => {
+      console.log("获取用户code详情:",JSON.stringify(res))
+    });*/
   },
   methods: {
     getCode() {

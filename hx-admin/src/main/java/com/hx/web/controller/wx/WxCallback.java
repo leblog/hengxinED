@@ -20,6 +20,7 @@ import com.hx.system.domain.HxTaste;
 import com.hx.system.domain.vo.WxTxtMsgReqVo;
 import com.hx.system.domain.vo.WxTxtMsgResVo;
 import com.hx.system.service.IHxTasteService;
+import com.hx.system.service.ISysConfigService;
 import com.hx.system.service.ISysUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,33 +37,23 @@ import java.util.List;
 import static com.hx.common.utils.SecurityUtils.getUserId;
 
 /**
- * 企业微信授权登录,回调
+ * 企业微信授权登录,回调    废弃获取token(微信自带的审核)
  */
 @Slf4j
 @RestController
 @RequestMapping("/system/wx/callback")
 public class WxCallback {
     @Autowired
+    private ISysConfigService configService;
+    @Autowired
     private ISysUserService userService;
     @Autowired
     private IHxTasteService hxTasteService;
-    //http://hxapi.vaiwan.cn/open/wx/callback/info?authorization_code=11
-    //https://open.weixin.qq.com/connect/oauth2/authorize
-    // ?appid=wwa3240966154cab12
-    // &redirect_uri=http://hxapi.vaiwan.cn/open/wx/callback/info
-    // &response_type=code
-    // &scope=snsapi_base
-    // &state=STATE
-    // &connect_redirect=1
-    private static String CORPID = "wwa3240966154cab12";
-    private static String CORPSECRET = "lAi8lBjZtLq2h687uoOzy1MaRXPVM1NNi7MGNapOD-w";
-    private static String URL = "https://qyapi.weixin.qq.com/cgi-bin/gettoken";
     /*获取请假模板的列表*/
     private static String URLALL = "https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=wwa3240966154cab12&corpsecret=lAi8lBjZtLq2h687uoOzy1MaRXPVM1NNi7MGNapOD-w";
     /*测试 -- 企业微信某个审批模板*/
     private static String URLAUITDETAIL = "https://qyapi.weixin.qq.com/cgi-bin/oa/gettemplatedetail";
     private static String URLAUITDETAILT;
-    // 请假模板ID   C4RXns9Wq61qkASV9fmjSxNW6p3xnjFHc7agLEkFb
     // 烟油审核模板ID  ZvdTVeobXMC5omTwtvaLqovMUbWX62nv272c2c
     private static String TEMPLATE_ID = "ZvdTVeobXMC5omTwtvaLqovMUbWX62nv272c2c";
     // 模板详情结果
@@ -241,10 +232,7 @@ public class WxCallback {
     }
     // 获取token方法
     public String getToken(){
-        //TODO 优化存在字典中,如果字典中失效,则更新token,执行该方法的时候先执行一个测试,完成测试在进行存入数据库中
-        String result = HttpUtil.get(URLALL);
-        JSONObject obj = JSONUtil.parseObj(result);
-        token = obj.getStr("access_token");
+        token = configService.selectConfigByKey("wx.work.accessToken");
         log.info("token:{}", token);
         return token;
     }

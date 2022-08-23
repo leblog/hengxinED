@@ -1,5 +1,5 @@
 import { login, logout, getInfo } from '@/api/login'
-import { getToken, setToken, removeToken } from '@/utils/auth'
+import { getToken, setToken, removeToken, getWxCode, setWxCode, removeWxCode } from '@/utils/auth'
 
 const user = {
   state: {
@@ -76,6 +76,8 @@ const user = {
           commit('SET_ROLES', [])
           commit('SET_PERMISSIONS', [])
           removeToken()
+          // 删除wx-code
+          removeWxCode()
           resolve()
         }).catch(error => {
           reject(error)

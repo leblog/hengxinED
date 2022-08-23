@@ -541,10 +541,15 @@
 
     <!-- 审批详情 -->
     <div v-if="open">
-    <el-dialog title="审批详情" :visible.sync="open" width="700px" >
+    <el-dialog title="审批详情" :visible.sync="open" style="width:auto;margin-left: 10vw;margin-right: 10vw" >
       <div class="block">
         <el-card>
           <p>审批单名称:  {{auitDetailList.sp_name}}</p>
+          <p>录入人:  {{form.createBy}}</p>
+          <p>业务姓名:  {{form.businessName}}</p>
+          <p>客户名称:  {{form.customersName}}</p>
+          <p>客户代码:  {{form.customersCode}}</p>
+          <p>业务部门:  {{form.deptId}}</p>
           <p>审批编号:  {{auitDetailList.sp_no}}</p>
           <p>提交时间:  {{parseTime(auitDetailList.apply_time)}}</p>
           <p>审批状态:  <el-tag>{{spStatus(auitDetailList.sp_status)}}</el-tag></p>
@@ -580,7 +585,6 @@
 
   </div>
 </template>
-<script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
 <script>
 import {listTaste, getTaste, delTaste, addTaste, updateTaste, getUserDetail, commitPush, auitDetail, updateAuitDetail} from "@/api/system/taste";
 import addressJson from '@/utils/addressJson'
@@ -1189,10 +1193,49 @@ export default {
         // 校验是否绑定企业微信
       getUserDetail().then(response => {
         if(response.data.wxUserId != null){
-          commitPush(this.form.tasteId).then((res) => {
+          /*commitPush(this.form.tasteId).then((res) => {
             //console.log("请求结果:",JSON.stringify(res))
             this.$modal.msgSuccess(res);
-          })
+          })*/
+          wx.invoke('thirdPartyOpenPage', {
+              "oaType": "10001",// String
+              "templateId": "a8f97896837d07d2ea691e71b0a60fbd_696238615",// String
+              "thirdNo": "001",// String
+              "extData": {
+                'fieldList': [
+                  {
+                    'title': '采购类型',
+                    'type': 'text',
+                    'value': '市场活动',
+                  },
+                  {
+                    'title': '采购说明',
+                    'type': 'text',
+                    'value': '购买个人办公电脑',
+                  },
+                  {
+                    'title': '采购金额',
+                    'type': 'text',
+                    'value': '4839.00元',
+                  },
+                  {
+                    'title': '申请时间',
+                    'type': 'text',
+                    'value': '2018/06/20',
+                  },
+                  {
+                    'title': '订单链接',
+                    'type': 'link',		// link类型，用于在审批详情页展示第三方订单跳转地址
+                    'value': 'https://www.qq.com',
+                  },
+                ],
+              }
+            },
+            function(res) {
+              // 输出接口的回调信息
+              console.log(res);
+            });
+
         }else{
           this.$modal.msgError("未绑定企业微信,请联系管理员申请绑定");
         }
@@ -1204,20 +1247,10 @@ export default {
       this.$modal.loading("正在加载微信数据，请稍候...");
       getTaste(this.form.tasteId).then(response => {
         if(response.data.spNo != null){
-          auitDetail(response.data.spNo).then((res)=>{
-            //console.log(JSON.stringify(res))
-            this.auitDetailList = res.data.info
-            this.auitDetailListObj = res.data.info
-            /*console.log(JSON.stringify(this.auitDetailListObj.applyer.userid))
-            console.log(JSON.stringify(this.auitDetailListObj.sp_record[0].sp_status))
-            console.log(JSON.stringify(this.auitDetailListObj.sp_record[0].details[0].sptime))
-            console.log(JSON.stringify(this.auitDetailListObj.notifyer[0].userid))
-            console.log(JSON.stringify(this.auitDetailList))*/
             setTimeout(()=>{
               this.open = true
+              this.$modal.closeLoading()
             },800)
-            this.$modal.closeLoading()
-          })
         }else{
           this.$modal.msgError("该单还没有申请审批,不能查看审批详情");
           this.$modal.closeLoading()
@@ -1244,14 +1277,10 @@ export default {
     auitBack() {
       this.$modal.confirm('确认撤销审批吗?').then(function() {
       }).then(() => {
+        getTaste(this.form.tasteId).then(response => {
+          this.form = response.data
         if(this.form.spNo != null){
-          wx.checkJsApi({
-            jsApiList: ['chooseImage'], // 需要检测的JS接口列表，所有JS接口列表见附录2,
-            success: function(res) {
-              // 以键值对的形式返回，可用的api值true，不可用为false
-              // 如：{"checkResult":{"chooseImage":true},"errMsg":"checkJsApi:ok"}
-            }
-          });
+          this.$modal.msgError("没有该接口,请微信联系审批人,申请驳回");
 
 
 
@@ -1281,6 +1310,7 @@ export default {
         }else{
           this.$modal.msgError("该单还没有申请审批,不能进行撤销审批");
         }
+        })
       }).catch(() => {});
     },
     /**/

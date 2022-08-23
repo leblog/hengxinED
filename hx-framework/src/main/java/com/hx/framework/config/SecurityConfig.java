@@ -39,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     private AuthenticationEntryPointImpl unauthorizedHandler;
 
     /**
-     * 退出处理类
+     * state处理类
      */
     @Autowired
     private LogoutSuccessHandlerImpl logoutSuccessHandler;
@@ -112,8 +112,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
                 .antMatchers("/webjars/**").anonymous()
                 .antMatchers("/*/api-docs").anonymous()
                 .antMatchers("/druid/**").anonymous()
-                //放行對外開放端口
-                .antMatchers("/open/**").anonymous()
+                //放行對外開放端口  使用 permitAll() 方法所有人都能访问，包括带上 token 访问
+                .antMatchers("/open/**").permitAll()
+                .antMatchers("/WW_verify_fQ0i7eNKs0f27cyL.txt/**").permitAll()
                 //积木报表
                 .antMatchers("/jmreport/**").anonymous()
 

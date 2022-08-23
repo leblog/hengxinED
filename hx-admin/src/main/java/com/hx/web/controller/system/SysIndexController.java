@@ -26,4 +26,11 @@ public class SysIndexController
     {
         return StringUtils.format("欢迎使用{}后台管理框架，当前版本：v{}，请通过前端地址访问。", ruoyiConfig.getName(), ruoyiConfig.getVersion());
     }
+
+
+    @RequestMapping("/WW_verify_fQ0i7eNKs0f27cyL.txt")
+    public String info()
+    {
+        return StringUtils.format("fQ0i7eNKs0f27cyL");
+    }
 }
