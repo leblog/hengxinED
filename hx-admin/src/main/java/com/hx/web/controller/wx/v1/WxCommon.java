@@ -29,7 +29,7 @@ public class WxCommon {
     @Scheduled(fixedDelay = 3400000)
     public void getToken(){
         // 优化存在系统配置中,不判断失效,每一小时拉取更新一次,存入数据库中
-        // 自带审批应用 lAi8lBjZtLq2h687uoOzy1MaRXPVM1NNi7MGNapOD-w
+        // 自带审批应用 lAi8lBjZtLq2h687uoOzy1MaRXPVM1NNi7MGNapOD-w lAi8lBjZtLq2h687uoOzy1MaRXPVM1NNi7MGNapOD-w
         // 自建审批应用 HQ9pPvMX8kZ4DaXBfsadodwoG1mi2aoYt868Z7H-l1E
         // 测试工程--测试账号
         String URLALL = "https://qyapi.weixin.qq.com/cgi-bin/gettoken" +

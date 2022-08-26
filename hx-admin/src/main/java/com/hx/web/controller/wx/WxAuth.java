@@ -1,6 +1,7 @@
 package com.hx.web.controller.wx;
 
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
@@ -41,38 +42,40 @@ public class WxAuth {
 
 
     @RequestMapping("/WW_verify_fQ0i7eNKs0f27cyL.txt")
-    public String info()
-    {
+    public String info() {
         return StringUtils.format("fQ0i7eNKs0f27cyL");
     }
 
     /**
      * 授权成功302 回调   回调执行内容  获取用户code信息
-     * @param code  , HashMap<String,String> map
+     *
+     * @param code , HashMap<String,String> map
      * @return
      */
     @GetMapping("/code")
-    public AjaxResult info(String code, HttpServletResponse response) {
-        log.info("路径参数code:{}",code);
-
-        if(code.length()>=43){
-            // 跳转
-            try {
-                response.sendRedirect("http://myweb.com/login");
-                //response.sendRedirect("http://myweb.com/login?redirect=/index&code="+code);
-                // 获取访问用户敏感信息  - 这个接口获取不到用户信息(废弃)
-               /* String userInfo = HttpUtil.post("https://qyapi.weixin.qq.com/cgi-bin/user/getuserdetail?access_token=ACCESS_TOKEN", "{ \"user_ticket\": \"+" + DeviceId + "+\"}");
-                log.info("user_ticket换取详细信息:{}",userInfo);*/
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return AjaxResult.success("ok",code);
-        }else{
-            return AjaxResult.error("err",code);
+    public AjaxResult info(String code, HttpServletResponse response) throws IOException {
+        log.info("路径参数code:{}", code);
+        if (code.length() >= 43) {
+            response.sendRedirect("https://open.weixin.qq.com/connect/oauth2/authorize" +
+                    "?appid=wwa3240966154cab12" +
+                    "&redirect_uri=http://myweb.com" +
+                    "&response_type=code" +
+                    "&scope=snsapi_base" +
+                    "&state=STATE" +
+                    "&agentid=AGENTID#wechat_redirect");
+            //response.sendRedirect("http://myweb.com/login");
+            //response.sendRedirect("http://myweb.com/login?redirect=/index&code="+code);
+            String accessToken = configService.selectConfigByKey("wx.work.accessToken");
+            String res = HttpRequest.post("https://qyapi.weixin.qq.com/cgi-bin/user/getuserdetail?access_token=" + accessToken)
+                    .body("{ \"user_ticket\": \"+" + code + "+\"}")
+                    .timeout(20000)//超时，毫秒
+                    .execute().body();
+            log.info("user_ticket换取详细信息:{}", res);
+            return AjaxResult.success("ok", code);
+        } else {
+            return AjaxResult.error("err", code);
         }
     }
-
-
     /**
      * 调用用户的详情信息,绑定现在的系统上面
      */
@@ -81,14 +84,14 @@ public class WxAuth {
     @CrossOrigin
     public AjaxResult userIfo(@PathVariable("code") String code) {
         String accessToken = configService.selectConfigByKey("wx.work.accessToken");
-        String url = "https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo?access_token="+accessToken+"&code="+code+"";
+        String url = "https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo?access_token=" + accessToken + "&code=" + code + "";
         String s = HttpUtil.get(url);
 
         String DeviceId = JSONUtil.parseObj(s).getStr("DeviceId");
         String UserId = JSONUtil.parseObj(s).getStr("UserId");
-        log.info("用户code换取信息:{}",s);
-        log.info("用户code换取信息:{}",DeviceId);
-        if(!JSONUtil.parseObj(s).getStr("errcode").equals("0")){
+        log.info("用户code换取信息:{}", s);
+        log.info("用户code换取信息:{}", DeviceId);
+        if (!JSONUtil.parseObj(s).getStr("errcode").equals("0")) {
             throw new ServiceException("绑定微信ID失败,请退出系统重试");
         }
         //绑定到本机中账户
@@ -100,6 +103,7 @@ public class WxAuth {
 
     /**
      * js-SDK签名中回调
+     *
      * @param params
      * @return
      */
@@ -107,13 +111,15 @@ public class WxAuth {
     @GetMapping("/sdk")
     @CrossOrigin
     public AjaxResult sdk(String params) {
-        log.info("sdk在此:{}",params);
+        log.info("sdk在此:{}", params);
         return AjaxResult.success("ok", params);
     }
 
     // https://open.weixin.qq.com/connect/oauth2/authorize?appid=wwa3240966154cab12&redirect_uri=http://myweb.com:8081/open/wx/callback/code&response_type=code&scope=snsapi_base&state=STATE&agentid=1000003#wechat_redirect
+
     /**
      * 构造网页授权链接
+     *
      * @param
      * @return
      */
@@ -122,7 +128,7 @@ public class WxAuth {
     @CrossOrigin
     public AjaxResult oauth2() {
         String url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wwa3240966154cab12&redirect_uri=http://myweb.com:8081/open/wx/callback/code&response_type=code&scope=snsapi_base&state=STATE&agentid=AGENTID";
-        log.info("企业微信授权:"+url);
+        log.info("企业微信授权:" + url);
         String res = HttpUtil.get(url);
         return AjaxResult.success("ok", JSONUtil.parseObj(res));
     }
@@ -158,20 +164,21 @@ public class WxAuth {
         res.setCreateTime(System.currentTimeMillis() / 1000);
         res.setMsgType("text");
         res.setContent("hello: " + LocalDateTime.now());
-        log.info("请求数据:{}",JSONUtil.formatJsonStr(String.valueOf(res)));
+        log.info("请求数据:{}", JSONUtil.formatJsonStr(String.valueOf(res)));
         return res;
     }
 
     /**
      * 定时任务获取 ACCESS_TOKEN
      * 每3400秒执行一次更新操作
+     *
      * @return
      */
 
     //@Scheduled(fixedDelay = 3400000)
     @RepeatSubmit(interval = 1000, message = "请求过于频繁")
     @GetMapping("/getToken")
-    public void getToken(){
+    public void getToken() {
         // 优化存在系统配置中,不判断失效,每一小时拉取更新一次,存入数据库中
         // 审批应用 lAi8lBjZtLq2h687uoOzy1MaRXPVM1NNi7MGNapOD-w   自建审批应用 HQ9pPvMX8kZ4DaXBfsadodwoG1mi2aoYt868Z7H-l1E     HQ9pPvMX8kZ4DaXBfsadodwoG1mi2aoYt868Z7H-l1E
         String URLALL = "https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=wwa3240966154cab12&corpsecret=HQ9pPvMX8kZ4DaXBfsadodwoG1mi2aoYt868Z7H-l1E";
@@ -180,7 +187,7 @@ public class WxAuth {
         String result = HttpUtil.get(URLALL);
         JSONObject obj = JSONUtil.parseObj(result);
         String token = obj.getStr("access_token");
-        if(!"0".equals(obj.getStr("errcode"))){
+        if (!"0" .equals(obj.getStr("errcode"))) {
             throw new ServiceException("获取微信token异常");
         }
         // 存入/更新token
@@ -188,7 +195,7 @@ public class WxAuth {
         config.setConfigId(6L);
         config.setConfigValue(token);
         configService.updateConfig(config);
-        log.info("企业微信token:{},更新了{}行",token,configService.updateConfig(config));
+        log.info("企业微信token:{},更新了{}行", token, configService.updateConfig(config));
     }
 
 
@@ -203,12 +210,12 @@ public class WxAuth {
     public void jsapiTicket() {
         // 查询出来企业token  数据缓存
         String accessToken = configService.selectConfigByKey("wx.work.accessToken");
-        log.info("业务accessToken:{}",accessToken);
-        String url = "https://qyapi.weixin.qq.com/cgi-bin/get_jsapi_ticket?access_token="+accessToken;
+        log.info("业务accessToken:{}", accessToken);
+        String url = "https://qyapi.weixin.qq.com/cgi-bin/get_jsapi_ticket?access_token=" + accessToken;
         String res = HttpUtil.get(url);
         String jsapiTicket = JSONUtil.parseObj(res).getStr("ticket");
-        log.info("企业票据请求结果{}",res);
-        if(!"0".equals(JSONUtil.parseObj(res).getStr("errcode"))){
+        log.info("企业票据请求结果{}", res);
+        if (!"0" .equals(JSONUtil.parseObj(res).getStr("errcode"))) {
             throw new ServiceException("获取微信获取企业的jsapi_ticket异常");
         }
         //更新票据
@@ -216,7 +223,7 @@ public class WxAuth {
         config.setConfigId(7L);
         config.setConfigValue(jsapiTicket);
         configService.updateConfig(config);
-        log.info("企业微信票据(获取企业的jsapi_ticket):"+jsapiTicket);
+        log.info("企业微信票据(获取企业的jsapi_ticket):" + jsapiTicket);
     }
 
 
@@ -232,11 +239,11 @@ public class WxAuth {
         // 查询出来企业token  数据缓存
         String accessToken = configService.selectConfigByKey("wx.work.accessToken");
 
-        String url = "https://qyapi.weixin.qq.com/cgi-bin/ticket/get?access_token="+accessToken+"&type=agent_config";
+        String url = "https://qyapi.weixin.qq.com/cgi-bin/ticket/get?access_token=" + accessToken + "&type=agent_config";
         String res = HttpUtil.get(url);
         String jsapiTicket = JSONUtil.parseObj(res).getStr("ticket");
-        log.info("应用票据请求结果{}",res);
-        if(!"0".equals(JSONUtil.parseObj(res).getStr("errcode"))){
+        log.info("应用票据请求结果{}", res);
+        if (!"0" .equals(JSONUtil.parseObj(res).getStr("errcode"))) {
             throw new ServiceException("获取微信获取应用的jsapi_ticket异常");
         }
         //更新票据
@@ -244,7 +251,7 @@ public class WxAuth {
         config.setConfigId(8L);
         config.setConfigValue(jsapiTicket);
         configService.updateConfig(config);
-        log.info("企业微信票据(获取应用的jsapi_ticket):"+jsapiTicket);
+        log.info("企业微信票据(获取应用的jsapi_ticket):" + jsapiTicket);
     }
 
 

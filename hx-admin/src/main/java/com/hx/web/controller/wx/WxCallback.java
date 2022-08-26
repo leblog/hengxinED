@@ -41,7 +41,7 @@ import static com.hx.common.utils.SecurityUtils.getUserId;
  */
 @Slf4j
 @RestController
-@RequestMapping("/system/wx/callback")
+@RequestMapping("/open/wx/callback")
 public class WxCallback {
     @Autowired
     private ISysConfigService configService;
@@ -166,9 +166,7 @@ public class WxCallback {
      * @param request
      * @return
      */
-    @PostMapping(path = "xml/callback",
-            consumes = {"application/xml", "text/xml"},
-            produces = "application/xml;charset=utf-8")
+    @PostMapping(value = "/xml")
     public WxTxtMsgResVo callBack(@RequestBody WxTxtMsgReqVo msg, HttpServletRequest request) {
         WxTxtMsgResVo res = new WxTxtMsgResVo();
         res.setFromUserName(msg.getToUserName());
@@ -176,6 +174,7 @@ public class WxCallback {
         res.setCreateTime(System.currentTimeMillis() / 1000);
         res.setMsgType("text");
         res.setContent("hello: " + LocalDateTime.now());
+        log.info("====xml{}====",res);
         return res;
     }
 

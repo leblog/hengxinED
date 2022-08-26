@@ -52,6 +52,12 @@
         :validate-on-rule-change="true"
         :label-position="labelPosition"
       ><!--:show-message="true"  :inline-message="true"-->
+        <!-- 显示企业微信审批编码  -->
+        <el-row :gutter="24" v-if="this.$route.params.tasteId != null"><!--type="flex" justify="space-around"-->
+          <el-col >
+            <el-divider content-position="center">企业微信审批编码:{{form.spNo == null ? '未提交审批' : form.spNo}}</el-divider>
+          </el-col>
+        </el-row>
         <!--  添加业务  -->
         <el-row :gutter="24"><!--type="flex" justify="space-around"-->
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
@@ -542,8 +548,8 @@
     <!-- 审批详情 -->
     <div v-if="open">
     <el-dialog title="审批详情" :visible.sync="open" style="width:auto;margin-left: 10vw;margin-right: 10vw" >
-      <div class="block">
-        <el-card>
+      <div>
+<!--        <el-card>-->
           <p>审批单名称:  {{auitDetailList.sp_name}}</p>
           <p>录入人:  {{form.createBy}}</p>
           <p>业务姓名:  {{form.businessName}}</p>
@@ -572,7 +578,7 @@
               </div>
             </ul>
           </div>
-        </el-card>
+<!--        </el-card>-->
       </div>
 
       <div slot="footer" class="dialog-footer">
@@ -947,11 +953,7 @@ export default {
   },
   created() {
     this.reset()
-
-
-
     if (this.$route.params.tasteId != null) {
-
       getTaste(this.$route.params.tasteId).then(response => {
         this.form = response.data
         //console.log("form:",JSON.stringify(this.form))
@@ -995,10 +997,11 @@ export default {
     },
     /*复制一份该申请单*/
     copyList() {
-      this.$modal.confirm('确认复制该口味单的信息吗?').then(function() {
+      console.log("进入复制")
         let tasteCopyId = this.form.tasteId
         delete this.form.tasteId
         delete this.form.follower
+        delete this.form.spNo //删除绑定的审批单号
         for (let i = 0; i < this.form.hxTasteDetailList.length; i++) {
           delete this.form.hxTasteDetailList[i].id
           delete this.form.hxTasteDetailList[i].tasteId
@@ -1006,15 +1009,14 @@ export default {
         this.form.tasteCopyId = tasteCopyId
         //直接调用保存方法
         addTaste(this.form).then(response => {
-          this.$modal.msgSuccess('复制成功')
+          this.$modal.msgSuccess('复制成功,请到列表页中查看')
+
         })
         //跳转到,列表中查看新复制的
         setTimeout(() => {
           this.$router.push({path: '/kouwei/tasteList/'});
         }, 1000)
-      }).then(() => {
-        this.$modal.msgSuccess('复制成功,请到列表页中查看')
-      }).catch(() => {});
+
 
     },
     /*打印该申请单*/
@@ -1185,8 +1187,17 @@ export default {
             console.log("推送审批")
             commitPush(this.form.tasteId).then((res) => {
               console.log("请求结果:",JSON.stringify(res))
-              this.$modal.msgSuccess(res);
+              this.$modal.msgSuccess(res.msg);
             })
+            // 刷新当前页签
+            //setTimeout(()=>{this.$tab.refreshPage();},500)
+            if(this.form.spNo == null){
+              setTimeout(()=>{
+                location.reload()
+                this.$router.go(0)
+              },500)
+            }
+
           }else{
             this.$modal.msgError("未绑定企业微信,请联系管理员申请绑定");
           }
@@ -1225,7 +1236,7 @@ export default {
           if(response.data.spNo != null){
             updateAuitDetail(response.data.spNo).then((res)=>{
               console.log(JSON.stringify(res))
-              this.$modal.msgSuccess(res);
+              this.$modal.msgSuccess(res.msg);
             })
           }else{
             this.$modal.msgError("该单还没有申请审批,不能进行同步更新审批审批结果");
