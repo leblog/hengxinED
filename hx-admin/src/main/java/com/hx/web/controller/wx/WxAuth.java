@@ -30,7 +30,7 @@ import static com.hx.common.utils.SecurityUtils.getUserId;
 import static com.hx.common.utils.SecurityUtils.getUsername;
 
 @Slf4j
-@EnableScheduling    //开启定时任务
+//@EnableScheduling    //开启定时任务
 @RestController
 @RequestMapping("/open/wx/callback")
 public class WxAuth {
@@ -38,6 +38,13 @@ public class WxAuth {
     private ISysConfigService configService;
     @Autowired
     private ISysUserService userService;
+
+
+    @RequestMapping("/WW_verify_fQ0i7eNKs0f27cyL.txt")
+    public String info()
+    {
+        return StringUtils.format("fQ0i7eNKs0f27cyL");
+    }
 
     /**
      * 授权成功302 回调   回调执行内容  获取用户code信息
@@ -51,7 +58,8 @@ public class WxAuth {
         if(code.length()>=43){
             // 跳转
             try {
-                response.sendRedirect("http://myweb.com/login?redirect=/index&code="+code);
+                response.sendRedirect("http://myweb.com/login");
+                //response.sendRedirect("http://myweb.com/login?redirect=/index&code="+code);
                 // 获取访问用户敏感信息  - 这个接口获取不到用户信息(废弃)
                /* String userInfo = HttpUtil.post("https://qyapi.weixin.qq.com/cgi-bin/user/getuserdetail?access_token=ACCESS_TOKEN", "{ \"user_ticket\": \"+" + DeviceId + "+\"}");
                 log.info("user_ticket换取详细信息:{}",userInfo);*/
@@ -160,13 +168,15 @@ public class WxAuth {
      * @return
      */
 
-    @Scheduled(fixedDelay = 3400000)
+    //@Scheduled(fixedDelay = 3400000)
     @RepeatSubmit(interval = 1000, message = "请求过于频繁")
     @GetMapping("/getToken")
     public void getToken(){
         // 优化存在系统配置中,不判断失效,每一小时拉取更新一次,存入数据库中
-        // 审批应用 lAi8lBjZtLq2h687uoOzy1MaRXPVM1NNi7MGNapOD-w   自建审批应用 HQ9pPvMX8kZ4DaXBfsadodwoG1mi2aoYt868Z7H-l1E   HQ9pPvMX8kZ4DaXBfsadodwoG1mi2aoYt868Z7H-l1E
+        // 审批应用 lAi8lBjZtLq2h687uoOzy1MaRXPVM1NNi7MGNapOD-w   自建审批应用 HQ9pPvMX8kZ4DaXBfsadodwoG1mi2aoYt868Z7H-l1E     HQ9pPvMX8kZ4DaXBfsadodwoG1mi2aoYt868Z7H-l1E
         String URLALL = "https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=wwa3240966154cab12&corpsecret=HQ9pPvMX8kZ4DaXBfsadodwoG1mi2aoYt868Z7H-l1E";
+        //  恒信科技
+        //  String URLALL = "https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=ww0530511650e0c6c8&corpsecret=oo3yxMeLKEFZrbwe91ERqYCcP8Ak_Q0Oo8Pl8ipxnxA";
         String result = HttpUtil.get(URLALL);
         JSONObject obj = JSONUtil.parseObj(result);
         String token = obj.getStr("access_token");
@@ -187,16 +197,17 @@ public class WxAuth {
      * 每3500秒执行一次更新操作
      */
     @RepeatSubmit(interval = 1000, message = "请求过于频繁")
-    @Scheduled(fixedDelay = 3500000)
+    //@Scheduled(fixedDelay = 3500000)
     @GetMapping("/jsapiTicket")
     @CrossOrigin
     public void jsapiTicket() {
         // 查询出来企业token  数据缓存
         String accessToken = configService.selectConfigByKey("wx.work.accessToken");
-        log.info("业务内容{}",accessToken);
+        log.info("业务accessToken:{}",accessToken);
         String url = "https://qyapi.weixin.qq.com/cgi-bin/get_jsapi_ticket?access_token="+accessToken;
         String res = HttpUtil.get(url);
         String jsapiTicket = JSONUtil.parseObj(res).getStr("ticket");
+        log.info("企业票据请求结果{}",res);
         if(!"0".equals(JSONUtil.parseObj(res).getStr("errcode"))){
             throw new ServiceException("获取微信获取企业的jsapi_ticket异常");
         }
@@ -214,7 +225,7 @@ public class WxAuth {
      * 每3500秒执行一次更新操作
      */
     @RepeatSubmit(interval = 1000, message = "请求过于频繁")
-    @Scheduled(fixedDelay = 3500000)
+    //@Scheduled(fixedDelay = 3500000)
     @GetMapping("/jsapiAppTicket")
     @CrossOrigin
     public void jsapiAppTicket() {
@@ -224,6 +235,7 @@ public class WxAuth {
         String url = "https://qyapi.weixin.qq.com/cgi-bin/ticket/get?access_token="+accessToken+"&type=agent_config";
         String res = HttpUtil.get(url);
         String jsapiTicket = JSONUtil.parseObj(res).getStr("ticket");
+        log.info("应用票据请求结果{}",res);
         if(!"0".equals(JSONUtil.parseObj(res).getStr("errcode"))){
             throw new ServiceException("获取微信获取应用的jsapi_ticket异常");
         }

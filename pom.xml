@@ -3,15 +3,15 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	
+
     <groupId>com.hx</groupId>
     <artifactId>hx</artifactId>
     <version>3.8.2</version>
 
-    <name>github</name>
+    <name>lusifer</name>
     <url>http://www.github.io</url>
     <description>管理系统</description>
-    
+
     <properties>
         <hx.version>3.8.2</hx.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -32,8 +32,9 @@
         <poi.version>4.1.2</poi.version>
         <velocity.version>2.3</velocity.version>
         <jwt.version>0.9.1</jwt.version>
+        <flowable.version>6.7.2</flowable.version>
     </properties>
-	
+
     <!-- 依赖声明 -->
     <dependencyManagement>
         <dependencies>
@@ -93,6 +94,7 @@
                     </exclusion>
                 </exclusions>
             </dependency>
+
 
             <!-- io常用工具类 -->
             <dependency>
@@ -185,6 +187,31 @@
                 <version>${hx.version}</version>
             </dependency>
 
+            <!--flowable-->
+            <dependency>
+                <groupId>com.hx</groupId>
+                <artifactId>hx-flowable</artifactId>
+                <version>${hx.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.flowable</groupId>
+                <artifactId>flowable-spring-boot-starter-basic</artifactId>
+                <version>${flowable.version}</version>
+                <exclusions><!-- 需要排除flowable的mybatis依赖，不然会跟mybatis-plus冲突 -->
+                    <exclusion>
+                        <groupId>org.mybatis</groupId>
+                        <artifactId>mybatis</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.flowable</groupId>
+                <artifactId>flowable-engine</artifactId>
+                <version>${flowable.version}</version>
+                <scope>compile</scope>
+            </dependency>
+
+
         </dependencies>
     </dependencyManagement>
 
@@ -195,6 +222,7 @@
         <module>hx-quartz</module>
         <module>hx-generator</module>
         <module>hx-common</module>
+        <module>hx-flowable</module>
     </modules>
     <packaging>pom</packaging>
 

@@ -28,9 +28,4 @@ public class SysIndexController
     }
 
 
-    @RequestMapping("/WW_verify_fQ0i7eNKs0f27cyL.txt")
-    public String info()
-    {
-        return StringUtils.format("fQ0i7eNKs0f27cyL");
-    }
 }

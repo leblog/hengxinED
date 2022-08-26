@@ -17,6 +17,12 @@
 
     <dependencies>
 
+        <!-- knife4j -->
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-spring-boot-starter</artifactId>
+            <version>3.0.3</version>
+        </dependency>
         <!-- spring-boot-devtools -->
         <!--<dependency>
             <groupId>org.springframework.boot</groupId>
@@ -61,11 +67,16 @@
             <artifactId>hx-quartz</artifactId>
         </dependency>
 
-        <!-- 代码生成-->
         <dependency>
             <groupId>com.hx</groupId>
             <artifactId>hx-generator</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.hx</groupId>
+            <artifactId>hx-flowable</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -90,15 +101,15 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>   
-                <groupId>org.apache.maven.plugins</groupId>   
-                <artifactId>maven-war-plugin</artifactId>   
-                <version>3.1.0</version>   
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.1.0</version>
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                     <warName>${project.artifactId}</warName>
-                </configuration>   
-           </plugin>   
+                </configuration>
+           </plugin>
         </plugins>
         <finalName>${project.artifactId}</finalName>
     </build>

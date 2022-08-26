@@ -8,58 +8,61 @@
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <title><%= webpackConfig.name %></title>
     <!--[if lt IE 11]><script>window.location.href='/html/ie.html';</script><![endif]-->
-    <script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
-    <script src="https://open.work.weixin.qq.com/wwopen/js/jwxwork-1.0.0.js" type="text/javascript"></script>
+<!--    <script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+    <script src="https://open.work.weixin.qq.com/wwopen/js/jwxwork-1.0.0.js" type="text/javascript"></script>-->
     <script>
+      /////////////////////////////////////////////////微信SDK////////////////////////////////////////////////////////
       /*1.*/
-      wx.config({
+      /*wx.config({
         beta: true,// 必须这么写，否则wx.invoke调用形式的jsapi会有问题
         debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
         appId: 'wwa3240966154cab12', // 必填，企业微信的corpID
         timestamp: '1414587457', // 必填，生成签名的时间戳
         nonceStr: '1234', // 必填，生成签名的随机串
         // jsapi_ticket=jsapiticket&noncestr=noncestr&timestamp=timestamp&url=url
-        // jsapi_ticket=sM4AOVdWfPE4DxkXGEs8VMCPGGVi4C3VM0P37wVUCFvkVAy_90u5h9nbSlYy3-Sl-HhTdfl2fzFy1AOcHKP7qg&noncestr=Wm3WZYTPz0wzccnW&timestamp=1414587457&url=http://mp.weixin.qq.com?params=value
-        signature: '7db8d6610dffb9d635802983cfd8f83c688069da',// 必填，签名，见 附录-JS-SDK使用权限签名算法
-        jsApiList: ['oaType', 'templateId', 'thirdNo', 'extData'] // 必填，需要使用的JS接口列表，凡是要调用的接口都需要传进来
+        signature: '174cebe5599f2dc1c74acbc1f58df35747e2a2a8',// 必填，签名，见 附录-JS-SDK使用权限签名算法
+        jsApiList: ['oaType', 'templateId', 'thirdNo', 'extData', 'chooseImage'] // 必填，需要使用的JS接口列表，凡是要调用的接口都需要传进来
       });
       wx.ready(function(){
         // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
+        console.log("通过ready接口处理成功验证:",)
       });
       wx.error(function(res){
         // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
-      });
+        console.log("通过error接口处理失败验证:",)
+      });*/
 
 
-      /*2. 判断当前客户端版本是否支持指定JS接口*/
+      /*/!*2. 判断当前客户端版本是否支持指定JS接口*!/
       wx.checkJsApi({
-        jsApiList: ['chooseImage'], // 需要检测的JS接口列表，所有JS接口列表见附录2,
+        jsApiList: ['oaType', 'templateId', 'thirdNo', 'extData', 'chooseImage'], // 需要检测的JS接口列表，所有JS接口列表见附录2,
         success: function(res) {
           // 以键值对的形式返回，可用的api值true，不可用为false
           // 如：{"checkResult":{"chooseImage":true},"errMsg":"checkJsApi:ok"}
+          console.log('判断当前客户端版本是否支持指定JS接口',JSON.stringify(res))
         }
       });
 
-      /* 3. 通过可获取应用的方式*/
+      /!* 3. 通过可获取应用的方式*!/
       wx.agentConfig({
         corpid: 'wwa3240966154cab12', // 必填，企业微信的corpid，必须与当前登录的企业一致
         agentid: '1000003', // 必填，企业微信的应用id （e.g. 1000247）
         timestamp: '1414587457', // 必填，生成签名的时间戳
         nonceStr: '1234', // 必填，生成签名的随机串
-        signature: 'c93c4525e747a20e4b86d0520cd6f55c4d8fe8a0',// 必填，签名，见附录-JS-SDK使用权限签名算法
-        jsApiList: ['selectExternalContact'], //必填，传入需要使用的接口名称
+        signature: 'ab5e768cebfdab6c157a61be9f8a1c8cf4b48d45',// 必填，签名，见附录-JS-SDK使用权限签名算法
+        jsApiList: ['oaType', 'templateId', 'thirdNo', 'extData', 'chooseImage', 'selectExternalContact'], //必填，传入需要使用的接口名称
         success: function(res) {
           // 回调
+          console.log(' 通过可获取应用的方式---成功',JSON.stringify(res))
         },
         fail: function(res) {
           if(res.errMsg.indexOf('function not exist') > -1){
             alert('版本过低请升级')
           }
         }
-      });
+      });*/
 
-
-
+      /////////////////////////////////////////////////微信SDK////////////////////////////////////////////////////////
     </script>
 	  <style>
     html,

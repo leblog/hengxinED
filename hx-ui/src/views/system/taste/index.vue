@@ -585,6 +585,7 @@
 
   </div>
 </template>
+
 <script>
 import {listTaste, getTaste, delTaste, addTaste, updateTaste, getUserDetail, commitPush, auitDetail, updateAuitDetail} from "@/api/system/taste";
 import addressJson from '@/utils/addressJson'
@@ -946,21 +947,9 @@ export default {
   },
   created() {
     this.reset()
-    wx.config({
-      beta: true,// 必须这么写，否则wx.invoke调用形式的jsapi会有问题
-      debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-      appId: '', // 必填，企业微信的corpID
-      timestamp: '', // 必填，生成签名的时间戳
-      nonceStr: '', // 必填，生成签名的随机串
-      signature: '',// 必填，签名，见附录1
-      jsApiList: [] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-    });
-    wx.ready(function(){
-      // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
-    });
-    wx.error(function(res){
-      // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
-    });
+
+
+
     if (this.$route.params.tasteId != null) {
 
       getTaste(this.$route.params.tasteId).then(response => {
@@ -1191,55 +1180,17 @@ export default {
       this.$modal.confirm('确认推送审批吗?').then(function() {
       }).then(() => {
         // 校验是否绑定企业微信
-      getUserDetail().then(response => {
-        if(response.data.wxUserId != null){
-          /*commitPush(this.form.tasteId).then((res) => {
-            //console.log("请求结果:",JSON.stringify(res))
-            this.$modal.msgSuccess(res);
-          })*/
-          wx.invoke('thirdPartyOpenPage', {
-              "oaType": "10001",// String
-              "templateId": "a8f97896837d07d2ea691e71b0a60fbd_696238615",// String
-              "thirdNo": "001",// String
-              "extData": {
-                'fieldList': [
-                  {
-                    'title': '采购类型',
-                    'type': 'text',
-                    'value': '市场活动',
-                  },
-                  {
-                    'title': '采购说明',
-                    'type': 'text',
-                    'value': '购买个人办公电脑',
-                  },
-                  {
-                    'title': '采购金额',
-                    'type': 'text',
-                    'value': '4839.00元',
-                  },
-                  {
-                    'title': '申请时间',
-                    'type': 'text',
-                    'value': '2018/06/20',
-                  },
-                  {
-                    'title': '订单链接',
-                    'type': 'link',		// link类型，用于在审批详情页展示第三方订单跳转地址
-                    'value': 'https://www.qq.com',
-                  },
-                ],
-              }
-            },
-            function(res) {
-              // 输出接口的回调信息
-              console.log(res);
-            });
-
-        }else{
-          this.$modal.msgError("未绑定企业微信,请联系管理员申请绑定");
-        }
-      });
+        getUserDetail().then(response => {
+          if(response.data.wxUserId != null){
+            console.log("推送审批")
+            commitPush(this.form.tasteId).then((res) => {
+              console.log("请求结果:",JSON.stringify(res))
+              this.$modal.msgSuccess(res);
+            })
+          }else{
+            this.$modal.msgError("未绑定企业微信,请联系管理员申请绑定");
+          }
+        });
       }).catch(() => {});
     },
     /*查看该申请单审批结果*/
@@ -1247,10 +1198,19 @@ export default {
       this.$modal.loading("正在加载微信数据，请稍候...");
       getTaste(this.form.tasteId).then(response => {
         if(response.data.spNo != null){
-            setTimeout(()=>{
+            /*setTimeout(()=>{
               this.open = true
               this.$modal.closeLoading()
+            },800)*/
+          auitDetail(response.data.spNo).then((res)=>{
+            console.log(JSON.stringify(res))
+            this.auitDetailList = res.data.info
+            this.auitDetailListObj = res.data.info
+            setTimeout(()=>{
+              this.open = true
             },800)
+            this.$modal.closeLoading()
+          })
         }else{
           this.$modal.msgError("该单还没有申请审批,不能查看审批详情");
           this.$modal.closeLoading()

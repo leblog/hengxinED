@@ -43,7 +43,7 @@ export function delTaste(tasteId) {
   })
 }
 
-// 作废口味申请单详细
+// 作废口味申请单
 export function getWasteTaste(tasteId) {
   return request({
     url: '/system/taste/waste/' + tasteId,
@@ -90,7 +90,7 @@ export function getUserDetail() {
 /*烟油单审批推送接口*/
 export function commitPush(tasteId) {
   return request({
-    url: '/system/wx/callback/push/'+ tasteId,
+    url: '/system/wxOwn/callback/push/'+ tasteId,
     method: 'get'
   })
 }
@@ -98,7 +98,7 @@ export function commitPush(tasteId) {
 /*审批详情接口*/
 export function auitDetail(spNo) {
   return request({
-    url: '/system/wx/callback/auitDetail/'+ spNo,
+    url: '/system/wxOwn/callback/auitDetail/'+ spNo,
     method: 'get'
   })
 }
@@ -106,15 +106,15 @@ export function auitDetail(spNo) {
 /*更新(同步)审批接口*/
 export function updateAuitDetail(spNo) {
   return request({
-    url: '/system/wx/callback/updateAuitDetail/'+ spNo,
+    url: '/system/wxOwn/callback/updateAuitDetail/'+ spNo,
     method: 'get'
   })
 }
 
 /*首页绑定微信userId */
-export function bindWxUserId(code) {
+/*export function bindWxUserId(code) {
   return request({
     url: '/open/wx/callback/userIfo/'+ code,
     method: 'get'
   })
-}
+}*/

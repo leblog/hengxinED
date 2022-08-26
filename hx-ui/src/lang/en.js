@@ -23,5 +23,8 @@ export default {
     fixedHeader: 'Fixed Header',
     sidebarLogo: 'Sidebar Logo',
     setLang: 'Language Set Successfully'
+  },
+  menu: {
+    test: "英文菜单测试"
   }
 }

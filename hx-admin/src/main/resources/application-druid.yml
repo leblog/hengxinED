@@ -7,9 +7,9 @@ spring:
             # 主库数据源
             master:
                 # 本机
-                url: jdbc:mysql://localhost:3306/vue?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+                url: jdbc:mysql://10.10.3.19:3307/vue?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=GMT%2B8
                 username: root
-                password: root
+                password: Hs@2022
                 # 密码加密 私钥-公钥-加密后密码
                 #privateKey:MIIBVAIBADANBgkqhkiG9w0BAQEFAASCAT4wggE6AgEAAkEAmeaRhsY/EHgt9kTEZTIqzm9/sMzDsgHEJdyq4a+5QKwZWfJQ2SwfStOlmg9UadCA7Q2MKw7HFpyy5eNJ38WihQIDAQABAkASRt6LeemtZAhZUctdFTseLwGkFn07G5iWwoEMsli2xEj1Dyy0kBYnRYlhgH9li/q/dSehpnowFvLFnw9KFilhAiEA++VGcnhsq+IgpgnviQmFv0VawLLiDQTKv3ZCye/Lmi0CIQCcaIehE1OS4AJpV9EWNFXuHGc0odh2W9sh5Nw8JEsYuQIhAKKzrjQkGrVPIx18T28pam1oQ70yDhawoLDYlz1OGSmlAiAkic7VdDxb3XTyww8XTtacL4p0ozJ8Q+0nN92zNw9MEQIgezoL+/vANJ/Y419fN+CJqgxWwGIs+DgLtcvaIGkHtF0=
                 #publicKey:MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAJnmkYbGPxB4LfZExGUyKs5vf7DMw7IBxCXcquGvuUCsGVnyUNksH0rTpZoPVGnQgO0NjCsOxxacsuXjSd/FooUCAwEAAQ==
@@ -27,9 +27,9 @@ spring:
             slave:
                 # 从数据源开关/默认关闭
                 enabled: false
-                url: 
-                username: 
-                password: 
+                url:
+                username:
+                password:
             # 初始连接数
             initialSize: 5
             # 最小连接池数量
