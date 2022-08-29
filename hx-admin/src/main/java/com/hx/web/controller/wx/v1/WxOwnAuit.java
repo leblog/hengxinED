@@ -171,26 +171,6 @@ public class WxOwnAuit {
 
     }
 
-    /**
-     * 获取审批状态变化回调
-     * curl -X POST 'http://localhost:8080/xml/callback' -H 'content-type:application/xml' -d '<xml><URL><![CDATA[https://hhui.top]]></URL><ToUserName><![CDATA[一灰灰blog]]></ToUserName><FromUserName><![CDATA[123]]></FromUserName><CreateTime>1655700579</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[测试]]></Content><MsgId>11111111</MsgId></xml>' -i
-     *
-     * @param msg
-     * @param request
-     * @return
-     */
-    @PostMapping(path = "xml/callback",
-            consumes = {"application/xml", "text/xml"},
-            produces = "application/xml;charset=utf-8")
-    public WxTxtMsgResVo callBack(@RequestBody WxTxtMsgReqVo msg, HttpServletRequest request) {
-        WxTxtMsgResVo res = new WxTxtMsgResVo();
-        res.setFromUserName(msg.getToUserName());
-        res.setToUserName(msg.getFromUserName());
-        res.setCreateTime(System.currentTimeMillis() / 1000);
-        res.setMsgType("text");
-        res.setContent("hello: " + LocalDateTime.now());
-        return res;
-    }
 
     // 获取token方法
     public String getToken(){

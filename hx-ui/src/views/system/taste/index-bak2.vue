@@ -1189,7 +1189,7 @@ export default {
           console.log("推送审批")
           wx.invoke('thirdPartyOpenPage', {
               "oaType": "10001",// String
-              "templateId": "a8f97896837d07d2ea691e71b0a60fbd_696238615",// String
+              "templateId": "d842ce390ae39ecfbe4435f87c8ae31e_1558827472",// String //测试模板id a8f97896837d07d2ea691e71b0a60fbd_696238615
               "thirdNo": "001",// String
               "extData": {
                 'fieldList': [

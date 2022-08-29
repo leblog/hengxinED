@@ -1,8 +1,10 @@
 package com.hx.web.controller.wx.v1;
 
+import cn.hutool.crypto.SecureUtil;
 import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
+import com.hx.common.core.domain.AjaxResult;
 import com.hx.common.exception.ServiceException;
 import com.hx.system.domain.SysConfig;
 import com.hx.system.service.ISysConfigService;
@@ -10,11 +12,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
+@RequestMapping("/open")
 @EnableScheduling    //开启定时任务
 public class WxCommon {
     @Autowired
@@ -32,11 +34,13 @@ public class WxCommon {
         // 自带审批应用 lAi8lBjZtLq2h687uoOzy1MaRXPVM1NNi7MGNapOD-w lAi8lBjZtLq2h687uoOzy1MaRXPVM1NNi7MGNapOD-w
         // 自建审批应用 HQ9pPvMX8kZ4DaXBfsadodwoG1mi2aoYt868Z7H-l1E
         // 测试工程--测试账号
-        String URLALL = "https://qyapi.weixin.qq.com/cgi-bin/gettoken" +
+       /* String URLALL = "https://qyapi.weixin.qq.com/cgi-bin/gettoken" +
                 "?corpid=wwa3240966154cab12" +
-                "&corpsecret=lAi8lBjZtLq2h687uoOzy1MaRXPVM1NNi7MGNapOD-w";
+                "&corpsecret=lAi8lBjZtLq2h687uoOzy1MaRXPVM1NNi7MGNapOD-w";*/
         //  恒信科技
-        //  String URLALL = "https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=ww0530511650e0c6c8&corpsecret=oo3yxMeLKEFZrbwe91ERqYCcP8Ak_Q0Oo8Pl8ipxnxA";
+        String URLALL = "https://qyapi.weixin.qq.com/cgi-bin/gettoken" +
+                "?corpid=ww0530511650e0c6c8" +
+                "&corpsecret=oo3yxMeLKEFZrbwe91ERqYCcP8Ak_Q0Oo8Pl8ipxnxA";
         String result = HttpUtil.get(URLALL);
         JSONObject obj = JSONUtil.parseObj(result);
         String token = obj.getStr("access_token");
@@ -100,5 +104,38 @@ public class WxCommon {
         config.setConfigValue(jsapiTicket);
         configService.updateConfig(config);
         log.info("企业微信票据(获取应用的jsapi_ticket):"+jsapiTicket);
+    }
+
+    /**
+     * 获取应用的jsapi_ticket  加密算法
+     * 每3500秒执行一次更新操作
+     */
+    //@GetMapping("/code/{id}")  @PathVariable("id") String id
+    @GetMapping("/code")
+    public AjaxResult jsapiAppTicketAppCode() {
+        AjaxResult ajax = new AjaxResult();
+        String jsapiTicket = configService.selectConfigByKey("wx.work.jsapiTicket");
+        StringBuilder s1 = new StringBuilder();
+        s1.append("jsapi_ticket=");
+        s1.append(jsapiTicket);
+        s1.append("&noncestr=1234&timestamp=1414587457&url=http://rds.cnhstar.com:44346/kouwei/tasteList");
+        String apiCode = SecureUtil.sha1(String.valueOf(s1));
+        System.out.println("api加密字符 = " + s1);
+        log.info("api加密code:{}",apiCode);
+
+
+        String app = configService.selectConfigByKey("wx.work.jsapiTicket.app");
+        StringBuilder s2 = new StringBuilder();
+        s2.append("jsapi_ticket=");
+        s2.append(app);
+        s2.append("&noncestr=1234&timestamp=1414587457&url=http://rds.cnhstar.com:44346/kouwei/tasteList");
+        String appCode = SecureUtil.sha1(String.valueOf(s2));
+
+        System.out.println("app加密字符 = " + s2);
+        log.info("app加密code:{}",appCode);
+
+        ajax.put("api",apiCode);
+        ajax.put("app",appCode);
+        return ajax;
     }
 }

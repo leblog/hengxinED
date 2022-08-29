@@ -17,6 +17,14 @@
 
     <dependencies>
 
+
+        <!--WxJava 企业微信开发 Java SDK -->
+        <!--<dependency>
+            <groupId>com.github.binarywang</groupId>
+            <artifactId>weixin-java-cp</artifactId>
+            <version>4.3.0</version>
+        </dependency>-->
+
         <!-- mybatis-plus 增强CRUD -->
         <dependency>
             <groupId>com.baomidou</groupId>

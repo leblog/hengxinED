@@ -54,8 +54,8 @@
       ><!--:show-message="true"  :inline-message="true"-->
         <!-- 显示企业微信审批编码  -->
         <el-row :gutter="24" v-if="this.$route.params.tasteId != null"><!--type="flex" justify="space-around"-->
-          <el-col >
-            <el-divider content-position="center">企业微信审批编码:{{form.spNo == null ? '未提交审批' : form.spNo}}</el-divider>
+          <el-col>
+            <el-divider content-position="center">企业微信审批编码:{{ form.spNo == null ? '未提交审批' : form.spNo }}</el-divider>
           </el-col>
         </el-row>
         <!--  添加业务  -->
@@ -336,7 +336,9 @@
         <el-divider content-position="center">口味申请单明细信息</el-divider>
         <el-row :gutter="24" class="mb8">
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
-            <el-button type="primary" icon="el-icon-plus" size="mini" @click="insertEvent()" v-show="this.isEdit === 1">添 加 一 行</el-button>
+            <el-button type="primary" icon="el-icon-plus" size="mini" @click="insertEvent()" v-show="this.isEdit === 1">
+              添 加 一 行
+            </el-button>
           </el-col>
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
             批量列填充:
@@ -370,7 +372,7 @@
             @edit-actived="editActivedEvent"
           >
             <vxe-column type="seq" title="序号" width="50"/>
-            <vxe-column field="tasteName" :edit-render="{}"  width="100"><!--show-header-overflow-->
+            <vxe-column field="tasteName" :edit-render="{}" width="100"><!--show-header-overflow-->
               <template slot="header"><!--:title-help="{message: '自定义图标', icon: 'fa fa-bell'}"-->
                 <span @dblclick="reduce('tasteName')">口味名称</span>
               </template>
@@ -547,65 +549,78 @@
 
     <!-- 审批详情 -->
     <div v-if="open">
-    <el-dialog title="审批详情" :visible.sync="open" style="width:auto;margin-left: 10vw;margin-right: 10vw" >
-      <div>
-<!--        <el-card>-->
-          <p>审批单名称:  {{auitDetailList.sp_name}}</p>
-          <p>录入人:  {{form.createBy}}</p>
-          <p>业务姓名:  {{form.businessName}}</p>
-          <p>客户名称:  {{form.customersName}}</p>
-          <p>客户代码:  {{form.customersCode}}</p>
-          <p>业务部门:  {{form.deptId}}</p>
-          <p>审批编号:  {{auitDetailList.sp_no}}</p>
-          <p>提交时间:  {{parseTime(auitDetailList.apply_time)}}</p>
-          <p>审批状态:  <el-tag>{{spStatus(auitDetailList.sp_status)}}</el-tag></p>
-<!--          <p>单据编号:{{this.auitDetailList.apply_data.contents[0].value.text}}</p>
-          <p>客户姓名:{{this.auitDetailList.apply_data.contents[4].value.text}}</p>-->
+      <el-dialog title="审批详情" :visible.sync="open" style="width:auto;margin-left: 10vw;margin-right: 10vw">
+        <div>
+          <!--        <el-card>-->
+          <p>审批单名称: {{ auitDetailList.sp_name }}</p>
+          <p>录入人: {{ form.createBy }}</p>
+          <p>业务姓名: {{ form.businessName }}</p>
+          <p>客户名称: {{ form.customersName }}</p>
+          <p>客户代码: {{ form.customersCode }}</p>
+          <p>业务部门: {{ form.deptId }}</p>
+          <p>审批编号: {{ auitDetailList.sp_no }}</p>
+          <p>提交时间: {{ parseTime(auitDetailList.apply_time) }}</p>
+          <p>审批状态:
+            <el-tag>{{ spStatus(auitDetailList.sp_status) }}</el-tag>
+          </p>
+          <!--          <p>单据编号:{{this.auitDetailList.apply_data.contents[0].value.text}}</p>
+                    <p>客户姓名:{{this.auitDetailList.apply_data.contents[4].value.text}}</p>-->
           <div style="height: 300px;">
             <el-divider/>
             <h4>审批流程</h4>
-              <ul>
-                <b>审批步骤状态</b>
-                <div v-for="(item,index) in auitDetailListObj.sp_record" :key="index">
-                  <li>{{index+1}}、 审批流程: <el-tag> {{spStatus(item.sp_status)}} </el-tag></li>
-                  <ul><li>审批人:{{item.details[0].approver.userid}}</li></ul>
-                </div>
-              </ul>
+            <ul>
+              <b>审批步骤状态</b>
+              <div v-for="(item,index) in auitDetailListObj.sp_record" :key="index">
+                <li>{{ index + 1 }}、 审批流程:
+                  <el-tag> {{ spStatus(item.sp_status) }}</el-tag>
+                </li>
+                <ul>
+                  <li>审批人:{{ item.details[0].approver.userid }}</li>
+                </ul>
+              </div>
+            </ul>
             <ul>
               <b>抄送人</b>
               <div v-for="(item,index) in auitDetailListObj.notifyer" :key="index">
-              <li>{{item.userid}}</li>
+                <li>{{ item.userid }}</li>
               </div>
             </ul>
           </div>
-<!--        </el-card>-->
-      </div>
+          <!--        </el-card>-->
+        </div>
 
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="open = false">关 闭</el-button>
-        <el-button @click="auitBack">撤销审批</el-button>
-      </div>
-    </el-dialog>
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="open = false">关 闭</el-button>
+          <el-button @click="auitBack">撤销审批</el-button>
+        </div>
+      </el-dialog>
     </div>
 
 
   </div>
 </template>
-
 <script>
-import {listTaste, getTaste, delTaste, addTaste, updateTaste, getUserDetail, commitPush, auitDetail, updateAuitDetail} from "@/api/system/taste";
+import {
+  listTaste,
+  getTaste,
+  delTaste,
+  addTaste,
+  updateTaste,
+  getUserDetail,
+  commitPush,
+  auitDetail,
+  updateAuitDetail
+} from "@/api/system/taste";
 import addressJson from '@/utils/addressJson'
 import stateList from '@/utils/stateList'
 import spStatus from '@/utils/wx/sp_status'
 import spStatusChild from '@/utils/wx/sp_status_child'
 import axios from "axios";
-import {getToken} from "@/utils/auth";
-import {blobValidate} from "@/utils/ruoyi";
 import iFrame from "@/components/iFrame";
 
 export default {
   name: 'Taste',
-  components: { iFrame },
+  components: {iFrame},
   // components: {vtable},
   // dicts: ['hx_common_is', 'hx_common_type'],
   data() {
@@ -626,10 +641,10 @@ export default {
       spStatus,
       spStatusChild,
       /*审批详情*/
-      auitDetailList:[],
-      auitDetailListObj:[],
+      auitDetailList: [],
+      auitDetailListObj: [],
       /*地区详情回显*/
-      matchMarketTemp:[],
+      matchMarketTemp: [],
       /*详情按钮控制，修改控制暂时不提供*/
       isEdit: null,
       /*状态字典*/
@@ -951,6 +966,9 @@ export default {
       }
     }
   },
+  beforeCreate() {
+
+  },
   created() {
     this.reset()
     if (this.$route.params.tasteId != null) {
@@ -965,10 +983,9 @@ export default {
         //this.form.matchMarket = response.data.matchMarket
       })
       this.isEdit = 2;
-    }else{
+    } else {
       this.isEdit = 1;
     }
-
   },
   mounted() {
     /* if (this.form.remark == null) {
@@ -990,32 +1007,33 @@ export default {
     }
   },*/
   methods: {
+
     /*修改*/
-    edit(){
-        this.isEdit = 1
-        console.log("a"+this.isEdit)
+    edit() {
+      this.isEdit = 1
+      console.log("a" + this.isEdit)
     },
     /*复制一份该申请单*/
     copyList() {
       console.log("进入复制")
-        let tasteCopyId = this.form.tasteId
-        delete this.form.tasteId
-        delete this.form.follower
-        delete this.form.spNo //删除绑定的审批单号
-        for (let i = 0; i < this.form.hxTasteDetailList.length; i++) {
-          delete this.form.hxTasteDetailList[i].id
-          delete this.form.hxTasteDetailList[i].tasteId
-        }
-        this.form.tasteCopyId = tasteCopyId
-        //直接调用保存方法
-        addTaste(this.form).then(response => {
-          this.$modal.msgSuccess('复制成功,请到列表页中查看')
+      let tasteCopyId = this.form.tasteId
+      delete this.form.tasteId
+      delete this.form.follower
+      delete this.form.spNo //删除绑定的审批单号
+      for (let i = 0; i < this.form.hxTasteDetailList.length; i++) {
+        delete this.form.hxTasteDetailList[i].id
+        delete this.form.hxTasteDetailList[i].tasteId
+      }
+      this.form.tasteCopyId = tasteCopyId
+      //直接调用保存方法
+      addTaste(this.form).then(response => {
+        this.$modal.msgSuccess('复制成功,请到列表页中查看')
 
-        })
-        //跳转到,列表中查看新复制的
-        setTimeout(() => {
-          this.$router.push({path: '/kouwei/tasteList/'});
-        }, 1000)
+      })
+      //跳转到,列表中查看新复制的
+      setTimeout(() => {
+        this.$router.push({path: '/kouwei/tasteList/'});
+      }, 1000)
 
 
     },
@@ -1164,7 +1182,7 @@ export default {
     copyListDetail() {
       // 打开遮罩层
       this.$modal.loading("正在导出数据，请稍后...");
-      this.$refs.xTable.openExport({ types: ['csv'] })
+      this.$refs.xTable.openExport({types: ['csv']})
       setTimeout(() => {
         this.$refs.xTable.exportData({
           filename: '自定义文件名',
@@ -1179,13 +1197,49 @@ export default {
     },
     /*推送该申请单在企业微信中审批*/
     auditPush() {
-      this.$modal.confirm('确认推送审批吗?').then(function() {
+      this.$modal.confirm('确认推送审批吗?').then(function () {
       }).then(() => {
         // 校验是否绑定企业微信
         getUserDetail().then(response => {
-          if(response.data.wxUserId != null){
+          if (response.data.wxUserId != null) {
             console.log("推送审批")
-            commitPush(this.form.tasteId).then((res) => {
+            // 自建应用审批
+            wx.invoke('thirdPartyOpenPage', {
+              "oaType": "10001",// String
+              "templateId": "d842ce390ae39ecfbe4435f87c8ae31e_1558827472",// String //测试模板id a8f97896837d07d2ea691e71b0a60fbd_696238615
+              "thirdNo": "001",// String
+              "extData": {
+                'fieldList': [
+                  {
+                    'title': '采购类型',
+                    'type': 'text',
+                    'value': '市场活动',
+                  },
+                  {
+                    'title': '采购说明',
+                    'type': 'text',
+                    'value': '购买个人办公电脑',
+                  },
+                  {
+                    'title': '采购金额',
+                    'type': 'text',
+                    'value': '4839.00元',
+                  },
+                  {
+                    'title': '申请时间',
+                    'type': 'text',
+                    'value': '2018/06/20',
+                  },
+                  {
+                    'title': '订单链接',
+                    'type': 'link',		// link类型，用于在审批详情页展示第三方订单跳转地址
+                    'value': 'https://www.qq.com',
+                  },
+                ],
+              }
+            })
+            // 自带小程序
+            /*commitPush(this.form.tasteId).then((res) => {
               console.log("请求结果:",JSON.stringify(res))
               this.$modal.msgSuccess(res.msg);
             })
@@ -1196,33 +1250,34 @@ export default {
                 location.reload()
                 this.$router.go(0)
               },500)
-            }
+            }*/
 
-          }else{
+          } else {
             this.$modal.msgError("未绑定企业微信,请联系管理员申请绑定");
           }
         });
-      }).catch(() => {});
+      }).catch(() => {
+      });
     },
     /*查看该申请单审批结果*/
     auditList() {
       this.$modal.loading("正在加载微信数据，请稍候...");
       getTaste(this.form.tasteId).then(response => {
-        if(response.data.spNo != null){
-            /*setTimeout(()=>{
-              this.open = true
-              this.$modal.closeLoading()
-            },800)*/
-          auitDetail(response.data.spNo).then((res)=>{
+        if (response.data.spNo != null) {
+          /*setTimeout(()=>{
+            this.open = true
+            this.$modal.closeLoading()
+          },800)*/
+          auitDetail(response.data.spNo).then((res) => {
             console.log(JSON.stringify(res))
             this.auitDetailList = res.data.info
             this.auitDetailListObj = res.data.info
-            setTimeout(()=>{
+            setTimeout(() => {
               this.open = true
-            },800)
+            }, 800)
             this.$modal.closeLoading()
           })
-        }else{
+        } else {
           this.$modal.msgError("该单还没有申请审批,不能查看审批详情");
           this.$modal.closeLoading()
         }
@@ -1230,59 +1285,60 @@ export default {
     },
     /*更新该申请单审批结果*/
     auditUpdateList() {
-      this.$modal.confirm('确认更新审批吗?').then(function() {
+      this.$modal.confirm('确认更新审批吗?').then(function () {
       }).then(() => {
         getTaste(this.form.tasteId).then(response => {
-          if(response.data.spNo != null){
-            updateAuitDetail(response.data.spNo).then((res)=>{
+          if (response.data.spNo != null) {
+            updateAuitDetail(response.data.spNo).then((res) => {
               console.log(JSON.stringify(res))
               this.$modal.msgSuccess(res.msg);
             })
-          }else{
+          } else {
             this.$modal.msgError("该单还没有申请审批,不能进行同步更新审批审批结果");
           }
         })
-      }).catch(() => {});
+      }).catch(() => {
+      });
     },
     /*撤销审批*/
     auitBack() {
-      this.$modal.confirm('确认撤销审批吗?').then(function() {
+      this.$modal.confirm('确认撤销审批吗?').then(function () {
       }).then(() => {
         getTaste(this.form.tasteId).then(response => {
           this.form = response.data
-        if(this.form.spNo != null){
-          this.$modal.msgError("没有该接口,请微信联系审批人,申请驳回");
+          if (this.form.spNo != null) {
+            this.$modal.msgError("没有该接口,请微信联系审批人,申请驳回");
 
 
+            /*//发送鉴权请求
+            let url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wwa3240966154cab12&redirect_uri=http://myweb.com:8081/open/wx/callback/code&response_type=code&scope=snsapi_base&state=STATE&agentid=AGENTID#wechat_redirect"
+            //let url = "http://myweb.com:8081/open/wx/callback/oauth2"
+            axios({
+              method: 'get',
+              url: url,
+              //headers: { 'Authorization': 'Bearer ' + getToken() }
+            }).then( (res) => {
+              console.log(JSON.stringify(res))
+              if(res.data.length >= 866){
+                this.open = false;
+                console.log(JSON.stringify(res.request))
+                this.$notify({
+                  title: '微信错误提示',
+                  dangerouslyUseHTMLString: true,
+                  message: res.data,
+                  duration: 0
+                });
+              }
 
-          /*//发送鉴权请求
-          let url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wwa3240966154cab12&redirect_uri=http://myweb.com:8081/open/wx/callback/code&response_type=code&scope=snsapi_base&state=STATE&agentid=AGENTID#wechat_redirect"
-          //let url = "http://myweb.com:8081/open/wx/callback/oauth2"
-          axios({
-            method: 'get',
-            url: url,
-            //headers: { 'Authorization': 'Bearer ' + getToken() }
-          }).then( (res) => {
-            console.log(JSON.stringify(res))
-            if(res.data.length >= 866){
-              this.open = false;
-              console.log(JSON.stringify(res.request))
-              this.$notify({
-                title: '微信错误提示',
-                dangerouslyUseHTMLString: true,
-                message: res.data,
-                duration: 0
-              });
-            }
-
-          }).catch(err=>{
-            console.log(err);
-          });*/
-        }else{
-          this.$modal.msgError("该单还没有申请审批,不能进行撤销审批");
-        }
+            }).catch(err=>{
+              console.log(err);
+            });*/
+          } else {
+            this.$modal.msgError("该单还没有申请审批,不能进行撤销审批");
+          }
         })
-      }).catch(() => {});
+      }).catch(() => {
+      });
     },
     /**/
     editActivedEvent({rowIndex, row}) {
@@ -1292,8 +1348,8 @@ export default {
     },
     // 地区选中详情展示
     handleChangeT(value) {
-      console.log("详情:"+JSON.stringify(value))
-      console.log("临时回显数据1:"+this.matchMarketTemp)
+      console.log("详情:" + JSON.stringify(value))
+      console.log("临时回显数据1:" + this.matchMarketTemp)
       // console.log("form数据:"+JSON.stringify(JSON.parse(this.form.matchMarket)))
       // this.matchMarketTemp = this.matchMarketTemp.push(value)
       // console.log("临时回显数据2:"+this.matchMarketTemp)
@@ -1302,7 +1358,7 @@ export default {
     // 地区选中添加
     handleChange(value) {
       console.log(JSON.stringify(value.length))
-      if(value.length>3){
+      if (value.length > 3) {
         this.$modal.alertError("警告:多选地区只会保留前三个");
         for (let i = 0; i < value.length; i++) {
           // 保留前3个数据
@@ -1830,7 +1886,7 @@ export default {
       console.log("内容:" + typeof this.form.matchMarket)
       this.$refs['form'].validate(valid => {
         if (valid) {
-          this.form.matchMarket = JSON.stringify(this.matchMarketTemp )
+          this.form.matchMarket = JSON.stringify(this.matchMarketTemp)
           this.form.hxTasteDetailList = this.hxTasteDetailList
           this.open = false
           if (this.$route.params.tasteId != null) {
