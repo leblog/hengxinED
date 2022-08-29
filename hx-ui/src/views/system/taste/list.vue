@@ -114,6 +114,13 @@
               v-hasPermi="['taste:query']"
             >详情
             </el-button>
+<!--            <el-button
+              size="mini"
+              type="text"
+              icon="el-icon-edit"
+              @click="commit(scope.row)"
+            >测试-提交
+            </el-button>-->
             <el-button
               size="mini"
               type="text"
@@ -364,7 +371,7 @@ export default {
   created() {
     this.getList();
     this.reset();
-    this.getWx();
+    //this.getWx();
   },
   mounted() {
     if (this.form.remark == null) {
@@ -397,7 +404,7 @@ export default {
       });
       wx.ready(function () {
         // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
-        console.log("通过ready接口处理成功验证:",this.codeApi)
+        console.log("通过ready接口处理成功验证:")
       });
       wx.error(function (res) {
         // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
@@ -425,7 +432,7 @@ export default {
         jsApiList: ['oaType', 'templateId', 'thirdNo', 'extData', 'chooseImage', 'selectExternalContact'], //必填，传入需要使用的接口名称
         success: function (res) {
           // 回调
-          console.log(' 通过可获取应用的方式---成功', JSON.stringify(res,this.codeApi))
+          console.log(' 通过可获取应用的方式---成功', JSON.stringify(res))
         },
         fail: function (res) {
           if (res.errMsg.indexOf('function not exist') > -1) {
@@ -434,12 +441,54 @@ export default {
         }
       });
 
+
+
 /////////////////////////////////////////////////微信SDK////////////////////////////////////////////////////////
       //})
     },
+   /* 提交*/
+    commit(){
+      // 自建应用审批
+      wx.invoke('thirdPartyOpenPage', {
+        "oaType": "10001",// String 	操作类型  目前支持：10001-发起审批；10002-查看审批详情。
+        "templateId": "d842ce390ae39ecfbe4435f87c8ae31e_1558827472",// String //测试模板id a8f97896837d07d2ea691e71b0a60fbd_696238615
+        "thirdNo": "002",// String  审批单号，由开发者自行定义，不可重复。
+        "extData": {   //	详情数据
+          'fieldList': [
+            {
+              'title': '采购类型',
+              'type': 'text',
+              'value': '市场活动',
+            },
+            {
+              'title': '采购说明',
+              'type': 'text',
+              'value': '购买个人办公电脑',
+            },
+            {
+              'title': '采购金额',
+              'type': 'text',
+              'value': '4839.00元',
+            },
+            {
+              'title': '申请时间',
+              'type': 'text',
+              'value': '2018/06/20',
+            },
+            {
+              'title': '订单链接',
+              'type': 'link',		// link类型，用于在审批详情页展示第三方订单跳转地址
+              'value': 'https://www.qq.com',
+            },
+          ],
+        }
+      })
+    },
     /*详情*/
     handleDetail(row){
-      this.$router.push({ path: '/system/taste-data/index/'+row.tasteId });
+      //this.$router.push({ path: '/kouwei/taste' ,query: { tasteId:row.tasteId } });
+      this.$router.push({ path: '/system/taste-data/index/'+row.tasteId});
+      //this.$router.push({ path: '/system/taste-data/index/'+row.tasteId, query: {id: "1", name: "你好呀"} });
     },
     // 更多操作触发
     handleCommand(command, row) {

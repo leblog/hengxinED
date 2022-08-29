@@ -118,3 +118,12 @@ export function updateAuitDetail(spNo) {
     method: 'get'
   })
 }*/
+
+
+/*首页绑定微信ID */
+export function getAgentTicket(id) {
+  return request({
+    url: '/open/code/'+ id,
+    method: 'get'
+  })
+}
