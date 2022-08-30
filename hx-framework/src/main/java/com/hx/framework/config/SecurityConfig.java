@@ -115,8 +115,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
                 //放行對外開放端口  使用 permitAll() 方法所有人都能访问，包括带上 token 访问
                 .antMatchers("/open/**").permitAll()
                 .antMatchers("/WW_verify_fQ0i7eNKs0f27cyL.txt/**").permitAll()
-                //积木报表
-                .antMatchers("/jmreport/**").anonymous()
                 // 使用 permitAll() 方法所有人都能访问，包括带上 token 访问
                 //.antMatchers("/admins/**").permitAll()
 

@@ -12,7 +12,7 @@ export function listTaste(query) {
 // 查询口味申请单详细
 export function getTaste(tasteId) {
   return request({
-    url: '/system/taste/' + tasteId,
+    url: '/system/taste/query/' + tasteId,
     method: 'get'
   })
 }
