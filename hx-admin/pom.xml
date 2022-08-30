@@ -72,10 +72,6 @@
             <artifactId>hx-generator</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>com.hx</groupId>
-            <artifactId>hx-flowable</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>org.projectlombok</groupId>

@@ -6,6 +6,7 @@ import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.hx.common.core.domain.AjaxResult;
 import com.hx.common.exception.ServiceException;
+import com.hx.common.utils.uuid.SeqRD;
 import com.hx.system.domain.SysConfig;
 import com.hx.system.service.ISysConfigService;
 import lombok.extern.slf4j.Slf4j;

@@ -9,8 +9,6 @@ import com.hx.common.annotation.LimitRequest;
 import com.hx.common.annotation.RepeatSubmit;
 import com.hx.common.core.domain.AjaxResult;
 import lombok.extern.slf4j.Slf4j;
-import org.jeecg.modules.jmreport.api.data.IDataSetFactory;
-import org.jeecg.modules.jmreport.desreport.model.JmPage;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

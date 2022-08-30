@@ -3,11 +3,13 @@ package com.hx.system.service.impl;
 import cn.hutool.core.util.IdUtil;
 import com.hx.common.utils.DateUtils;
 import com.hx.common.utils.StringUtils;
+import com.hx.common.utils.uuid.SeqRD;
 import com.hx.system.domain.HxTaste;
 import com.hx.system.domain.HxTasteDetail;
 import com.hx.system.domain.enums.TatseFolder;
 import com.hx.system.mapper.HxTasteMapper;
 import com.hx.system.service.IHxTasteService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +26,7 @@ import static com.hx.common.utils.SecurityUtils.getUsername;
  * @date 2022-05-25
  */
 @Service
+@Slf4j
 public class HxTasteServiceImpl implements IHxTasteService
 {
     @Autowired
@@ -37,6 +40,13 @@ public class HxTasteServiceImpl implements IHxTasteService
     @Override
     public HxTaste selectHxTasteByTasteId(String tasteId)
     {
+        HxTaste hxTaste = hxTasteMapper.selectHxTasteByTasteId(tasteId);
+        log.info("数据:{}",hxTaste);
+        if(StringUtils.isNull(hxTaste.getSpNo())){
+            hxTaste.setSpNo(SeqRD.getId());
+            log.info("SpNO为空,新增绑定单号为{}",hxTaste.getSpNo());
+            hxTasteMapper.updateHxTaste(hxTaste);
+        }
         return hxTasteMapper.selectHxTasteByTasteId(tasteId);
     }
 

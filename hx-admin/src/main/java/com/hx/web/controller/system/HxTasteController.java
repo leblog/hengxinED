@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import cn.hutool.core.util.IdUtil;
 import com.hx.common.core.domain.entity.SysUser;
 import com.hx.common.exception.ServiceException;
+import com.hx.common.utils.StringUtils;
 import com.hx.system.domain.HxTaste;
 import com.hx.system.domain.SysOperLog;
 import com.hx.system.domain.enums.TatseFolder;
@@ -83,10 +84,10 @@ public class HxTasteController extends BaseController
      * 获取口味申请单详细信息
      */
     @PreAuthorize("@ss.hasPermi('taste:query')")
-    @GetMapping(value = "/{tasteId}")
+    @GetMapping(value = "/query/{tasteId}")
     public AjaxResult getInfo(@PathVariable("tasteId") String tasteId)
     {
-        return AjaxResult.success(hxTasteService.selectHxTasteByTasteId(tasteId));
+            return AjaxResult.success(hxTasteService.selectHxTasteByTasteId(tasteId));
     }
 
     /**

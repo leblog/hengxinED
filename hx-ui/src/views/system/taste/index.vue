@@ -493,27 +493,40 @@
     </div>
     <div slot="footer" class="dialog-footer">
       <br>
+      <!--  新增    -->
       <div v-show="this.isEdit === 1">
         <el-button type="primary" @click="submitForm">保 存</el-button>
         <el-button type="danger" @click="cancel">重置所有</el-button>
       </div>
+      <!--  详情   -->
       <div v-show="this.isEdit === 2">
         <el-button type="primary" size="small" @click="edit">修改</el-button>
         <el-button type="danger" size="small" @click="copyList">复制一份</el-button>
         <el-button type="primary" size="small" @click="printList">打印</el-button>
         <el-button type="primary" size="small" @click="copyListDetail">导出明细</el-button>
-        <el-button type="danger" size="small" @click="auditPush">推送审核</el-button> <!--auditPush-->
-        <el-button type="primary" size="small" @click="auditList">查看审批详情</el-button>
-        <el-button type="danger" size="small" @click="auditUpdateList">更新审批结果</el-button>
-      </div>
+        <el-dropdown
 
-      <!--      <el-button type="primary">主要按钮</el-button>
-            <el-button type="success">成功按钮</el-button>
-            <el-button type="info">信息按钮</el-button>
-            <el-button type="warning">警告按钮</el-button>
-            <el-button type="danger">危险按钮</el-button>-->
-      <!--      <div>测试:{{ name }}</div>-->
-      <!--      <el-button @click="cancelDeatil">重 置 明 细</el-button>-->
+          style="margin: 5px 10px 5px 10px;"
+          size="small"
+          split-button
+          type="primary"
+          @command="(command) => handleCommand(command)">   <!--v-if="this.form.spNo==null"-->
+          <!-- v-hasPermi="['monitor:job:changestate', 'monitor:job:query']"-->
+          <span class="el-dropdown-link">
+            <i class="el-icon-d-arrow-right el-icon--right"></i>选择调香审核
+          </span>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item command="1" icon="el-icon-delete">调香申请-国内业务部《国内业务一组、国内业务二组、销售支持》</el-dropdown-item>
+            <el-dropdown-item command="2" icon="el-icon-folder-delete">调香申请-外贸业务部</el-dropdown-item>
+            <el-dropdown-item command="3" icon="el-icon-printer">调香申请-产品支持部</el-dropdown-item>
+            <el-dropdown-item command="4" icon="el-icon-user">调香申请-测试</el-dropdown-item>
+            <el-dropdown-item command="5" icon="el-icon-user">调香申请-测试2</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+        <el-button type="primary" size="small" @click="auditPush(this.form.tasteId)">查看审批详情</el-button>
+<!--        <el-button type="primary" size="small" @click="auditList">查看审批详情-自带小程序</el-button>-->
+        <el-button type="danger" size="small" @click="auditUpdateList">更新审批结果--详情对比</el-button>
+      </div>
     </div>
 
     <div class="tableDiv" v-show="false">
@@ -549,9 +562,9 @@
 
     <!-- 审批详情 -->
     <div v-if="open">
-      <el-dialog title="审批详情" :visible.sync="open" style="width:auto;margin-left: 10vw;margin-right: 10vw">
+<!--      <el-dialog title="审批详情" :visible.sync="open" style="width:auto;margin-left: 10vw;margin-right: 10vw">
         <div>
-          <!--        <el-card>-->
+          &lt;!&ndash;        <el-card>&ndash;&gt;
           <p>审批单名称: {{ auitDetailList.sp_name }}</p>
           <p>录入人: {{ form.createBy }}</p>
           <p>业务姓名: {{ form.businessName }}</p>
@@ -563,8 +576,8 @@
           <p>审批状态:
             <el-tag>{{ spStatus(auitDetailList.sp_status) }}</el-tag>
           </p>
-          <!--          <p>单据编号:{{this.auitDetailList.apply_data.contents[0].value.text}}</p>
-                    <p>客户姓名:{{this.auitDetailList.apply_data.contents[4].value.text}}</p>-->
+          &lt;!&ndash;          <p>单据编号:{{this.auitDetailList.apply_data.contents[0].value.text}}</p>
+                    <p>客户姓名:{{this.auitDetailList.apply_data.contents[4].value.text}}</p>&ndash;&gt;
           <div style="height: 300px;">
             <el-divider/>
             <h4>审批流程</h4>
@@ -586,14 +599,14 @@
               </div>
             </ul>
           </div>
-          <!--        </el-card>-->
+          &lt;!&ndash;        </el-card>&ndash;&gt;
         </div>
 
         <div slot="footer" class="dialog-footer">
           <el-button @click="open = false">关 闭</el-button>
           <el-button @click="auitBack">撤销审批</el-button>
         </div>
-      </el-dialog>
+      </el-dialog>-->
     </div>
 
 
@@ -967,72 +980,11 @@ export default {
       }
     }
   },
-  beforeCreate() {
-      //this.$nextTick(()=>{
-      /////////////////////////////////////////////////微信SDK////////////////////////////////////////////////////////
-      /*1.*/
-      /*axios.get("http://rds.cnhstar.com:8081/open/code").then(res => {
-        this.codeApi = res.data.api
-        this.codeApp = res.data.app
-        console.log("获取code:", res.data.api)
-        console.log("获取code:", res.data.app)
-      })
-      wx.config({
-        beta: true,// 必须这么写，否则wx.invoke调用形式的jsapi会有问题
-        debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-        appId: 'ww0530511650e0c6c8', // 必填，企业微信的corpID
-        timestamp: '1414587457', // 必填，生成签名的时间戳
-        nonceStr: '1234', // 必填，生成签名的随机串
-        // jsapi_ticket=jsapiticket&noncestr=noncestr&timestamp=timestamp&url=url
-        signature: 'ae805c24d5f19ab0ac02278cafabae914f921937'  ,// 必填，签名，见 附录-JS-SDK使用权限签名算法   //this.codeApi   //ae805c24d5f19ab0ac02278cafabae914f921937
-        jsApiList: ['oaType', 'templateId', 'thirdNo', 'extData', 'chooseImage'] // 必填，需要使用的JS接口列表，凡是要调用的接口都需要传进来
-      });
-      wx.ready(function () {
-        // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
-        console.log("通过ready接口处理成功验证:")
-      });
-      wx.error(function (res) {
-        // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
-        console.log("通过error接口处理失败验证:",)
-      });
-
-
-      /!*2. 判断当前客户端版本是否支持指定JS接口*!/
-      wx.checkJsApi({
-        jsApiList: ['oaType', 'templateId', 'thirdNo', 'extData', 'chooseImage'], // 需要检测的JS接口列表，所有JS接口列表见附录2,
-        success: function (res) {
-          // 以键值对的形式返回，可用的api值true，不可用为false
-          // 如：{"checkResult":{"chooseImage":true},"errMsg":"checkJsApi:ok"}
-          console.log('判断当前客户端版本是否支持指定JS接口', JSON.stringify(res))
-        }
-      });
-
-      /!* 3. 通过可获取应用的方式*!/
-      wx.agentConfig({
-        corpid: 'ww0530511650e0c6c8', // 必填，企业微信的corpid，必须与当前登录的企业一致
-        agentid: 1000042, // 必填，企业微信的应用id （e.g. 1000247） //1000003
-        timestamp: '1414587457', // 必填，生成签名的时间戳
-        nonceStr: '1234', // 必填，生成签名的随机串
-        signature: '62e757fbe2825caf296b98d52f27fb95c341deeb',// 必填，签名，见附录-JS-SDK使用权限签名算法    //this.codeApp   62e757fbe2825caf296b98d52f27fb95c341deeb
-        jsApiList: ['oaType', 'templateId', 'thirdNo', 'extData', 'chooseImage', 'selectExternalContact'], //必填，传入需要使用的接口名称
-        success: function (res) {
-          // 回调
-          console.log(' 通过可获取应用的方式---成功', JSON.stringify(res))
-        },
-        fail: function (res) {
-          if (res.errMsg.indexOf('function not exist') > -1) {
-            alert('版本过低请升级')
-          }
-        }
-      });*/
-
-
-
-/////////////////////////////////////////////////微信SDK////////////////////////////////////////////////////////
-      //})
-  },
   created() {
     this.reset()
+    console.log("传递的参数:",JSON.stringify(this.$route.params))
+    console.log("传递的参数:",JSON.stringify(this.$route.query))
+
     if (this.$route.params.tasteId != null) {
       this.wxConfig();
       getTaste(this.$route.params.tasteId).then(response => {
@@ -1046,6 +998,13 @@ export default {
         //this.form.matchMarket = response.data.matchMarket
       })
       this.isEdit = 2;
+      //打印 dialog  执行打印   传递的参数: {"print":"true"}
+      if(this.$route.query.print != null){
+        alert("进入打印")
+        this.printList()
+      }
+
+
     } else {
       this.isEdit = 1;
     }
@@ -1071,12 +1030,42 @@ export default {
     }
   },*/
   methods: {
+    /*口味数据审核路线*/
+    /*<select name="liucheng" class="form-txt" value="">
+        <option value="2d32c445657ff697cb4cfb5b867b5828_1994972778">调香申请-国内业务部《国内业务一组、国内业务二组、销售支持》</option>
+        <option value="8eb4f293ded18a9c4dcddac4b6bfa9da_1834079943">调香申请-外贸业务部</option>
+        <option value="e048b4d01dd16cbe00435f93392b1f12_1235408232">调香申请-产品支持部</option>
+        <option value="820d993ca5cdb19fa5d995442f612bf3_362617181">调香申请-测试</option>
+        <option value="d842ce390ae39ecfbe4435f87c8ae31e_1558827472">调香申请测试2</option>
+    </select>*/
+    // 更多操作触发
+    handleCommand(command) {
+      switch (command) {
+        case "1":
+          this.auditPush("2d32c445657ff697cb4cfb5b867b5828_1994972778");
+          break;
+        case "2":
+          this.auditPush("8eb4f293ded18a9c4dcddac4b6bfa9da_1834079943");
+          break;
+        case "3":
+          this.auditPush("e048b4d01dd16cbe00435f93392b1f12_1235408232");
+          break;
+        case "4":
+          this.auditPush("820d993ca5cdb19fa5d995442f612bf3_362617181");
+          break;
+        case "5":
+          this.auditPush("d842ce390ae39ecfbe4435f87c8ae31e_1558827472");
+          break;
+        default:
+          break;
+      }
+    },
     /*微信配置  wxConfig (state)*/
-    async wxConfig () {
+    async wxConfig() {
       try {
-        let { data } = await getAgentTicket(this.$route.params.tasteId);
-        let {  signature } = data;
-       console.log("获得密码:",signature)
+        let {data} = await getAgentTicket(this.$route.params.tasteId);
+        let {signature} = data;
+        console.log("获得密码:", signature)
         wx.agentConfig({
           beta: true, // 必须这么写，否则wx.invoke调用形式的jsapi会有问题
           debug: true,
@@ -1093,7 +1082,7 @@ export default {
             "extData"
           ], //必填
           success: (res) => {
-            console.log("agentId成功",res)
+            console.log("agentId成功", res)
             // 回调
             // alert("agentId成功:");
             //state.agentConfigStatus = true;
@@ -1298,90 +1287,81 @@ export default {
       }, 100)
     },
     /*推送该申请单在企业微信中审批*/
-    auditPush() {
-      // 自建应用审批
-      if(true)
-      wx.invoke('thirdPartyOpenPage', {
-        "oaType": "10001",// String
-        "templateId": "d842ce390ae39ecfbe4435f87c8ae31e_1558827472",// String //测试模板id a8f97896837d07d2ea691e71b0a60fbd_696238615
-        "thirdNo": "00001",// String
-        "extData": {
-          'fieldList': [
-            {
-              'title': '采购类型',
-              'type': 'text',
-              'value': '市场活动',
+    auditPush(e) {
+      // 完整路由
+      console.log("接收", e)
+      // 校验是否绑定企业微信
+      getUserDetail().then(response => {
+        //if (response.data.wxUserId != null) {
+          console.log("推送审批")
+          // 自建应用审批
+          if(true)
+          wx.invoke('thirdPartyOpenPage', {
+            "oaType": "10001",// String
+            "templateId": e,// String //测试模板id a8f97896837d07d2ea691e71b0a60fbd_696238615
+            "thirdNo": this.form.tasteId,// String  后端请求绑定的模板id
+            "extData": {
+              'fieldList': [
+                {
+                  'title': '单据编号',
+                  'type': 'text',
+                  'value': this.form.spNo,
+                }, {
+                  'title': '录入人',
+                  'type': 'text',
+                  'value': this.form.createBy,
+                }, {
+                  'title': '业务姓名',
+                  'type': 'text',
+                  'value': this.form.businessName,
+                }, {
+                  'title': '客户名称',
+                  'type': 'text',
+                  'value': this.form.customersName,
+                }, {
+                  'title': '客户代码',
+                  'type': 'text',
+                  'value': this.form.customersCode,
+                }, {
+                  'title': '业务部门',
+                  'type': 'text',
+                  'value': this.form.deptId,
+                }, {
+                  'title': '查看详情',
+                  'type': 'link',		// link类型，用于在审批详情页展示第三方订单跳转地址
+                  'value': window.location.href,
+                }, {
+                  'title': '打印详情',
+                  'type': 'link',		// link类型，用于在审批详情页展示第三方订单跳转地址
+                  'value': window.location.href + "?print=true",
+                }],
             },
-            {
-              'title': '订单链接',
-              'type': 'link',		// link类型，用于在审批详情页展示第三方订单跳转地址
-              'value': 'https://www.qq.com',
-            },
-          ],
-        }
-      })
-      /*this.$modal.confirm('确认推送审批吗?').then(function () {
-      }).then(() => {
+            function(res) {
+              // 输出接口的回调信息
+              console.log("提交成功:"+res);
+              // 开始绑定更新单号
+            }
+          })
 
-        // 校验是否绑定企业微信
-        getUserDetail().then(response => {
-          if (response.data.wxUserId != null) {
-            console.log("推送审批")
-            // 自建应用审批
-            /!*wx.invoke('thirdPartyOpenPage', {
-              "oaType": "10001",// String
-              "templateId": "d842ce390ae39ecfbe4435f87c8ae31e_1558827472",// String //测试模板id a8f97896837d07d2ea691e71b0a60fbd_696238615
-              "thirdNo": "006",// String
-              "extData": {
-                'fieldList': [
-                  {
-                    'title': '采购类型',
-                    'type': 'text',
-                    'value': '市场活动',
-                  },
-                  {
-                    'title': '采购说明',
-                    'type': 'text',
-                    'value': '购买个人办公电脑',
-                  },
-                  {
-                    'title': '采购金额',
-                    'type': 'text',
-                    'value': '4839.00元',
-                  },
-                  {
-                    'title': '申请时间',
-                    'type': 'text',
-                    'value': '2018/06/20',
-                  },
-                  {
-                    'title': '订单链接',
-                    'type': 'link',		// link类型，用于在审批详情页展示第三方订单跳转地址
-                    'value': 'https://www.qq.com',
-                  },
-                ],
-              }
-            })*!/
-            // 自带小程序
-            /!*commitPush(this.form.tasteId).then((res) => {
-              console.log("请求结果:",JSON.stringify(res))
-              this.$modal.msgSuccess(res.msg);
-            })
-            // 刷新当前页签
-            //setTimeout(()=>{this.$tab.refreshPage();},500)
-            if(this.form.spNo == null){
-              setTimeout(()=>{
-                location.reload()
-                this.$router.go(0)
-              },500)
-            }*!/
 
-          } else {
-            this.$modal.msgError("未绑定企业微信,请联系管理员申请绑定");
-          }
-        });
-      }).catch(() => {
-      });*/
+          // 自带小程序
+          /*commitPush(this.form.tasteId).then((res) => {
+            console.log("请求结果:",JSON.stringify(res))
+            this.$modal.msgSuccess(res.msg);
+          })
+          // 刷新当前页签
+          //setTimeout(()=>{this.$tab.refreshPage();},500)
+          if(this.form.spNo == null){
+            setTimeout(()=>{
+              location.reload()
+              this.$router.go(0)
+            },500)
+          }*/
+
+        /*} else {
+          this.$modal.msgError("未绑定企业微信,请联系管理员申请绑定");
+        }*/
+      });
     },
     /*查看该申请单审批结果*/
     auditList() {
