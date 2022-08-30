@@ -83,7 +83,7 @@ public class HxTasteController extends BaseController
     /**
      * 获取口味申请单详细信息
      */
-    @PreAuthorize("@ss.hasPermi('taste:query')")
+    /*@PreAuthorize("@ss.hasPermi('taste:query')")*/
     @GetMapping(value = "/query/{tasteId}")
     public AjaxResult getInfo(@PathVariable("tasteId") String tasteId)
     {

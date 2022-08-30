@@ -40,14 +40,18 @@ public class HxTasteServiceImpl implements IHxTasteService
     @Override
     public HxTaste selectHxTasteByTasteId(String tasteId)
     {
-        HxTaste hxTaste = hxTasteMapper.selectHxTasteByTasteId(tasteId);
+        HxTaste hxTaste = new HxTaste();
+        hxTaste.setTasteId(tasteId);
+        List<HxTaste> hxTasteList = hxTasteMapper.selectHxTasteListDetail(hxTaste);
         log.info("数据:{}",hxTaste);
-        if(StringUtils.isNull(hxTaste.getSpNo())){
+        if(StringUtils.isNull(hxTasteList.get(0).getSpNo())){
             hxTaste.setSpNo(SeqRD.getId());
             log.info("SpNO为空,新增绑定单号为{}",hxTaste.getSpNo());
             hxTasteMapper.updateHxTaste(hxTaste);
         }
-        return hxTasteMapper.selectHxTasteByTasteId(tasteId);
+
+        HxTaste id = hxTasteMapper.selectHxTasteByTasteId(tasteId);
+        return id;
     }
 
     /**

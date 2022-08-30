@@ -139,7 +139,7 @@ public class WxOwnAuit {
     }
 
     /**
-     * 更新(同步)审批接口
+     * 更新(同步)审批接口  https://developer.work.weixin.qq.com/document/path/90269#4%E6%9F%A5%E8%AF%A2%E8%87%AA%E5%BB%BA%E5%BA%94%E7%94%A8%E5%AE%A1%E6%89%B9%E5%8D%95%E5%BD%93%E5%89%8D%E7%8A%B6%E6%80%81
      * @param spNo
      * @return
      */
@@ -147,16 +147,16 @@ public class WxOwnAuit {
     @Log(title = "口味申请单-更新审批状态", businessType = BusinessType.UPDATE)
     @GetMapping("/updateAuitDetail/{spNo}")
     public AjaxResult updateAuitDetail(@PathVariable("spNo") String spNo) {
-        getToken();
-        String url = "https://qyapi.weixin.qq.com/cgi-bin/oa/getapprovaldetail?access_token="+token;
-        String tempJson = "{\"sp_no\" : \""+spNo+"\"}";
+        String token1 = configService.selectConfigByKey("wx.work.accessToken");
+        String url = " https://qyapi.weixin.qq.com/cgi-bin/corp/getopenapprovaldata?access_token="+token1;
+        String tempJson = "{\"thirdNo\" : \""+spNo+"\"}";
         String res = HttpRequest.post(url)
                 .body(tempJson)
                 .timeout(20000)
                 .execute().body();
-        String str = JSONUtil.parseObj(JSONUtil.parseObj(res).getStr("info")).getStr("sp_status");
+        String str = JSONUtil.parseObj(JSONUtil.parseObj(res).getStr("data")).getStr("OpenSpstatus");
         HxTaste hxTaste = new HxTaste();
-        hxTaste.setSpNo(spNo);
+        hxTaste.setTasteId(spNo);
         List<HxTaste> list = hxTasteService.selectHxTasteList(hxTaste);
         String state = list.get(0).getState();
         if(Objects.equals(str, state)){

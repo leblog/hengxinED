@@ -1388,7 +1388,7 @@ export default {
       }).then(() => {
         getTaste(this.form.tasteId).then(response => {
           if (response.data.spNo != null) {
-            updateAuitDetail(response.data.spNo).then((res) => {
+            updateAuitDetail(this.form.tasteId).then((res) => {
               console.log(JSON.stringify(res))
               this.$modal.msgSuccess(res.msg);
             })
