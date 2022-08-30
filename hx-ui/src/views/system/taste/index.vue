@@ -1034,6 +1034,7 @@ export default {
   created() {
     this.reset()
     if (this.$route.params.tasteId != null) {
+      this.wxConfig();
       getTaste(this.$route.params.tasteId).then(response => {
         this.form = response.data
         //console.log("form:",JSON.stringify(this.form))
@@ -1048,7 +1049,7 @@ export default {
     } else {
       this.isEdit = 1;
     }
-    this.wxConfig();
+
   },
   mounted() {
     /* if (this.form.remark == null) {
@@ -1075,6 +1076,7 @@ export default {
       try {
         let { data } = await getAgentTicket(this.$route.params.tasteId);
         let {  signature } = data;
+       console.log("获得密码:",signature)
         wx.agentConfig({
           beta: true, // 必须这么写，否则wx.invoke调用形式的jsapi会有问题
           debug: true,
@@ -1084,14 +1086,11 @@ export default {
           nonceStr: '1234', // 必填，生成签名的随机串
           signature, // 必填，签名，见附录-JS-SDK使用权限签名算法
           jsApiList: [
-            'oaType',
-            'templateId',
-            'thirdNo',
-            'extData',
-            'chooseImage',
-            'selectExternalContact'
-
-
+            "thirdPartyOpenPage",
+            "oaType",
+            "templateId",
+            "thirdNo",
+            "extData"
           ], //必填
           success: (res) => {
             console.log("agentId成功",res)
@@ -1300,49 +1299,36 @@ export default {
     },
     /*推送该申请单在企业微信中审批*/
     auditPush() {
-      this.$modal.confirm('确认推送审批吗?').then(function () {
+      // 自建应用审批
+      if(true)
+      wx.invoke('thirdPartyOpenPage', {
+        "oaType": "10001",// String
+        "templateId": "d842ce390ae39ecfbe4435f87c8ae31e_1558827472",// String //测试模板id a8f97896837d07d2ea691e71b0a60fbd_696238615
+        "thirdNo": "00001",// String
+        "extData": {
+          'fieldList': [
+            {
+              'title': '采购类型',
+              'type': 'text',
+              'value': '市场活动',
+            },
+            {
+              'title': '订单链接',
+              'type': 'link',		// link类型，用于在审批详情页展示第三方订单跳转地址
+              'value': 'https://www.qq.com',
+            },
+          ],
+        }
+      })
+      /*this.$modal.confirm('确认推送审批吗?').then(function () {
       }).then(() => {
-        // 自建应用审批
-        wx.invoke('thirdPartyOpenPage', {
-          "oaType": "10001",// String
-          "templateId": "d842ce390ae39ecfbe4435f87c8ae31e_1558827472",// String //测试模板id a8f97896837d07d2ea691e71b0a60fbd_696238615
-          "thirdNo": "006",// String
-          "extData": {
-            'fieldList': [
-              {
-                'title': '采购类型',
-                'type': 'text',
-                'value': '市场活动',
-              },
-              {
-                'title': '采购说明',
-                'type': 'text',
-                'value': '购买个人办公电脑',
-              },
-              {
-                'title': '采购金额',
-                'type': 'text',
-                'value': '4839.00元',
-              },
-              {
-                'title': '申请时间',
-                'type': 'text',
-                'value': '2018/06/20',
-              },
-              {
-                'title': '订单链接',
-                'type': 'link',		// link类型，用于在审批详情页展示第三方订单跳转地址
-                'value': 'https://www.qq.com',
-              },
-            ],
-          }
-        })
+
         // 校验是否绑定企业微信
         getUserDetail().then(response => {
           if (response.data.wxUserId != null) {
             console.log("推送审批")
             // 自建应用审批
-            /*wx.invoke('thirdPartyOpenPage', {
+            /!*wx.invoke('thirdPartyOpenPage', {
               "oaType": "10001",// String
               "templateId": "d842ce390ae39ecfbe4435f87c8ae31e_1558827472",// String //测试模板id a8f97896837d07d2ea691e71b0a60fbd_696238615
               "thirdNo": "006",// String
@@ -1375,9 +1361,9 @@ export default {
                   },
                 ],
               }
-            })*/
+            })*!/
             // 自带小程序
-            /*commitPush(this.form.tasteId).then((res) => {
+            /!*commitPush(this.form.tasteId).then((res) => {
               console.log("请求结果:",JSON.stringify(res))
               this.$modal.msgSuccess(res.msg);
             })
@@ -1388,14 +1374,14 @@ export default {
                 location.reload()
                 this.$router.go(0)
               },500)
-            }*/
+            }*!/
 
           } else {
             this.$modal.msgError("未绑定企业微信,请联系管理员申请绑定");
           }
         });
       }).catch(() => {
-      });
+      });*/
     },
     /*查看该申请单审批结果*/
     auditList() {
