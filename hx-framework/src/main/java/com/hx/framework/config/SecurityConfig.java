@@ -117,6 +117,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
                 .antMatchers("/WW_verify_fQ0i7eNKs0f27cyL.txt/**").permitAll()
                 // 使用 permitAll() 方法所有人都能访问，包括带上 token 访问
                 //.antMatchers("/admins/**").permitAll()
+                // 打印口味详情数据
+                .antMatchers("/system/taste/query/**").permitAll()
 
 
                 // 除上面外的所有请求全部需要鉴权认证
