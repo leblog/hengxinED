@@ -1,0 +1,2626 @@
+{
+	"creator_userid": "Hanlele",
+	"template_id": "3WKhv4Ygexke9k5rZcyZAfytFFV5b73ig8je3RpB",
+	"use_template_approver": 1,
+	"choose_department": 2,
+	"approver": [{
+			"attr": 2,
+			"userid": ["hanlele"]
+		},
+		{
+			"attr": 1,
+			"userid": ["hanlele"]
+		}
+	],
+	"notifyer": "hanlele",
+	"notify_type": 1,
+	"apply_data": {
+		"contents": [{
+			"control": "Text",
+			"id": "Text-1640339319582",
+			"value": {
+				"text": "提交1"
+			}
+		}, {
+			"control": "Date",
+			"id": "Date-1660882636793",
+			"value": {
+				"date": {
+					"type": "day",
+					"s_timestamp": "1660895887"
+				}
+			}
+		}, {
+			"control": "Contact",
+			"id": "Contact-1660882681523",
+			"value": {
+				"members": [{
+					"userid": "HanLeLe",
+					"name": "韩乐乐"
+				}]
+			}
+		}, {
+			"control": "Contact",
+			"id": "Contact-1660882725024",
+			"value": {
+				"departments": [{
+					"openapi_id": "1",
+					"name": "销售部"
+				}]
+			}
+		}, {
+			"control": "Text",
+			"id": "Text-1660882747027",
+			"value": {
+				"text": "客户名称2221"
+			}
+		}, {
+			"control": "Table",
+			"id": "Table-1661741719178",
+			"value": {
+				"children": [{
+						"list": [{
+							"control": "Text",
+							"id": "Text-1661741741088",
+							"title": [{
+								"text": "口味名称",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "口味1"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661741743541",
+							"title": [{
+								"text": "描述",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "描述1"
+							}
+						}, {
+							"control": "Selector",
+							"id": "Selector-1661742335878",
+							"title": [{
+								"text": "是否有基础口味",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"selector": {
+									"type": "single",
+									"options": [{
+										"key": "option-1661742335879"
+									}]
+								}
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742382843",
+							"title": [{
+								"text": "基础口味名称/编码",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "编码1"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742412442",
+							"title": [{
+								"text": "基础口味改善意见",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "基础口味改善意见1"
+							}
+						}, {
+							"control": "Number",
+							"id": "Number-1661742460904",
+							"title": [{
+								"text": "容量",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"new_number": "700"
+							}
+						}, {
+							"control": "Number",
+							"id": "Number-1661742479683",
+							"title": [{
+								"text": "VG",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"new_number": "70"
+							}
+						}, {
+							"control": "Number",
+							"id": "Number-1661742490125",
+							"title": [{
+								"text": "NIC类别",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"new_number": "1"
+							}
+						},{
+							"control": "Text",
+							"id": "Text-1661742428248",
+							"title": [{
+								"text": "NIC浓度",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "170"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742448888",
+							"title": [{
+								"text": "NIC单位",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "mg/ml"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742560343",
+							"title": [{
+								"text": "调香师",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "调香师1"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742569305",
+							"title": [{
+								"text": "版本",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "版本1"
+							}
+						}]
+					},{
+						"list": [{
+							"control": "Text",
+							"id": "Text-1661741741088",
+							"title": [{
+								"text": "口味名称",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "口味1"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661741743541",
+							"title": [{
+								"text": "描述",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "描述1"
+							}
+						}, {
+							"control": "Selector",
+							"id": "Selector-1661742335878",
+							"title": [{
+								"text": "是否有基础口味",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"selector": {
+									"type": "single",
+									"options": [{
+										"key": "option-1661742335879"
+									}]
+								}
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742382843",
+							"title": [{
+								"text": "基础口味名称/编码",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "编码1"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742412442",
+							"title": [{
+								"text": "基础口味改善意见",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "基础口味改善意见1"
+							}
+						}, {
+							"control": "Number",
+							"id": "Number-1661742460904",
+							"title": [{
+								"text": "容量",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"new_number": "700"
+							}
+						}, {
+							"control": "Number",
+							"id": "Number-1661742479683",
+							"title": [{
+								"text": "VG",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"new_number": "70"
+							}
+						}, {
+							"control": "Number",
+							"id": "Number-1661742490125",
+							"title": [{
+								"text": "NIC类别",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"new_number": "1"
+							}
+						},{
+							"control": "Text",
+							"id": "Text-1661742428248",
+							"title": [{
+								"text": "NIC浓度",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "170"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742448888",
+							"title": [{
+								"text": "NIC单位",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "mg/ml"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742560343",
+							"title": [{
+								"text": "调香师",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "调香师1"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742569305",
+							"title": [{
+								"text": "版本",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "版本1"
+							}
+						}]
+					},{
+						"list": [{
+							"control": "Text",
+							"id": "Text-1661741741088",
+							"title": [{
+								"text": "口味名称",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "口味1"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661741743541",
+							"title": [{
+								"text": "描述",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "描述1"
+							}
+						}, {
+							"control": "Selector",
+							"id": "Selector-1661742335878",
+							"title": [{
+								"text": "是否有基础口味",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"selector": {
+									"type": "single",
+									"options": [{
+										"key": "option-1661742335879"
+									}]
+								}
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742382843",
+							"title": [{
+								"text": "基础口味名称/编码",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "编码1"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742412442",
+							"title": [{
+								"text": "基础口味改善意见",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "基础口味改善意见1"
+							}
+						}, {
+							"control": "Number",
+							"id": "Number-1661742460904",
+							"title": [{
+								"text": "容量",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"new_number": "700"
+							}
+						}, {
+							"control": "Number",
+							"id": "Number-1661742479683",
+							"title": [{
+								"text": "VG",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"new_number": "70"
+							}
+						}, {
+							"control": "Number",
+							"id": "Number-1661742490125",
+							"title": [{
+								"text": "NIC类别",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"new_number": "1"
+							}
+						},{
+							"control": "Text",
+							"id": "Text-1661742428248",
+							"title": [{
+								"text": "NIC浓度",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "170"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742448888",
+							"title": [{
+								"text": "NIC单位",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "mg/ml"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742560343",
+							"title": [{
+								"text": "调香师",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "调香师1"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742569305",
+							"title": [{
+								"text": "版本",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "版本1"
+							}
+						}]
+					},{
+						"list": [{
+							"control": "Text",
+							"id": "Text-1661741741088",
+							"title": [{
+								"text": "口味名称",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "口味1"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661741743541",
+							"title": [{
+								"text": "描述",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "描述1"
+							}
+						}, {
+							"control": "Selector",
+							"id": "Selector-1661742335878",
+							"title": [{
+								"text": "是否有基础口味",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"selector": {
+									"type": "single",
+									"options": [{
+										"key": "option-1661742335879"
+									}]
+								}
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742382843",
+							"title": [{
+								"text": "基础口味名称/编码",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "编码1"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742412442",
+							"title": [{
+								"text": "基础口味改善意见",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "基础口味改善意见1"
+							}
+						}, {
+							"control": "Number",
+							"id": "Number-1661742460904",
+							"title": [{
+								"text": "容量",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"new_number": "700"
+							}
+						}, {
+							"control": "Number",
+							"id": "Number-1661742479683",
+							"title": [{
+								"text": "VG",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"new_number": "70"
+							}
+						}, {
+							"control": "Number",
+							"id": "Number-1661742490125",
+							"title": [{
+								"text": "NIC类别",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"new_number": "1"
+							}
+						},{
+							"control": "Text",
+							"id": "Text-1661742428248",
+							"title": [{
+								"text": "NIC浓度",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "170"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742448888",
+							"title": [{
+								"text": "NIC单位",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "mg/ml"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742560343",
+							"title": [{
+								"text": "调香师",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "调香师1"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742569305",
+							"title": [{
+								"text": "版本",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "版本1"
+							}
+						}]
+					},{
+						"list": [{
+							"control": "Text",
+							"id": "Text-1661741741088",
+							"title": [{
+								"text": "口味名称",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "口味1"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661741743541",
+							"title": [{
+								"text": "描述",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "描述1"
+							}
+						}, {
+							"control": "Selector",
+							"id": "Selector-1661742335878",
+							"title": [{
+								"text": "是否有基础口味",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"selector": {
+									"type": "single",
+									"options": [{
+										"key": "option-1661742335879"
+									}]
+								}
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742382843",
+							"title": [{
+								"text": "基础口味名称/编码",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "编码1"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742412442",
+							"title": [{
+								"text": "基础口味改善意见",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "基础口味改善意见1"
+							}
+						}, {
+							"control": "Number",
+							"id": "Number-1661742460904",
+							"title": [{
+								"text": "容量",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"new_number": "700"
+							}
+						}, {
+							"control": "Number",
+							"id": "Number-1661742479683",
+							"title": [{
+								"text": "VG",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"new_number": "70"
+							}
+						}, {
+							"control": "Number",
+							"id": "Number-1661742490125",
+							"title": [{
+								"text": "NIC类别",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"new_number": "1"
+							}
+						},{
+							"control": "Text",
+							"id": "Text-1661742428248",
+							"title": [{
+								"text": "NIC浓度",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "170"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742448888",
+							"title": [{
+								"text": "NIC单位",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "mg/ml"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742560343",
+							"title": [{
+								"text": "调香师",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "调香师1"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742569305",
+							"title": [{
+								"text": "版本",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "版本1"
+							}
+						}]
+					},{
+						"list": [{
+							"control": "Text",
+							"id": "Text-1661741741088",
+							"title": [{
+								"text": "口味名称",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "口味1"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661741743541",
+							"title": [{
+								"text": "描述",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "描述1"
+							}
+						}, {
+							"control": "Selector",
+							"id": "Selector-1661742335878",
+							"title": [{
+								"text": "是否有基础口味",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"selector": {
+									"type": "single",
+									"options": [{
+										"key": "option-1661742335879"
+									}]
+								}
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742382843",
+							"title": [{
+								"text": "基础口味名称/编码",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "编码1"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742412442",
+							"title": [{
+								"text": "基础口味改善意见",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "基础口味改善意见1"
+							}
+						}, {
+							"control": "Number",
+							"id": "Number-1661742460904",
+							"title": [{
+								"text": "容量",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"new_number": "700"
+							}
+						}, {
+							"control": "Number",
+							"id": "Number-1661742479683",
+							"title": [{
+								"text": "VG",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"new_number": "70"
+							}
+						}, {
+							"control": "Number",
+							"id": "Number-1661742490125",
+							"title": [{
+								"text": "NIC类别",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"new_number": "1"
+							}
+						},{
+							"control": "Text",
+							"id": "Text-1661742428248",
+							"title": [{
+								"text": "NIC浓度",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "170"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742448888",
+							"title": [{
+								"text": "NIC单位",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "mg/ml"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742560343",
+							"title": [{
+								"text": "调香师",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "调香师1"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742569305",
+							"title": [{
+								"text": "版本",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "版本1"
+							}
+						}]
+					},{
+						"list": [{
+							"control": "Text",
+							"id": "Text-1661741741088",
+							"title": [{
+								"text": "口味名称",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "口味1"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661741743541",
+							"title": [{
+								"text": "描述",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "描述1"
+							}
+						}, {
+							"control": "Selector",
+							"id": "Selector-1661742335878",
+							"title": [{
+								"text": "是否有基础口味",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"selector": {
+									"type": "single",
+									"options": [{
+										"key": "option-1661742335879"
+									}]
+								}
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742382843",
+							"title": [{
+								"text": "基础口味名称/编码",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "编码1"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742412442",
+							"title": [{
+								"text": "基础口味改善意见",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "基础口味改善意见1"
+							}
+						}, {
+							"control": "Number",
+							"id": "Number-1661742460904",
+							"title": [{
+								"text": "容量",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"new_number": "700"
+							}
+						}, {
+							"control": "Number",
+							"id": "Number-1661742479683",
+							"title": [{
+								"text": "VG",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"new_number": "70"
+							}
+						}, {
+							"control": "Number",
+							"id": "Number-1661742490125",
+							"title": [{
+								"text": "NIC类别",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"new_number": "1"
+							}
+						},{
+							"control": "Text",
+							"id": "Text-1661742428248",
+							"title": [{
+								"text": "NIC浓度",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "170"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742448888",
+							"title": [{
+								"text": "NIC单位",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "mg/ml"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742560343",
+							"title": [{
+								"text": "调香师",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "调香师1"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742569305",
+							"title": [{
+								"text": "版本",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "版本1"
+							}
+						}]
+					},{
+						"list": [{
+							"control": "Text",
+							"id": "Text-1661741741088",
+							"title": [{
+								"text": "口味名称",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "口味1"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661741743541",
+							"title": [{
+								"text": "描述",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "描述1"
+							}
+						}, {
+							"control": "Selector",
+							"id": "Selector-1661742335878",
+							"title": [{
+								"text": "是否有基础口味",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"selector": {
+									"type": "single",
+									"options": [{
+										"key": "option-1661742335879"
+									}]
+								}
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742382843",
+							"title": [{
+								"text": "基础口味名称/编码",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "编码1"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742412442",
+							"title": [{
+								"text": "基础口味改善意见",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "基础口味改善意见1"
+							}
+						}, {
+							"control": "Number",
+							"id": "Number-1661742460904",
+							"title": [{
+								"text": "容量",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"new_number": "700"
+							}
+						}, {
+							"control": "Number",
+							"id": "Number-1661742479683",
+							"title": [{
+								"text": "VG",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"new_number": "70"
+							}
+						}, {
+							"control": "Number",
+							"id": "Number-1661742490125",
+							"title": [{
+								"text": "NIC类别",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"new_number": "1"
+							}
+						},{
+							"control": "Text",
+							"id": "Text-1661742428248",
+							"title": [{
+								"text": "NIC浓度",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "170"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742448888",
+							"title": [{
+								"text": "NIC单位",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "mg/ml"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742560343",
+							"title": [{
+								"text": "调香师",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "调香师1"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742569305",
+							"title": [{
+								"text": "版本",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "版本1"
+							}
+						}]
+					},{
+						"list": [{
+							"control": "Text",
+							"id": "Text-1661741741088",
+							"title": [{
+								"text": "口味名称",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "口味1"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661741743541",
+							"title": [{
+								"text": "描述",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "描述1"
+							}
+						}, {
+							"control": "Selector",
+							"id": "Selector-1661742335878",
+							"title": [{
+								"text": "是否有基础口味",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"selector": {
+									"type": "single",
+									"options": [{
+										"key": "option-1661742335879"
+									}]
+								}
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742382843",
+							"title": [{
+								"text": "基础口味名称/编码",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "编码1"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742412442",
+							"title": [{
+								"text": "基础口味改善意见",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "基础口味改善意见1"
+							}
+						}, {
+							"control": "Number",
+							"id": "Number-1661742460904",
+							"title": [{
+								"text": "容量",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"new_number": "700"
+							}
+						}, {
+							"control": "Number",
+							"id": "Number-1661742479683",
+							"title": [{
+								"text": "VG",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"new_number": "70"
+							}
+						}, {
+							"control": "Number",
+							"id": "Number-1661742490125",
+							"title": [{
+								"text": "NIC类别",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"new_number": "1"
+							}
+						},{
+							"control": "Text",
+							"id": "Text-1661742428248",
+							"title": [{
+								"text": "NIC浓度",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "170"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742448888",
+							"title": [{
+								"text": "NIC单位",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "mg/ml"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742560343",
+							"title": [{
+								"text": "调香师",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "调香师1"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742569305",
+							"title": [{
+								"text": "版本",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "版本1"
+							}
+						}]
+					},{
+						"list": [{
+							"control": "Text",
+							"id": "Text-1661741741088",
+							"title": [{
+								"text": "口味名称",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "口味1"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661741743541",
+							"title": [{
+								"text": "描述",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "描述1"
+							}
+						}, {
+							"control": "Selector",
+							"id": "Selector-1661742335878",
+							"title": [{
+								"text": "是否有基础口味",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"selector": {
+									"type": "single",
+									"options": [{
+										"key": "option-1661742335879"
+									}]
+								}
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742382843",
+							"title": [{
+								"text": "基础口味名称/编码",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "编码1"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742412442",
+							"title": [{
+								"text": "基础口味改善意见",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "基础口味改善意见1"
+							}
+						}, {
+							"control": "Number",
+							"id": "Number-1661742460904",
+							"title": [{
+								"text": "容量",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"new_number": "700"
+							}
+						}, {
+							"control": "Number",
+							"id": "Number-1661742479683",
+							"title": [{
+								"text": "VG",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"new_number": "70"
+							}
+						}, {
+							"control": "Number",
+							"id": "Number-1661742490125",
+							"title": [{
+								"text": "NIC类别",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"new_number": "1"
+							}
+						},{
+							"control": "Text",
+							"id": "Text-1661742428248",
+							"title": [{
+								"text": "NIC浓度",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "170"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742448888",
+							"title": [{
+								"text": "NIC单位",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "mg/ml"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742560343",
+							"title": [{
+								"text": "调香师",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "调香师1"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742569305",
+							"title": [{
+								"text": "版本",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "版本1"
+							}
+						}]
+					},{
+						"list": [{
+							"control": "Text",
+							"id": "Text-1661741741088",
+							"title": [{
+								"text": "口味名称",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "口味1"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661741743541",
+							"title": [{
+								"text": "描述",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "描述1"
+							}
+						}, {
+							"control": "Selector",
+							"id": "Selector-1661742335878",
+							"title": [{
+								"text": "是否有基础口味",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"selector": {
+									"type": "single",
+									"options": [{
+										"key": "option-1661742335879"
+									}]
+								}
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742382843",
+							"title": [{
+								"text": "基础口味名称/编码",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "编码1"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742412442",
+							"title": [{
+								"text": "基础口味改善意见",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "基础口味改善意见1"
+							}
+						}, {
+							"control": "Number",
+							"id": "Number-1661742460904",
+							"title": [{
+								"text": "容量",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"new_number": "700"
+							}
+						}, {
+							"control": "Number",
+							"id": "Number-1661742479683",
+							"title": [{
+								"text": "VG",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"new_number": "70"
+							}
+						}, {
+							"control": "Number",
+							"id": "Number-1661742490125",
+							"title": [{
+								"text": "NIC类别",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"new_number": "1"
+							}
+						},{
+							"control": "Text",
+							"id": "Text-1661742428248",
+							"title": [{
+								"text": "NIC浓度",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "170"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742448888",
+							"title": [{
+								"text": "NIC单位",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "mg/ml"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742560343",
+							"title": [{
+								"text": "调香师",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "调香师1"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742569305",
+							"title": [{
+								"text": "版本",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "版本1"
+							}
+						}]
+					},{
+						"list": [{
+							"control": "Text",
+							"id": "Text-1661741741088",
+							"title": [{
+								"text": "口味名称",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "口味1"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661741743541",
+							"title": [{
+								"text": "描述",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "描述1"
+							}
+						}, {
+							"control": "Selector",
+							"id": "Selector-1661742335878",
+							"title": [{
+								"text": "是否有基础口味",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"selector": {
+									"type": "single",
+									"options": [{
+										"key": "option-1661742335879"
+									}]
+								}
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742382843",
+							"title": [{
+								"text": "基础口味名称/编码",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "编码1"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742412442",
+							"title": [{
+								"text": "基础口味改善意见",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "基础口味改善意见1"
+							}
+						}, {
+							"control": "Number",
+							"id": "Number-1661742460904",
+							"title": [{
+								"text": "容量",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"new_number": "700"
+							}
+						}, {
+							"control": "Number",
+							"id": "Number-1661742479683",
+							"title": [{
+								"text": "VG",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"new_number": "70"
+							}
+						}, {
+							"control": "Number",
+							"id": "Number-1661742490125",
+							"title": [{
+								"text": "NIC类别",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"new_number": "1"
+							}
+						},{
+							"control": "Text",
+							"id": "Text-1661742428248",
+							"title": [{
+								"text": "NIC浓度",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "170"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742448888",
+							"title": [{
+								"text": "NIC单位",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "mg/ml"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742560343",
+							"title": [{
+								"text": "调香师",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "调香师1"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742569305",
+							"title": [{
+								"text": "版本",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "版本1"
+							}
+						}]
+					},{
+						"list": [{
+							"control": "Text",
+							"id": "Text-1661741741088",
+							"title": [{
+								"text": "口味名称",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "口味1"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661741743541",
+							"title": [{
+								"text": "描述",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "描述1"
+							}
+						}, {
+							"control": "Selector",
+							"id": "Selector-1661742335878",
+							"title": [{
+								"text": "是否有基础口味",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"selector": {
+									"type": "single",
+									"options": [{
+										"key": "option-1661742335879"
+									}]
+								}
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742382843",
+							"title": [{
+								"text": "基础口味名称/编码",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "编码1"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742412442",
+							"title": [{
+								"text": "基础口味改善意见",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "基础口味改善意见1"
+							}
+						}, {
+							"control": "Number",
+							"id": "Number-1661742460904",
+							"title": [{
+								"text": "容量",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"new_number": "700"
+							}
+						}, {
+							"control": "Number",
+							"id": "Number-1661742479683",
+							"title": [{
+								"text": "VG",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"new_number": "70"
+							}
+						}, {
+							"control": "Number",
+							"id": "Number-1661742490125",
+							"title": [{
+								"text": "NIC类别",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"new_number": "1"
+							}
+						},{
+							"control": "Text",
+							"id": "Text-1661742428248",
+							"title": [{
+								"text": "NIC浓度",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "170"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742448888",
+							"title": [{
+								"text": "NIC单位",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "mg/ml"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742560343",
+							"title": [{
+								"text": "调香师",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "调香师1"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742569305",
+							"title": [{
+								"text": "版本",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "版本1"
+							}
+						}]
+					},{
+						"list": [{
+							"control": "Text",
+							"id": "Text-1661741741088",
+							"title": [{
+								"text": "口味名称",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "口味1"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661741743541",
+							"title": [{
+								"text": "描述",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "描述1"
+							}
+						}, {
+							"control": "Selector",
+							"id": "Selector-1661742335878",
+							"title": [{
+								"text": "是否有基础口味",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"selector": {
+									"type": "single",
+									"options": [{
+										"key": "option-1661742335879"
+									}]
+								}
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742382843",
+							"title": [{
+								"text": "基础口味名称/编码",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "编码1"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742412442",
+							"title": [{
+								"text": "基础口味改善意见",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "基础口味改善意见1"
+							}
+						}, {
+							"control": "Number",
+							"id": "Number-1661742460904",
+							"title": [{
+								"text": "容量",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"new_number": "700"
+							}
+						}, {
+							"control": "Number",
+							"id": "Number-1661742479683",
+							"title": [{
+								"text": "VG",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"new_number": "70"
+							}
+						}, {
+							"control": "Number",
+							"id": "Number-1661742490125",
+							"title": [{
+								"text": "NIC类别",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"new_number": "1"
+							}
+						},{
+							"control": "Text",
+							"id": "Text-1661742428248",
+							"title": [{
+								"text": "NIC浓度",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "170"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742448888",
+							"title": [{
+								"text": "NIC单位",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "mg/ml"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742560343",
+							"title": [{
+								"text": "调香师",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "调香师1"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742569305",
+							"title": [{
+								"text": "版本",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "版本1"
+							}
+						}]
+					},{
+						"list": [{
+							"control": "Text",
+							"id": "Text-1661741741088",
+							"title": [{
+								"text": "口味名称",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "口味1"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661741743541",
+							"title": [{
+								"text": "描述",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "描述1"
+							}
+						}, {
+							"control": "Selector",
+							"id": "Selector-1661742335878",
+							"title": [{
+								"text": "是否有基础口味",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"selector": {
+									"type": "single",
+									"options": [{
+										"key": "option-1661742335879"
+									}]
+								}
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742382843",
+							"title": [{
+								"text": "基础口味名称/编码",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "编码1"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742412442",
+							"title": [{
+								"text": "基础口味改善意见",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "基础口味改善意见1"
+							}
+						}, {
+							"control": "Number",
+							"id": "Number-1661742460904",
+							"title": [{
+								"text": "容量",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"new_number": "700"
+							}
+						}, {
+							"control": "Number",
+							"id": "Number-1661742479683",
+							"title": [{
+								"text": "VG",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"new_number": "70"
+							}
+						}, {
+							"control": "Number",
+							"id": "Number-1661742490125",
+							"title": [{
+								"text": "NIC类别",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"new_number": "1"
+							}
+						},{
+							"control": "Text",
+							"id": "Text-1661742428248",
+							"title": [{
+								"text": "NIC浓度",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "170"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742448888",
+							"title": [{
+								"text": "NIC单位",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "mg/ml"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742560343",
+							"title": [{
+								"text": "调香师",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "调香师1"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742569305",
+							"title": [{
+								"text": "版本",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "版本1"
+							}
+						}]
+					},{
+						"list": [{
+							"control": "Text",
+							"id": "Text-1661741741088",
+							"title": [{
+								"text": "口味名称",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "口味1"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661741743541",
+							"title": [{
+								"text": "描述",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "描述1"
+							}
+						}, {
+							"control": "Selector",
+							"id": "Selector-1661742335878",
+							"title": [{
+								"text": "是否有基础口味",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"selector": {
+									"type": "single",
+									"options": [{
+										"key": "option-1661742335879"
+									}]
+								}
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742382843",
+							"title": [{
+								"text": "基础口味名称/编码",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "编码1"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742412442",
+							"title": [{
+								"text": "基础口味改善意见",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "基础口味改善意见1"
+							}
+						}, {
+							"control": "Number",
+							"id": "Number-1661742460904",
+							"title": [{
+								"text": "容量",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"new_number": "700"
+							}
+						}, {
+							"control": "Number",
+							"id": "Number-1661742479683",
+							"title": [{
+								"text": "VG",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"new_number": "70"
+							}
+						}, {
+							"control": "Number",
+							"id": "Number-1661742490125",
+							"title": [{
+								"text": "NIC类别",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"new_number": "1"
+							}
+						},{
+							"control": "Text",
+							"id": "Text-1661742428248",
+							"title": [{
+								"text": "NIC浓度",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "170"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742448888",
+							"title": [{
+								"text": "NIC单位",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "mg/ml"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742560343",
+							"title": [{
+								"text": "调香师",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "调香师1"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742569305",
+							"title": [{
+								"text": "版本",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "版本1"
+							}
+						}]
+					},{
+						"list": [{
+							"control": "Text",
+							"id": "Text-1661741741088",
+							"title": [{
+								"text": "口味名称",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "口味1"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661741743541",
+							"title": [{
+								"text": "描述",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "描述1"
+							}
+						}, {
+							"control": "Selector",
+							"id": "Selector-1661742335878",
+							"title": [{
+								"text": "是否有基础口味",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"selector": {
+									"type": "single",
+									"options": [{
+										"key": "option-1661742335879"
+									}]
+								}
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742382843",
+							"title": [{
+								"text": "基础口味名称/编码",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "编码1"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742412442",
+							"title": [{
+								"text": "基础口味改善意见",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "基础口味改善意见1"
+							}
+						}, {
+							"control": "Number",
+							"id": "Number-1661742460904",
+							"title": [{
+								"text": "容量",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"new_number": "700"
+							}
+						}, {
+							"control": "Number",
+							"id": "Number-1661742479683",
+							"title": [{
+								"text": "VG",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"new_number": "70"
+							}
+						}, {
+							"control": "Number",
+							"id": "Number-1661742490125",
+							"title": [{
+								"text": "NIC类别",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"new_number": "1"
+							}
+						},{
+							"control": "Text",
+							"id": "Text-1661742428248",
+							"title": [{
+								"text": "NIC浓度",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "170"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742448888",
+							"title": [{
+								"text": "NIC单位",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "mg/ml"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742560343",
+							"title": [{
+								"text": "调香师",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "调香师1"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742569305",
+							"title": [{
+								"text": "版本",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "版本1"
+							}
+						}]
+					},{
+						"list": [{
+							"control": "Text",
+							"id": "Text-1661741741088",
+							"title": [{
+								"text": "口味名称",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "口味1"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661741743541",
+							"title": [{
+								"text": "描述",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "描述1"
+							}
+						}, {
+							"control": "Selector",
+							"id": "Selector-1661742335878",
+							"title": [{
+								"text": "是否有基础口味",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"selector": {
+									"type": "single",
+									"options": [{
+										"key": "option-1661742335879"
+									}]
+								}
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742382843",
+							"title": [{
+								"text": "基础口味名称/编码",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "编码1"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742412442",
+							"title": [{
+								"text": "基础口味改善意见",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "基础口味改善意见1"
+							}
+						}, {
+							"control": "Number",
+							"id": "Number-1661742460904",
+							"title": [{
+								"text": "容量",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"new_number": "700"
+							}
+						}, {
+							"control": "Number",
+							"id": "Number-1661742479683",
+							"title": [{
+								"text": "VG",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"new_number": "70"
+							}
+						}, {
+							"control": "Number",
+							"id": "Number-1661742490125",
+							"title": [{
+								"text": "NIC类别",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"new_number": "1"
+							}
+						},{
+							"control": "Text",
+							"id": "Text-1661742428248",
+							"title": [{
+								"text": "NIC浓度",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "170"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742448888",
+							"title": [{
+								"text": "NIC单位",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "mg/ml"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742560343",
+							"title": [{
+								"text": "调香师",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "调香师1"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742569305",
+							"title": [{
+								"text": "版本",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "版本1"
+							}
+						}]
+					},{
+						"list": [{
+							"control": "Text",
+							"id": "Text-1661741741088",
+							"title": [{
+								"text": "口味名称",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "口味1"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661741743541",
+							"title": [{
+								"text": "描述",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "描述1"
+							}
+						}, {
+							"control": "Selector",
+							"id": "Selector-1661742335878",
+							"title": [{
+								"text": "是否有基础口味",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"selector": {
+									"type": "single",
+									"options": [{
+										"key": "option-1661742335879"
+									}]
+								}
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742382843",
+							"title": [{
+								"text": "基础口味名称/编码",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "编码1"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742412442",
+							"title": [{
+								"text": "基础口味改善意见",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "基础口味改善意见1"
+							}
+						}, {
+							"control": "Number",
+							"id": "Number-1661742460904",
+							"title": [{
+								"text": "容量",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"new_number": "700"
+							}
+						}, {
+							"control": "Number",
+							"id": "Number-1661742479683",
+							"title": [{
+								"text": "VG",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"new_number": "70"
+							}
+						}, {
+							"control": "Number",
+							"id": "Number-1661742490125",
+							"title": [{
+								"text": "NIC类别",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"new_number": "1"
+							}
+						},{
+							"control": "Text",
+							"id": "Text-1661742428248",
+							"title": [{
+								"text": "NIC浓度",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "170"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742448888",
+							"title": [{
+								"text": "NIC单位",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "mg/ml"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742560343",
+							"title": [{
+								"text": "调香师",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "调香师1"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742569305",
+							"title": [{
+								"text": "版本",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "版本1"
+							}
+						}]
+					},{
+						"list": [{
+							"control": "Text",
+							"id": "Text-1661741741088",
+							"title": [{
+								"text": "口味名称",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "口味1"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661741743541",
+							"title": [{
+								"text": "描述",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "描述1"
+							}
+						}, {
+							"control": "Selector",
+							"id": "Selector-1661742335878",
+							"title": [{
+								"text": "是否有基础口味",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"selector": {
+									"type": "single",
+									"options": [{
+										"key": "option-1661742335879"
+									}]
+								}
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742382843",
+							"title": [{
+								"text": "基础口味名称/编码",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "编码1"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742412442",
+							"title": [{
+								"text": "基础口味改善意见",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "基础口味改善意见1"
+							}
+						}, {
+							"control": "Number",
+							"id": "Number-1661742460904",
+							"title": [{
+								"text": "容量",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"new_number": "700"
+							}
+						}, {
+							"control": "Number",
+							"id": "Number-1661742479683",
+							"title": [{
+								"text": "VG",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"new_number": "70"
+							}
+						}, {
+							"control": "Number",
+							"id": "Number-1661742490125",
+							"title": [{
+								"text": "NIC类别",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"new_number": "1"
+							}
+						},{
+							"control": "Text",
+							"id": "Text-1661742428248",
+							"title": [{
+								"text": "NIC浓度",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "170"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742448888",
+							"title": [{
+								"text": "NIC单位",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "mg/ml"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742560343",
+							"title": [{
+								"text": "调香师",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "调香师1"
+							}
+						}, {
+							"control": "Text",
+							"id": "Text-1661742569305",
+							"title": [{
+								"text": "版本",
+								"lang": "zh_CN"
+							}],
+							"value": {
+								"text": "版本1"
+							}
+						}]
+					}
+					
+					]
+			}
+		}]
+	},
+	"summary_list": [{
+			"summary_info": [{
+				"text": "摘要第1行",
+				"lang": "zh_CN"
+			}]
+		},
+		{
+			"summary_info": [{
+				"text": "摘要第2行",
+				"lang": "zh_CN"
+			}]
+		},
+		{
+			"summary_info": [{
+				"text": "摘要第3行",
+				"lang": "zh_CN"
+			}]
+		}
+	]
+}

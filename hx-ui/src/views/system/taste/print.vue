@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>打印</h1>
-    <div class="tableDiv">
+    <div class="tableDiv" v-show="false">
       <dialog fullscreen="true">
         <vxe-table
           border
