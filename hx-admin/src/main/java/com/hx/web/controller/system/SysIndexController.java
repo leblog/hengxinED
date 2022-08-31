@@ -9,7 +9,7 @@ import com.hx.common.utils.StringUtils;
 /**
  * 首页
  *
- * @author ry
+ * @author lusifer
  */
 @RestController
 public class SysIndexController

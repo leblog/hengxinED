@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>详情</title>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script language=javascript>
+        //alert('注意观察地址栏,被修改了!!!'+ document.URL.split("?"))
+        function getParam() {
+
+            var url = location.search; //获取url中"?"符后的字串
+
+            if (url.indexOf("?") != -1) {
+                var str = url.substr(1);
+                strs = str.split("&");
+
+
+                var userId = decodeURIComponent(strs[0].replace("userId=",""));
+                console.log(userId)
+
+                var userName = decodeURIComponent(strs[1].replace("userName=",""));
+                console.log(userName)
+
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Hello</h1>
+
+
+</body>
+</html>

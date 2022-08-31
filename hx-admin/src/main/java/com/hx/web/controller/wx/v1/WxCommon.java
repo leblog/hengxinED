@@ -15,6 +15,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+
 @Slf4j
 @RestController
 @RequestMapping("/open")
@@ -142,14 +144,15 @@ public class WxCommon {
         return AjaxResult.success("ok",ajax);
     }
 
-    @GetMapping("/code")
-    public AjaxResult jsapiAppTicketAppCode() {
+    @PostMapping("/code")
+    public AjaxResult jsapiAppTicketAppCode(@RequestBody HashMap<String,String> map) {
+        log.info("map----{}",JSONUtil.formatJsonStr(String.valueOf(map)));
         AjaxResult ajax = new AjaxResult();
         String jsapiTicket = configService.selectConfigByKey("wx.work.jsapiTicket");
         StringBuilder s1 = new StringBuilder();
         s1.append("jsapi_ticket=");
         s1.append(jsapiTicket);
-        s1.append("&noncestr=1234&timestamp=1414587457&url=http://rds.cnhstar.com:44346/kouwei/tasteList");
+        s1.append("&noncestr=1234&timestamp=1414587457&url=http://rds.cnhstar.com:44350/kouwei/tasteList");
         String apiCode = SecureUtil.sha1(String.valueOf(s1));
         System.out.println("api加密字符 = " + s1);
         log.info("api加密code:{}",apiCode);
@@ -159,7 +162,7 @@ public class WxCommon {
         StringBuilder s2 = new StringBuilder();
         s2.append("jsapi_ticket=");
         s2.append(app);
-        s2.append("&noncestr=1234&timestamp=1414587457&url=http://rds.cnhstar.com:44346/kouwei/tasteList");
+        s2.append("&noncestr=1234&timestamp=1414587457&url=http://rds.cnhstar.com:44350/kouwei/tasteList");
         String appCode = SecureUtil.sha1(String.valueOf(s2));
 
         System.out.println("app加密字符 = " + s2);

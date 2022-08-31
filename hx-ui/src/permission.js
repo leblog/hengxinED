@@ -8,7 +8,7 @@ import { isRelogin } from '@/utils/request'
 
 NProgress.configure({ showSpinner: false })
 
-const whiteList = ['/login', '/auth-redirect', '/bind', '/register', '/system/taste-data/index']
+const whiteList = ['/login', '/auth-redirect', '/bind', '/register', '/print']
 
 router.beforeEach((to, from, next) => {
   NProgress.start()
@@ -30,11 +30,11 @@ router.beforeEach((to, from, next) => {
             next({ ...to, replace: true }) // hack方法 确保addRoutes已完成
           })
         }).catch(err => {
-            store.dispatch('LogOut').then(() => {
-              Message.error(err)
-              next({ path: '/' })
-            })
+          store.dispatch('LogOut').then(() => {
+            Message.error(err)
+            next({ path: '/' })
           })
+        })
       } else {
         next()
       }
@@ -43,10 +43,18 @@ router.beforeEach((to, from, next) => {
     // 没有token
     if (whiteList.indexOf(to.path) !== -1) {
       // 在免登录白名单，直接进入
-      next(`/system/taste-data/index`)
+      next()
     } else {
-      next(`/login`) // 否则全部重定向到登录页
-      //next(`/login?redirect=${to.fullPath}`) // 否则全部重定向到登录页
+      next(`/login?redirect=${to.fullPath}`) // 否则全部重定向到登录页
+      //next(`https://open.weixin.qq.com/connect/oauth2/authorize?appid=wwa3240966154cab12&redirect_uri=http://myweb.com:8081/open/wx/callback/code&response_type=code&scope=snsapi_base&state=STATE&agentid=AGENTID`) // 否则全部重定向到登录页
+      //"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wwa3240966154cab12&redirect_uri=http://myweb.com:8081/open/wx/callback/code&response_type=code&scope=snsapi_base&state=STATE&agentid=AGENTID";
+      /*next(`https://open.weixin.qq.com/connect/oauth2/authorize
+      ?appid=ww0530511650e0c6c8
+      &redirect_uri=http://myweb.com:8081/open/wx/callback/code
+      &response_type=code
+      &scope=snsapi_base
+      &state=STATE
+      &agentid=AGENTID`)*/ // 否则全部重定向到登录页
       NProgress.done()
     }
   }
