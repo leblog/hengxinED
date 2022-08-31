@@ -1,6 +1,7 @@
 package com.hx.web.controller.wx;
 
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.http.Header;
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONObject;
@@ -82,9 +83,23 @@ public class WxAuth extends BaseController {
      * 重定向  测试
      */
     @GetMapping("/redirect")
-    public String index()
+    public String redirect()
     {
         return redirect("http://rds.cnhstar.com:44346/print");
+    }
+    @GetMapping("/str")
+    public String info(String s)
+    {
+        return s;
+    }
+    @GetMapping("/wxAuthorize")
+    public String wxAuthorize()
+    {
+        String s = HttpRequest.get("https://open.weixin.qq.com/connect/oauth2/authorize?appid=ww0530511650e0c6c8&redirect_uri=http://rds.cnhstar.com:44346&response_type=code&scope=snsapi_base&state=#wechat_redirect")
+                .header(Header.USER_AGENT, "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.110 Safari/537.36 wxwork/2.1.3 (MicroMessenger/6.2) WindowsWechat QBCore/3.43.644.400 QQBrowser/9.0.2524.400")
+                .timeout(20000)//超时，毫秒
+                .execute().body();
+        return redirect(s);
     }
 
     /**

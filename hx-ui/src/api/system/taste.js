@@ -128,3 +128,12 @@ export function getAgentTicket(data) {
     data: data
   })
 }
+
+
+/*重定向鉴权接口*/
+export function wxAuthorize() {
+  return request({
+    url: '/open/wx/callback/wxAuthorize',
+    method: 'get'
+  })
+}

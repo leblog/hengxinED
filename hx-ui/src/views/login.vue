@@ -69,6 +69,7 @@ import Cookies from "js-cookie";
 import { encrypt, decrypt } from '@/utils/jsencrypt'
 import axios from "axios";
 import {getToken, setWxCode} from "@/utils/auth";
+import {wxAuthorize} from "@/api/system/taste"
 
 export default {
   name: "Login",
@@ -114,22 +115,35 @@ export default {
     this.getCookie();
     // 获取微信绑定内容
     //console.log("路由{}",this.$route.query.redirect)
-
-    if(this.$route.query.detail != null){
+    //https://open.weixin.qq.com/connect/oauth2/authorize?appid=ww0530511650e0c6c8&redirect_uri=http://rds.cnhstar.com:44346/login&response_type=code&scope=snsapi_base&state=#wechat_redirect
+    /*if(this.$route.query.detail != null){
       console.log("路由{}",this.$route.query.detail)
       setWxCode(this.$route.query.detail);
+    }*/
+    // 发请求拦截请求让用户登录
+    console.log("路由1{}",window.location.href)
+    console.log("路由2{}",window.location.pathname)
+    if(window.location.pathname === "/login"){
+      window.location.href = null
+      window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=ww0530511650e0c6c8&redirect_uri=http://rds.cnhstar.com:44346/dev-api/open/wx/callback&response_type=code&scope=snsapi_base&state=#wechat_redirect`
     }
+
+    //this.$router.(``)
     /*var strings = this.$route.query.detail.split('/index?detail=');
     console.log("截取{}",strings[1])*/
-
-    /*let token = "3zwY7IgtKdGq3CP0FNde_Es-E15NqAfAgNPdVVGyix0Ix7rAyqfK1jJridN_hqB5FR83hAfDRt8Bmvcpm56AnRV_oR5empyDcZx0iKUbBeN5wKa04C1mAqiBJQz-2HdOAMg13m8e_3Nb-JuWjlkZqQ6TbSwouj9BIyFaZaQVTjlGrJA-HOmH9HyilNcAKyqHwt9MLeD4Pk9yiOXAsJU1zw"
-    // 获取微信接口
-    axios({
+    /*axios({
       method: 'get',
-      url: "https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo?access_token="+token+"&code="+this.$route.query.code,
+      url: `https://open.weixin.qq.com/connect/oauth2/authorize?appid=ww0530511650e0c6c8&redirect_uri=http://rds.cnhstar.com:44346&response_type=code&scope=snsapi_base&state=#wechat_redirect`
     }).then(async (res) => {
       console.log("获取用户code详情:",JSON.stringify(res))
     });*/
+    /*let token = "3zwY7IgtKdGq3CP0FNde_Es-E15NqAfAgNPdVVGyix0Ix7rAyqfK1jJridN_hqB5FR83hAfDRt8Bmvcpm56AnRV_oR5empyDcZx0iKUbBeN5wKa04C1mAqiBJQz-2HdOAMg13m8e_3Nb-JuWjlkZqQ6TbSwouj9BIyFaZaQVTjlGrJA-HOmH9HyilNcAKyqHwt9MLeD4Pk9yiOXAsJU1zw"
+    // 获取微信接口
+   */
+
+    // wxAuthorize().then(res=>{
+    //   console.log("获取用户code详情11:",JSON.stringify(res))
+    // })
   },
   methods: {
     getCode() {
