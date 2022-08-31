@@ -1,5 +1,6 @@
 package com.hx.web.controller.wx.v1;
 
+import cn.hutool.core.map.MapUtil;
 import cn.hutool.crypto.SecureUtil;
 import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONObject;
@@ -114,7 +115,7 @@ public class WxCommon {
      * 每3500秒执行一次更新操作
      */
     //@GetMapping("/code/{id}")  @PathVariable("id") String id
-    @GetMapping("/code/{id}")
+    /*@GetMapping("/code/{id}")
     public AjaxResult jsapiAppTicketApp(@PathVariable("id") String id) {
         AjaxResult ajax = new AjaxResult();
         String jsapiTicket = configService.selectConfigByKey("wx.work.jsapiTicket");
@@ -142,19 +143,24 @@ public class WxCommon {
         ajax.put("api",apiCode);
         ajax.put("signature",appCode);
         return AjaxResult.success("ok",ajax);
-    }
+    }*/
 
     @PostMapping("/code")
-    public AjaxResult jsapiAppTicketAppCode(@RequestBody HashMap<String,String> map) {
-        log.info("map----{}",JSONUtil.formatJsonStr(String.valueOf(map)));
+    public AjaxResult jsapiAppTicketAppCode(@RequestBody String data) {
+        log.info("map----{}", data);
+        String id = JSONUtil.parseObj(data).getStr("id");
+        String url = JSONUtil.parseObj(data).getStr("url");
+
         AjaxResult ajax = new AjaxResult();
         String jsapiTicket = configService.selectConfigByKey("wx.work.jsapiTicket");
         StringBuilder s1 = new StringBuilder();
         s1.append("jsapi_ticket=");
         s1.append(jsapiTicket);
-        s1.append("&noncestr=1234&timestamp=1414587457&url=http://rds.cnhstar.com:44350/kouwei/tasteList");
+        s1.append("&noncestr=1234&timestamp=1414587457&url=");
+        s1.append(url);
         String apiCode = SecureUtil.sha1(String.valueOf(s1));
         System.out.println("api加密字符 = " + s1);
+        log.info("完成URLs1=====>{}",s1);
         log.info("api加密code:{}",apiCode);
 
 
@@ -162,14 +168,16 @@ public class WxCommon {
         StringBuilder s2 = new StringBuilder();
         s2.append("jsapi_ticket=");
         s2.append(app);
-        s2.append("&noncestr=1234&timestamp=1414587457&url=http://rds.cnhstar.com:44350/kouwei/tasteList");
+        s2.append("&noncestr=1234&timestamp=1414587457&url=");
+        s2.append(url);
+        log.info("完成URLs2=====>{}",s2);
         String appCode = SecureUtil.sha1(String.valueOf(s2));
 
         System.out.println("app加密字符 = " + s2);
         log.info("app加密code:{}",appCode);
 
         ajax.put("api",apiCode);
-        ajax.put("app",appCode);
-        return ajax;
+        ajax.put("signature",appCode);
+        return AjaxResult.success("ok",ajax);
     }
 }

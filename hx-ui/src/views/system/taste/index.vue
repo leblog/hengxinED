@@ -1032,8 +1032,11 @@ export default {
     /*微信配置  wxConfig (state)*/
     async wxConfig () {
       try {
-        let { data } = await getAgentTicket(this.$route.params.tasteId);
-        let {  signature } = data;
+        let obj = {}
+        obj.id = this.$route.params.tasteId
+        obj.url = window.location.href
+        let { data } = await getAgentTicket(obj);
+        let {  signature, } = data;
        console.log("获得密码:",signature)
         wx.agentConfig({
           beta: true, // 必须这么写，否则wx.invoke调用形式的jsapi会有问题

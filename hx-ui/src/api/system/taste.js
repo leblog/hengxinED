@@ -123,7 +123,7 @@ export function updateAuitDetail(spNo) {
 /*首页绑定微信ID */
 export function getAgentTicket(data) {
   return request({
-    url: '/open/code/',
+    url: '/open/code',
     method: 'post',
     data: data
   })
