@@ -12,7 +12,7 @@ import org.apache.commons.lang3.ArrayUtils;
 /**
  * 类型转换器
  *
- * @author ry
+ * @author lusifer
  */
 public class Convert
 {

@@ -22,7 +22,7 @@ import com.hx.system.service.ISysConfigService;
 /**
  * 验证码操作处理
  * 
- * @author ry
+ * @author lusifer
  */
 @RestController
 public class CaptchaController

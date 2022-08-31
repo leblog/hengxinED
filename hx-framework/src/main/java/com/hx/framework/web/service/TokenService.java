@@ -23,7 +23,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 /**
  * token验证处理
  *
- * @author ry
+ * @author lusifer
  */
 @Component
 public class TokenService

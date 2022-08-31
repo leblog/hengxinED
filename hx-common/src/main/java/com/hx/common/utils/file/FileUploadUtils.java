@@ -18,7 +18,7 @@ import com.hx.common.utils.uuid.Seq;
 /**
  * 文件上传工具类
  *
- * @author ry
+ * @author lusifer
  */
 public class FileUploadUtils
 {

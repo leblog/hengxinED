@@ -5,6 +5,7 @@ import cn.hutool.crypto.SecureUtil;
 import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
+import com.hx.common.core.controller.BaseController;
 import com.hx.common.core.domain.AjaxResult;
 import com.hx.common.exception.ServiceException;
 import com.hx.common.utils.uuid.SeqRD;
@@ -14,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -22,7 +24,7 @@ import java.util.HashMap;
 @RestController
 @RequestMapping("/open")
 @EnableScheduling    //开启定时任务
-public class WxCommon {
+public class WxCommon extends BaseController {
     @Autowired
     private ISysConfigService configService;
 
@@ -111,40 +113,10 @@ public class WxCommon {
     }
 
     /**
-     * 获取应用的jsapi_ticket  加密算法
-     * 每3500秒执行一次更新操作
+     * 企业微信js-SDK  加密算法
+     * @param data
+     * @return
      */
-    //@GetMapping("/code/{id}")  @PathVariable("id") String id
-    /*@GetMapping("/code/{id}")
-    public AjaxResult jsapiAppTicketApp(@PathVariable("id") String id) {
-        AjaxResult ajax = new AjaxResult();
-        String jsapiTicket = configService.selectConfigByKey("wx.work.jsapiTicket");
-        StringBuilder s1 = new StringBuilder();
-        s1.append("jsapi_ticket=");
-        s1.append(jsapiTicket);
-        s1.append("&noncestr=1234&timestamp=1414587457&url=http://rds.cnhstar.com:44346/system/taste-data/index/");
-        s1.append(id);
-        String apiCode = SecureUtil.sha1(String.valueOf(s1));
-        System.out.println("api加密字符 = " + s1);
-        log.info("api加密code:{}",apiCode);
-
-
-        String app = configService.selectConfigByKey("wx.work.jsapiTicket.app");
-        StringBuilder s2 = new StringBuilder();
-        s2.append("jsapi_ticket=");
-        s2.append(app);
-        s2.append("&noncestr=1234&timestamp=1414587457&url=http://rds.cnhstar.com:44346/system/taste-data/index/");
-        s2.append(id);
-        String appCode = SecureUtil.sha1(String.valueOf(s2));
-
-        System.out.println("app加密字符 = " + s2);
-        log.info("app加密code:{}",appCode);
-
-        ajax.put("api",apiCode);
-        ajax.put("signature",appCode);
-        return AjaxResult.success("ok",ajax);
-    }*/
-
     @PostMapping("/code")
     public AjaxResult jsapiAppTicketAppCode(@RequestBody String data) {
         log.info("map----{}", data);
@@ -180,4 +152,7 @@ public class WxCommon {
         ajax.put("signature",appCode);
         return AjaxResult.success("ok",ajax);
     }
+
+
+
 }

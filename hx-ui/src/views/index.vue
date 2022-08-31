@@ -40,9 +40,6 @@ import LineChart from './dashboard/LineChart'
 import RaddarChart from './dashboard/RaddarChart'
 import PieChart from './dashboard/PieChart'
 import BarChart from './dashboard/BarChart'
-import axios from "axios";
-import {getWxCode} from "@/utils/auth";
-import {bindWxUserId} from "@/api/system/taste";
 
 const lineChartData = {
   newVisitis: {

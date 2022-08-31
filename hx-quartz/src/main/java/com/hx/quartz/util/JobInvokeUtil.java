@@ -11,7 +11,7 @@ import com.hx.quartz.domain.SysJob;
 /**
  * 任务执行工具
  *
- * @author ry
+ * @author lusifer
  */
 public class JobInvokeUtil
 {

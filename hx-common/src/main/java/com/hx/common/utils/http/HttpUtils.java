@@ -24,8 +24,8 @@ import com.hx.common.utils.StringUtils;
 
 /**
  * 通用http发送方法
- * 
- * @author ry
+ *
+ * @author lusifer
  */
 public class HttpUtils
 {

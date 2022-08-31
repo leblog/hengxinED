@@ -3,7 +3,7 @@ package com.hx.common.constant;
 /**
  * 用户常量信息
  * 
- * @author ry
+ * @author lusifer
  */
 public class UserConstants
 {

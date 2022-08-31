@@ -27,7 +27,7 @@ import com.hx.framework.datasource.DynamicDataSource;
 /**
  * druid 配置多数据源
  *
- * @author ry
+ * @author lusifer
  */
 @Configuration
 public class DruidConfig

@@ -3,7 +3,7 @@ package com.hx.common.constant;
 /**
  * 代码生成通用常量
  * 
- * @author ry
+ * @author lusifer
  */
 public class GenConstants
 {

@@ -3,7 +3,7 @@ package com.hx.common.enums;
 /**
  * 数据源
  * 
- * @author ry
+ * @author lusifer
  */
 public enum DataSourceType
 {

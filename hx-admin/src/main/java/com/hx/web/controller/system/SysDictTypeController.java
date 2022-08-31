@@ -26,7 +26,7 @@ import com.hx.system.service.ISysDictTypeService;
 /**
  * 数据字典信息
  * 
- * @author ry
+ * @author lusifer
  */
 @RestController
 @RequestMapping("/system/dict/type")

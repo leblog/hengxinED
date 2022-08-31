@@ -16,7 +16,7 @@ import com.hx.common.utils.StringUtils;
 /**
  * 图片处理工具类
  *
- * @author ry
+ * @author lusifer
  */
 public class ImageUtils
 {

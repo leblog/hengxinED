@@ -2,8 +2,8 @@ package com.hx.common.exception;
 
 /**
  * 全局异常
- * 
- * @author ry
+ *
+ * @author lusifer
  */
 public class GlobalException extends RuntimeException
 {

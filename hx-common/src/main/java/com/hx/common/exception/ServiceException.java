@@ -2,8 +2,8 @@ package com.hx.common.exception;
 
 /**
  * 业务异常
- * 
- * @author ry
+ *
+ * @author lusifer
  */
 public final class ServiceException extends RuntimeException
 {

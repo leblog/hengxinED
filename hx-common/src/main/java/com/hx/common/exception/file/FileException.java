@@ -4,8 +4,8 @@ import com.hx.common.exception.base.BaseException;
 
 /**
  * 文件信息异常类
- * 
- * @author ry
+ *
+ * @author lusifer
  */
 public class FileException extends BaseException
 {

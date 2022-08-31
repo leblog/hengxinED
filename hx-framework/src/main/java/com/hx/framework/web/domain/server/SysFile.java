@@ -2,8 +2,8 @@ package com.hx.framework.web.domain.server;
 
 /**
  * 系统文件相关信息
- * 
- * @author ry
+ *
+ * @author lusifer
  */
 public class SysFile
 {

@@ -15,7 +15,7 @@ import com.hx.common.utils.StringUtils;
 /**
  * Filter配置
  *
- * @author ry
+ * @author lusifer
  */
 @Configuration
 public class FilterConfig

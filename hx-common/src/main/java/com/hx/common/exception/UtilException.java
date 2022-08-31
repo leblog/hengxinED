@@ -2,8 +2,8 @@ package com.hx.common.exception;
 
 /**
  * 工具类异常
- * 
- * @author ry
+ *
+ * @author lusifer
  */
 public class UtilException extends RuntimeException
 {

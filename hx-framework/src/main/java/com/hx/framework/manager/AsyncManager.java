@@ -9,7 +9,7 @@ import com.hx.common.utils.spring.SpringUtils;
 /**
  * 异步任务管理器
  * 
- * @author ry
+ * @author lusifer
  */
 public class AsyncManager
 {

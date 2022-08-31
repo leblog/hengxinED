@@ -5,7 +5,7 @@ import com.hx.common.utils.StringUtils;
 /**
  * 路由显示信息
  * 
- * @author ry
+ * @author lusifer
  */
 public class MetaVo
 {

@@ -6,7 +6,7 @@ import com.hx.system.domain.SysConfig;
 /**
  * 参数配置 数据层
  * 
- * @author ry
+ * @author lusifer
  */
 public interface SysConfigMapper
 {

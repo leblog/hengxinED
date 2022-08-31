@@ -10,7 +10,7 @@ import com.hx.common.core.domain.entity.SysUser;
 /**
  * 登录用户身份权限
  * 
- * @author ry
+ * @author lusifer
  */
 public class LoginUser implements UserDetails
 {

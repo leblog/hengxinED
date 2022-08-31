@@ -7,7 +7,7 @@ import com.hx.common.utils.ServletUtils;
 /**
  * 服务相关配置
  * 
- * @author ry
+ * @author lusifer
  */
 @Component
 public class ServerConfig

@@ -1267,6 +1267,7 @@ export default {
     auditPush(e) {
       // 完整路由
       console.log("接收", e)
+      console.log("路由:",window.location.origin+`/print?detail=`+this.form.tasteId)
       // 校验是否绑定企业微信
       getUserDetail().then(response => {
         //if (response.data.wxUserId != null) {
@@ -1305,13 +1306,16 @@ export default {
               }, {
                 'title': '查看详情',
                 'type': 'link',		// link类型，用于在审批详情页展示第三方订单跳转地址
-                'value': window.location.href,
+                'value': window.location.origin+`/print?detail=`+this.form.tasteId,
+                // 获取用户的code  // window.location.href
+                //https://open.weixin.qq.com/connect/oauth2/authorize?appid=ww0530511650e0c6c8&redirect_uri=&response_type=code&scope=snsapi_base&state=#wechat_redirect
+                //https://open.weixin.qq.com/connect/oauth2/authorize?appid=ww0530511650e0c6c8&redirect_uri=`+window.location.origin+`?detail=`+this.form.tasteId+`&response_type=code&scope=snsapi_base&state=#wechat_redirect
               }, {
                 'title': '打印详情',
                 'type': 'link',		// link类型，用于在审批详情页展示第三方订单跳转地址
-                'value': window.location.href + "?print=true",
+                'value': window.location.origin+`/print?detail=`+this.form.tasteId+`&print=true`,
               }],
-          },
+          },//https://open.weixin.qq.com/connect/oauth2/authorize?appid=ww0530511650e0c6c8&redirect_uri=http://rds.cnhstar.com:44346?detail=1564875584438435840&response_type=code&scope=snsapi_base&state=
           function(res) {
             // 输出接口的回调信息
             console.log("提交成功:"+res);

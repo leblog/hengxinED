@@ -112,12 +112,12 @@ export function updateAuitDetail(spNo) {
 }
 
 /*首页绑定微信userId */
-/*export function bindWxUserId(code) {
+export function bindWxUserId(code) {
   return request({
     url: '/open/wx/callback/userIfo/'+ code,
     method: 'get'
   })
-}*/
+}
 
 
 /*首页绑定微信ID */

@@ -11,7 +11,7 @@ import com.hx.common.enums.LimitType;
 /**
  * 限流注解
  * 
- * @author ry
+ * @author lusifer
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)

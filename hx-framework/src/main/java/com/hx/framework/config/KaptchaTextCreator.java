@@ -5,8 +5,8 @@ import com.google.code.kaptcha.text.impl.DefaultTextCreator;
 
 /**
  * 验证码文本生成器
- * 
- * @author ry
+ *
+ * @author lusifer
  */
 public class KaptchaTextCreator extends DefaultTextCreator
 {

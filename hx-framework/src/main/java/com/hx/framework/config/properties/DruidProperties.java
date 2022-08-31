@@ -6,8 +6,8 @@ import com.alibaba.druid.pool.DruidDataSource;
 
 /**
  * druid 配置属性
- * 
- * @author ry
+ *
+ * @author lusifer
  */
 @Configuration
 public class DruidProperties

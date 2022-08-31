@@ -11,7 +11,7 @@ import com.hx.system.service.ISysRoleService;
 /**
  * 用户权限处理
  * 
- * @author ry
+ * @author lusifer
  */
 @Component
 public class SysPermissionService

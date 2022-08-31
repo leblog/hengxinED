@@ -4,8 +4,8 @@ import com.hx.common.utils.Arith;
 
 /**
  * 內存相关信息
- * 
- * @author ry
+ *
+ * @author lusifer
  */
 public class Mem
 {

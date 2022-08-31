@@ -10,7 +10,7 @@ import com.hx.common.exception.ServiceException;
 /**
  * 安全服务工具类
  * 
- * @author ry
+ * @author lusifer
  */
 public class SecurityUtils
 {

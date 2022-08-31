@@ -15,8 +15,8 @@ import com.hx.quartz.util.CronUtils;
 
 /**
  * 定时任务调度表 sys_job
- * 
- * @author ry
+ *
+ * @author lusifer
  */
 public class SysJob extends BaseEntity
 {

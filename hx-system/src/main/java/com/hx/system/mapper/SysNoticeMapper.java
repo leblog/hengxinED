@@ -6,7 +6,7 @@ import com.hx.system.domain.SysNotice;
 /**
  * 通知公告表 数据层
  * 
- * @author ry
+ * @author lusifer
  */
 public interface SysNoticeMapper
 {

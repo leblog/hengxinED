@@ -3,7 +3,7 @@ package com.hx.common.utils.file;
 /**
  * 媒体类型工具类
  * 
- * @author ry
+ * @author lusifer
  */
 public class MimeTypeUtils
 {

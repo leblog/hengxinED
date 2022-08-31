@@ -21,7 +21,7 @@ import com.hx.system.service.ISysDictTypeService;
 /**
  * 字典 业务层处理
  * 
- * @author ry
+ * @author lusifer
  */
 @Service
 public class SysDictTypeServiceImpl implements ISysDictTypeService

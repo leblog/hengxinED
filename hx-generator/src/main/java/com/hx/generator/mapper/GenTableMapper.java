@@ -6,7 +6,7 @@ import com.hx.generator.domain.GenTable;
 /**
  * 业务 数据层
  * 
- * @author ry
+ * @author lusifer
  */
 public interface GenTableMapper
 {

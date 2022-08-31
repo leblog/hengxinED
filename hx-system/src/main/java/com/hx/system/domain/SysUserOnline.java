@@ -2,8 +2,8 @@ package com.hx.system.domain;
 
 /**
  * 当前在线会话
- * 
- * @author ry
+ *
+ * @author lusifer
  */
 public class SysUserOnline
 {

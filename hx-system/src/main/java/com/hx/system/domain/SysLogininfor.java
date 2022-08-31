@@ -9,7 +9,7 @@ import com.hx.common.core.domain.BaseEntity;
 /**
  * 系统访问记录表 sys_logininfor
  * 
- * @author ry
+ * @author lusifer
  */
 public class SysLogininfor extends BaseEntity
 {

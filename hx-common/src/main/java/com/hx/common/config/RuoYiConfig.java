@@ -5,8 +5,8 @@ import org.springframework.stereotype.Component;
 
 /**
  * 读取项目相关配置
- * 
- * @author ry
+ *
+ * @author lusifer
  */
 @Component
 @ConfigurationProperties(prefix = "ruoyi")

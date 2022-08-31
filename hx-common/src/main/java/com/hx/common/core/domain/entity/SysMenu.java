@@ -11,8 +11,8 @@ import com.hx.common.core.domain.BaseEntity;
 
 /**
  * 菜单权限表 sys_menu
- * 
- * @author ry
+ *
+ * @author lusifer
  */
 public class SysMenu extends BaseEntity
 {
@@ -53,7 +53,7 @@ public class SysMenu extends BaseEntity
 
     /** 显示状态（0显示 1隐藏） */
     private String visible;
-    
+
     /** 菜单状态（0显示 1隐藏） */
     private String status;
 
@@ -232,7 +232,7 @@ public class SysMenu extends BaseEntity
     {
         this.children = children;
     }
-    
+
     @Override
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)

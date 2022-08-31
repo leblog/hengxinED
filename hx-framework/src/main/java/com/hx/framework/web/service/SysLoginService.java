@@ -30,7 +30,7 @@ import com.hx.system.service.ISysUserService;
 /**
  * 登录校验方法
  * 
- * @author ry
+ * @author lusifer
  */
 @Component
 public class SysLoginService

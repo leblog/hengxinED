@@ -11,7 +11,7 @@ import com.hx.generator.domain.GenTableColumn;
 /**
  * 代码生成器 工具类
  * 
- * @author ry
+ * @author lusifer
  */
 public class GenUtils
 {

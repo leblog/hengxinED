@@ -28,7 +28,7 @@ import com.hx.system.service.ISysMenuService;
 /**
  * 菜单 业务层处理
  *
- * @author ry
+ * @author lusifer
  */
 @Service
 public class SysMenuServiceImpl implements ISysMenuService
@@ -456,7 +456,7 @@ public class SysMenuServiceImpl implements ISysMenuService
     }
 
     /**
-     * @author ry列表
+     * @author lusifer列表
      *
      * @param list
      * @param t

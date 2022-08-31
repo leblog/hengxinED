@@ -14,8 +14,8 @@ import com.hx.common.utils.html.EscapeUtil;
 
 /**
  * XSS过滤处理
- * 
- * @author ry
+ *
+ * @author lusifer
  */
 public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper
 {
@@ -100,7 +100,7 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper
 
     /**
      * 是否是Json请求
-     * 
+     *
      * @param request
      */
     public boolean isJsonRequest()

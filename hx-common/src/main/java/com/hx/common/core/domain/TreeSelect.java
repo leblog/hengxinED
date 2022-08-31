@@ -9,8 +9,8 @@ import com.hx.common.core.domain.entity.SysMenu;
 
 /**
  * Treeselect树结构实体类
- * 
- * @author ry
+ *
+ * @author lusifer
  */
 public class TreeSelect implements Serializable
 {

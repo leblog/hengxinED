@@ -8,8 +8,8 @@ import com.hx.common.core.controller.BaseController;
 
 /**
  * swagger 接口
- * 
- * @author ry
+ *
+ * @author lusifer
  */
 @Controller
 @RequestMapping("/tool/swagger")

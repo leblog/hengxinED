@@ -10,8 +10,8 @@ import com.hx.common.utils.http.HttpUtils;
 
 /**
  * 获取地址类
- * 
- * @author ry
+ *
+ * @author lusifer
  */
 public class AddressUtils
 {

@@ -6,7 +6,7 @@ import com.hx.quartz.domain.SysJob;
 /**
  * 调度任务信息 数据层
  * 
- * @author ry
+ * @author lusifer
  */
 public interface SysJobMapper
 {

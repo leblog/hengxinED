@@ -6,7 +6,7 @@ import com.hx.system.domain.SysRoleMenu;
 /**
  * 角色与菜单关联表 数据层
  * 
- * @author ry
+ * @author lusifer
  */
 public interface SysRoleMenuMapper
 {

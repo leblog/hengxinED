@@ -3,7 +3,7 @@ package com.hx.common.enums;
 /**
  * 操作状态
  * 
- * @author ry
+ * @author lusifer
  *
  */
 public enum BusinessStatus

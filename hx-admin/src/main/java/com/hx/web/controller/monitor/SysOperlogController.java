@@ -22,7 +22,7 @@ import com.hx.system.service.ISysOperLogService;
 /**
  * 操作日志记录
  * 
- * @author ry
+ * @author lusifer
  */
 @RestController
 @RequestMapping("/monitor/operlog")

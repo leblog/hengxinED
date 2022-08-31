@@ -5,8 +5,8 @@ import com.hx.common.utils.StringUtils;
 
 /**
  * 基础异常
- * 
- * @author ry
+ *
+ * @author lusifer
  */
 public class BaseException extends RuntimeException
 {

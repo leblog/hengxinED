@@ -8,7 +8,7 @@ import com.hx.common.utils.StringUtils;
 /**
  * 获取IP方法
  * 
- * @author ry
+ * @author lusifer
  */
 public class IpUtils
 {

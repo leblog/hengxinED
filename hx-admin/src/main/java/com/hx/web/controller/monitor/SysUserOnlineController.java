@@ -26,7 +26,7 @@ import com.hx.system.service.ISysUserOnlineService;
 /**
  * 在线用户监控
  * 
- * @author ry
+ * @author lusifer
  */
 @RestController
 @RequestMapping("/monitor/online")

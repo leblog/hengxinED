@@ -3,7 +3,7 @@ package com.hx.framework.web.domain.server;
 /**
  * 系统相关信息
  * 
- * @author ry
+ * @author lusifer
  */
 public class Sys
 {

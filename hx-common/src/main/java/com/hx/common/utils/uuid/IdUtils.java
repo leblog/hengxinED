@@ -3,7 +3,7 @@ package com.hx.common.utils.uuid;
 /**
  * ID生成器工具类
  * 
- * @author ry
+ * @author lusifer
  */
 public class IdUtils
 {

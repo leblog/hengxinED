@@ -10,7 +10,7 @@ import com.hx.generator.mapper.GenTableColumnMapper;
 /**
  * 业务字段 服务层实现
  * 
- * @author ry
+ * @author lusifer
  */
 @Service
 public class GenTableColumnServiceImpl implements IGenTableColumnService 

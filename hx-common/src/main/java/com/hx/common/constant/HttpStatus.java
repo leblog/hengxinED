@@ -2,8 +2,8 @@ package com.hx.common.constant;
 
 /**
  * 返回状态码
- * 
- * @author ry
+ *
+ * @author lusifer
  */
 public class HttpStatus
 {

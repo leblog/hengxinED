@@ -2,14 +2,14 @@ package com.hx.common.utils.poi;
 
 /**
  * Excel数据格式处理适配器
- * 
- * @author ry
+ *
+ * @author lusifer
  */
 public interface ExcelHandlerAdapter
 {
     /**
      * 格式化
-     * 
+     *
      * @param value 单元格数据值
      * @param args excel注解args参数组
      *

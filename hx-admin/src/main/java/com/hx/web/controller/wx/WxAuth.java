@@ -6,6 +6,7 @@ import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.hx.common.annotation.RepeatSubmit;
+import com.hx.common.core.controller.BaseController;
 import com.hx.common.core.domain.AjaxResult;
 import com.hx.common.core.domain.entity.SysUser;
 import com.hx.common.exception.ServiceException;
@@ -34,7 +35,7 @@ import static com.hx.common.utils.SecurityUtils.getUsername;
 //@EnableScheduling    //开启定时任务
 @RestController
 @RequestMapping("/open/wx/callback")
-public class WxAuth {
+public class WxAuth extends BaseController {
     @Autowired
     private ISysConfigService configService;
     @Autowired
@@ -76,6 +77,16 @@ public class WxAuth {
             return AjaxResult.error("err", code);
         }
     }
+
+    /**
+     * 重定向  测试
+     */
+    @GetMapping("/redirect")
+    public String index()
+    {
+        return redirect("http://rds.cnhstar.com:44346/print");
+    }
+
     /**
      * 调用用户的详情信息,绑定现在的系统上面
      */

@@ -21,8 +21,8 @@ import com.hx.framework.web.service.TokenService;
 
 /**
  * 自定义退出处理类 返回成功
- * 
- * @author ry
+ *
+ * @author lusifer
  */
 @Configuration
 public class LogoutSuccessHandlerImpl implements LogoutSuccessHandler
@@ -32,7 +32,7 @@ public class LogoutSuccessHandlerImpl implements LogoutSuccessHandler
 
     /**
      * 退出处理
-     * 
+     *
      * @return
      */
     @Override

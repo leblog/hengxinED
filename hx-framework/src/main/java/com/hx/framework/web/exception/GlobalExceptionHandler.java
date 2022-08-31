@@ -18,7 +18,7 @@ import com.hx.common.utils.StringUtils;
 /**
  * 全局异常处理器
  * 
- * @author ry
+ * @author lusifer
  */
 @RestControllerAdvice
 public class GlobalExceptionHandler

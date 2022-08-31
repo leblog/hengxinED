@@ -9,7 +9,7 @@ import com.hx.system.domain.vo.RouterVo;
 /**
  * 菜单 业务层
  * 
- * @author ry
+ * @author lusifer
  */
 public interface ISysMenuService
 {

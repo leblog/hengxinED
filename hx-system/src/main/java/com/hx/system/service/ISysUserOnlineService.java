@@ -6,7 +6,7 @@ import com.hx.system.domain.SysUserOnline;
 /**
  * 在线用户 服务层
  * 
- * @author ry
+ * @author lusifer
  */
 public interface ISysUserOnlineService
 {

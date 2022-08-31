@@ -2,8 +2,8 @@ package com.hx.common.exception.user;
 
 /**
  * 验证码失效异常类
- * 
- * @author ry
+ *
+ * @author lusifer
  */
 public class CaptchaExpireException extends UserException
 {

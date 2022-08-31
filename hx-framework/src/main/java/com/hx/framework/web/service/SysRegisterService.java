@@ -20,7 +20,7 @@ import com.hx.system.service.ISysUserService;
 /**
  * 注册校验方法
  * 
- * @author ry
+ * @author lusifer
  */
 @Component
 public class SysRegisterService

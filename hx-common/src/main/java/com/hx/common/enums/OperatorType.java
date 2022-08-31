@@ -3,7 +3,7 @@ package com.hx.common.enums;
 /**
  * 操作人类别
  * 
- * @author ry
+ * @author lusifer
  */
 public enum OperatorType
 {

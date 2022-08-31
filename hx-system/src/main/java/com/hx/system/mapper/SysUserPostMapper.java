@@ -6,7 +6,7 @@ import com.hx.system.domain.SysUserPost;
 /**
  * 用户与岗位关联表 数据层
  * 
- * @author ry
+ * @author lusifer
  */
 public interface SysUserPostMapper
 {

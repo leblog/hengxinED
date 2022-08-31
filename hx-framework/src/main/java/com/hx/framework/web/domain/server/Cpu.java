@@ -5,7 +5,7 @@ import com.hx.common.utils.Arith;
 /**
  * CPU相关信息
  * 
- * @author ry
+ * @author lusifer
  */
 public class Cpu
 {

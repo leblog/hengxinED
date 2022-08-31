@@ -19,7 +19,7 @@ import com.hx.quartz.service.ISysJobLogService;
 /**
  * 抽象quartz调用
  *
- * @author ry
+ * @author lusifer
  */
 public abstract class AbstractQuartzJob implements Job
 {

@@ -33,8 +33,8 @@ import com.hx.system.service.ISysUserService;
 
 /**
  * 用户信息
- * 
- * @author ry
+ *
+ * @author lusifer
  */
 @RestController
 @RequestMapping("/system/user")

@@ -13,8 +13,8 @@ import com.hx.common.utils.StringUtils;
 
 /**
  * Repeatable 过滤器
- * 
- * @author ry
+ *
+ * @author lusifer
  */
 public class RepeatableFilter implements Filter
 {

@@ -2,8 +2,8 @@ package com.hx.common.exception.file;
 
 /**
  * 文件名大小限制异常类
- * 
- * @author ry
+ *
+ * @author lusifer
  */
 public class FileSizeLimitExceededException extends FileException
 {

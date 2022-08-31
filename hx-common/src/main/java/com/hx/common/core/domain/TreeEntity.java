@@ -5,8 +5,8 @@ import java.util.List;
 
 /**
  * Tree基类
- * 
- * @author ry
+ *
+ * @author lusifer
  */
 public class TreeEntity extends BaseEntity
 {

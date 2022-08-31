@@ -32,7 +32,7 @@ import com.hx.system.domain.SysOperLog;
 /**
  * 操作日志记录处理
  *
- * @author ry
+ * @author lusifer
  */
 @Aspect
 @Component

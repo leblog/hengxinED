@@ -4,8 +4,8 @@ import com.hx.common.utils.StringUtils;
 
 /**
  * 分页数据
- * 
- * @author ry
+ *
+ * @author lusifer
  */
 public class PageDomain
 {

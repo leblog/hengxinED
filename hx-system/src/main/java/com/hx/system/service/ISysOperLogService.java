@@ -6,7 +6,7 @@ import com.hx.system.domain.SysOperLog;
 /**
  * 操作日志 服务层
  * 
- * @author ry
+ * @author lusifer
  */
 public interface ISysOperLogService
 {

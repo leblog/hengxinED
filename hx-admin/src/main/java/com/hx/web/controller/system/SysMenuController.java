@@ -23,8 +23,8 @@ import com.hx.system.service.ISysMenuService;
 
 /**
  * 菜单信息
- * 
- * @author ry
+ *
+ * @author lusifer
  */
 @RestController
 @RequestMapping("/system/menu")

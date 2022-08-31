@@ -13,8 +13,8 @@ import com.hx.system.service.ISysConfigService;
 
 /**
  * 注册验证
- * 
- * @author ry
+ *
+ * @author lusifer
  */
 @RestController
 public class SysRegisterController extends BaseController

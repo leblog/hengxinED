@@ -57,7 +57,7 @@
     </el-form>
     <!--  底部  -->
     <div class="el-login-footer">
-<!--      <span>Copyright © 2022 tianyan All Rights Reserved.</span>-->
+      <span>Copyright © 2022 tianyan All Rights Reserved.</span>
     </div>
   </div>
 </template>
@@ -114,10 +114,14 @@ export default {
     this.getCookie();
     // 获取微信绑定内容
     //console.log("路由{}",this.$route.query.redirect)
-    console.log("路由{}",this.$route.query.code)
-    //var strings = this.$route.query.redirect.split('/index?code=');
-    //console.log("截取{}",strings[1])
-    setWxCode(this.$route.query.code);
+
+    if(this.$route.query.detail != null){
+      console.log("路由{}",this.$route.query.detail)
+      setWxCode(this.$route.query.detail);
+    }
+    /*var strings = this.$route.query.detail.split('/index?detail=');
+    console.log("截取{}",strings[1])*/
+
     /*let token = "3zwY7IgtKdGq3CP0FNde_Es-E15NqAfAgNPdVVGyix0Ix7rAyqfK1jJridN_hqB5FR83hAfDRt8Bmvcpm56AnRV_oR5empyDcZx0iKUbBeN5wKa04C1mAqiBJQz-2HdOAMg13m8e_3Nb-JuWjlkZqQ6TbSwouj9BIyFaZaQVTjlGrJA-HOmH9HyilNcAKyqHwt9MLeD4Pk9yiOXAsJU1zw"
     // 获取微信接口
     axios({

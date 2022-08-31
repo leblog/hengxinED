@@ -26,7 +26,7 @@ import com.hx.system.service.ISysConfigService;
 /**
  * 参数配置 信息操作处理
  * 
- * @author ry
+ * @author lusifer
  */
 @RestController
 @RequestMapping("/system/config")

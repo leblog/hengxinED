@@ -2,8 +2,8 @@ package com.hx.common.utils;
 
 /**
  * 处理并记录日志文件
- * 
- * @author ry
+ *
+ * @author lusifer
  */
 public class LogUtils
 {

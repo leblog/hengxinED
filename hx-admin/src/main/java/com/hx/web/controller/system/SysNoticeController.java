@@ -22,8 +22,8 @@ import com.hx.system.service.ISysNoticeService;
 
 /**
  * 公告 信息操作处理
- * 
- * @author ry
+ *
+ * @author lusifer
  */
 @RestController
 @RequestMapping("/system/notice")

@@ -10,7 +10,7 @@ import com.hx.framework.web.domain.Server;
 /**
  * 服务器监控
  * 
- * @author ry
+ * @author lusifer
  */
 @RestController
 @RequestMapping("/monitor/server")
