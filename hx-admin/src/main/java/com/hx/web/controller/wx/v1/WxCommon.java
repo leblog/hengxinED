@@ -149,7 +149,7 @@ public class WxCommon {
         StringBuilder s1 = new StringBuilder();
         s1.append("jsapi_ticket=");
         s1.append(jsapiTicket);
-        s1.append("&noncestr=1234&timestamp=1414587457&url=http://rds.cnhstar.com:44346/kouwei/tasteList");
+        s1.append("&noncestr=1234&timestamp=1414587457&url=http://rds.cnhstar.com:44350/kouwei/tasteList");
         String apiCode = SecureUtil.sha1(String.valueOf(s1));
         System.out.println("api加密字符 = " + s1);
         log.info("api加密code:{}",apiCode);
@@ -159,7 +159,7 @@ public class WxCommon {
         StringBuilder s2 = new StringBuilder();
         s2.append("jsapi_ticket=");
         s2.append(app);
-        s2.append("&noncestr=1234&timestamp=1414587457&url=http://rds.cnhstar.com:44346/kouwei/tasteList");
+        s2.append("&noncestr=1234&timestamp=1414587457&url=http://rds.cnhstar.com:44350/kouwei/tasteList");
         String appCode = SecureUtil.sha1(String.valueOf(s2));
 
         System.out.println("app加密字符 = " + s2);
