@@ -15,6 +15,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+
 @Slf4j
 @RestController
 @RequestMapping("/open")
@@ -142,8 +144,9 @@ public class WxCommon {
         return AjaxResult.success("ok",ajax);
     }
 
-    @GetMapping("/code")
-    public AjaxResult jsapiAppTicketAppCode() {
+    @PostMapping("/code")
+    public AjaxResult jsapiAppTicketAppCode(@RequestBody HashMap<String,String> map) {
+        log.info("map----{}",JSONUtil.formatJsonStr(String.valueOf(map)));
         AjaxResult ajax = new AjaxResult();
         String jsapiTicket = configService.selectConfigByKey("wx.work.jsapiTicket");
         StringBuilder s1 = new StringBuilder();

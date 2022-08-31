@@ -7,13 +7,12 @@ import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 
 /**
  * 启动程序
- * 
+ *
  * @author lusifer
  */
-//@SpringBootApplication(exclude = { DataSourceAutoConfiguration.class })
 
 //@SpringBootApplication(exclude = MongoAutoConfiguration.class)  禁用springboot  自带的mongoDB
-@SpringBootApplication(
+/*@SpringBootApplication(
         exclude = {
             DataSourceAutoConfiguration.class ,
             MongoAutoConfiguration.class
@@ -21,8 +20,8 @@ import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
         scanBasePackages = {
             "org.jeecg.modules.jmreport",
             "com.hx"
-        })
-
+        })*/
+@SpringBootApplication(exclude = { DataSourceAutoConfiguration.class ,MongoAutoConfiguration.class})
 public class HXApplication
 {
     public static void main(String[] args)

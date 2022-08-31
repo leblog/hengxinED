@@ -32,7 +32,6 @@
         <poi.version>4.1.2</poi.version>
         <velocity.version>2.3</velocity.version>
         <jwt.version>0.9.1</jwt.version>
-        <flowable.version>6.7.2</flowable.version>
     </properties>
 
     <!-- 依赖声明 -->
@@ -187,29 +186,6 @@
                 <version>${hx.version}</version>
             </dependency>
 
-            <!--flowable-->
-            <dependency>
-                <groupId>com.hx</groupId>
-                <artifactId>hx-flowable</artifactId>
-                <version>${hx.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.flowable</groupId>
-                <artifactId>flowable-spring-boot-starter-basic</artifactId>
-                <version>${flowable.version}</version>
-                <exclusions><!-- 需要排除flowable的mybatis依赖，不然会跟mybatis-plus冲突 -->
-                    <exclusion>
-                        <groupId>org.mybatis</groupId>
-                        <artifactId>mybatis</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>org.flowable</groupId>
-                <artifactId>flowable-engine</artifactId>
-                <version>${flowable.version}</version>
-                <scope>compile</scope>
-            </dependency>
 
 
         </dependencies>
@@ -222,7 +198,6 @@
         <module>hx-quartz</module>
         <module>hx-generator</module>
         <module>hx-common</module>
-        <module>hx-flowable</module>
     </modules>
     <packaging>pom</packaging>
 

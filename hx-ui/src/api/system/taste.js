@@ -121,9 +121,10 @@ export function updateAuitDetail(spNo) {
 
 
 /*首页绑定微信ID */
-export function getAgentTicket(id) {
+export function getAgentTicket(data) {
   return request({
-    url: '/open/code/'+ id,
-    method: 'get'
+    url: '/open/code/',
+    method: 'post',
+    data: data
   })
 }
