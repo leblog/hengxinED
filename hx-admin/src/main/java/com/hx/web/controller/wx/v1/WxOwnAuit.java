@@ -154,6 +154,9 @@ public class WxOwnAuit {
                 .body(tempJson)
                 .timeout(20000)
                 .execute().body();
+        if(JSONUtil.parseObj(res).getStr("errcode")!="0"){
+            throw new ServiceException("没有提交审批");
+        }
         String str = JSONUtil.parseObj(JSONUtil.parseObj(res).getStr("data")).getStr("OpenSpstatus");
         HxTaste hxTaste = new HxTaste();
         hxTaste.setTasteId(spNo);

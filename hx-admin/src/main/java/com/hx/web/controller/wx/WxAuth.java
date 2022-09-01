@@ -240,7 +240,7 @@ public class WxAuth extends BaseController {
         String url = "https://qyapi.weixin.qq.com/cgi-bin/get_jsapi_ticket?access_token=" + accessToken;
         String res = HttpUtil.get(url);
         String jsapiTicket = JSONUtil.parseObj(res).getStr("ticket");
-        log.info("企业票据请求结果{}", res);
+        log.info("企业票据请求结果wxauth{}", res);
         if (!"0" .equals(JSONUtil.parseObj(res).getStr("errcode"))) {
             throw new ServiceException("获取微信获取企业的jsapi_ticket异常");
         }
@@ -279,6 +279,8 @@ public class WxAuth extends BaseController {
         configService.updateConfig(config);
         log.info("企业微信票据(获取应用的jsapi_ticket):" + jsapiTicket);
     }
+
+
 
 
 }

@@ -1,4 +1,5 @@
 <template>
+
   <div class="app-container">
     <el-button type="primary" icon="el-icon-print" size="mini" @click="printList()">打印</el-button>
 
@@ -144,7 +145,6 @@
 
     <!--  返回顶部  -->
     <el-backtop/>
-
   </div>
 
 </template>
@@ -166,7 +166,6 @@ export default {
   created() {
     // 打印需要的数据处理
     // 获取分组好的数据
-
     console.log("当前路由1:{}",this.$route.query.detail)
     console.log("当前路由2:{}",this.$route.query.print)
     if(this.$route.query.detail == null){
@@ -246,12 +245,6 @@ export default {
           text-align: left;
         }
         `
-  },
-  methods: {
-    /*打印*/
-    printEvent() {
-      console.log("我是打印明细", JSON.stringify(this.printList))
-      const username = this.$store.state.user.name;
 
       const topHtml = `
         <h1 class="title">烟油口味申请表</h1>

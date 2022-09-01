@@ -9,7 +9,7 @@ const CompressionPlugin = require('compression-webpack-plugin')
 
 const name = process.env.VUE_APP_TITLE || '天眼管理系统' // 网页标题
 
-const port = process.env.port || process.env.npm_config_port || 44350 // 端口   44346   //44350 不可信域名
+const port = process.env.port || process.env.npm_config_port || 44346 // 端口   44346   //44350 不可信域名
 
 
 // vue.config.js 配置说明

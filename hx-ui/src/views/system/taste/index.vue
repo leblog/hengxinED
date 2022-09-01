@@ -1037,7 +1037,6 @@ export default {
         obj.url = window.location.href
         let { data } = await getAgentTicket(obj);
         let {  signature, } = data;
-
        console.log("获得密码:",signature)
         wx.agentConfig({
           beta: true, // 必须这么写，否则wx.invoke调用形式的jsapi会有问题
@@ -1317,7 +1316,6 @@ export default {
                 'value': window.location.origin+`/print?detail=`+this.form.tasteId+`&print=true`,
               }],
           },//https://open.weixin.qq.com/connect/oauth2/authorize?appid=ww0530511650e0c6c8&redirect_uri=http://rds.cnhstar.com:44346?detail=1564875584438435840&response_type=code&scope=snsapi_base&state=
-
           function(res) {
             // 输出接口的回调信息
             console.log("提交成功:"+res);
