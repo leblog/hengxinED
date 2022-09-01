@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletResponse;
 
 import cn.hutool.core.util.IdUtil;
+import com.hx.common.annotation.RepeatSubmit;
 import com.hx.common.core.domain.entity.SysUser;
 import com.hx.common.exception.ServiceException;
 import com.hx.common.utils.StringUtils;
@@ -94,6 +95,7 @@ public class HxTasteController extends BaseController
      * 新增口味申请单
      */
     @PreAuthorize("@ss.hasPermi('taste:add')")
+    @RepeatSubmit(interval = 1000, message = "请求过于频繁")
     @Log(title = "口味申请单",businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody HxTaste hxTaste)
@@ -105,6 +107,7 @@ public class HxTasteController extends BaseController
      * 修改口味申请单
      */
     @PreAuthorize("@ss.hasPermi('taste:edit')")
+    @RepeatSubmit(interval = 1000, message = "请求过于频繁")
     @Log(title = "口味申请单", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody HxTaste hxTaste)

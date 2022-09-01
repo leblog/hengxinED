@@ -48,7 +48,7 @@
         :label-position="labelPosition"
       ><!--:show-message="true"  :inline-message="true"-->
         <!-- 显示企业微信审批编码  -->
-        <el-row :gutter="24" v-if="!isEdit"><!--type="flex" justify="space-around"-->
+        <el-row :gutter="24" v-if="isEdit==='A'"><!--type="flex" justify="space-around"-->
           <el-col>
             <el-divider content-position="center">企业微信审批编码:{{ form.spNo == null ? '未提交审批' : form.spNo }}</el-divider>
           </el-col>
@@ -265,7 +265,7 @@
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
 
             <!--            修改回显 详情回显数据库选中内容 -->
-            <el-form-item label="匹配市场" prop="matchMarket" show-overflow-tooltip v-if="isEdit">
+            <el-form-item label="匹配市场" prop="matchMarket" show-overflow-tooltip v-if="isEdit ==='A'">
               <el-cascader
                 :disabled="true"
                 v-model="matchMarketTemp"
@@ -280,7 +280,7 @@
               />
               <!-- :collapse-tags="true" 折叠选中标签             -->
             </el-form-item>
-            <el-form-item label="匹配市场" prop="matchMarket" v-if="isEdit">
+            <el-form-item label="匹配市场" prop="matchMarket" v-if="isEdit ==='B'">
               <el-cascader
                 v-model="matchMarketTemp"
                 style="width: 100%;"
@@ -325,7 +325,7 @@
         </el-row>
         <!--   业务明细     -->
         <el-divider content-position="center">口味申请单明细信息</el-divider>
-        <el-row :gutter="24" class="mb8" v-if="isEdit">
+        <el-row :gutter="24" class="mb8" v-if="isEdit ==='B'">
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
             <el-button type="primary" icon="el-icon-plus" size="mini" @click="insertEvent()" >
               添 加 一 行
@@ -484,11 +484,11 @@
     </div>
       <br>
     <div>
-      <div v-if="isEdit">
+      <div v-if="isEdit ==='B'">
         <el-button type="primary" @click="submitForm">保 存</el-button>
         <el-button type="danger" @click="cancel">重置所有</el-button>
       </div>
-      <div v-else>
+      <div v-if="isEdit ==='A'">
         <el-button type="primary" size="small" @click="edit">修改</el-button>
         <el-button type="danger" size="small" @click="copyList">复制一份</el-button>
         <el-button type="primary" size="small" @click="printList">打印</el-button>
@@ -571,7 +571,7 @@ export default {
       /*地区详情回显*/
       matchMarketTemp: [],
       /*详情按钮控制，修改控制暂时不提供*/
-      isEdit: false,  //detail 详情页进入  //true
+      isEdit: 'A',  // 详情页进入  //A: 详情 ，B：修改
       /*状态字典*/
       stateList,
       // 表单对齐方式
@@ -979,7 +979,7 @@ export default {
       let self = this
       setTimeout(() => {
         self.$nextTick(()=>{
-          self.isEdit = true
+          self.isEdit = 'B'
           // this.$router.push({path:"/kouwei/taste?id="+this.$route.params.tatseId+`&edit=edit`})
           console.log("a:" + typeof self.isEdit + `内容` +self.isEdit)
         })
