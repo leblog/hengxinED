@@ -45,6 +45,7 @@
             <type>pom</type>
         </dependency>-->
 
+
         <!--微信工具-->
         <dependency>
             <groupId>com.github.binarywang</groupId>

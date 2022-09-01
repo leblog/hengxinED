@@ -154,5 +154,4 @@ public class WxCommon extends BaseController {
     }
 
 
-
 }
