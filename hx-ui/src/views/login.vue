@@ -125,9 +125,14 @@ export default {
     console.log("路由2{}",window.location.pathname)
     if(window.location.pathname === "/login"){
       window.location.href = null
-      window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=ww0530511650e0c6c8&redirect_uri=http://rds.cnhstar.com:44346/dev-api/open/wx/callback&response_type=code&scope=snsapi_base&state=#wechat_redirect`
+      window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize`+
+      `?appid=ww0530511650e0c6c8`+
+      `&redirect_uri=http://rds.cnhstar.com:44350`+
+      `&response_type=code`+
+      `&scope=snsapi_base`+
+      `&state=#wechat_redirect`
     }
-
+// 44346端口   &redirect_uri=http://rds.cnhstar.com:44346/dev-api/open/wx/callback
     //this.$router.(``)
     /*var strings = this.$route.query.detail.split('/index?detail=');
     console.log("截取{}",strings[1])*/
