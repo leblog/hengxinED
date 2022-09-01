@@ -48,7 +48,7 @@
         :label-position="labelPosition"
       ><!--:show-message="true"  :inline-message="true"-->
         <!-- 显示企业微信审批编码  -->
-        <el-row :gutter="24" v-if="isEdit = 'detail'"><!--type="flex" justify="space-around"-->
+        <el-row :gutter="24" v-if="!isEdit"><!--type="flex" justify="space-around"-->
           <el-col>
             <el-divider content-position="center">企业微信审批编码:{{ form.spNo == null ? '未提交审批' : form.spNo }}</el-divider>
           </el-col>
@@ -265,7 +265,7 @@
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
 
             <!--            修改回显 详情回显数据库选中内容 -->
-            <el-form-item label="匹配市场" prop="matchMarket" show-overflow-tooltip v-if="isEdit === 'edit'">
+            <el-form-item label="匹配市场" prop="matchMarket" show-overflow-tooltip v-if="isEdit">
               <el-cascader
                 :disabled="true"
                 v-model="matchMarketTemp"
@@ -280,7 +280,7 @@
               />
               <!-- :collapse-tags="true" 折叠选中标签             -->
             </el-form-item>
-            <el-form-item label="匹配市场" prop="matchMarket" v-if="isEdit === 'detail'">
+            <el-form-item label="匹配市场" prop="matchMarket" v-if="isEdit">
               <el-cascader
                 v-model="matchMarketTemp"
                 style="width: 100%;"
@@ -325,7 +325,7 @@
         </el-row>
         <!--   业务明细     -->
         <el-divider content-position="center">口味申请单明细信息</el-divider>
-        <el-row :gutter="24" class="mb8" v-if="isEdit === 'detail'">
+        <el-row :gutter="24" class="mb8" v-if="isEdit">
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
             <el-button type="primary" icon="el-icon-plus" size="mini" @click="insertEvent()" >
               添 加 一 行
@@ -368,10 +368,10 @@
                 <span @dblclick="reduce('tasteName')">口味名称</span>
               </template>
               <template #edit="scope">
-                <vxe-input v-model="scope.row.tasteName" title="口味描述" type="text" placeholder="请输入"/>
+                <vxe-input v-model="scope.row.tasteName"  type="text" placeholder="请输入"/>
               </template>
             </vxe-column>
-            <vxe-column field="tasteDetail" :edit-render="{}" width="100">
+            <vxe-column field="tasteDetail" :edit-render="{}" title="口味描述" width="100">
               <template slot="header">
                 <span @dblclick="reduce('tasteDetail')">口味描述</span>
               </template>
@@ -482,13 +482,13 @@
         </div>
       </el-form>
     </div>
-    <div ><!--slot="footer" class="dialog-footer"-->
       <br>
-      <div v-show="isEdit == 'edit'">
+    <div>
+      <div v-if="isEdit">
         <el-button type="primary" @click="submitForm">保 存</el-button>
         <el-button type="danger" @click="cancel">重置所有</el-button>
       </div>
-      <div v-show="isEdit == 'detail'">
+      <div v-else>
         <el-button type="primary" size="small" @click="edit">修改</el-button>
         <el-button type="danger" size="small" @click="copyList">复制一份</el-button>
         <el-button type="primary" size="small" @click="printList">打印</el-button>
@@ -518,6 +518,8 @@
       </div>
     </div>
 
+
+
   </div>
 </template>
 <script>
@@ -537,7 +539,6 @@ import addressJson from '@/utils/addressJson'
 import stateList from '@/utils/stateList'
 import spStatus from '@/utils/wx/sp_status'
 import spStatusChild from '@/utils/wx/sp_status_child'
-import axios from "axios";
 import iFrame from "@/components/iFrame";
 
 export default {
@@ -570,7 +571,7 @@ export default {
       /*地区详情回显*/
       matchMarketTemp: [],
       /*详情按钮控制，修改控制暂时不提供*/
-      isEdit: '',
+      isEdit: false,  //detail 详情页进入  //true
       /*状态字典*/
       stateList,
       // 表单对齐方式
@@ -893,9 +894,7 @@ export default {
 
   created() {
     this.reset()
-    this.isEdit = null
     if (window.location.pathname !== '/kouwei/taste') {
-      this.isEdit = 'detail';
       this.wxConfig();
       getTaste(this.$route.params.tasteId).then(response => {
         this.form = response.data
@@ -907,11 +906,7 @@ export default {
         //response.data.matchMarket.splice(",")
         //this.form.matchMarket = response.data.matchMarket
       })
-    }else {
-      this.isEdit = 'edit';
     }
-    console.log("this.isEdit"+JSON.stringify(this.$route.params) )
-    console.log("this.isEdit"+JSON.stringify(this.$route.params.toString()) )
     console.log("this.isEdit"+this.isEdit)
 
   },
@@ -980,11 +975,17 @@ export default {
     },
     /*修改*/
     edit() {
-      //let s = this.isEdit;
-      this.isEdit = null
-      this.isEdit = 'edit'
-      this.$router.push({path:"/kouwei/taste?id="+this.$route.params.tatseId+`&edit=edit`})
-      console.log("a:" + this.isEdit)
+      this.edit = false
+      let self = this
+      setTimeout(() => {
+        self.$nextTick(()=>{
+          self.isEdit = true
+          // this.$router.push({path:"/kouwei/taste?id="+this.$route.params.tatseId+`&edit=edit`})
+          console.log("a:" + typeof self.isEdit + `内容` +self.isEdit)
+        })
+      }, 500)
+
+
     },
     /*复制一份该申请单*/
     copyList() {
@@ -1012,144 +1013,7 @@ export default {
     },
     /*打印该申请单*/
     printList() {
-      // 打印样式
-      const printStyle = `
-        .title {
-          text-align: center;
-        }
-        .my-list-row {
-          display: inline-block;
-          width: 100%;
-        }
-        .my-list-col {
-          float: left;
-          width: 33.3%;
-          height: 28px;
-          line-height: 28px;
-        }
-        .my-list-col-min {
-          width: 25%;
-          float: left;
-          margin-left: 0;
-          pandding-left: 0;
-          height: 12px;
-          line-height: 12px;
-        }
-        .my-list-col-max-l {
-          float: left;
-          width: 50%;
-          height: 28px;
-          line-height: 28px;
-          color: #F8490B;
-        }
-        .my-list-col-max-r {
-          float: right;
-          width: 50%;
-          height: 28px;
-          line-height: 28px;
-          text-align: right;
-        }
-        .my-list-col-boder {
-          float: left;
-          width: 100%;
-          height: 28px;
-          line-height: 28px;
-          border: solid 0.2px #AAA;
-        }
-        .my-top,
-        .my-bottom {
-          font-size: 12px;
-        }
-        .my-top {
-          margin-bottom: 5px;
-        }
-        .my-bottom {
-          margin-top: 30px;
-          text-align: left;
-        }
-        `
-      const topHtml = `
-        <h1 class="title">烟油口味申请表</h1>
-        <div class="my-top">
-            <div class="my-list-row">
-              <div class="my-list-col-max-l">编码: ${this.form.tasteId} ———— ${this.stateList(this.form.state)}</div>
-              <div class="my-list-col-max-r">申请日期: ${this.form.createTime}</div>
-              <br/>
-              <div class="my-list-col">业务姓名:&nbsp&nbsp&nbsp ${this.form.businessName}</div>
-              <div class="my-list-col">业务部门:&nbsp&nbsp&nbsp ${this.form.deptId}</div>
-              <div class="my-list-col">业务代码:&nbsp&nbsp&nbsp${this.form.businessCode}</div>
-              <div class="my-list-col">客户名称:&nbsp&nbsp&nbsp${this.form.customersName} </div>
-              <div class="my-list-col">客户代码:&nbsp&nbsp&nbsp${this.form.customersCode}</div>
-              <div class="my-list-col">口味数量:&nbsp&nbsp&nbsp${this.form.tasteNum}</div>
-              <div class="my-list-col">第几次送样:&nbsp&nbsp&nbsp${this.form.sendNum}</div>
-              <div class="my-list-col">来访日期:&nbsp&nbsp&nbsp${this.form.visitTime}</div>
-              <div class="my-list-col">发热丝种类:&nbsp&nbsp&nbsp${this.form.heatingWireType}</div>
-              <div class="my-list-col">口味专供:&nbsp&nbsp&nbsp${this.form.isSupply}</div>
-              <div class="my-list-col">现场试油:&nbsp&nbsp&nbsp${this.form.isTry}</div>
-              <div class="my-list-col">自带烟具:&nbsp&nbsp&nbsp${this.form.isSmoking}</div>
-              <div class="my-list-col">烟具类型:&nbsp&nbsp&nbsp${this.form.smokingType}</div>
-              <div class="my-list-col">是否回收烟具:&nbsp&nbsp&nbsp${this.form.isRecyclingSmoking}</div>
-              <div class="my-list-col">导油棉类型:&nbsp&nbsp&nbsp${this.form.oilGuideCottonType}</div>
-              <div class="my-list-col">发热丝阻值:&nbsp&nbsp&nbsp${this.form.heatingWireResistance}</div>
-              <div class="my-list-col">烟油仓容量:&nbsp&nbsp&nbsp${this.form.capacity}</div>
-              <div class="my-list-col">油环材质类型:&nbsp&nbsp&nbsp${this.form.oilRingMaterial}</div>
-              <div class="my-list-col">甜度(1-10):&nbsp&nbsp&nbsp${this.form.sweetness}</div>
-              <div class="my-list-col">凉度(1-10):&nbsp&nbsp&nbsp${this.form.coolness}</div>
-              <div class="my-list-col">粘稠度(1-10):&nbsp&nbsp&nbsp${this.form.viscosity}</div>
-              <div class="my-list-col">期望完成时间:&nbsp&nbsp&nbsp${this.form.expectedCompletionTime}</div>
-              <div class="my-list-col">样品数量:&nbsp&nbsp&nbsp${this.form.samplesNum}</div>
-              <div class="my-list-col">样品需求日期:&nbsp&nbsp&nbsp${this.form.sampleRequestTime}</div>
-              <div class="my-list-col">预计完成时间:&nbsp&nbsp&nbsp${this.form.estimatedFinishTime}</div>
-              <div class="my-list-col">匹配市场:&nbsp&nbsp&nbsp${JSON.parse(this.form.matchMarket)}</div>
-              <div class="my-list-col">邮寄信息:&nbsp&nbsp&nbsp${this.form.mailingInformation}</div>
-              <div class="my-list-col">备注:&nbsp&nbsp&nbsp${this.form.remark}</div>
-            </div>
-            <hr/>
-            <b>口味明细</b>
-        </div>`
-      // 打印底部内容模板
-      const bottomHtml = `
-        <div class="my-bottom">
-          <div class="my-list-row">
-              <div class="my-list-col-min">研发部(签字): </div>
-              <div class="my-list-col-min">项目组长(签字): </div>
-              <div class="my-list-col-min">业务员(签字): </div>
-              <div class="my-list-col-min">项目负责人(签字): </div>
-          </div>
-
-        </div>
-        <div class="my-bottom">
-            <div class="my-list-row">
-              <div class="my-list-col-min">日期: </div>
-              <div class="my-list-col-min">日期: </div>
-              <div class="my-list-col-min">日期: </div>
-              <div class="my-list-col-min">日期: </div>
-            </div>
-        </div>
-        `
-      this.$refs.xTable.print({
-        sheetName: '恒信科技',
-        style: printStyle,
-        columns: [
-          {type: 'seq'},
-          {field: 'tasteName'},
-          {field: 'tasteDetail'},
-          {field: 'isBasicTaste'},
-          {field: 'basicTasteName'},
-          {field: 'basicTasteImprovementIdeas'},
-          {field: 'capacity'},
-          {field: 'vg'},
-          {field: 'nicType'},
-          {field: 'nicConcentration'},
-          {field: 'nicUnit'},
-          {field: 'perfumer'}
-          /*{field: 'perfumer'},*/
-        ],
-        beforePrintMethod: ({content}) => {
-          // 拦截打印之前，返回自定义的 html 内容
-          return topHtml + content + bottomHtml
-        }
-      })
+      this.$router.push({path:"/print?detail="+this.form.tasteId+`&print=true`})
     },
     /*复制该申请单明细*/
     copyListDetail() {
