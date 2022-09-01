@@ -5,7 +5,6 @@
       <el-form-item label="业务部门" prop="deptId">
         <el-input
           v-model="queryParams.deptId"
-          placeholder="请输入业务部门"
           clearable
           @keyup.enter.native="handleQuery"
         />
@@ -13,7 +12,6 @@
       <el-form-item label="业务姓名" prop="businessName">
         <el-input
           v-model="queryParams.businessName"
-          placeholder="请输入业务姓名"
           clearable
           @keyup.enter.native="handleQuery"
         />
@@ -21,7 +19,6 @@
       <el-form-item label="业务代码" prop="businessCode">
         <el-input
           v-model="queryParams.businessCode"
-          placeholder="请输入业务代码"
           clearable
           @keyup.enter.native="handleQuery"
         />
@@ -29,7 +26,6 @@
       <el-form-item label="客户名称" prop="customersName">
         <el-input
           v-model="queryParams.customersName"
-          placeholder="请输入客户名称"
           clearable
           @keyup.enter.native="handleQuery"
         />
@@ -41,7 +37,6 @@
     </el-form>
 
     <div class="itemFrom">
-      <!--    <el-dialog :title="title" :visible.sync="open" width="80%" append-to-body>-->
       <el-form
         ref="form"
         label-position="right"
@@ -53,7 +48,7 @@
         :label-position="labelPosition"
       ><!--:show-message="true"  :inline-message="true"-->
         <!-- 显示企业微信审批编码  -->
-        <el-row :gutter="24" v-if="this.$route.params.tasteId != null"><!--type="flex" justify="space-around"-->
+        <el-row :gutter="24" v-if="isEdit = 'detail'"><!--type="flex" justify="space-around"-->
           <el-col>
             <el-divider content-position="center">企业微信审批编码:{{ form.spNo == null ? '未提交审批' : form.spNo }}</el-divider>
           </el-col>
@@ -62,13 +57,13 @@
         <el-row :gutter="24"><!--type="flex" justify="space-around"-->
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
             <el-form-item label="业务姓名" prop="businessName">
-              <el-input v-model="form.businessName" placeholder="请输入业务姓名"/>
+              <el-input v-model="form.businessName" />
             </el-form-item>
           </el-col>
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
             <!--TODO 绑定后端数据-->
             <el-form-item label="业务部门" prop="deptId">
-              <el-select v-model="form.deptId" style="width: 100%" clearable placeholder="请选择">
+              <el-select v-model="form.deptId" style="width: 100%" clearable >
                 <el-option
                   v-for="item in deptId"
                   :key="item.value"
@@ -80,22 +75,22 @@
           </el-col>
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
             <el-form-item label="业务代码" prop="businessCode">
-              <el-input v-model="form.businessCode" placeholder="请输入业务代码"/>
+              <el-input v-model="form.businessCode" />
             </el-form-item>
           </el-col>
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
             <el-form-item label="客户名称" prop="customersName">
-              <el-input v-model="form.customersName" placeholder="请输入客户名称"/>
+              <el-input v-model="form.customersName" />
             </el-form-item>
           </el-col>
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
             <el-form-item label="客户代码" prop="customersCode">
-              <el-input v-model="form.customersCode" placeholder="请输入客户代码"/>
+              <el-input v-model="form.customersCode" />
             </el-form-item>
           </el-col>
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
             <el-form-item label="口味数量" prop="tasteNum">
-              <el-input v-model="form.tasteNum" type="number" :min="1" placeholder="请输入口味数量"/>
+              <el-input v-model="form.tasteNum" type="number" :min="1" />
             </el-form-item>
           </el-col>
           <!--          <el-col :xs="{span:24}"  :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
@@ -105,7 +100,7 @@
           </el-col>-->
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
             <el-form-item label="第几次送样" prop="sendNum">
-              <el-input v-model="form.sendNum" type="number" :min="1" placeholder="请输入第几次送样"/>
+              <el-input v-model="form.sendNum" type="number" :min="1" />
             </el-form-item>
           </el-col>
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
@@ -115,13 +110,12 @@
                 style="width: 100%"
                 clearable
                 type="datetime"
-                placeholder="请选择来访日期"
               />
             </el-form-item>
           </el-col>
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
             <el-form-item label="发热丝种类" prop="heatingWireType">
-              <el-select v-model="form.heatingWireType" style="width: 100%" placeholder="请选择发热丝种类">
+              <el-select v-model="form.heatingWireType" style="width: 100%" >
                 <el-option
 
                   v-for="dict in heatingWireType"
@@ -176,7 +170,7 @@
           </el-col>
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
             <el-form-item label="导油棉类型" prop="oilGuideCottonType">
-              <el-select v-model="form.oilGuideCottonType" style="width: 100%" placeholder="请选择导油棉类型">
+              <el-select v-model="form.oilGuideCottonType" style="width: 100%" >
                 <el-option
                   v-for="dict in oilGuideCottonType"
                   :key="dict.value"
@@ -188,18 +182,18 @@
           </el-col>
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
             <el-form-item label="发热丝阻值" prop="heatingWireResistance">
-              <el-input v-model="form.heatingWireResistance" placeholder="请输入发热丝阻值"/>
+              <el-input v-model="form.heatingWireResistance" />
             </el-form-item>
           </el-col>
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
             <el-form-item label="烟油仓容量" prop="capacity">
-              <el-input v-model="form.capacity" placeholder="请输入烟油仓容量"/>
+              <el-input v-model="form.capacity" />
             </el-form-item>
           </el-col>
 
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
             <el-form-item label="油环材质类型" prop="oilRingMaterial">
-              <el-select v-model="form.oilRingMaterial" style="width: 100%" placeholder="请选择油环材质">
+              <el-select v-model="form.oilRingMaterial" style="width: 100%" >
                 <el-option
                   v-for="dict in oilRingMaterial"
                   :key="dict.value"
@@ -212,17 +206,17 @@
 
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
             <el-form-item label="甜度(1-10)" prop="sweetness">
-              <el-input v-model="form.sweetness" type="number" :min="0" placeholder="请输入甜度"/>
+              <el-input v-model="form.sweetness" type="number" :min="0" />
             </el-form-item>
           </el-col>
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
             <el-form-item label="凉度(1-10)" prop="coolness">
-              <el-input v-model="form.coolness" type="number" :min="0" placeholder="请输入凉度"/>
+              <el-input v-model="form.coolness" type="number" :min="0" />
             </el-form-item>
           </el-col>
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
             <el-form-item label="粘稠度(1-10)" prop="viscosity">
-              <el-input v-model="form.viscosity" type="number" :min="1" placeholder="请输入粘稠度"/>
+              <el-input v-model="form.viscosity" type="number" :min="1" />
             </el-form-item>
           </el-col>
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
@@ -232,19 +226,19 @@
                 style="width: 100%"
                 clearable
                 type="datetime"
-                placeholder="请选择期望完成时间"
+
               />
             </el-form-item>
           </el-col>
 
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
             <el-form-item label="样品数量" prop="samplesNum">
-              <el-input v-model="form.samplesNum" type="number" :min="1" placeholder="请输入样品数量"/>
+              <el-input v-model="form.samplesNum" type="number" :min="1" />
             </el-form-item>
           </el-col>
           <!--          <el-col :xs="{span:24}"  :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
             <el-form-item label="VG" prop="vg">
-              <el-input v-model="form.vg" placeholder="请输入VG" />
+              <el-input v-model="form.vg" />
             </el-form-item>
           </el-col>-->
 
@@ -255,7 +249,6 @@
                 style="width: 100%"
                 clearable
                 type="datetime"
-                placeholder="请选择样品需求日期"
               />
             </el-form-item>
           </el-col>
@@ -266,14 +259,13 @@
                 style="width: 100%"
                 clearable
                 type="datetime"
-                placeholder="请选择预计完成时间"
               />
             </el-form-item>
           </el-col>
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
 
             <!--            修改回显 详情回显数据库选中内容 -->
-            <el-form-item label="匹配市场" prop="matchMarket" show-overflow-tooltip v-show="this.isEdit === 2">
+            <el-form-item label="匹配市场" prop="matchMarket" show-overflow-tooltip v-if="isEdit === 'edit'">
               <el-cascader
                 :disabled="true"
                 v-model="matchMarketTemp"
@@ -288,7 +280,7 @@
               />
               <!-- :collapse-tags="true" 折叠选中标签             -->
             </el-form-item>
-            <el-form-item label="匹配市场" prop="matchMarket" v-show="this.isEdit === 1">
+            <el-form-item label="匹配市场" prop="matchMarket" v-if="isEdit === 'detail'">
               <el-cascader
                 v-model="matchMarketTemp"
                 style="width: 100%;"
@@ -307,7 +299,7 @@
 
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
             <el-form-item label="邮寄信息" prop="mailingInformation">
-              <el-input v-model="form.mailingInformation" type="textarea" placeholder="请输入内容"/>
+              <el-input v-model="form.mailingInformation" type="textarea" />
             </el-form-item>
           </el-col>
 
@@ -317,7 +309,6 @@
                 v-model="form.remark"
                 autosize
                 type="textarea"
-                placeholder="请输入内容"
               />
             </el-form-item>
           </el-col>
@@ -334,9 +325,9 @@
         </el-row>
         <!--   业务明细     -->
         <el-divider content-position="center">口味申请单明细信息</el-divider>
-        <el-row :gutter="24" class="mb8">
+        <el-row :gutter="24" class="mb8" v-if="isEdit === 'detail'">
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
-            <el-button type="primary" icon="el-icon-plus" size="mini" @click="insertEvent()" v-show="this.isEdit === 1">
+            <el-button type="primary" icon="el-icon-plus" size="mini" @click="insertEvent()" >
               添 加 一 行
             </el-button>
           </el-col>
@@ -372,12 +363,12 @@
             @edit-actived="editActivedEvent"
           >
             <vxe-column type="seq" title="序号" width="50"/>
-            <vxe-column field="tasteName" :edit-render="{}" width="100"><!--show-header-overflow-->
+            <vxe-column field="tasteName" :edit-render="{}" title="口味名称" width="100"><!--show-header-overflow-->
               <template slot="header"><!--:title-help="{message: '自定义图标', icon: 'fa fa-bell'}"-->
                 <span @dblclick="reduce('tasteName')">口味名称</span>
               </template>
               <template #edit="scope">
-                <vxe-input v-model="scope.row.tasteName" type="text" placeholder="请输入"/>
+                <vxe-input v-model="scope.row.tasteName" title="口味描述" type="text" placeholder="请输入"/>
               </template>
             </vxe-column>
             <vxe-column field="tasteDetail" :edit-render="{}" width="100">
@@ -400,7 +391,7 @@
                 </vxe-select>
               </template>
             </vxe-column>
-            <vxe-column field="basicTasteName" :edit-render="{}" width="150">
+            <vxe-column field="basicTasteName" :edit-render="{}" title="基础口味名称/编号" width="150">
               <template slot="header">
                 <span @dblclick="reduce('basicTasteName')">基础口味名称/编号</span>
               </template>
@@ -408,7 +399,7 @@
                 <vxe-input v-model="scope.row.basicTasteName" type="text" placeholder="请输入"/>
               </template>
             </vxe-column>
-            <vxe-column field="basicTasteImprovementIdeas" :edit-render="{}" width="150">
+            <vxe-column field="basicTasteImprovementIdeas" title="基础口味改善建议" :edit-render="{}" width="150">
               <template slot="header">
                 <span @dblclick="reduce('basicTasteImprovementIdeas')">基础口味改善建议</span>
               </template>
@@ -416,7 +407,7 @@
                 <vxe-input v-model="scope.row.basicTasteImprovementIdeas" type="text" placeholder="请输入"/>
               </template>
             </vxe-column>
-            <vxe-column field="capacity" :edit-render="{}" width="80">
+            <vxe-column field="capacity" :edit-render="{}" title="容量" width="80">
               <template slot="header">
                 <span @dblclick="reduce('capacity')">容量</span>
               </template>
@@ -424,7 +415,7 @@
                 <vxe-input v-model="scope.row.capacity" type="text" placeholder="请输入"/>
               </template>
             </vxe-column>
-            <vxe-column field="vg" :edit-render="{}" width="80">
+            <vxe-column field="vg" :edit-render="{}" title="VG" width="80">
               <template slot="header">
                 <span @dblclick="reduce('vg')">VG</span>
               </template>
@@ -432,7 +423,7 @@
                 <vxe-input v-model="scope.row.vg" type="text" placeholder="请输入"/>
               </template>
             </vxe-column>
-            <vxe-column field="nicType" :edit-render="{}" :title-help="{message: '编辑勾选', icon: 'fa fa-bell'}"
+            <vxe-column field="nicType" :edit-render="{}"  title="NIC类别" :title-help="{message: '编辑勾选', icon: 'fa fa-bell'}"
                         width="100">
               <template slot="header">
                 <span @dblclick="reduce('nicType')">NIC类别</span>
@@ -441,7 +432,7 @@
                 <vxe-input v-model="scope.row.nicType" type="text" placeholder="请输入"/>
               </template>
             </vxe-column>
-            <vxe-column field="nicConcentration" :edit-render="{}" width="100">
+            <vxe-column field="nicConcentration" title="NIC浓度" :edit-render="{}" width="100">
               <template slot="header">
                 <span @dblclick="reduce('nicConcentration')">NIC浓度</span>
               </template>
@@ -460,7 +451,7 @@
                 </vxe-select>
               </template>
             </vxe-column>
-            <vxe-column field="perfumer" :edit-render="{}" width="100">
+            <vxe-column field="perfumer" :edit-render="{}" title="调香师" width="100">
               <template slot="header">
                 <span @dblclick="reduce('perfumer')">调香师</span>
               </template>
@@ -468,7 +459,7 @@
                 <vxe-input v-model="scope.row.perfumer" type="text" placeholder="请输入"/>
               </template>
             </vxe-column>
-            <vxe-column field="version" :edit-render="{}" width="80">
+            <vxe-column field="version" :edit-render="{}" title="版本" width="80">
               <template slot="header">
                 <span @dblclick="reduce('version')">版本</span>
               </template>
@@ -491,13 +482,13 @@
         </div>
       </el-form>
     </div>
-    <div slot="footer" class="dialog-footer">
+    <div ><!--slot="footer" class="dialog-footer"-->
       <br>
-      <div v-show="this.isEdit === 1">
+      <div v-show="isEdit == 'edit'">
         <el-button type="primary" @click="submitForm">保 存</el-button>
         <el-button type="danger" @click="cancel">重置所有</el-button>
       </div>
-      <div v-show="this.isEdit === 2">
+      <div v-show="isEdit == 'detail'">
         <el-button type="primary" size="small" @click="edit">修改</el-button>
         <el-button type="danger" size="small" @click="copyList">复制一份</el-button>
         <el-button type="primary" size="small" @click="printList">打印</el-button>
@@ -525,96 +516,7 @@
         <el-button type="primary" size="small" @click="auditDeatil()">查看审批详情</el-button>
         <el-button type="danger" size="small" @click="auditUpdateList">更新审批结果</el-button>
       </div>
-
-      <!--      <el-button type="primary">主要按钮</el-button>
-            <el-button type="success">成功按钮</el-button>
-            <el-button type="info">信息按钮</el-button>
-            <el-button type="warning">警告按钮</el-button>
-            <el-button type="danger">危险按钮</el-button>-->
-      <!--      <div>测试:{{ name }}</div>-->
-      <!--      <el-button @click="cancelDeatil">重 置 明 细</el-button>-->
     </div>
-
-    <div class="tableDiv" v-show="false">
-      <vxe-table
-        border
-        ref="xTable"
-        height="300"
-        :print-config="{}"
-        :export-config="{}"
-        :data="form.hxTasteDetailList">
-        <vxe-column type="seq" width="10"></vxe-column>
-        <vxe-column field="tasteName" width="100" title="口味名称"></vxe-column>
-        <vxe-column field="tasteDetail" title="口味描述"></vxe-column>
-        <vxe-column field="isBasicTaste" title="有基础口味"></vxe-column>
-        <vxe-column field="basicTasteImprovementIdeas" title="基础口味改善建议"></vxe-column>
-        <vxe-column field="capacity" title="容量"></vxe-column>
-        <vxe-column field="vg" title="VG"></vxe-column>
-        <vxe-column field="nicType" title="NIC类别"></vxe-column>
-        <vxe-column field="nicConcentration" title="NIC浓度"></vxe-column>
-        <vxe-column field="nicUnit" title="NIC单位"></vxe-column>
-        <!--        <vxe-column field="perfumer" title="指定调香师"></vxe-column>-->
-        <vxe-column field="perfumer" title="分配调香师"></vxe-column>
-        <template #empty>
-              <span style="color: red;">
-                <!-- <img src="https://pic2.zhimg.com/50/v2-f7031359103859e1ed38559715ef5f3f_hd.gif">-->
-                <p>没有更多数据了,请添加数据！</p>
-              </span>
-        </template>
-      </vxe-table>
-
-    </div>
-
-
-    <!-- 审批详情 -->
-    <div v-if="open">
-      <el-dialog title="审批详情" :visible.sync="open" style="width:auto;margin-left: 10vw;margin-right: 10vw">
-        <div>
-          <!--        <el-card>-->
-          <p>审批单名称: {{ auitDetailList.sp_name }}</p>
-          <p>录入人: {{ form.createBy }}</p>
-          <p>业务姓名: {{ form.businessName }}</p>
-          <p>客户名称: {{ form.customersName }}</p>
-          <p>客户代码: {{ form.customersCode }}</p>
-          <p>业务部门: {{ form.deptId }}</p>
-          <p>审批编号: {{ auitDetailList.sp_no }}</p>
-          <p>提交时间: {{ parseTime(auitDetailList.apply_time) }}</p>
-          <p>审批状态:
-            <el-tag>{{ spStatus(auitDetailList.sp_status) }}</el-tag>
-          </p>
-          <!--          <p>单据编号:{{this.auitDetailList.apply_data.contents[0].value.text}}</p>
-                    <p>客户姓名:{{this.auitDetailList.apply_data.contents[4].value.text}}</p>-->
-          <div style="height: 300px;">
-            <el-divider/>
-            <h4>审批流程</h4>
-            <ul>
-              <b>审批步骤状态</b>
-              <div v-for="(item,index) in auitDetailListObj.sp_record" :key="index">
-                <li>{{ index + 1 }}、 审批流程:
-                  <el-tag> {{ spStatus(item.sp_status) }}</el-tag>
-                </li>
-                <ul>
-                  <li>审批人:{{ item.details[0].approver.userid }}</li>
-                </ul>
-              </div>
-            </ul>
-            <ul>
-              <b>抄送人</b>
-              <div v-for="(item,index) in auitDetailListObj.notifyer" :key="index">
-                <li>{{ item.userid }}</li>
-              </div>
-            </ul>
-          </div>
-          <!--        </el-card>-->
-        </div>
-
-        <div slot="footer" class="dialog-footer">
-          <el-button @click="open = false">关 闭</el-button>
-          <el-button @click="auitBack">撤销审批</el-button>
-        </div>
-      </el-dialog>
-    </div>
-
 
   </div>
 </template>
@@ -668,7 +570,7 @@ export default {
       /*地区详情回显*/
       matchMarketTemp: [],
       /*详情按钮控制，修改控制暂时不提供*/
-      isEdit: null,
+      isEdit: '',
       /*状态字典*/
       stateList,
       // 表单对齐方式
@@ -991,7 +893,9 @@ export default {
 
   created() {
     this.reset()
-    if (this.$route.params.tasteId != null) {
+    this.isEdit = null
+    if (window.location.pathname !== '/kouwei/taste') {
+      this.isEdit = 'detail';
       this.wxConfig();
       getTaste(this.$route.params.tasteId).then(response => {
         this.form = response.data
@@ -1003,10 +907,12 @@ export default {
         //response.data.matchMarket.splice(",")
         //this.form.matchMarket = response.data.matchMarket
       })
-      this.isEdit = 2;
-    } else {
-      this.isEdit = 1;
+    }else {
+      this.isEdit = 'edit';
     }
+    console.log("this.isEdit"+JSON.stringify(this.$route.params) )
+    console.log("this.isEdit"+JSON.stringify(this.$route.params.toString()) )
+    console.log("this.isEdit"+this.isEdit)
 
   },
   mounted() {
@@ -1061,6 +967,7 @@ export default {
           },
           fail: (res) => {
             console.log("agent config 失败: ", res);
+            alert("企业微信调用SDK agent config 失败")
             //alert("agentId失败:" + JSON.stringify(res));
             if (res.errMsg.indexOf("function not exist") > -1) {
               alert("版本过低请升级");
@@ -1073,8 +980,11 @@ export default {
     },
     /*修改*/
     edit() {
-      this.isEdit = 1
-      console.log("a" + this.isEdit)
+      //let s = this.isEdit;
+      this.isEdit = null
+      this.isEdit = 'edit'
+      this.$router.push({path:"/kouwei/taste?id="+this.$route.params.tatseId+`&edit=edit`})
+      console.log("a:" + this.isEdit)
     },
     /*复制一份该申请单*/
     copyList() {
@@ -1248,7 +1158,7 @@ export default {
       this.$refs.xTable.openExport({types: ['csv']})
       setTimeout(() => {
         this.$refs.xTable.exportData({
-          filename: '自定义文件名',
+          filename: `明细_`+this.$route.params.tasteId+ `_`+new Date().getTime(),
           type: 'csv',
           isHeader: true,
           isFooter: true,
@@ -1917,16 +1827,16 @@ export default {
         tasteNum: null,
         refereeNum: null,
         sendNum: null,
-        isSupply: 0,
-        isTry: 0,
+        isSupply: '否',
+        isTry: '否',
         visitTime: null,
-        isSmoking: 0,
-        smokingType: null,
+        isSmoking: '否',
+        smokingType: '一次性',
         heatingWireType: null,
         heatingWireResistance: null,
         capacity: null,
         oilGuideCottonType: null,
-        isRecyclingSmoking: 0,
+        isRecyclingSmoking: '否',
         oilRingMaterial: null,
         vg: null,
         sweetness: null,
@@ -1990,25 +1900,29 @@ export default {
     /** 提交按钮 */
     submitForm() {
       console.log("内容:" + typeof this.form.matchMarket)
-      this.$refs['form'].validate(valid => {
-        if (valid) {
+      this.$refs['form'].validate(valid1 => {
+          this.$refs['xTable'].validate(valid2 => {
+        if (valid1 || valid2) {
           this.form.matchMarket = JSON.stringify(this.matchMarketTemp)
           this.form.hxTasteDetailList = this.hxTasteDetailList
           this.open = false
           if (this.$route.params.tasteId != null) {
             updateTaste(this.form).then(response => {
               this.$modal.msgSuccess('修改成功')
-              this.open = false
+              this.$router.push({path:"/kouwei/tasteList"})
+              //this.open = false
               //this.getList()
             })
           } else {
             addTaste(this.form).then(response => {
               this.$modal.msgSuccess('新增成功')
-              this.open = false
+              this.$router.push({path:"/kouwei/tasteList"})
+              //this.open = false
               //this.getList()
             })
           }
         }
+          })
       })
     },
     /** 删除按钮操作 */
@@ -2085,7 +1999,7 @@ export default {
   color: red;
   margin-top: -20px;
   float: right;
-  margin-left: 60%;
+  margin-left: 40%;
 }
 
 /*多选地区tag显示问题*/
