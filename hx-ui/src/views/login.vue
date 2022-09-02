@@ -132,7 +132,6 @@ export default {
         `&response_type=code`+
         `&scope=snsapi_base`+
         `&state=STATE`+
-        `&debug=1`+
         `&agentid=1000042#wechat_redirect`
 
     }*/

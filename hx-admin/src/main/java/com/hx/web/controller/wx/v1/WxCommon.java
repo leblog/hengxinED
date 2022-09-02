@@ -120,7 +120,26 @@ public class WxCommon extends BaseController {
     @PostMapping("/code")
     public AjaxResult jsapiAppTicketAppCode(@RequestBody String data) {
         log.info("map----{}", data);
-        String id = JSONUtil.parseObj(data).getStr("id");
+        String url = JSONUtil.parseObj(data).getStr("url");
+
+        AjaxResult ajax = new AjaxResult();
+        String app = configService.selectConfigByKey("wx.work.jsapiTicket.app");
+        StringBuilder s2 = new StringBuilder();
+        s2.append("jsapi_ticket=");
+        s2.append(app);
+        s2.append("&noncestr=1234&timestamp=1414587457&url=");
+        s2.append(url);
+        log.info("完成URLs2=====>{}",s2);
+        String appCode = SecureUtil.sha1(String.valueOf(s2));
+
+        System.out.println("app加密字符 = " + s2);
+        log.info("app加密code:{}",appCode);
+        ajax.put("signature",appCode);
+        return AjaxResult.success("ok",ajax);
+    }
+    @PostMapping("/codeApp")
+    public AjaxResult jsapiAppTicketApp(@RequestBody String data) {
+        log.info("map----{}", data);
         String url = JSONUtil.parseObj(data).getStr("url");
 
         AjaxResult ajax = new AjaxResult();
@@ -134,24 +153,10 @@ public class WxCommon extends BaseController {
         System.out.println("api加密字符 = " + s1);
         log.info("完成URLs1=====>{}",s1);
         log.info("api加密code:{}",apiCode);
-
-
-        String app = configService.selectConfigByKey("wx.work.jsapiTicket.app");
-        StringBuilder s2 = new StringBuilder();
-        s2.append("jsapi_ticket=");
-        s2.append(app);
-        s2.append("&noncestr=1234&timestamp=1414587457&url=");
-        s2.append(url);
-        log.info("完成URLs2=====>{}",s2);
-        String appCode = SecureUtil.sha1(String.valueOf(s2));
-
-        System.out.println("app加密字符 = " + s2);
-        log.info("app加密code:{}",appCode);
-
-//        ajax.put("signature",apiCode);
-        ajax.put("signature",appCode);
+        ajax.put("signature",apiCode);
         return AjaxResult.success("ok",ajax);
     }
+
 
 
 }

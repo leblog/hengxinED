@@ -155,7 +155,7 @@ public class WxOwnAuit {
                 .timeout(20000)
                 .execute().body();
         if(JSONUtil.parseObj(res).getStr("errcode")!="0"){
-            throw new ServiceException("没有提交审批");
+            throw new ServiceException("没有提交审批或撤销审批");
         }
         String str = JSONUtil.parseObj(JSONUtil.parseObj(res).getStr("data")).getStr("OpenSpstatus");
         HxTaste hxTaste = new HxTaste();

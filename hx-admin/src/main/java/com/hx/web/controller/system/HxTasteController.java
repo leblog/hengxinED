@@ -5,6 +5,8 @@ import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletResponse;
 
 import cn.hutool.core.util.IdUtil;
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.json.JSONUtil;
 import com.hx.common.annotation.RepeatSubmit;
 import com.hx.common.core.domain.entity.SysUser;
 import com.hx.common.exception.ServiceException;
@@ -112,6 +114,33 @@ public class HxTasteController extends BaseController
     @PutMapping
     public AjaxResult edit(@RequestBody HxTaste hxTaste)
     {
+        return toAjax(hxTasteService.updateHxTaste(hxTaste));
+    }
+
+    /**
+     * 修改审批单走的流程
+     */
+    @PreAuthorize("@ss.hasPermi('taste:edit')")
+    @RepeatSubmit(interval = 1000, message = "请求过于频繁")
+    @Log(title = "口味申请单绑定流程", businessType = BusinessType.UPDATE)
+    @PutMapping(value = "/editPresson")
+    public AjaxResult editPresson(@RequestBody String data)
+    {
+        String id = JSONUtil.parseObj(data).getStr("id");
+        String processNo = JSONUtil.parseObj(data).getStr("processNo");
+        logger.info("传递内容1{}",id);
+        logger.info("传递内容2{}",processNo);
+        if(StrUtil.isEmpty(id)) {
+            throw new RuntimeException("绑定流程失败,没有口味id");
+        }
+        if(StrUtil.isEmpty(processNo)) {
+            throw new RuntimeException("绑定流程失败,没有流程编码");
+        }
+        HxTaste hxTaste = hxTasteService.selectHxTasteByTasteId(id);
+        if(StrUtil.isNotEmpty(hxTaste.getProcessNo())) {
+            throw new RuntimeException("已存在,不可重复提交审批流程");
+        }
+        hxTaste.setProcessNo(processNo);
         return toAjax(hxTasteService.updateHxTaste(hxTaste));
     }
 

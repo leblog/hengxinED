@@ -1,6 +1,8 @@
 package com.hx.system.service.impl;
 
 import cn.hutool.core.util.IdUtil;
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.json.JSONUtil;
 import com.hx.common.utils.DateUtils;
 import com.hx.common.utils.StringUtils;
 import com.hx.common.utils.uuid.SeqRD;
@@ -16,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static com.hx.common.utils.SecurityUtils.getUsername;
 
@@ -40,12 +43,21 @@ public class HxTasteServiceImpl implements IHxTasteService
     @Override
     public HxTaste selectHxTasteByTasteId(String tasteId)
     {
-        HxTaste hxTaste = new HxTaste();
-        hxTaste.setTasteId(tasteId);
-        List<HxTaste> hxTasteList = hxTasteMapper.selectHxTasteListDetail(hxTaste);
-        log.info("数据:{}",hxTaste);
-        if(StringUtils.isNull(hxTasteList.get(0).getSpNo())){
-            hxTaste.setSpNo(SeqRD.getId());
+        HxTaste hxTaste = hxTasteMapper.selectHxTasteByTasteId(tasteId);
+        log.info("口味单数据:{}",hxTaste);
+        if(StrUtil.isEmpty(hxTaste.getSpNo())){
+            //判断sp_NO是否重复
+            String id = SeqRD.getId();
+            /*
+            HxTaste taste = new HxTaste();
+            taste.setSpNo(hxTaste.getSpNo());
+            List<HxTaste> list = selectHxTasteList(taste);
+            if(Objects.equals(list.get(0).getSpNo(), id)){
+                log.info("审批Id重复:{}", list.get(0).getSpNo());
+                log.info("审批Id重复:{}", id);
+                log.info("重新获取审批Id重复:{}", SeqRD.getId());
+            }*/
+            hxTaste.setSpNo(id);
             log.info("SpNO为空,新增绑定单号为{}",hxTaste.getSpNo());
             hxTasteMapper.updateHxTaste(hxTaste);
         }

@@ -35,6 +35,15 @@ export function updateTaste(data) {
   })
 }
 
+// 绑定口味申请单审批流程编码
+export function updateTasteProcessNo(data) {
+  return request({
+    url: '/system/taste/editPresson',
+    method: 'put',
+    data: data
+  })
+}
+
 // 删除口味申请单
 export function delTaste(tasteId) {
   return request({
@@ -120,10 +129,19 @@ export function bindWxUserId(code) {
 }
 
 
-/*首页绑定微信ID */
+/*首页绑定微信ID 通过agentConfig注入应用的权限 https://developer.work.weixin.qq.com/document/path/90269#14932*/
 export function getAgentTicket(data) {
   return request({
     url: '/open/code',
+    method: 'post',
+    data: data
+  })
+}
+
+/*通过config接口注入权限验证配置 https://developer.work.weixin.qq.com/document/path/90269#14931/%E6%AD%A5%E9%AA%A4%E4%BA%8C%EF%BC%9A%E9%80%9A%E8%BF%87config%E6%8E%A5%E5%8F%A3%E6%B3%A8%E5%85%A5%E6%9D%83%E9%99%90%E9%AA%8C%E8%AF%81%E9%85%8D%E7%BD%AE*/
+export function getAgentTicketCodeApp(data) {
+  return request({
+    url: '/open/codeApp',
     method: 'post',
     data: data
   })

@@ -495,7 +495,7 @@
         <el-button type="primary" size="small" @click="copyListDetail">导出明细</el-button>
 <!--        <el-button type="danger" size="small" @click="auditPush">推送审核</el-button> &lt;!&ndash;auditPush&ndash;&gt;
         <el-button type="primary" size="small" @click="auditList">查看审批详情</el-button>-->
-        <el-dropdown
+        <el-dropdown v-show="processNoStatus"
           style="margin: 5px 10px 5px 10px;"
           size="small"
           split-button
@@ -513,7 +513,7 @@
             <el-dropdown-item command="5" icon="el-icon-user">调香申请-测试2</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
-        <el-button type="primary" size="small" @click="auditDeatil()">查看审批详情</el-button>
+        <el-button style="margin: 5px 10px 5px 10px;" type="primary" size="small" @click="auditDeatil()">查看审批详情</el-button>
         <el-button type="danger" size="small" @click="auditUpdateList">更新审批结果</el-button>
       </div>
     </div>
@@ -533,7 +533,8 @@ import {
   commitPush,
   auitDetail,
   updateAuitDetail,
-  getAgentTicket
+  getAgentTicket,
+  updateTasteProcessNo
 } from "@/api/system/taste";
 import addressJson from '@/utils/addressJson'
 import stateList from '@/utils/stateList'
@@ -560,6 +561,8 @@ export default {
       })
     }
     return {
+      /*审核按钮button*/
+      processNoStatus: false,
       /*企业微信字典*/
       oaType: '10001', //	操作类型，目前支持：10001-发起审批；10002-查看审批详情。
       /*声明字典*/
@@ -895,6 +898,7 @@ export default {
   created() {
     this.reset()
     if (window.location.pathname !== '/kouwei/taste') {
+      console.log("!=/kouwei/taste")
       this.wxConfig();
       getTaste(this.$route.params.tasteId).then(response => {
         this.form = response.data
@@ -905,7 +909,17 @@ export default {
         //alert(str[0][0]);
         //response.data.matchMarket.splice(",")
         //this.form.matchMarket = response.data.matchMarket
+
+        console.log("进入状态前",response.data.processNo)
+        if(response.data.processNo === null){
+          console.log("进入状态中",response.data.processNo)
+          setTimeout(()=>{
+            this.$nextTick(()=>{ this.processNoStatus = true;})
+          })
+        }
+        console.log("审核按钮状态",this.processNoStatus)
       })
+
     }
     console.log("this.isEdit"+this.isEdit)
 
@@ -994,6 +1008,7 @@ export default {
       delete this.form.tasteId
       delete this.form.follower
       delete this.form.spNo //删除绑定的审批单号
+      delete this.form.processNo //删除绑定的审批流程号
       for (let i = 0; i < this.form.hxTasteDetailList.length; i++) {
         delete this.form.hxTasteDetailList[i].id
         delete this.form.hxTasteDetailList[i].tasteId
@@ -1038,10 +1053,30 @@ export default {
       this.handleCommand("5")
     },
     /*推送该申请单在企业微信中审批*/
-    auditPush(e) {
+    auditPush(e,k) {
+      // 调用sdk
+      //this.wxConfig();
       // 完整路由
-      console.log("接收", e)
+      console.log("接收1", JSON.stringify(e))
+      console.log("接收2", JSON.stringify(k))
       console.log("路由:",window.location.origin+`/print?detail=`+this.form.tasteId)
+      let self = this
+      // 输出接口的回调信息
+      // 开始绑定更新单号  绑定然后更新 审批流程字典
+      let obj = {}
+      obj.id = self.$route.params.tasteId
+      obj.processNo = k
+      console.log(obj)
+      if(this.form.processNo === null){
+        setTimeout(()=>{
+          this.$nextTick(()=>{
+            updateTasteProcessNo(obj).then(res=>{
+              console.log("绑定成功",JSON.stringify(res))
+            })
+          })
+        },500)
+      }
+
       // 校验是否绑定企业微信
       getUserDetail().then(response => {
         //if (response.data.wxUserId != null) {
@@ -1089,13 +1124,22 @@ export default {
                 'type': 'link',		// link类型，用于在审批详情页展示第三方订单跳转地址
                 'value': window.location.origin+`/print?detail=`+this.form.tasteId+`&print=true`,
               }],
-          },//https://open.weixin.qq.com/connect/oauth2/authorize?appid=ww0530511650e0c6c8&redirect_uri=http://rds.cnhstar.com:44346?detail=1564875584438435840&response_type=code&scope=snsapi_base&state=
+          }//https://open.weixin.qq.com/connect/oauth2/authorize?appid=ww0530511650e0c6c8&redirect_uri=http://rds.cnhstar.com:44346?detail=1564875584438435840&response_type=code&scope=snsapi_base&state=
+        },
           function(res) {
-            // 输出接口的回调信息
-            console.log("提交成功:"+res);
-            // 开始绑定更新单号
+            console.log("提交成功1:"+res);
           }
-        })
+        )
+       /* wx.ready(function(){
+          // 输出接口的回调信息
+          console.log("提交成功:"+res);
+
+          // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
+        });
+        wx.error(function(res){
+          console.log("提交失败")
+          // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+        });*/
 
 
         // 自带小程序
@@ -1121,19 +1165,19 @@ export default {
     handleCommand(command) {
       switch (command) {
         case "1":
-          this.auditPush("2d32c445657ff697cb4cfb5b867b5828_1994972778");
+          this.auditPush("2d32c445657ff697cb4cfb5b867b5828_1994972778","1");
           break;
         case "2":
-          this.auditPush("8eb4f293ded18a9c4dcddac4b6bfa9da_1834079943");
+          this.auditPush("8eb4f293ded18a9c4dcddac4b6bfa9da_1834079943","2");
           break;
         case "3":
-          this.auditPush("e048b4d01dd16cbe00435f93392b1f12_1235408232");
+          this.auditPush("e048b4d01dd16cbe00435f93392b1f12_1235408232","3");
           break;
         case "4":
-          this.auditPush("820d993ca5cdb19fa5d995442f612bf3_362617181");
+          this.auditPush("820d993ca5cdb19fa5d995442f612bf3_362617181","4");
           break;
         case "5":
-          this.auditPush("d842ce390ae39ecfbe4435f87c8ae31e_1558827472");
+          this.auditPush("d842ce390ae39ecfbe4435f87c8ae31e_1558827472","5");
           break;
         default:
           break;
@@ -1684,6 +1728,7 @@ export default {
         deptId: null,
         tasteCopyId: null,
         spNo: null,
+        processNo: null,
         businessName: null,
         businessCode: null,
         customersName: null,
