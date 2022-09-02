@@ -122,7 +122,6 @@ public class HxTasteController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('taste:edit')")
     @RepeatSubmit(interval = 1000, message = "请求过于频繁")
-    @Log(title = "口味申请单绑定流程", businessType = BusinessType.UPDATE)
     @PutMapping(value = "/editPresson")
     public AjaxResult editPresson(@RequestBody String data)
     {

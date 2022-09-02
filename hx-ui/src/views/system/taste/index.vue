@@ -275,7 +275,7 @@
                 :props="{ multiple: true, checkStrictly: true }"
                 placeholder="试试搜索：英国/可多选"
                 filterable
-                clearable
+                clearable="clearable"
                 @change="handleChangeT"
               />
               <!-- :collapse-tags="true" 折叠选中标签             -->
@@ -290,7 +290,7 @@
                 :debounce="300"
                 placeholder="试试搜索：中国/可多选"
                 filterable
-                clearable
+                clearable="clearable"
                 @change="handleChange"
               />
               <!-- :collapse-tags="true" 折叠选中标签  , checkStrictly: true  @change="handleChange"         -->
@@ -325,29 +325,7 @@
         </el-row>
         <!--   业务明细     -->
         <el-divider content-position="center">口味申请单明细信息</el-divider>
-        <el-row :gutter="24" class="mb8" v-if="isEdit ==='B'">
-          <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
-            <el-button type="primary" icon="el-icon-plus" size="mini" @click="insertEvent()" >
-              添 加 一 行
-            </el-button>
-          </el-col>
-          <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
-            批量列填充:
-            <el-input
-              v-model="copyCollRemark"
-              autosize
-              type="textarea"
-              placeholder="请输入内容"
-              @blur="batchValue(copyCollRemark)"
-            />
-          </el-col>
-          <!--          <el-col :span="1.5">
-            <el-button type="danger" icon="el-icon-delete" size="mini" @click="removeSelectEvent()">删除选中</el-button>
-          </el-col>-->
-        </el-row>
-
-        <br>
-        <div class="tableDiv" v-if="isEdit ==='A'">
+        <div class="tableDiv" v-if="isEdit ==='A'"><!--详情-->
           <vxe-table
             ref="xTable"
             border
@@ -467,11 +445,11 @@
                 <vxe-input v-model="scope.row.version" type="text" placeholder="请输入"/>
               </template>
             </vxe-column>
-            <vxe-column title="操作">
+<!--            <vxe-column title="操作">
               <template #default="{ row }">
                 <vxe-button type="text" status="primary" @click="removeSelectEvent(row)">删除</vxe-button>
               </template>
-            </vxe-column>
+            </vxe-column>-->
             <template #empty>
               <span style="color: red;">
                 <!-- <img src="https://pic2.zhimg.com/50/v2-f7031359103859e1ed38559715ef5f3f_hd.gif">-->
@@ -621,8 +599,28 @@
 
     <div>
       <div v-if="isEdit ==='B'">
-        <el-button type="primary" @click="submitForm">保 存</el-button>
-        <el-button type="danger" @click="cancel">重置所有</el-button>
+        <el-row :gutter="24" class="mb8">
+          <el-col :xs="{span:24}" :sm="{span:12}" :md="{span:12}" :lg="{span:12}">
+            <el-button type="primary" icon="el-icon-check" size="mini" @click="submitForm">保 存</el-button>
+            <el-button type="danger" icon="el-icon-delete-solid" size="mini" @click="cancel">重置所有</el-button>
+            <el-button type="primary" icon="el-icon-plus" size="mini" @click="insertEvent()" >
+              添 加 一 行
+            </el-button>
+          </el-col>
+          <el-col :xs="{span:24}" :sm="{span:12}" :md="{span:12}" :lg="{span:12}">
+            批量列填充:
+            <el-input
+              v-model="copyCollRemark"
+              autosize
+              type="textarea"
+              placeholder="请输入内容"
+              @blur="batchValue(copyCollRemark)"
+            />
+          </el-col>
+          <!--          <el-col :span="1.5">
+            <el-button type="danger" icon="el-icon-delete" size="mini" @click="removeSelectEvent()">删除选中</el-button>
+          </el-col>-->
+        </el-row>
       </div>
       <div v-if="isEdit ==='A'">
         <el-button type="primary" size="small" @click="edit">修改</el-button>
@@ -1081,6 +1079,10 @@ export default {
     }
   },*/
   methods: {
+    /*重置所有中的地区临时回显未清除*/
+    clearable(){
+
+    },
     /*微信配置  wxConfig (state)*/
     async wxConfig () {
       try {
@@ -1842,6 +1844,7 @@ export default {
       }).then(() => {
         this.open = false
         this.reset()
+        this.matchMarketTemp.length = 0
         this.$message({
           type: 'success',
           message: '重置成功!'
@@ -1954,9 +1957,10 @@ export default {
           this.open = false
           if (this.$route.params.tasteId != null) {
             updateTaste(this.form).then(response => {
+              console.log("提交修改:",JSON.stringify(response))
               this.$modal.msgSuccess('修改成功')
               // 关闭当前tab页签，打开新页签
-              const obj = { path: "/kouwei/tasteList" };
+              const obj = { path: "system/taste-data/index/"+ this.form.tasteId};
               this.$tab.closeOpenPage(obj);
               //this.reset()
               //this.open = false
@@ -1964,6 +1968,7 @@ export default {
             })
           } else {
             addTaste(this.form).then(response => {
+              console.log("添加修改:",JSON.stringify(response))
               this.$modal.msgSuccess('新增成功')
               // 关闭当前tab页签，打开新页签
               const obj = { path: "/kouwei/tasteList" };

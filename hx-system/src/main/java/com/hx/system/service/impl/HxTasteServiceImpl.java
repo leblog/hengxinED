@@ -139,10 +139,10 @@ public class HxTasteServiceImpl implements IHxTasteService
         hxTaste.setCreateTime(DateUtils.getNowDate());
         hxTaste.setCreateBy(getUsername());
         hxTaste.setState(TatseFolder.NORMAL.getCode());
-        int rows = hxTasteMapper.insertHxTaste(hxTaste);
+        int s = hxTasteMapper.insertHxTaste(hxTaste);
         //插入详情表
         insertHxTasteDetail(hxTaste);
-        return rows;
+        return s;
     }
 
     /**
