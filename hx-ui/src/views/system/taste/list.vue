@@ -386,6 +386,7 @@ export default {
     this.getWx();
   },
   mounted() {
+    this.getList();
     if (this.form.remark == null) {
       cache.session.remove("tasteList")
     }

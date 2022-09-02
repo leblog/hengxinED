@@ -87,13 +87,11 @@ public class WxAuth extends BaseController {
     {
         return redirect("http://rds.cnhstar.com:44346/print");
     }
-    @GetMapping("/str")
-    public AjaxResult info(@PathVariable("code") String s)
+    @RequestMapping("/str")
+    public AjaxResult info(@RequestBody String s)
     {
         log.info("大家好{}",s);
-        AjaxResult ajaxResult = new AjaxResult();
-        ajaxResult.put("mm",s);
-        return ajaxResult;
+        return AjaxResult.success("ok",s);
     }
     @GetMapping("/wxAuthorize")
     public String wxAuthorize()

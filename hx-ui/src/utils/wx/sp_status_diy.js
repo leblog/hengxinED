@@ -7,7 +7,7 @@
 function sp_status_diy(e) {
   switch (e) {
     case '-1':
-      return '-1 未知'
+      return '作废'
     case '0':
       return '已保存'
     case '1':

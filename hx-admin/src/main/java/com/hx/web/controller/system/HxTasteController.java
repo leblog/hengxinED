@@ -138,7 +138,7 @@ public class HxTasteController extends BaseController
         }
         HxTaste hxTaste = hxTasteService.selectHxTasteByTasteId(id);
         if(StrUtil.isNotEmpty(hxTaste.getProcessNo())) {
-            throw new RuntimeException("已存在,不可重复提交审批流程");
+            return null;
         }
         hxTaste.setProcessNo(processNo);
         return toAjax(hxTasteService.updateHxTaste(hxTaste));

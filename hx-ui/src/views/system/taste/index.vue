@@ -347,7 +347,7 @@
         </el-row>
 
         <br>
-        <div class="tableDiv">
+        <div class="tableDiv" v-if="isEdit ==='A'">
           <vxe-table
             ref="xTable"
             border
@@ -480,9 +480,145 @@
             </template>
           </vxe-table>
         </div>
+
+        <div class="tableDiv" v-if="isEdit ==='B'"> <!--添加-->
+          <vxe-table
+            ref="xTable"
+            border
+            resizable
+            show-overflow
+            :show-header-overflow="true"
+            :show-header="true"
+            :data="hxTasteDetailList"
+            :edit-rules="validRules"
+            :tooltip-config="{showAll: true, enterable: true, contentMethod: showTooltipMethod}"
+            :edit-config="{trigger: 'click', mode: 'row'}"
+            @cell-dblclick="doubleClick"
+            @edit-actived="editActivedEvent"
+          >
+            <vxe-column type="seq" title="序号" width="50"/>
+            <vxe-column field="tasteName" :edit-render="{}" title="口味名称" width="100"><!--show-header-overflow-->
+              <template slot="header"><!--:title-help="{message: '自定义图标', icon: 'fa fa-bell'}"-->
+                <span @dblclick="reduce('tasteName')">口味名称</span>
+              </template>
+              <template #edit="scope">
+                <vxe-input v-model="scope.row.tasteName"  type="text" placeholder="请输入"/>
+              </template>
+            </vxe-column>
+            <vxe-column field="tasteDetail" :edit-render="{}" title="口味描述" width="100">
+              <template slot="header">
+                <span @dblclick="reduce('tasteDetail')">口味描述</span>
+              </template>
+              <template #edit="scope">
+                <vxe-input v-model="scope.row.tasteDetail" type="text" placeholder="请输入"/>
+              </template>
+            </vxe-column>
+
+            <vxe-column field="isBasicTaste" title="有基础口味" :show-header-overflow="true" :edit-render="{}"
+                        :title-help="{message: '该明细是选项,批量赋值请使用双击单元格操作!'}" width="120">
+              <template #default="{ row }">
+                <span>{{ formatIsBasicTaste(row.isBasicTaste) }}</span>
+              </template>
+              <template #edit="scope">
+                <vxe-select v-model="scope.row.isBasicTaste" transfer>
+                  <vxe-option v-for="item in sexList" :key="item.value" :value="item.value" :label="item.label"/>
+                </vxe-select>
+              </template>
+            </vxe-column>
+            <vxe-column field="basicTasteName" :edit-render="{}" title="基础口味名称/编号" width="150">
+              <template slot="header">
+                <span @dblclick="reduce('basicTasteName')">基础口味名称/编号</span>
+              </template>
+              <template #edit="scope">
+                <vxe-input v-model="scope.row.basicTasteName" type="text" placeholder="请输入"/>
+              </template>
+            </vxe-column>
+            <vxe-column field="basicTasteImprovementIdeas" title="基础口味改善建议" :edit-render="{}" width="150">
+              <template slot="header">
+                <span @dblclick="reduce('basicTasteImprovementIdeas')">基础口味改善建议</span>
+              </template>
+              <template #edit="scope">
+                <vxe-input v-model="scope.row.basicTasteImprovementIdeas" type="text" placeholder="请输入"/>
+              </template>
+            </vxe-column>
+            <vxe-column field="capacity" :edit-render="{}" title="容量" width="80">
+              <template slot="header">
+                <span @dblclick="reduce('capacity')">容量</span>
+              </template>
+              <template #edit="scope">
+                <vxe-input v-model="scope.row.capacity" type="text" placeholder="请输入"/>
+              </template>
+            </vxe-column>
+            <vxe-column field="vg" :edit-render="{}" title="VG" width="80">
+              <template slot="header">
+                <span @dblclick="reduce('vg')">VG</span>
+              </template>
+              <template #edit="scope">
+                <vxe-input v-model="scope.row.vg" type="text" placeholder="请输入"/>
+              </template>
+            </vxe-column>
+            <vxe-column field="nicType" :edit-render="{}"  title="NIC类别" :title-help="{message: '编辑勾选', icon: 'fa fa-bell'}"
+                        width="100">
+              <template slot="header">
+                <span @dblclick="reduce('nicType')">NIC类别</span>
+              </template>
+              <template #edit="scope">
+                <vxe-input v-model="scope.row.nicType" type="text" placeholder="请输入"/>
+              </template>
+            </vxe-column>
+            <vxe-column field="nicConcentration" title="NIC浓度" :edit-render="{}" width="100">
+              <template slot="header">
+                <span @dblclick="reduce('nicConcentration')">NIC浓度</span>
+              </template>
+              <template #edit="scope">
+                <vxe-input v-model="scope.row.nicConcentration" type="text" placeholder="请输入"/>
+              </template>
+            </vxe-column>
+            <vxe-column field="nicUnit" title="NIC单位" :edit-render="{}"
+                        :title-help="{message: '该明细是选项,批量赋值请使用双击单元格操作!'}" width="110">
+              <template #default="{ row }">
+                <span>{{ formatUnit(row.nicUnit) }}</span>
+              </template>
+              <template #edit="scope">
+                <vxe-select v-model="scope.row.nicUnit" transfer>
+                  <vxe-option v-for="item in nicUnitList" :key="item.value" :value="item.value" :label="item.label"/>
+                </vxe-select>
+              </template>
+            </vxe-column>
+            <vxe-column field="perfumer" :edit-render="{}" title="调香师" width="100">
+              <template slot="header">
+                <span @dblclick="reduce('perfumer')">调香师</span>
+              </template>
+              <template #edit="scope">
+                <vxe-input v-model="scope.row.perfumer" type="text" placeholder="请输入"/>
+              </template>
+            </vxe-column>
+            <vxe-column field="version" :edit-render="{}" title="版本" width="80">
+              <template slot="header">
+                <span @dblclick="reduce('version')">版本</span>
+              </template>
+              <template #edit="scope">
+                <vxe-input v-model="scope.row.version" type="text" placeholder="请输入"/>
+              </template>
+            </vxe-column>
+            <vxe-column title="操作">
+              <template #default="{ row }">
+                <vxe-button type="text" status="primary" @click="removeSelectEvent(row)">删除</vxe-button>
+              </template>
+            </vxe-column>
+            <template #empty>
+              <span style="color: red;">
+                <!-- <img src="https://pic2.zhimg.com/50/v2-f7031359103859e1ed38559715ef5f3f_hd.gif">-->
+                <p>没有更多数据了,请添加数据！</p>
+              </span>
+            </template>
+          </vxe-table>
+        </div>
+
       </el-form>
     </div>
       <br>
+
     <div>
       <div v-if="isEdit ==='B'">
         <el-button type="primary" @click="submitForm">保 存</el-button>
@@ -1506,9 +1642,9 @@ export default {
     },
     // 表头批量添加
     reduce(e, row, column) {
-      // console.log(e)
-      // console.log(row)
-      // console.log(column)
+      console.log(e)
+      console.log(row)
+      console.log(column)
       const temp = e.split('/')
       const ss = this.copyCollRemark.split('\n')// 在每个换行(/n)处进行分解。
       // 外层循环,生成tr
@@ -1811,28 +1947,33 @@ export default {
     submitForm() {
       console.log("内容:" + typeof this.form.matchMarket)
       this.$refs['form'].validate(valid1 => {
-          this.$refs['xTable'].validate(valid2 => {
-        if (valid1 || valid2) {
+          //this.$refs['xTable'].validate(valid2 => {
+        if (valid1) { // || valid2
           this.form.matchMarket = JSON.stringify(this.matchMarketTemp)
           this.form.hxTasteDetailList = this.hxTasteDetailList
           this.open = false
           if (this.$route.params.tasteId != null) {
             updateTaste(this.form).then(response => {
               this.$modal.msgSuccess('修改成功')
-              this.$router.push({path:"/kouwei/tasteList"})
+              // 关闭当前tab页签，打开新页签
+              const obj = { path: "/kouwei/tasteList" };
+              this.$tab.closeOpenPage(obj);
+              //this.reset()
               //this.open = false
               //this.getList()
             })
           } else {
             addTaste(this.form).then(response => {
               this.$modal.msgSuccess('新增成功')
-              this.$router.push({path:"/kouwei/tasteList"})
+              // 关闭当前tab页签，打开新页签
+              const obj = { path: "/kouwei/tasteList" };
+              this.$tab.closeOpenPage(obj);
               //this.open = false
               //this.getList()
             })
           }
         }
-          })
+          //})
       })
     },
     /** 删除按钮操作 */

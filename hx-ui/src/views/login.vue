@@ -128,7 +128,7 @@ export default {
       window.location.href =
         `https://open.weixin.qq.com/connect/oauth2/authorize`+
         `?appid=ww0530511650e0c6c8`+
-        `&redirect_uri=http://rds.cnhstar.com:44346/dev-api/open/wx/callback/str`+
+        `&redirect_uri=rds.cnhstar.com:44346/dev-api/open/wx/callback/str`+
         `&response_type=code`+
         `&scope=snsapi_base`+
         `&state=STATE`+
