@@ -574,7 +574,7 @@ export default {
       /*地区详情回显*/
       matchMarketTemp: [],
       /*详情按钮控制，修改控制暂时不提供*/
-      isEdit: 'A',  // 详情页进入  //A: 详情 ，B：修改
+      isEdit: 'B',  // 详情页进入  //A: 详情 ，B：修改
       /*状态字典*/
       stateList,
       // 表单对齐方式
@@ -899,6 +899,7 @@ export default {
     this.reset()
     if (window.location.pathname !== '/kouwei/taste') {
       console.log("!=/kouwei/taste")
+      this.isEdit = 'A'
       this.wxConfig();
       getTaste(this.$route.params.tasteId).then(response => {
         this.form = response.data

@@ -91,8 +91,8 @@
         <el-table-column label="单据编码" width="180" align="center" prop="tasteId" show-overflow-tooltip/>
         <el-table-column label="状态"  width="150" align="center" prop="state" show-overflow-tooltip>
           <template slot-scope="scope">
-            <el-tag v-show="scope.row.state === '-1'" type="danger">{{stateList(scope.row.state)}}</el-tag>
-            <el-tag v-show="scope.row.state !== '-1'" >{{stateList(scope.row.state)}}</el-tag>
+            <el-tag v-show="scope.row.state === '-1'" type="danger">{{stateDIY(scope.row.state)}}</el-tag>
+            <el-tag v-show="scope.row.state !== '-1'" >{{stateDIY(scope.row.state)}}</el-tag>
           </template>
         </el-table-column>
         <el-table-column label="录入人" align="center" prop="createBy"/>
@@ -211,7 +211,8 @@ import {
   getAgentTicketCodeApp
 } from "@/api/system/taste";
 import cache from '@/plugins/cache'
-import stateList from '@/utils/stateList'
+//import stateList from '@/utils/stateList'
+import stateDIY from '@/utils/wx/sp_status_diy'
 import axios from "axios";
 export default {
   name: "TasteList",
@@ -223,7 +224,8 @@ export default {
       codeApi: '',
       codeApp: '',
       /*引入状态字典*/
-      stateList,
+      //stateList,
+      stateDIY,
       /*测试组件通讯*/
       testName:'你好呀',
       /*分配跟进人集合*/

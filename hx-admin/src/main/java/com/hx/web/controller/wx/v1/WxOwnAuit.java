@@ -154,7 +154,8 @@ public class WxOwnAuit {
                 .body(tempJson)
                 .timeout(20000)
                 .execute().body();
-        if(JSONUtil.parseObj(res).getStr("errcode")!="0"){
+        log.info("res:{}",res);
+        if(!Objects.equals(JSONUtil.parseObj(res).getStr("errmsg"), "ok")){
             throw new ServiceException("没有提交审批或撤销审批");
         }
         String str = JSONUtil.parseObj(JSONUtil.parseObj(res).getStr("data")).getStr("OpenSpstatus");
