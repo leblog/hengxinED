@@ -653,7 +653,6 @@
     </div>
 
 
-
   </div>
 </template>
 <script>
@@ -675,10 +674,11 @@ import stateList from '@/utils/stateList'
 import spStatus from '@/utils/wx/sp_status'
 import spStatusChild from '@/utils/wx/sp_status_child'
 import iFrame from "@/components/iFrame";
+import CountDown from "@/components/CountDown";
 
 export default {
   name: 'Taste',
-  components: {iFrame},
+  components: {iFrame,CountDown},
   // components: {vtable},
   // dicts: ['hx_common_is', 'hx_common_type'],
   data() {
@@ -1957,22 +1957,23 @@ export default {
           this.open = false
           if (this.$route.params.tasteId != null) {
             updateTaste(this.form).then(response => {
-              console.log("提交修改:",JSON.stringify(response))
+              //console.log("提交修改:",JSON.stringify(response))
+              //console.log("提交修改2222:",JSON.stringify(this.$route.params.tasteId))
               this.$modal.msgSuccess('修改成功')
               // 关闭当前tab页签，打开新页签
-              const obj = { path: "system/taste-data/index/"+ this.form.tasteId};
-              this.$tab.closeOpenPage(obj);
+              const obj = { path: "/system/taste-data/index/"+ this.$route.params.tasteId};
+              this.$tab.refreshPage(obj);
               //this.reset()
               //this.open = false
               //this.getList()
             })
           } else {
             addTaste(this.form).then(response => {
-              console.log("添加修改:",JSON.stringify(response))
+              //console.log("添加获取ID:",JSON.stringify(response.data))
               this.$modal.msgSuccess('新增成功')
               // 关闭当前tab页签，打开新页签
-              const obj = { path: "/kouwei/tasteList" };
-              this.$tab.closeOpenPage(obj);
+              const obj = { path: "/system/taste-data/index/"+ response.data};
+              this.$tab.refreshPage(obj);
               //this.open = false
               //this.getList()
             })

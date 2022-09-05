@@ -44,7 +44,7 @@ public class HxTasteServiceImpl implements IHxTasteService
     public HxTaste selectHxTasteByTasteId(String tasteId)
     {
         HxTaste hxTaste = hxTasteMapper.selectHxTasteByTasteId(tasteId);
-        log.info("口味单数据:{}",hxTaste);
+        //log.info("口味单数据:{}",hxTaste);
         if(StrUtil.isEmpty(hxTaste.getSpNo())){
             //判断sp_NO是否重复
             String id = SeqRD.getId();
@@ -135,14 +135,9 @@ public class HxTasteServiceImpl implements IHxTasteService
     @Override
     public int insertHxTaste(HxTaste hxTaste)
     {
-        hxTaste.setTasteId(String.valueOf(IdUtil.getSnowflakeNextId()));
-        hxTaste.setCreateTime(DateUtils.getNowDate());
-        hxTaste.setCreateBy(getUsername());
-        hxTaste.setState(TatseFolder.NORMAL.getCode());
-        int s = hxTasteMapper.insertHxTaste(hxTaste);
         //插入详情表
         insertHxTasteDetail(hxTaste);
-        return s;
+        return hxTasteMapper.insertHxTaste(hxTaste);
     }
 
     /**
