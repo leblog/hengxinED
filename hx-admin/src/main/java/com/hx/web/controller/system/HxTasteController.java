@@ -10,6 +10,7 @@ import cn.hutool.json.JSONUtil;
 import com.hx.common.annotation.RepeatSubmit;
 import com.hx.common.core.domain.entity.SysUser;
 import com.hx.common.exception.ServiceException;
+import com.hx.common.utils.DateUtils;
 import com.hx.common.utils.StringUtils;
 import com.hx.system.domain.HxTaste;
 import com.hx.system.domain.SysOperLog;
@@ -36,6 +37,8 @@ import com.hx.common.core.domain.AjaxResult;
 import com.hx.common.enums.BusinessType;
 import com.hx.common.utils.poi.ExcelUtil;
 import com.hx.common.core.page.TableDataInfo;
+
+import static com.hx.common.utils.SecurityUtils.getUsername;
 
 /**
  * 口味申请单Controller
@@ -97,19 +100,27 @@ public class HxTasteController extends BaseController
      * 新增口味申请单
      */
     @PreAuthorize("@ss.hasPermi('taste:add')")
-    @RepeatSubmit(interval = 1000, message = "请求过于频繁")
+    @RepeatSubmit(interval = 2000, message = "请求过于频繁")
     @Log(title = "口味申请单",businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody HxTaste hxTaste)
     {
-        return toAjax(hxTasteService.insertHxTaste(hxTaste));
+        AjaxResult result = new AjaxResult();
+        long id = IdUtil.getSnowflakeNextId();
+        hxTaste.setTasteId(String.valueOf(id));
+        hxTaste.setCreateTime(DateUtils.getNowDate());
+        hxTaste.setCreateBy(getUsername());
+        hxTaste.setState(TatseFolder.NORMAL.getCode());
+        result.put("res",hxTasteService.insertHxTaste(hxTaste));
+        result.put("data",String.valueOf(id));
+        return result;
     }
 
     /**
      * 修改口味申请单
      */
     @PreAuthorize("@ss.hasPermi('taste:edit')")
-    @RepeatSubmit(interval = 1000, message = "请求过于频繁")
+    @RepeatSubmit(interval = 2000, message = "请求过于频繁")
     @Log(title = "口味申请单", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody HxTaste hxTaste)

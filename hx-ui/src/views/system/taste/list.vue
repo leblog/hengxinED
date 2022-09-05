@@ -97,12 +97,20 @@
         </el-table-column>
         <el-table-column label="录入人" align="center" prop="createBy"/>
         <el-table-column label="业务姓名" align="center" prop="businessName" show-overflow-tooltip/>
-        <el-table-column label="业务部门" align="center" width="150" prop="deptId" show-overflow-tooltip/>
-        <el-table-column label="日期" width="150" align="center" prop="createTime" sortable show-overflow-tooltip>
+        <el-table-column v-if="showType==='list'" label="业务部门" align="center" width="150" prop="deptId" show-overflow-tooltip/>
+        <el-table-column v-if="showType==='list'" label="日期" width="150" align="center" prop="createTime" sortable show-overflow-tooltip>
+          <template slot-scope="scope">{{ parseTime(scope.row.createTime, '{y}-{m}-{d} {h}:{i}') }}</template>
+        </el-table-column>
+        <el-table-column v-if="showType==='tech'" label="单据日期" width="150" align="center" prop="createTime" sortable show-overflow-tooltip>
           <template slot-scope="scope">{{ parseTime(scope.row.createTime, '{y}-{m}-{d} {h}:{i}') }}</template>
         </el-table-column>
         <el-table-column label="客户名称" align="center" prop="customersName"/>
         <el-table-column label="客户代码" align="center" prop="customersCode"/>
+        <el-table-column v-if="showType==='tech'" label="现场试油" align="center" prop="isTry"/>
+        <el-table-column v-if="showType==='tech'" label="来访日期" width="150" align="center" prop="visitTime" sortable show-overflow-tooltip>
+          <template slot-scope="scope">{{ parseTime(scope.row.visitTime, '{y}-{m}-{d} {h}:{i}') }}</template>
+        </el-table-column>
+
         <el-table-column label="客户跟进人" align="center" prop="follower"/>
         <el-table-column label="操作" align="center" width="200" class-name="small-padding fixed-width" fixed="right">
           <template slot-scope="scope">
@@ -129,17 +137,28 @@
               v-hasPermi="['taste:remove']"
             >删除
             </el-button>
-            <el-dropdown size="mini" @command="(command) => handleCommand(command, scope.row)"><!-- v-hasPermi="['monitor:job:changestate', 'monitor:job:query']"-->
+            <el-dropdown  v-if="showType==='list'" size="mini" @command="(command) => handleCommand(command, scope.row)"><!-- v-hasPermi="['monitor:job:changestate', 'monitor:job:query']"-->
             <span class="el-dropdown-link">
               <i class="el-icon-d-arrow-right el-icon--right"></i>更多
             </span>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item command="handleWaste" icon="el-icon-delete" v-hasPermi="['taste:waste']">作废</el-dropdown-item>
+                <el-dropdown-item command="handleWaste" icon="el-icon-delete"   v-hasPermi="['taste:waste']">作废</el-dropdown-item>
                 <el-dropdown-item command="handleAudit" icon="el-icon-folder-delete" v-hasPermi="['taste:audit']">审核</el-dropdown-item>
                 <el-dropdown-item command="handlePrint" icon="el-icon-printer" v-hasPermi="['taste:query']">打印</el-dropdown-item>
-                <el-dropdown-item command="handleDistribution" icon="el-icon-user" v-hasPermi="['taste:distribution']">分配跟进人</el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
+            <el-dropdown  v-if="showType==='tech'" size="mini" @command="(command) => handleCommand(command, scope.row)"><!-- v-hasPermi="['monitor:job:changestate', 'monitor:job:query']"-->
+              <span class="el-dropdown-link">
+              <i class="el-icon-d-arrow-right el-icon--right"></i>更多
+            </span>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item command="handleAudit" icon="el-icon-folder-delete" v-hasPermi="['taste:audit']">审核</el-dropdown-item>
+                <el-dropdown-item command="handlePrint" icon="el-icon-printer" v-hasPermi="['taste:query']">打印</el-dropdown-item>
+                <el-dropdown-item command="handleDistribution" icon="el-icon-user"  v-hasPermi="['taste:distribution']">分配跟进人</el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
+
+
           </template>
         </el-table-column>
       </el-table>
@@ -220,6 +239,8 @@ export default {
   // dicts: ['hx_common_is', 'hx_common_type'],
   data() {
     return {
+      /*showType 菜单显示不同数据*/
+      showType: '',  //tech 标识产品技术任务分配
       /*状态加密*/
       codeApi: '',
       codeApp: '',
@@ -300,87 +321,18 @@ export default {
       // 表单校验
       rules: {
         follower: [
-          {required: true, message: "分配跟进人不能为空", trigger: "change"}
+          {required: true, message: '不能为空', trigger: 'change'}
         ],
-        // deptId: [
-        //   {required: true, message: "部门Id不能为空", trigger: "blur"}
-        // ],
-        businessName: [
-          {required: true, message: "业务姓名不能为空", trigger: "blur"}
-        ],
-        businessCode: [
-          {required: true, message: "业务代码不能为空", trigger: "blur"}
-        ],
-        customersName: [
-          {required: true, message: "客户名称不能为空", trigger: "blur"}
-        ],
-        customersCode: [
-          {required: true, message: "客户代码不能为空", trigger: "blur"}
-        ],
-        tasteNum: [
-          {required: true, message: "口味数量不能为空", trigger: "blur"}
-        ],
-        refereeNum: [
-          {required: true, message: "上次申请单号不能为空", trigger: "blur"}
-        ],
-        sendNum: [
-          {required: true, message: "第几次送样不能为空", trigger: "blur"}
-        ],
-        isSupply: [
-          {required: true, message: "口味专供不能为空", trigger: "blur"}
-        ],
-        isTry: [
-          {required: true, message: "现场试用不能为空", trigger: "blur"}
-        ],
-        visitTime: [
-          {required: true, message: "来访日期不能为空", trigger: "blur"}
-        ],
-        isSmoking: [
-          {required: true, message: "自带烟具不能为空", trigger: "blur"}
-        ],
-        smokingType: [
-          {required: true, message: "烟具类型不能为空", trigger: "change"}
-        ],
-        heatingWireType: [
-          {required: true, message: "发热丝类型不能为空", trigger: "change"}
-        ],
-        heatingWireResistance: [
-          {required: true, message: "发热丝阻值不能为空", trigger: "blur"}
-        ],
-        capacity: [
-          {required: true, message: "烟油仓容量不能为空", trigger: "blur"}
-        ],
-        oilGuideCottonType: [
-          {required: true, message: "导游棉类型不能为空", trigger: "change"}
-        ],
-        isRecyclingSmoking: [
-          {required: true, message: "是否回收烟具不能为空", trigger: "blur"}
-        ],
-        oilRingMaterial: [
-          {required: true, message: "油环材质类型不能为空", trigger: "change"}
-        ],
-        viscosity: [
-          {required: true, message: "粘稠度不能为空", trigger: "blur"}
-        ],
-        expectedCompletionTime: [
-          {required: true, message: "期望完成时间不能为空", trigger: "blur"}
-        ],
-        estimatedFinishTime: [
-          {required: true, message: "预计完成时间不能为空", trigger: "blur"}
-        ],
-        matchMarket: [
-          {required: true, message: "匹配市场不能为空", trigger: "blur"}
-        ],
-        mailingInformation: [
-          {required: true, message: "邮寄信息不能为空", trigger: "blur"}
-        ],
-        remark: [
-          {required: true, message: "备注不能为空", trigger: "blur"}
-        ]
       }
     };
   },
   created() {
+    //不同路由控制  type=tech 来自产品技术任务分配
+    if(this.$route.query.type != null){
+      console.log("产品技术任务分配1:",this.$route.query.type)
+      this.showType = this.$route.query.type
+      console.log("产品技术任务分配2:",this.showType)
+    }
     this.getList();
     this.reset();
     this.getWx();
