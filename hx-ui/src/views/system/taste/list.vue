@@ -424,7 +424,7 @@ export default {
           // 变更为分配跟进人状态
           this.form.state = '7'
         })
-        // 作废接口
+        // 系统分配人接口
         getDistribution().then((res)=>{
           this.distributionList = res.data;
         })
@@ -716,17 +716,27 @@ export default {
         if (valid) {
           this.form.hxTasteDetailList = this.hxTasteDetailList;
           if (this.form.tasteId != null) {
-            updateTaste(this.form).then(response => {
-              this.$modal.msgSuccess("修改成功");
-              this.open = false;
-              this.getList();
-            });
+            this.$modal.confirm('温馨提示: 您确定分配吗? 保存后需要退回才能更改!!!').then(function() {
+
+            }).then(() => {
+              updateTaste(this.form).then(response => {
+                this.$modal.msgSuccess("修改成功");
+                this.open = false;
+                this.getList();
+              });
+            }).catch(() => {});
+
           } else {
-            addTaste(this.form).then(response => {
-              this.$modal.msgSuccess("新增成功");
-              this.open = false;
-              this.getList();
-            });
+            this.$modal.confirm('温馨提示: 您确定分配吗? 保存后需要退回才能更改!!!').then(function() {
+
+            }).then(() => {
+              addTaste(this.form).then(response => {
+                this.$modal.msgSuccess("新增成功");
+                this.open = false;
+                this.getList();
+              });
+            }).catch(() => {});
+
           }
         }
       });

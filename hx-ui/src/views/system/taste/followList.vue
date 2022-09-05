@@ -333,6 +333,14 @@ export default {
     /*开始  关联研发表*/
     handle4(row){
       this.$message.info("开始TODO");
+      //更新并插入时间
+      let obj = {}
+      obj.tasteId = row.tasteId
+
+      updateTaste().then(res =>{
+
+        console.log("数据来了:{}"+ JSON.stringify(this.printListDetail))
+      });
     },
     /*提交研发*/
     handle5(row){

@@ -1045,12 +1045,13 @@ export default {
         //response.data.matchMarket.splice(",")
         //this.form.matchMarket = response.data.matchMarket
 
-        console.log("进入状态前",response.data.processNo)
-        if(response.data.processNo === null){
+        console.log("进入状态前",response.data.processNo.length)
+        if(response.data.processNo.length === 0 ){
           console.log("进入状态中",response.data.processNo)
-          setTimeout(()=>{
-            this.$nextTick(()=>{ this.processNoStatus = true;})
-          })
+          this.processNoStatus = true;
+          /*setTimeout(()=>{
+            this.$nextTick(()=>{ })
+          })*/
         }
         console.log("审核按钮状态",this.processNoStatus)
       })
@@ -1193,112 +1194,119 @@ export default {
     },
     /*推送该申请单在企业微信中审批*/
     auditPush(e,k) {
-      // 调用sdk
-      //this.wxConfig();
-      // 完整路由
-      console.log("接收1", JSON.stringify(e))
-      console.log("接收2", JSON.stringify(k))
-      console.log("路由:",window.location.origin+`/print?detail=`+this.form.tasteId)
-      let self = this
-      // 输出接口的回调信息
-      // 开始绑定更新单号  绑定然后更新 审批流程字典
-      let obj = {}
-      obj.id = self.$route.params.tasteId
-      obj.processNo = k
-      console.log(obj)
-      if(this.form.processNo === null){
-        setTimeout(()=>{
-          this.$nextTick(()=>{
-            updateTasteProcessNo(obj).then(res=>{
-              console.log("绑定成功",JSON.stringify(res))
-            })
-          })
-        },500)
-      }
-
-      // 校验是否绑定企业微信
-      getUserDetail().then(response => {
-        //if (response.data.wxUserId != null) {
-        console.log("推送审批")
-        // 自建应用审批
-        wx.invoke('thirdPartyOpenPage', {
-          "oaType": this.oaType,// String
-          "templateId": e,// String //测试模板id a8f97896837d07d2ea691e71b0a60fbd_696238615
-          "thirdNo": this.form.tasteId,// String  后端请求绑定的模板id
-          "extData": {
-            'fieldList': [
-              {
-                'title': '单据编号',
-                'type': 'text',
-                'value': this.form.spNo,
-              }, {
-                'title': '录入人',
-                'type': 'text',
-                'value': this.form.createBy,
-              }, {
-                'title': '业务姓名',
-                'type': 'text',
-                'value': this.form.businessName,
-              }, {
-                'title': '客户名称',
-                'type': 'text',
-                'value': this.form.customersName,
-              }, {
-                'title': '客户代码',
-                'type': 'text',
-                'value': this.form.customersCode,
-              }, {
-                'title': '业务部门',
-                'type': 'text',
-                'value': this.form.deptId,
-              }, {
-                'title': '查看详情',
-                'type': 'link',		// link类型，用于在审批详情页展示第三方订单跳转地址
-                'value': window.location.origin+`/print?detail=`+this.form.tasteId,
-                // 获取用户的code  // window.location.href
-                //https://open.weixin.qq.com/connect/oauth2/authorize?appid=ww0530511650e0c6c8&redirect_uri=&response_type=code&scope=snsapi_base&state=#wechat_redirect
-                //https://open.weixin.qq.com/connect/oauth2/authorize?appid=ww0530511650e0c6c8&redirect_uri=`+window.location.origin+`?detail=`+this.form.tasteId+`&response_type=code&scope=snsapi_base&state=#wechat_redirect
-              }, {
-                'title': '打印详情',
-                'type': 'link',		// link类型，用于在审批详情页展示第三方订单跳转地址
-                'value': window.location.origin+`/print?detail=`+this.form.tasteId+`&print=true`,
-              }],
-          }//https://open.weixin.qq.com/connect/oauth2/authorize?appid=ww0530511650e0c6c8&redirect_uri=http://rds.cnhstar.com:44346?detail=1564875584438435840&response_type=code&scope=snsapi_base&state=
-        },
-          function(res) {
-            console.log("提交成功1:"+res);
-          }
-        )
-       /* wx.ready(function(){
-          // 输出接口的回调信息
-          console.log("提交成功:"+res);
-
-          // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
-        });
-        wx.error(function(res){
-          console.log("提交失败")
-          // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
-        });*/
 
 
-        // 自带小程序
-        /*commitPush(this.form.tasteId).then((res) => {
-          console.log("请求结果:",JSON.stringify(res))
-          this.$modal.msgSuccess(res.msg);
-        })
-        // 刷新当前页签
-        //setTimeout(()=>{this.$tab.refreshPage();},500)
-        if(this.form.spNo == null){
+      this.$modal.confirm('您确认进行该操作吗? ').then(function() {
+      }).then(() => {
+        // 调用sdk
+        //this.wxConfig();
+        // 完整路由
+        console.log("接收1", JSON.stringify(e))
+        console.log("接收2", JSON.stringify(k))
+        console.log("路由:",window.location.origin+`/print?detail=`+this.form.tasteId)
+        let self = this
+        // 输出接口的回调信息
+        // 开始绑定更新单号  绑定然后更新 审批流程字典
+        let obj = {}
+        obj.id = self.$route.params.tasteId
+        obj.processNo = k
+        console.log(obj)
+        if(this.form.processNo === null){
           setTimeout(()=>{
-            location.reload()
-            this.$router.go(0)
+            this.$nextTick(()=>{
+              updateTasteProcessNo(obj).then(res=>{
+                console.log("绑定成功",JSON.stringify(res))
+              })
+            })
           },500)
-        }*/
+        }
 
-        /*} else {
-          this.$modal.msgError("未绑定企业微信,请联系管理员申请绑定");
-        }*/
-      });
+        // 校验是否绑定企业微信
+        getUserDetail().then(response => {
+          //if (response.data.wxUserId != null) {
+          console.log("推送审批")
+          // 自建应用审批
+          wx.invoke('thirdPartyOpenPage', {
+              "oaType": this.oaType,// String
+              "templateId": e,// String //测试模板id a8f97896837d07d2ea691e71b0a60fbd_696238615
+              "thirdNo": this.form.tasteId,// String  后端请求绑定的模板id
+              "extData": {
+                'fieldList': [
+                  {
+                    'title': '单据编号',
+                    'type': 'text',
+                    'value': this.form.spNo,
+                  }, {
+                    'title': '录入人',
+                    'type': 'text',
+                    'value': this.form.createBy,
+                  }, {
+                    'title': '业务姓名',
+                    'type': 'text',
+                    'value': this.form.businessName,
+                  }, {
+                    'title': '客户名称',
+                    'type': 'text',
+                    'value': this.form.customersName,
+                  }, {
+                    'title': '客户代码',
+                    'type': 'text',
+                    'value': this.form.customersCode,
+                  }, {
+                    'title': '业务部门',
+                    'type': 'text',
+                    'value': this.form.deptId,
+                  }, {
+                    'title': '查看详情',
+                    'type': 'link',		// link类型，用于在审批详情页展示第三方订单跳转地址
+                    'value': window.location.origin+`/print?detail=`+this.form.tasteId,
+                    // 获取用户的code  // window.location.href
+                    //https://open.weixin.qq.com/connect/oauth2/authorize?appid=ww0530511650e0c6c8&redirect_uri=&response_type=code&scope=snsapi_base&state=#wechat_redirect
+                    //https://open.weixin.qq.com/connect/oauth2/authorize?appid=ww0530511650e0c6c8&redirect_uri=`+window.location.origin+`?detail=`+this.form.tasteId+`&response_type=code&scope=snsapi_base&state=#wechat_redirect
+                  }, {
+                    'title': '打印详情',
+                    'type': 'link',		// link类型，用于在审批详情页展示第三方订单跳转地址
+                    'value': window.location.origin+`/print?detail=`+this.form.tasteId+`&print=true`,
+                  }],
+              }//https://open.weixin.qq.com/connect/oauth2/authorize?appid=ww0530511650e0c6c8&redirect_uri=http://rds.cnhstar.com:44346?detail=1564875584438435840&response_type=code&scope=snsapi_base&state=
+            },
+            function(res) {
+              console.log("提交成功1:"+res);
+            }
+          )
+          /* wx.ready(function(){
+             // 输出接口的回调信息
+             console.log("提交成功:"+res);
+
+             // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
+           });
+           wx.error(function(res){
+             console.log("提交失败")
+             // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+           });*/
+
+
+          // 自带小程序
+          /*commitPush(this.form.tasteId).then((res) => {
+            console.log("请求结果:",JSON.stringify(res))
+            this.$modal.msgSuccess(res.msg);
+          })
+          // 刷新当前页签
+          //setTimeout(()=>{this.$tab.refreshPage();},500)
+          if(this.form.spNo == null){
+            setTimeout(()=>{
+              location.reload()
+              this.$router.go(0)
+            },500)
+          }*/
+
+          /*} else {
+            this.$modal.msgError("未绑定企业微信,请联系管理员申请绑定");
+          }*/
+        });
+
+      }).catch(() => {});
+
     },
     // 更多操作触发
     handleCommand(command) {
@@ -1956,27 +1964,28 @@ export default {
           this.form.hxTasteDetailList = this.hxTasteDetailList
           this.open = false
           if (this.$route.params.tasteId != null) {
-            updateTaste(this.form).then(response => {
-              //console.log("提交修改:",JSON.stringify(response))
-              //console.log("提交修改2222:",JSON.stringify(this.$route.params.tasteId))
+            this.$modal.confirm('修改之后不可以再更改').then(function() {
+
+            }).then(() => {
+              updateTaste(this.form).then(response => {})
               this.$modal.msgSuccess('修改成功')
               // 关闭当前tab页签，打开新页签
               const obj = { path: "/system/taste-data/index/"+ this.$route.params.tasteId};
               this.$tab.refreshPage(obj);
-              //this.reset()
-              //this.open = false
-              //this.getList()
-            })
+            }).catch(() => {});
+
           } else {
-            addTaste(this.form).then(response => {
-              //console.log("添加获取ID:",JSON.stringify(response.data))
-              this.$modal.msgSuccess('新增成功')
-              // 关闭当前tab页签，打开新页签
-              const obj = { path: "/system/taste-data/index/"+ response.data};
-              this.$tab.refreshPage(obj);
-              //this.open = false
-              //this.getList()
-            })
+            this.$modal.confirm('新增之后不可以在进行更改，请仔细核对申请单数据').then(function() {
+
+            }).then(() => {
+              addTaste(this.form).then(response => {
+                this.$modal.msgSuccess('新增成功')
+                // 关闭当前tab页签，打开新页签
+                const obj = { path: "/system/taste-data/index/"+ response.data};
+                this.$tab.refreshPage(obj);
+              })
+            }).catch(() => {});
+
           }
         }
           //})

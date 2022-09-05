@@ -119,6 +119,8 @@
             <if test="samplesNum != null "> and samples_num = #{samplesNum}</if>
             <if test="mailingInformation != null  and mailingInformation != ''"> and mailing_information = #{mailingInformation}</if>
         </where>
+        <!-- 数据范围过滤 -->
+        ${params.dataScope}
     </select>
 
 
