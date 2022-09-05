@@ -86,6 +86,7 @@
     <select id="selectHxTasteList" parameterType="HxTaste" resultMap="HxTasteResult">
         <include refid="selectHxTasteVo"/>
         <where>
+            deleted = '0'
             <if test="tasteId != null  and tasteId != ''"> and taste_id = #{tasteId}</if>
             <if test="deptId != null  and deptId != ''"> and dept_id = #{deptId}</if>
             <if test="spNo != null  and spNo != ''"> and sp_no = #{spNo}</if>
@@ -119,8 +120,7 @@
             <if test="samplesNum != null "> and samples_num = #{samplesNum}</if>
             <if test="mailingInformation != null  and mailingInformation != ''"> and mailing_information = #{mailingInformation}</if>
         </where>
-        <!-- 数据范围过滤 -->
-        ${params.dataScope}
+
     </select>
 
 

@@ -320,7 +320,22 @@ export default {
     },
     /*退回分配*/
     handle1(row){
-      this.$message.info("退回分配TODO");
+
+      // 改变为7已审核状态
+      let obj = {}
+      obj.tasteId = row.tasteId
+      obj.state = '6'
+      this.$modal.confirm('确认信息').then(function() {
+
+      }).then(() => {
+        updateTaste(obj).then(res=>{
+
+        })
+        this.$message.msgSuccess("退回分配完成");
+        // 刷新当前页签
+        this.$tab.refreshPage();
+      }).catch(() => {});
+
     },
     /*退回业务*/
     handle2(row){

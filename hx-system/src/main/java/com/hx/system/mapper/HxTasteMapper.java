@@ -28,7 +28,7 @@ public interface HxTasteMapper
      * @param hxTaste 口味申请单
      * @return 口味申请单集合
      */
-    @DataScope(deptAlias = "d", userAlias = "u")
+
     public List<HxTaste> selectHxTasteList(HxTaste hxTaste);
     public List<HxTaste> selectHxTasteListDetail(HxTaste hxTaste);
 
