@@ -110,7 +110,7 @@ public class HxTasteController extends BaseController
         hxTaste.setTasteId(String.valueOf(id));
         hxTaste.setCreateTime(DateUtils.getNowDate());
         hxTaste.setCreateBy(getUsername());
-        hxTaste.setState(TatseFolder.NORMAL.getCode());
+        hxTaste.setState(StrUtil.toString(TatseFolder.NORMAL.getCode()));
         result.put("res",hxTasteService.insertHxTaste(hxTaste));
         result.put("data",String.valueOf(id));
         return result;
@@ -178,7 +178,7 @@ public class HxTasteController extends BaseController
         if(hxTaste.getState().equals(TatseFolder.WASTE.getCode())){
             throw new ServiceException("该单已作废不可重复作废");
         }
-        hxTaste.setState(TatseFolder.WASTE.getCode());
+        hxTaste.setState(StrUtil.toString(TatseFolder.WASTE.getCode()));
         return toAjax(hxTasteService.updateHxTaste(hxTaste));
     }
 
@@ -195,7 +195,7 @@ public class HxTasteController extends BaseController
         if(hxTaste.getState().equals(TatseFolder.AUDIT.getCode())){
             throw new ServiceException("该单已审核通过不可重复审核");
         }
-        hxTaste.setState(TatseFolder.AUDIT.getCode());
+        hxTaste.setState(StrUtil.toString(TatseFolder.AUDIT.getCode()));
         return toAjax(hxTasteService.updateHxTaste(hxTaste));
     }
 
@@ -258,7 +258,54 @@ public class HxTasteController extends BaseController
     }
 
 
+    /**
+     *  开始跟进---改变状态
+     */
+    @Log(title = "口味申请单开始跟进", businessType = BusinessType.UPDATE)
+    @GetMapping(value = "/start/{tasteId}")
+    public AjaxResult start(@PathVariable("tasteId") String tasteId)
+    {
+        HxTaste hxTaste = hxTasteMapper.selectHxTasteByTasteId(tasteId);
+        Integer i = new Integer(hxTaste.getState());
+        // 校验
+        if(i > TatseFolder.DISTRIBUTEFRAGRANCE.getCode()){
+            throw new ServiceException("跟进状态不正确,请分配调香师");
+        }
+        hxTaste.setState(StrUtil.toString(TatseFolder.DISTRIBUTEFRAGRANCE.getCode()));
+        return toAjax(hxTasteService.updateHxTaste(hxTaste));
+    }
 
+    /**
+     * 流程优惠
+     * @param money
+     * @param type
+     * @return
+     */
+    @GetMapping(value = "/getResult")
+    private static double getResult(long money, int type) {
 
+        double result = money;
+
+        if (money >= 1000) {
+            if (type == 1) {
+
+                System.out.println("白银会员 优惠50元");
+                result = money - 50;
+            } else if (type == 2) {
+
+                System.out.println("黄金会员 8折");
+                result = money * 0.8;
+            } else if (type == 3) {
+
+                System.out.println("白金会员 优惠50元，再打7折");
+                result = (money - 50) * 0.7;
+            } else {
+                System.out.println("普通会员 不打折");
+                result = money;
+            }
+        }
+
+        return result;
+    }
 
 }

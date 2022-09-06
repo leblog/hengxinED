@@ -4,7 +4,7 @@ function stateList(e) {
     case '-1':
       return '已作废'
     case '0':
-      return '保存'
+      return '状态0未使用'
     case '1':
       return '已保存'
     case '2':
@@ -46,70 +46,71 @@ function stateList(e) {
   }
 }
 export default stateList
-/*case "-1":
-                        _dataSrouce[i].FStatus = "<label style='color:gray;'>已作废</label>";
-                        break;
-                    case "0":
-                        _dataSrouce[i].FStatus = "<label style='color:red;'></label>";
-                        break;
-                    case "1":
-                        _dataSrouce[i].FStatus = "已保存";
-                        break;
-                    case "2":
-                        _dataSrouce[i].FStatus = "<label style='color:blue;'>已撤回</label>";
-                        break;
-                    case "3":
-                        _dataSrouce[i].FStatus = "<label style='color:green;'>产品退回</label>";
-                        break;
-                    case "4":
-                        _dataSrouce[i].FStatus = "<label style='color:green;'>已驳回</label>";
-                        break;
-                    case "5":
-                        _dataSrouce[i].FStatus = "<label style='color:yellow;'>已提交</label>";
-                        break;
-                    case "7":
-                        _dataSrouce[i].FStatus = "<label style='color:green;'>已审核</label>";
-                        break;
-                    case "10":
-                        _dataSrouce[i].FStatus = "<label style='color:green;'>分配产品跟进人</label>";
-                        break;
-                    case "11":
-                        _dataSrouce[i].FStatus = "<label style='color:green;'>跟进中</label>";
-                        break;
-                    case "12":
-                        _dataSrouce[i].FStatus = "<label style='color:green;'>分配调香师</label>";
-                        break;
-                    case "13":
-                        _dataSrouce[i].FStatus = "<label style='color:green;'>任务退回</label>";
-                        break;
-                    case "14":
-                        _dataSrouce[i].FStatus = "<label style='color:green;'>分配调香师完毕</label>";
-                        break;
-                    case "20":
-                        _dataSrouce[i].FStatus = "<label style='color:green;'>已推送研发</label>";
-                        break;
-                    case "21":
-                        _dataSrouce[i].FStatus = "<label style='color:green;'>配方开发中</label>";
-                        break;
-                    case "29":
-                        _dataSrouce[i].FStatus = "<label style='color:green;'>配方完成</label>";
-                        break;
-                    case "30":
-                        _dataSrouce[i].FStatus = "<label style='color:green;'>口味确认中</label>";
-                        break;
-                    case "38":
-                        _dataSrouce[i].FStatus = "<label style='color:green;'>打印口味确认书</label>";
-                        break;
-                    case "39":
-                        _dataSrouce[i].FStatus = "<label style='color:green;'>口味确认完毕</label>";
-                        break;
-                    case "99":
-                        _dataSrouce[i].FStatus = "<label style='color:green;'>结案</label>";
-                        break;
 
-                    case "99":
-                        _dataSrouce[i].FStatus = "<label style='color:red;'>已确认口味</label>";
-                        break;
-                    default:
-                        _dataSrouce[i].FStatus = "未知" + _dataSrouce[i].FStatus;
-                        break;*/
+/*case "-1":
+        _dataSrouce[i].FStatus = "<label style='color:gray;'>已作废</label>";
+        break;
+    case "0":
+        _dataSrouce[i].FStatus = "<label style='color:red;'></label>";
+        break;
+    case "1":
+        _dataSrouce[i].FStatus = "已保存";
+        break;
+    case "2":
+        _dataSrouce[i].FStatus = "<label style='color:blue;'>已撤回</label>";
+        break;
+    case "3":
+        _dataSrouce[i].FStatus = "<label style='color:green;'>产品退回</label>";
+        break;
+    case "4":
+        _dataSrouce[i].FStatus = "<label style='color:green;'>已驳回</label>";
+        break;
+    case "5":
+        _dataSrouce[i].FStatus = "<label style='color:yellow;'>已提交</label>";
+        break;
+    case "7":
+        _dataSrouce[i].FStatus = "<label style='color:green;'>已审核</label>";
+        break;
+    case "10":
+        _dataSrouce[i].FStatus = "<label style='color:green;'>分配产品跟进人</label>";
+        break;
+    case "11":
+        _dataSrouce[i].FStatus = "<label style='color:green;'>跟进中</label>";
+        break;
+    case "12":
+        _dataSrouce[i].FStatus = "<label style='color:green;'>分配调香师</label>";
+        break;
+    case "13":
+        _dataSrouce[i].FStatus = "<label style='color:green;'>任务退回</label>";
+        break;
+    case "14":
+        _dataSrouce[i].FStatus = "<label style='color:green;'>分配调香师完毕</label>";
+        break;
+    case "20":
+        _dataSrouce[i].FStatus = "<label style='color:green;'>已推送研发</label>";
+        break;
+    case "21":
+        _dataSrouce[i].FStatus = "<label style='color:green;'>配方开发中</label>";
+        break;
+    case "29":
+        _dataSrouce[i].FStatus = "<label style='color:green;'>配方完成</label>";
+        break;
+    case "30":
+        _dataSrouce[i].FStatus = "<label style='color:green;'>口味确认中</label>";
+        break;
+    case "38":
+        _dataSrouce[i].FStatus = "<label style='color:green;'>打印口味确认书</label>";
+        break;
+    case "39":
+        _dataSrouce[i].FStatus = "<label style='color:green;'>口味确认完毕</label>";
+        break;
+    case "99":
+        _dataSrouce[i].FStatus = "<label style='color:green;'>结案</label>";
+        break;
+
+    case "99":
+        _dataSrouce[i].FStatus = "<label style='color:red;'>已确认口味</label>";
+        break;
+    default:
+        _dataSrouce[i].FStatus = "未知" + _dataSrouce[i].FStatus;
+        break;*/
