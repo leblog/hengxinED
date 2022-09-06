@@ -46,18 +46,21 @@
         <el-table-column type="selection" width="30" align="center"/>
         <el-table-column  label="序号" type="index" align="center"/>
         <el-table-column label="单据编码" width="100" align="center" prop="tasteId"/>
+<!--        <el-table-column label="项目信息" width="100" align="center" prop="tasteId"/>-->
         <el-table-column label="状态" width="130" align="center" prop="state">
           <template slot-scope="scope">
             <el-tag :type="stateListType">{{stateList(scope.row.state)}}</el-tag>
           </template>
         </el-table-column>
         <el-table-column label="录入人" align="center" prop="createBy"/>
-<!--        <el-table-column label="业务姓名" align="center" prop="businessName"/>-->
-        <el-table-column label="业务部门" align="center" prop="deptId"/>
-        <el-table-column label="日期" align="center" prop="createTime"/>
+        <el-table-column label="业务姓名" align="center" prop="businessName"/>
+        <el-table-column label="业务部门" align="center" width="120" prop="deptId"/>
+        <el-table-column label="日期" align="center" width="100" prop="createTime"/>
         <el-table-column label="客户名称" align="center" prop="customersName"/>
-        <el-table-column label="客户代码" align="center" prop="customersCode"/>
-        <el-table-column label="客户跟进人" align="center" prop="follower"/>
+        <el-table-column label="客户编码" align="center" prop="customersCode"/>
+        <el-table-column label="现场试油" align="center" prop="isTry"/>
+        <el-table-column label="来访日期" align="center" width="100" prop="visitTime"/>
+        <el-table-column label="分配跟进人" align="center"  width="100" prop="follower"/>
         <el-table-column label="操作" align="center" width="150" class-name="small-padding fixed-width" fixed="right">
           <template slot-scope="scope">
             <el-button
@@ -121,6 +124,30 @@
       </vxe-table>
     </div>
 
+
+    <!--打印 烟油定版确认书-->
+    <div class="tableDiv"  v-show="false">
+      <vxe-table
+        border
+        ref="xTableTwo"
+        height="300"
+        :print-config="{}"
+        :data="printListDetail">
+        <vxe-column type="seq" width="10"></vxe-column>
+        <vxe-column field="tasteName" title="口味名称">
+<!--          <template>{{printList.hxTasteDetailList.tasteName}}</template>-->
+        </vxe-column>
+        <vxe-column field="a" width="100" title="口味编码-版本"></vxe-column>
+        <vxe-column field="nicConcentration" title="NIC浓度"></vxe-column>
+        <vxe-column field="vg" title="VG"></vxe-column>
+        <vxe-column field="nicType" title="NIC类别"></vxe-column>
+        <vxe-column field="b" title="甜度(0-10)"></vxe-column>
+        <vxe-column field="c" title="凉度(0-10)"></vxe-column>
+        <vxe-column field="d" title="是否测试积碳"></vxe-column>
+        <vxe-column field="e" title="是否积碳"></vxe-column>
+        <vxe-column field="f" title="技术签字"></vxe-column>
+      </vxe-table>
+    </div>
 
     <!-- 详细日志 -->
     <el-dialog title="详细操作日志" :visible.sync="open" width="700px" append-to-body>
@@ -325,49 +352,77 @@ export default {
       let obj = {}
       obj.tasteId = row.tasteId
       obj.state = '6'
-      this.$modal.confirm('确认信息').then(function() {
+      this.$modal.confirm('确认退回分配吗?').then(function() {
 
       }).then(() => {
         updateTaste(obj).then(res=>{
 
         })
-        this.$message.msgSuccess("退回分配完成");
-        // 刷新当前页签
-        this.$tab.refreshPage();
+        this.$modal.msgSuccess("退回分配完成");
+        this.getList()
       }).catch(() => {});
 
     },
     /*退回业务*/
     handle2(row){
-      this.$message.info("退回业务TODO");
+      this.$message.info("退回业务TODO--待联调企业微信通知");
+      this.$modal.confirm('确认退回业务吗?').then(function() {
+
+      }).then(() => {
+
+      }).catch(() => {});
     },
     /*调整*/
     handle3(row){
-      this.$message.info("调整TODO");
+      this.$modal.confirm('温馨提示:确定取消此口味吗?取消后将无法恢复，并且请确定研发没有开始调油: ! !').then(function() {
+      }).then(() => {
+        // 关闭当前tab页签，打开新页签   跳转 adjust   kouwei/taste
+        const obj = { path: "/system/taste-data/index/"+ row.tasteId + "?adjust=adjust"};
+        this.$tab.refreshPage(obj);
+      }).catch(() => {});
     },
     /*开始  关联研发表*/
     handle4(row){
       this.$message.info("开始TODO");
-      //更新并插入时间
-      let obj = {}
-      obj.tasteId = row.tasteId
 
-      updateTaste().then(res =>{
+      this.$modal.confirm('确认信息').then(function() {
 
-        console.log("数据来了:{}"+ JSON.stringify(this.printListDetail))
-      });
+      }).then(() => {
+        //更新并插入时间
+        /*let obj = {}
+        obj.tasteId = row.tasteId
+        updateTaste().then(res =>{
+          console.log("数据来了:{}"+ JSON.stringify(this.printListDetail))
+        });*/
+      }).catch(() => {});
+
     },
     /*提交研发*/
     handle5(row){
       this.$message.info("提交研发TODO");
+      this.$modal.confirm('确认信息').then(function() {
+
+      }).then(() => {
+
+      }).catch(() => {});
     },
     /*确认配方*/
     handle6(row){
       this.$message.info("确认配方TODO");
+      this.$modal.confirm('确认信息').then(function() {
+
+      }).then(() => {
+
+      }).catch(() => {});
     },
     /*反确认配方*/
     handle7(row){
       this.$message.info("反确认配方TODO");
+      this.$modal.confirm('确认信息').then(function() {
+
+      }).then(() => {
+
+      }).catch(() => {});
     },
     /*打印配方确认单*/
     handle8(row){
@@ -376,15 +431,37 @@ export default {
         this.printList = res.data
         this.printListDetail = res.data.hxTasteDetailList
         console.log("数据来了:{}"+ JSON.stringify(this.printListDetail))
+        if(res.data.hxTasteDetailList !== null ){
+          console.log('内容:',res.data.hxTasteDetailList.length)
+          if(res.data.hxTasteDetailList.length === 0){
+            this.$modal.closeLoading()
+            this.$modal.msgError("我猜,您应该没有填写明细")
+          }else{
+            // 配方确认控制 给方法中传递一个参数
+            setTimeout(()=>{
+              this.$modal.closeLoading()
+              this.printEventOk()
+            },800)
+            /*for (let i = 0; i < res.data.hxTasteDetailList.length; i++) {
+              if(res.data.hxTasteDetailList[i].perfumer === ''){
+                this.$modal.closeLoading()
+                this.$modal.notifyWarning("我猜,您应该有一个没有分配调香师");
+              }else{
+
+              }
+            }*/
+          }
+        }
       });
-      setTimeout(()=>{
-        this.$modal.closeLoading()
-        this.printEvent()
-      },800)
     },
     /*完成跟进*/
     handle9(row){
       this.$message.info("完成跟进TODO");
+      this.$modal.confirm('确认信息').then(function() {
+
+      }).then(() => {
+
+      }).catch(() => {});
     },
     /*详细日志*/
     handle10(row){
@@ -396,6 +473,11 @@ export default {
     // 审核
     handleAudit(row){
       this.$message.info("TODO");
+      this.$modal.confirm('确认信息').then(function() {
+
+      }).then(() => {
+
+      }).catch(() => {});
     },
     /*分配跟进人*/
     handleDistribution(row){
@@ -431,11 +513,26 @@ export default {
         this.printList = res.data
         this.printListDetail = res.data.hxTasteDetailList
         console.log("数据来了:{}"+ JSON.stringify(this.printListDetail))
+         if(res.data.hxTasteDetailList !== null ){
+           console.log('内容:',res.data.hxTasteDetailList.length)
+           if(res.data.hxTasteDetailList.length === 0){
+             this.$modal.closeLoading()
+             this.$modal.msgError("我猜,您应该没有填写明细")
+           }else{
+             for (let i = 0; i < res.data.hxTasteDetailList.length; i++) {
+               if(res.data.hxTasteDetailList[i].perfumer === ''){
+                 this.$modal.closeLoading()
+                 this.$modal.notifyWarning("我猜,您应该有一个没有分配调香师");
+               }else{
+                 setTimeout(()=>{
+                   this.$modal.closeLoading()
+                   this.printEvent()
+                 },800)
+               }
+             }
+           }
+          }
       });
-      setTimeout(()=>{
-        this.$modal.closeLoading()
-        this.printEvent()
-      },800)
     },
     /*打印*/
     printEvent() {
@@ -577,6 +674,190 @@ export default {
           // 拦截打印之前，返回自定义的 html 内容
           return topHtml + content + bottomHtml
         }
+      })
+    },
+    /*打印 确认配方单*/
+    printEventOk() {
+      const username = this.$store.state.user.name;
+      // 打印样式
+      const printStyle = `
+        .title {
+          text-align: center;
+        }
+        .my-list-row {
+          display: inline-block;
+          width: 100%;
+        }
+        .my-list-col {
+          float: left;
+          width: 33.3%;
+          height: 28px;
+          line-height: 28px;
+        }
+        .my-list-col-min {
+          width: 25%;
+          float: left;
+          margin-left: 0;
+          pandding-left: 0;
+          height: 12px;
+          line-height: 12px;
+        }
+        .my-list-col-max-l {
+          float: left;
+          width: 50%;
+          height: 28px;
+          line-height: 28px;
+          color: #F8490B;
+        }
+        .my-list-col-max-r {
+          float: right;
+          width: 50%;
+          height: 28px;
+          line-height: 28px;
+          text-align: right;
+        }
+        .my-list-col-boder {
+          float: left;
+          width: 100%;
+          height: 28px;
+          line-height: 28px;
+          border: solid 0.2px #AAA;
+        }
+        .my-top,
+        .my-bottom {
+          font-size: 12px;
+        }
+        .my-top {
+          margin-bottom: 5px;
+        }
+        .my-bottom {
+          margin-top: 30px;
+          text-align: left;
+        }
+        .tftable {font-size:12px;color:#333333;width:100%;border-width: 1px;border-color: #a9a9a9;border-collapse: collapse;}
+        .tftable th {font-size:12px;background-color:#b8b8b8;border-width: 1px;padding: 8px;border-style: solid;border-color: #a9a9a9;text-align:left;}
+        .tftable tr {background-color:#cdcdcd;}
+        .tftable td {font-size:12px;border-width: 1px;padding: 8px;border-style: solid;border-color: #a9a9a9;}
+        `
+      const topHtml = `
+        <h2 class="title">恒信永基科技 (深圳) 有限公司</h2>
+        <h2 class="title">烟油定版确认书</h2>
+        <hr style="border: border:0px;border-bottom:1px solid slategray;"/>
+        <div class="my-top">
+            <div class="my-list-row">
+              <div class="my-list-col-max-l">编码: ${this.printList.tasteId} ———— ${this.stateList(this.printList.state)}</div>
+              <div class="my-list-col-max-r">申请日期: ${this.printList.createTime}</div>
+              <br/>
+              <div class="my-list-col">业务姓名:&nbsp&nbsp&nbsp ${this.printList.businessName}</div>
+              <div class="my-list-col">业务部门:&nbsp&nbsp&nbsp ${this.printList.deptId}</div>
+              <div class="my-list-col">业务代码:&nbsp&nbsp&nbsp${this.printList.businessCode}</div>
+              <div class="my-list-col">客户名称:&nbsp&nbsp&nbsp${this.printList.customersName} </div>
+              <div class="my-list-col">客户代码:&nbsp&nbsp&nbsp${this.printList.customersCode}</div>
+              <div class="my-list-col">口味数量:&nbsp&nbsp&nbsp${this.printList.tasteNum}</div>
+              <div class="my-list-col">第几次送样:&nbsp&nbsp&nbsp${this.printList.sendNum}</div>
+              <div class="my-list-col">来访日期:&nbsp&nbsp&nbsp${this.printList.visitTime}</div>
+              <div class="my-list-col">发热丝种类:&nbsp&nbsp&nbsp${this.printList.heatingWireType}</div>
+              <div class="my-list-col">口味专供:&nbsp&nbsp&nbsp${this.printList.isSupply}</div>
+              <div class="my-list-col">现场试油:&nbsp&nbsp&nbsp${this.printList.isTry}</div>
+              <div class="my-list-col">自带烟具:&nbsp&nbsp&nbsp${this.printList.isSmoking}</div>
+              <div class="my-list-col">烟具类型:&nbsp&nbsp&nbsp${this.printList.smokingType}</div>
+              <div class="my-list-col">是否回收烟具:&nbsp&nbsp&nbsp${this.printList.isRecyclingSmoking}</div>
+              <div class="my-list-col">导油棉类型:&nbsp&nbsp&nbsp${this.printList.oilGuideCottonType}</div>
+              <div class="my-list-col">发热丝阻值:&nbsp&nbsp&nbsp${this.printList.heatingWireResistance}</div>
+              <div class="my-list-col">烟油仓容量:&nbsp&nbsp&nbsp${this.printList.capacity}</div>
+              <div class="my-list-col">油环材质类型:&nbsp&nbsp&nbsp${this.printList.oilRingMaterial}</div>
+              <div class="my-list-col">甜度(1-10):&nbsp&nbsp&nbsp${this.printList.sweetness}</div>
+              <div class="my-list-col">凉度(1-10):&nbsp&nbsp&nbsp${this.printList.coolness}</div>
+              <div class="my-list-col">粘稠度(1-10):&nbsp&nbsp&nbsp${this.printList.viscosity}</div>
+              <div class="my-list-col">期望完成时间:&nbsp&nbsp&nbsp${this.printList.expectedCompletionTime}</div>
+              <div class="my-list-col">样品数量:&nbsp&nbsp&nbsp${this.printList.samplesNum}</div>
+              <div class="my-list-col">样品需求日期:&nbsp&nbsp&nbsp${this.printList.sampleRequestTime}</div>
+              <div class="my-list-col">预计完成时间:&nbsp&nbsp&nbsp${this.printList.estimatedFinishTime}</div>
+              <div class="my-list-col">匹配市场:&nbsp&nbsp&nbsp${JSON.parse(this.printList.matchMarket)}</div>
+              <div class="my-list-col">邮寄信息:&nbsp&nbsp&nbsp${this.printList.mailingInformation}</div>
+              <div class="my-list-col">备注:&nbsp&nbsp&nbsp${this.printList.remark}</div>
+            </div>
+        </div>`
+      // 打印底部内容模板
+      const bottomHtml = `
+        <div class="my-bottom">
+          <div class="my-list-row">
+              <div class="my-list-col-min">研发部(签字): </div>
+              <div class="my-list-col-min">项目组长(签字): </div>
+              <div class="my-list-col-min">业务员(签字): ${this.printList.businessName}</div>
+              <div class="my-list-col-min">项目负责人(签字): ${this.$store.state.user.name}</div>
+          </div>
+
+        </div>
+        <div class="my-bottom">
+            <div class="my-list-row">
+              <div class="my-list-col-min">定版日期: </div>
+              <div class="my-list-col-min">定版日期: </div>
+              <div class="my-list-col-min">定版日期: </div>
+              <div class="my-list-col-min">定版日期: </div>
+            </div>
+        </div>
+        `
+
+      let detail = `
+      <div>
+        <table class="tftable" border="1">
+          <tr>
+            <th>序号</th>
+            <th>口味名称</th>
+            <th>口味编码-版本</th>
+            <th>Nic浓度</th>
+            <th>VG</th>
+            <th>NIC类别</th>
+            <th>甜度(0-10)</th>
+            <th>凉度(0-10)</th>
+            <th>是否测试积碳</th>
+            <th>是否积碳</th>
+            <th>技术签字</th>
+          </tr>
+          <tr>
+            <td>序号</td>
+            <td>Row:1 Cell:1</td>
+            <td>Row:1 Cell:2</td>
+            <td>Row:1 Cell:3</td>
+            <td>Row:1 Cell:4</td>
+            <td>Row:1 Cell:5</td>
+            <td>Row:1 Cell:6</td>
+            <td>Row:1 Cell:7</td>
+            <td>Row:1 Cell:8</td>
+            <td>Row:1 Cell:9</td>
+            <td>Row:1 Cell:10</td>
+          </tr>
+        </table>
+      </div>`
+      this.$refs.xTableTwo.print({
+        sheetName: '恒信科技-销售&研发协同平台/烟油定版确认书',
+        style: printStyle,
+        columns: [
+          {type: 'seq'},
+          {field: 'tasteName'},
+          {field: 'a'},
+          {field: 'nicConcentration'},
+          {field: 'vg'},
+          {field: 'nicType'},
+          {field: 'b'},
+          {field: 'c'},
+          {field: 'd'},
+          {field: 'e'},
+          {field: 'f'},
+        ],
+        beforePrintMethod: ({content}) => {
+          // 拦截打印之前，返回自定义的 html 内容
+          return topHtml + content + bottomHtml
+        }
+      })
+    },
+    /*测试table 打印*/
+    printEvent5 () {
+      const divEl = document.getElementById('myPrint5')
+      VXETable.print({
+        sheetName: '打印下面区域',
+        content: divEl.innerHTML
       })
     },
     /** 查询口味申请单列表 */
@@ -788,5 +1069,13 @@ export default {
 .current-cell .el-input + span {
   display: none;
 }
+
+.tftable {
+  font-size:12px;color:#333333;width:100%;border-width: 1px;border-color: #a9a9a9;border-collapse: collapse;
+}
+.tftable th {font-size:12px;background-color:#b8b8b8;border-width: 1px;padding: 8px;border-style: solid;border-color: #a9a9a9;text-align:left;}
+.tftable tr {background-color:#cdcdcd;}
+.tftable td {font-size:12px;border-width: 1px;padding: 8px;border-style: solid;border-color: #a9a9a9;}
+
 
 </style>

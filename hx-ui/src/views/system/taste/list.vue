@@ -111,7 +111,7 @@
           <template slot-scope="scope">{{ parseTime(scope.row.visitTime, '{y}-{m}-{d} {h}:{i}') }}</template>
         </el-table-column>
 
-        <el-table-column label="客户跟进人" align="center" prop="follower"/>
+        <el-table-column label="客户跟进人" width="100" align="center" prop="follower"/>
         <el-table-column label="操作" align="center" width="200" class-name="small-padding fixed-width" fixed="right">
           <template slot-scope="scope">
             <el-button
@@ -230,7 +230,7 @@ import {
   getAgentTicketCodeApp
 } from "@/api/system/taste";
 import cache from '@/plugins/cache'
-//import stateList from '@/utils/stateList'
+import stateList from '@/utils/stateList'
 import stateDIY from '@/utils/wx/sp_status_diy'
 import axios from "axios";
 export default {
@@ -245,7 +245,7 @@ export default {
       codeApi: '',
       codeApp: '',
       /*引入状态字典*/
-      //stateList,
+      stateList,
       stateDIY,
       /*测试组件通讯*/
       testName:'你好呀',
@@ -373,6 +373,7 @@ export default {
       });
       wx.error(function(res){
         console.log("失败")
+        alert("企业微信JS-SDK调用失败")
         // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
       });
     },
@@ -454,9 +455,14 @@ export default {
         this.printListDetail = res.data.hxTasteDetailList
         console.log("数据来了:{}"+ JSON.stringify(this.printListDetail))
       });
-      setTimeout(()=>{
-        this.printEvent()
-      },800)
+      if(this.printListDetail[0].perfumer == null){
+        this.$modal.msgError("请分配调香师后方可打印")
+      } else {
+        setTimeout(()=>{
+          this.printEvent()
+        },800)
+      }
+
     },
     /*打印*/
     printEvent() {

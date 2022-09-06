@@ -1055,6 +1055,10 @@ export default {
         }
         console.log("审核按钮状态",this.processNoStatus)
       })
+      // 调整
+      if(this.$route.query.adjust === 'adjust'){
+        this.isEdit = 'B'
+      }
 
     }
     console.log("this.isEdit"+this.isEdit)
@@ -1272,8 +1276,8 @@ export default {
             },
             function(res) {
               console.log("提交成功1:"+res);
-            }
-          )
+            },
+        )
           /* wx.ready(function(){
              // 输出接口的回调信息
              console.log("提交成功:"+res);
