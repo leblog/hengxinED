@@ -44,6 +44,7 @@ public interface IHxTasteService
      * @return 结果
      */
     public int updateHxTaste(HxTaste hxTaste);
+    public int updateHxTasteStart(HxTaste hxTaste);
 
     /**
      * 批量删除口味申请单

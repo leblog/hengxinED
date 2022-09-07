@@ -157,7 +157,20 @@ public class HxTasteServiceImpl implements IHxTasteService
         insertHxTasteDetail(hxTaste);
         return hxTasteMapper.updateHxTaste(hxTaste);
     }
-
+    /**
+     * 修改口味申请单
+     *
+     * @param hxTaste 口味申请单
+     * @return 结果
+     */
+    @Transactional
+    @Override
+    public int updateHxTasteStart(HxTaste hxTaste)
+    {
+        hxTaste.setUpdateTime(DateUtils.getNowDate());
+        hxTaste.setUpdateBy(getUsername());
+        return hxTasteMapper.updateHxTaste(hxTaste);
+    }
     /**
      * 批量删除口味申请单
      *

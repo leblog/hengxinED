@@ -90,7 +90,7 @@ public class WxOwnAuit {
                 // 存入数据 成功的编码
                 hxTaste.setTasteId(tasteId);
                 hxTaste.setSpNo(spNo);
-                hxTasteService.updateHxTaste(hxTaste);
+                hxTasteService.updateHxTasteStart(hxTaste);
                 return AjaxResult.success("提交审核成功",result3);
             }else{
                 return AjaxResult.error(503,result3);
@@ -170,7 +170,7 @@ public class WxOwnAuit {
             HxTaste hxTasteT = new HxTaste();
             hxTasteT.setTasteId(list.get(0).getTasteId());
             hxTasteT.setState(str);
-            int i = hxTasteService.updateHxTaste(hxTasteT);
+            int i = hxTasteService.updateHxTasteStart(hxTasteT);
             return AjaxResult.success("审核状态不一致,已同步最新审核单状态");
         }
 

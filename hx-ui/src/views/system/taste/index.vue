@@ -445,11 +445,11 @@
                 <vxe-input v-model="scope.row.version" type="text" placeholder="请输入"/>
               </template>
             </vxe-column>
-<!--            <vxe-column title="操作">
-              <template #default="{ row }">
-                <vxe-button type="text" status="primary" @click="removeSelectEvent(row)">删除</vxe-button>
-              </template>
-            </vxe-column>-->
+            <!--            <vxe-column title="操作">
+                          <template #default="{ row }">
+                            <vxe-button type="text" status="primary" @click="removeSelectEvent(row)">删除</vxe-button>
+                          </template>
+                        </vxe-column>-->
             <template #empty>
               <span style="color: red;">
                 <!-- <img src="https://pic2.zhimg.com/50/v2-f7031359103859e1ed38559715ef5f3f_hd.gif">-->
@@ -595,7 +595,7 @@
 
       </el-form>
     </div>
-      <br>
+    <br>
 
     <div>
       <div v-if="isEdit ==='B'">
@@ -627,14 +627,14 @@
         <el-button type="danger" size="small" @click="copyList">复制一份</el-button>
         <el-button type="primary" size="small" @click="printList">打印</el-button>
         <el-button type="primary" size="small" @click="copyListDetail">导出明细</el-button>
-<!--        <el-button type="danger" size="small" @click="auditPush">推送审核</el-button> &lt;!&ndash;auditPush&ndash;&gt;
-        <el-button type="primary" size="small" @click="auditList">查看审批详情</el-button>-->
+        <!--        <el-button type="danger" size="small" @click="auditPush">推送审核</el-button> &lt;!&ndash;auditPush&ndash;&gt;
+                <el-button type="primary" size="small" @click="auditList">查看审批详情</el-button>-->
         <el-dropdown v-show="processNoStatus"
-          style="margin: 5px 10px 5px 10px;"
-          size="small"
-          split-button
-          type="primary"
-          @command="(command) => handleCommand(command)">   <!--v-if="this.form.spNo==null"-->
+                     style="margin: 5px 10px 5px 10px;"
+                     size="small"
+                     split-button
+                     type="primary"
+                     @command="(command) => handleCommand(command)">   <!--v-if="this.form.spNo==null"-->
           <!-- v-hasPermi="['monitor:job:changestate', 'monitor:job:query']"-->
           <span class="el-dropdown-link">
             <i class="el-icon-d-arrow-right el-icon--right"></i>选择调香审核
@@ -1055,10 +1055,6 @@ export default {
         }
         console.log("审核按钮状态",this.processNoStatus)
       })
-      // 调整
-      if(this.$route.query.adjust === 'adjust'){
-        this.isEdit = 'B'
-      }
 
     }
     console.log("this.isEdit"+this.isEdit)
@@ -1096,7 +1092,7 @@ export default {
         obj.url = window.location.href
         let { data } = await getAgentTicket(obj);
         let {  signature, } = data;
-       console.log("获得密码:",signature)
+        console.log("获得密码:",signature)
         wx.agentConfig({
           beta: true, // 必须这么写，否则wx.invoke调用形式的jsapi会有问题
           debug: true,
@@ -1276,8 +1272,8 @@ export default {
             },
             function(res) {
               console.log("提交成功1:"+res);
-            },
-        )
+            }
+          )
           /* wx.ready(function(){
              // 输出接口的回调信息
              console.log("提交成功:"+res);
@@ -1962,7 +1958,7 @@ export default {
     submitForm() {
       console.log("内容:" + typeof this.form.matchMarket)
       this.$refs['form'].validate(valid1 => {
-          //this.$refs['xTable'].validate(valid2 => {
+        //this.$refs['xTable'].validate(valid2 => {
         if (valid1) { // || valid2
           this.form.matchMarket = JSON.stringify(this.matchMarketTemp)
           this.form.hxTasteDetailList = this.hxTasteDetailList
@@ -1992,7 +1988,7 @@ export default {
 
           }
         }
-          //})
+        //})
       })
     },
     /** 删除按钮操作 */

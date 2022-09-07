@@ -5,17 +5,17 @@
 
     <div class="tableDiv" style="margin-top: 20px">
       <el-card>
-      <el-form ref="form" :model="form" label-width="120px" size="mini">
+      <el-form ref="form" :model="form" size="mini"><!--label-width="120px"-->
 
         <el-row :gutter="24">
-            <el-col :xs="{span:24}" :sm="{span:12}" :md="{span:12}" :lg="{span:12}">
-              <el-form-item label="编码：" style="color:#F8490B;">{{ form.tasteId }}————{{this.stateList(form.tasteId)}}</el-form-item>
-            </el-col>
-            <el-col :xs="{span:24}" :sm="{span:12}" :md="{span:12}" :lg="{span:12}" >
-              <el-form-item label="申请日期：">{{ form.createTime }}</el-form-item>
-            </el-col>
-
-          <!--          -->
+          <el-col :xs="{span:24}" :sm="{span:16}" :md="{span:16}" :lg="{span:16}">
+            <el-form-item label="编码：" style="color:#F8490B;">{{ form.tasteId }}————{{this.stateList(form.tasteId)}}</el-form-item>
+          </el-col>
+          <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}" >
+            <el-form-item label="申请日期：">{{ form.createTime }}</el-form-item>
+          </el-col>
+        </el-row>
+        <el-row :gutter="24">
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
             <el-form-item label="业务姓名：">{{ form.businessName }}</el-form-item>
           </el-col>
@@ -25,6 +25,8 @@
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
             <el-form-item label="业务代码：">{{ form.businessCode }}</el-form-item>
           </el-col>
+        </el-row>
+        <el-row :gutter="24">
           <!--   -->
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
             <el-form-item label="客户名称：">{{ form.customersName }}</el-form-item>
@@ -35,6 +37,8 @@
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
             <el-form-item label="口味数量：">{{ form.tasteNum }}</el-form-item>
           </el-col>
+        </el-row>
+        <el-row :gutter="24">
           <!--   -->
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
             <el-form-item label="第几次送样：">{{ form.sendNum }}</el-form-item>
@@ -45,6 +49,8 @@
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
             <el-form-item label="发热丝种类：">{{ form.heatingWireType }}</el-form-item>
           </el-col>
+        </el-row>
+        <el-row :gutter="24">
           <!--   -->
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
             <el-form-item label="口味专供：">{{ form.isSupply }}</el-form-item>
@@ -55,6 +61,8 @@
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
             <el-form-item label="自带烟具：">{{ form.isSmoking }}</el-form-item>
           </el-col>
+        </el-row>
+        <el-row :gutter="24">
           <!--   -->
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
             <el-form-item label="烟具类型：">{{ form.smokingType }}</el-form-item>
@@ -65,6 +73,8 @@
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
             <el-form-item label="导油棉类型：">{{ form.oilGuideCottonType }}</el-form-item>
           </el-col>
+        </el-row>
+        <el-row :gutter="24">
           <!--   -->
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
             <el-form-item label="发热丝阻值：">{{ form.heatingWireResistance }}Ω</el-form-item>
@@ -75,6 +85,8 @@
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
             <el-form-item label="油环材质类型：">{{ form.oilRingMaterial }}</el-form-item>
           </el-col>
+        </el-row>
+        <el-row :gutter="24">
           <!--   -->
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
             <el-form-item label="甜度(1-10)：">{{ form.sweetness }}</el-form-item>
@@ -85,6 +97,8 @@
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
             <el-form-item label="粘稠度(1-10)：">{{ form.viscosity }}</el-form-item>
           </el-col>
+        </el-row>
+        <el-row :gutter="24">
           <!--   -->
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
             <el-form-item label="期望完成时间：">{{ form.expectedCompletionTime }}</el-form-item>
@@ -95,52 +109,49 @@
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
             <el-form-item label="样品需求日期：">{{ form.sampleRequestTime }}</el-form-item>
           </el-col>
+        </el-row>
+        <el-row :gutter="24">
           <!--   -->
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
             <el-form-item label="预计完成时间：">{{ form.estimatedFinishTime }}</el-form-item>
           </el-col>
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
-            <el-form-item label="匹配市场：">{{ form.matchMarket }}</el-form-item>
+            <el-form-item label="匹配市场：">{{ form.matchMarket}}</el-form-item>
           </el-col>
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
-            <el-form-item label="邮寄信息：">{{ form.mailingInformation }}</el-form-item>
+            <el-form-item label="邮寄信息：" >{{ form.mailingInformation }}</el-form-item>
           </el-col>
+        </el-row>
+        <el-row :gutter="24">
           <!--   -->
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
             <el-form-item label="备注：">{{ form.remark }}</el-form-item>
           </el-col>
-<!--          <el-col :span="12">
-            <el-form-item label="执行策略：">
-              <div v-if="form.misfirePolicy == 0">默认策略</div>
-              <div v-else-if="form.misfirePolicy == 1">立即执行</div>
-              <div v-else-if="form.misfirePolicy == 2">执行一次</div>
-              <div v-else-if="form.misfirePolicy == 3">放弃执行</div>
-            </el-form-item>
-          </el-col>-->
+
         </el-row>
       </el-form>
 
       </el-card>
       <el-divider content-position="center">口味申请单明细信息</el-divider>
-        <vxe-table
-          border
-          ref="xTable"
-          height="300"
-          :print-config="{}"
-          :data="form.hxTasteDetailList">
-          <vxe-column type="seq" width="10"></vxe-column>
-          <vxe-column field="tasteName" width="100" title="口味名称"></vxe-column>
-          <vxe-column field="tasteDetail" title="口味描述"></vxe-column>
-          <vxe-column field="isBasicTaste" title="有基础口味"></vxe-column>
-          <vxe-column field="basicTasteImprovementIdeas" title="基础口味改善建议"></vxe-column>
-          <vxe-column field="capacity" title="容量"></vxe-column>
-          <vxe-column field="vg" title="VG"></vxe-column>
-          <vxe-column field="nicType" title="NIC类别"></vxe-column>
-          <vxe-column field="nicConcentration" title="NIC浓度"></vxe-column>
-          <vxe-column field="nicUnit" title="NIC单位"></vxe-column>
-          <!--        <vxe-column field="perfumer" title="指定调香师"></vxe-column>-->
-          <vxe-column field="perfumer" title="分配调香师"></vxe-column>
-        </vxe-table>
+      <vxe-table
+        border
+        ref="xTable"
+        :height="auto"
+        :print-config="{}"
+        :data="form.hxTasteDetailList">
+        <vxe-column type="seq" width="50"/>
+        <vxe-column field="tasteName" width="120" title="口味名称"/>
+        <vxe-column field="tasteDetail" title="口味描述"/>
+        <vxe-column field="isBasicTaste" title="有基础口味"/>
+        <vxe-column field="basicTasteImprovementIdeas" title="基础口味改善建议"/>
+        <vxe-column field="capacity" title="容量"/>
+        <vxe-column field="vg" title="VG"/>
+        <vxe-column field="nicType" title="NIC类别"/>
+        <vxe-column field="nicConcentration" title="NIC浓度"/>
+        <vxe-column field="nicUnit" title="NIC单位"/>
+        <!--        <vxe-column field="perfumer" title="指定调香师"></vxe-column>-->
+        <vxe-column field="perfumer" title="分配调香师"/>
+      </vxe-table>
     </div>
 
     <!--  返回顶部  -->

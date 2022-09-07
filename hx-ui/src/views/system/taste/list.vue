@@ -85,14 +85,18 @@
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
     <div>
+
       <el-table v-loading="loading" :data="tasteList" @selection-change="handleSelectionChange" show-overflow-tooltip>
         <el-table-column type="selection" width="30" align="center"/>
         <el-table-column  label="序号" type="index" align="center"/>
         <el-table-column label="单据编码" width="180" align="center" prop="tasteId" show-overflow-tooltip/>
         <el-table-column label="状态"  width="150" align="center" prop="state" show-overflow-tooltip>
           <template slot-scope="scope">
-            <el-tag v-show="scope.row.state === '-1'" type="danger">{{stateDIY(scope.row.state)}}</el-tag>
-            <el-tag v-show="scope.row.state !== '-1'" >{{stateDIY(scope.row.state)}}</el-tag>
+            <el-tag v-if="scope.row.state == '-1'" type="danger">{{stateList(scope.row.state)}}</el-tag>
+            <el-tag v-else-if="scope.row.state == '3'" type="danger">{{stateList(scope.row.state)}}</el-tag>
+            <el-tag v-else-if="scope.row.state == '8'" type="success">{{stateList(scope.row.state)}}</el-tag>
+            <el-tag v-else>{{stateList(scope.row.state)}}</el-tag>
+            <!--   type="danger"  type="warning"  type="success"  -->
           </template>
         </el-table-column>
         <el-table-column label="录入人" align="center" prop="createBy"/>
@@ -407,8 +411,9 @@ export default {
     handleAudit(row){
       // 作废将 state 字段状态变成 6
       this.$modal.confirm('您将强制审核通过"' + row.tasteId + '"口味单是否确认？').then(function() {
-        getAuditTaste(row.tasteId)
+
       }).then(() => {
+        getAuditTaste(row.tasteId)
         this.$modal.msgSuccess('已审核通过');
         this.getList();
       }).catch(() => {

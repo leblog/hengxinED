@@ -155,3 +155,21 @@ export function wxAuthorize() {
     method: 'get'
   })
 }
+
+
+
+/**
+ * 开始跟进接口
+ *
+ */
+export function start(data) {
+  return request({
+    url: '/system/taste/start',
+    method: 'put',
+    data: data
+    /*query: {
+      isAsc:'desc',
+      orderByColumn:'updateTime'
+    }*/
+  })
+}

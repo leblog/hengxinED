@@ -26,13 +26,24 @@ spring:
                 #publicKey:MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAJ9TAuDaM8WLHkSFFO+M3EV4QptwLfSsg0SImpwyRzfJjzdZ2gXFx+j7J4+3b3hkAodRuqBAqnjlo2j/bXXSx+ECAwEAAQ==
                 #password:TbdR8c3Bo18BYUFXppv1gMhR3gEVfMtD62CnBexP6dyF5gh79ADLGeVINMr8r+z2siq/Ch43EqIDm953KDOjwg==
 
-            # 从库数据源
+            # 从库数据源  (物料表T_BD_SampleMaterial)
             slave:
                 # 从数据源开关/默认关闭
-                enabled: false
-                url:
-                username:
-                password:
+                enabled: true
+                driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+                url: jdbc:sqlserver://10.10.7.33:1433;DatabaseName=Hamdoo.V2.1-HS;SelectMethod=cursor;rewriteBatchedStatements=true
+                username: ro
+                password: Hs@2022
+        #        postgres:
+        #          driverClassName: org.postgresql.Driver
+        #          url: jdbc:postgresql://localhost:5432/postgres?useUnicode=true&characterEncoding=utf8&useSSL=true&autoReconnect=true&reWriteBatchedInserts=true
+        #          username: root
+        #          password: root
+        #        sqlserver:
+        #          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+        #          url: jdbc:sqlserver://localhost:1433;DatabaseName=Hamdoo.V2.1-HS;SelectMethod=cursor;rewriteBatchedStatements=true
+        #          username: SA
+        #          password: root
             # 初始连接数
             initialSize: 5
             # 最小连接池数量

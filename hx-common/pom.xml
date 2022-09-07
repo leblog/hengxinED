@@ -29,7 +29,13 @@
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>3.5.0</version>
+            <version>3.5.1</version>
+        </dependency>
+        <!-- mybatis-plus 代码生成 -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-generator</artifactId>
+            <version>3.5.1</version>
         </dependency>
         <!-- 自动化测试 -->
         <dependency>

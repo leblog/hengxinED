@@ -197,7 +197,17 @@
   </div>
 </template>
 <script>
-import {listTaste, getTaste, delTaste, addTaste, updateTaste, getWasteTaste, getDistribution, getLog} from "@/api/system/taste";
+import {
+  listTaste,
+  getTaste,
+  delTaste,
+  addTaste,
+  updateTaste,
+  getWasteTaste,
+  getDistribution,
+  getLog,
+  start
+} from "@/api/system/taste";
 import cache from '@/plugins/cache'
 import stateList from '@/utils/stateList'
 import {parseTime} from "@/utils/ruoyi";
@@ -351,11 +361,11 @@ export default {
       // 改变为7已审核状态
       let obj = {}
       obj.tasteId = row.tasteId
-      obj.state = '6'
+      obj.state = '3'
       this.$modal.confirm('确认退回分配吗?').then(function() {
 
       }).then(() => {
-        updateTaste(obj).then(res=>{
+        start(obj).then(res=>{
 
         })
         this.$modal.msgSuccess("退回分配完成");
@@ -383,27 +393,29 @@ export default {
     },
     /*开始  关联研发表*/
     handle4(row){
-      this.$message.info("开始TODO");
-
-      this.$modal.confirm('确认信息').then(function() {
-
+      this.$modal.confirm('温馨提示:确认开始跟进ID为"' + row.tasteId + '"的数据项？').then(function() {
       }).then(() => {
-        //更新并插入时间
-        /*let obj = {}
+        let obj = {}
         obj.tasteId = row.tasteId
-        updateTaste().then(res =>{
-          console.log("数据来了:{}"+ JSON.stringify(this.printListDetail))
-        });*/
+        obj.state = row.state
+        start(obj).then(res=>{
+          console.log("开始跟进:",JSON.stringify(res.data))
+        })
+        this.getList()
       }).catch(() => {});
 
     },
     /*提交研发*/
     handle5(row){
-      this.$message.info("提交研发TODO");
-      this.$modal.confirm('确认信息').then(function() {
-
+      this.$modal.confirm('温馨提示:确认将ID为"' + row.tasteId + '"提交研发？').then(function() {
       }).then(() => {
-
+        let obj = {}
+        obj.tasteId = row.tasteId
+        obj.state = row.state
+        start(obj).then(res=>{
+          console.log("提交研发:",JSON.stringify(res.data))
+        })
+        this.getList()
       }).catch(() => {});
     },
     /*确认配方*/

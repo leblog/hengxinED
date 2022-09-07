@@ -4,7 +4,7 @@ function stateList(e) {
     case '-1':
       return '已作废'
     case '0':
-      return '状态0未使用'
+      return '已保存'
     case '1':
       return '已保存'
     case '2':

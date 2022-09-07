@@ -93,7 +93,7 @@ public class WxCallback {
                 // 存入数据 成功的编码
                 hxTaste.setTasteId(tasteId);
                 hxTaste.setSpNo(spNo);
-                hxTasteService.updateHxTaste(hxTaste);
+                hxTasteService.updateHxTasteStart(hxTaste);
                 return AjaxResult.success("已保存审核单号",result3);
             }else{
                 return AjaxResult.error(503,result3);
@@ -168,7 +168,7 @@ public class WxCallback {
             HxTaste hxTasteT = new HxTaste();
             hxTasteT.setTasteId(list.get(0).getTasteId());
             hxTasteT.setState(str);
-            int i = hxTasteService.updateHxTaste(hxTasteT);
+            int i = hxTasteService.updateHxTasteStart(hxTasteT);
             return AjaxResult.success("状态不一致,已更新审核单状态");
         }
 

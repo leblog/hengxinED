@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletResponse;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
@@ -21,6 +22,7 @@ import com.hx.system.mapper.HxTasteMapper;
 import com.hx.system.service.IHxTasteService;
 import com.hx.system.service.ISysOperLogService;
 import com.hx.system.service.ISysUserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,6 +49,7 @@ import static com.hx.common.utils.SecurityUtils.getUsername;
  * @date 2022-05-25
  */
 @RestController
+@Slf4j
 @RequestMapping("/system/taste")
 public class HxTasteController extends BaseController
 {
@@ -151,7 +154,7 @@ public class HxTasteController extends BaseController
             return null;
         }
         hxTaste.setProcessNo(processNo);
-        return toAjax(hxTasteService.updateHxTaste(hxTaste));
+        return toAjax(hxTasteService.updateHxTasteStart(hxTaste));
     }
 
     /**
@@ -179,7 +182,7 @@ public class HxTasteController extends BaseController
             throw new ServiceException("该单已作废不可重复作废");
         }
         hxTaste.setState(StrUtil.toString(TatseFolder.WASTE.getCode()));
-        return toAjax(hxTasteService.updateHxTaste(hxTaste));
+        return toAjax(hxTasteService.updateHxTasteStart(hxTaste));
     }
 
     /**
@@ -191,12 +194,16 @@ public class HxTasteController extends BaseController
     public AjaxResult audit(@PathVariable("tasteId") String tasteId)
     {
         HxTaste hxTaste = hxTasteMapper.selectHxTasteByTasteId(tasteId);
+        int i = Integer.parseInt(hxTaste.getState());
         // 校验
-        if(hxTaste.getState().equals(TatseFolder.AUDIT.getCode())){
+        if(i == TatseFolder.AUDIT.getCode()){
             throw new ServiceException("该单已审核通过不可重复审核");
         }
+        if (i > TatseFolder.AUDIT.getCode()){
+            throw new ServiceException("只有已保存,已提交状态才可以强制审核");
+        }
         hxTaste.setState(StrUtil.toString(TatseFolder.AUDIT.getCode()));
-        return toAjax(hxTasteService.updateHxTaste(hxTaste));
+        return toAjax(hxTasteService.updateHxTasteStart(hxTaste));
     }
 
 
@@ -262,18 +269,63 @@ public class HxTasteController extends BaseController
      *  开始跟进---改变状态
      */
     @Log(title = "口味申请单开始跟进", businessType = BusinessType.UPDATE)
-    @GetMapping(value = "/start/{tasteId}")
-    public AjaxResult start(@PathVariable("tasteId") String tasteId)
+    @PutMapping(value = "/start")
+    public AjaxResult start(@RequestBody HxTaste h)
     {
-        HxTaste hxTaste = hxTasteMapper.selectHxTasteByTasteId(tasteId);
+        log.info("口味data:{}",h);
+        HxTaste hxTaste = hxTasteMapper.selectHxTasteByTasteId(h.getTasteId());
+        Integer dataState = new Integer(h.getState());
         Integer i = new Integer(hxTaste.getState());
         // 校验
-        if(i > TatseFolder.DISTRIBUTEFRAGRANCE.getCode()){
-            throw new ServiceException("跟进状态不正确,请分配调香师");
+        //退回分配
+        if(dataState.equals(TatseFolder.PRODUCTRETURN.getCode())){
+            hxTaste.setState(StrUtil.toString(TatseFolder.PRODUCTRETURN.getCode()));
+            hxTasteService.updateHxTasteStart(hxTaste);
         }
-        hxTaste.setState(StrUtil.toString(TatseFolder.DISTRIBUTEFRAGRANCE.getCode()));
-        return toAjax(hxTasteService.updateHxTaste(hxTaste));
+        //开始跟进流程  流程等于 分配跟进人状态下允许操作
+        if(dataState.equals(TatseFolder.DISTRIBUTE.getCode())){
+            if(i != TatseFolder.DISTRIBUTE.getCode()){
+                throw new ServiceException("状态不正确,请确保分配产品跟进人,以及口味明细调香师再开始跟进");
+            }else if(true){checkOut(hxTaste);}
+            hxTaste.setState(StrUtil.toString(TatseFolder.FOLLOWING.getCode()));
+            hxTasteService.updateHxTasteStart(hxTaste);
+
+        }
+        //已推送研发  流程等于 分配跟进人状态下允许操作
+        if(dataState.equals(TatseFolder.DISTRIBUTE.getCode())){
+            if(i != TatseFolder.DISTRIBUTE.getCode()){
+                throw new ServiceException("状态不正确,请确保微信审批已通过,以及口味明细调香师再开始跟进");
+            }else if(true){checkOut(hxTaste);}
+            hxTaste.setState(StrUtil.toString(TatseFolder.PUSHEDRD.getCode()));
+            hxTasteService.updateHxTasteStart(hxTaste);
+        }
+
+        //开始跟进流程  流程等于 分配跟进人状态下允许操作
+        if(dataState.equals(TatseFolder.DISTRIBUTE.getCode())){
+            if(i != TatseFolder.DISTRIBUTE.getCode()){
+                throw new ServiceException("状态不正确,请确保微信审批已通过,以及口味明细调香师再开始跟进");
+            }else if(true){checkOut(hxTaste);}
+            hxTaste.setState(StrUtil.toString(TatseFolder.PUSHEDRD.getCode()));
+            hxTasteService.updateHxTasteStart(hxTaste);
+        }
+
+        return AjaxResult.success("ok");
     }
+
+    //校验工具
+    public void checkOut(HxTaste hxTaste){
+        if (CollUtil.isNotEmpty(hxTaste.getHxTasteDetailList())){
+            for (int j = 0; j < hxTaste.getHxTasteDetailList().size(); j++) {
+                if(StrUtil.isEmpty(hxTaste.getHxTasteDetailList().get(j).getPerfumer())){
+                    throw new ServiceException("您应该是一个口味都没有分配调香师,你说我猜的对不对?");
+                }
+            }
+        }else{
+            throw new ServiceException("请添加口味明细,你说我猜的对不对?");
+        }
+    }
+
+
 
     /**
      * 流程优惠
