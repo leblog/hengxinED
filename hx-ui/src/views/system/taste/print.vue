@@ -225,14 +225,14 @@ export default {
         }
         .my-list-col-max-l {
           float: left;
-          width: 50%;
+          width: 66%;
           height: 28px;
           line-height: 28px;
           color: #F8490B;
         }
         .my-list-col-max-r {
           float: right;
-          width: 50%;
+          width: 34%;
           height: 28px;
           line-height: 28px;
           text-align: right;

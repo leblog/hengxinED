@@ -76,16 +76,16 @@
               <i class="el-icon-d-arrow-right el-icon--right"></i>更多
             </span>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item command="handle1" icon="el-icon-coordinate" v-hasPermi="['taste:handle1']">退回分配</el-dropdown-item>
-                <el-dropdown-item command="handle2" icon="el-icon-delete" v-hasPermi="['taste:handle2']">退回业务</el-dropdown-item>
+<!--                <el-dropdown-item command="handle1" icon="el-icon-coordinate" v-hasPermi="['taste:handle1']">退回分配</el-dropdown-item>
+                <el-dropdown-item command="handle2" icon="el-icon-delete" v-hasPermi="['taste:handle2']">退回业务</el-dropdown-item>-->
                 <el-dropdown-item command="handle3" icon="el-icon-folder-delete" v-hasPermi="['taste:handle3']">调整</el-dropdown-item>
                 <el-dropdown-item command="handlePrint" icon="el-icon-printer" v-hasPermi="['taste:query']">打印</el-dropdown-item>
-                <el-dropdown-item command="handle4" icon="el-icon-video-play" v-hasPermi="['taste:handle4']">开始</el-dropdown-item>
-                <el-dropdown-item command="handle5" icon="el-icon-s-promotion" v-hasPermi="['taste:handle5']">提交研发</el-dropdown-item>
-                <el-dropdown-item command="handle6" icon="el-icon-d-arrow-right" v-hasPermi="['taste:handle6']">确认配方</el-dropdown-item>
-                <el-dropdown-item command="handle7" icon="el-icon-d-arrow-left" v-hasPermi="['taste:handle7']">反确认配方</el-dropdown-item>
+<!--                <el-dropdown-item command="handle4" icon="el-icon-video-play" v-hasPermi="['taste:handle4']">开始</el-dropdown-item>
+                <el-dropdown-item command="handle5" icon="el-icon-s-promotion" v-hasPermi="['taste:handle5']">提交研发</el-dropdown-item>-->
+                <el-dropdown-item command="handle6" icon="el-icon-d-arrow-left" v-hasPermi="['taste:handle6']">确认配方</el-dropdown-item>
+                <el-dropdown-item command="handle7" icon="el-icon-d-arrow-right" v-hasPermi="['taste:handle7']">反确认配方</el-dropdown-item>
                 <el-dropdown-item command="handle8" icon="el-icon-finished" v-hasPermi="['taste:handle8']">打印配方确认单</el-dropdown-item>
-                <el-dropdown-item command="handle9" icon="el-icon-check" v-hasPermi="['taste:handle9']">完成跟进</el-dropdown-item>
+                <el-dropdown-item command="handle9" icon="el-icon-check" v-hasPermi="['taste:handle9']">结案完成</el-dropdown-item>
                 <el-dropdown-item command="handle10" icon="el-icon-view" v-hasPermi="['taste:handle10']">详细日志</el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
@@ -282,7 +282,7 @@ export default {
         matchMarket: null,
         samplesNum: null,
         mailingInformation: null,
-        state: '7',
+        state: '12',
         deleted: '0'
       },
       // 表单参数
@@ -467,11 +467,17 @@ export default {
     },
     /*完成跟进*/
     handle9(row){
-      this.$message.info("完成跟进TODO");
-      this.$modal.confirm('确认信息').then(function() {
+      //this.$message.info("完成跟进TODO");
+      this.$modal.confirm('确认结案完成吗?').then(function() {
 
       }).then(() => {
-
+        let obj = {}
+        obj.tasteId = row.tasteId
+        obj.state = "18"
+        start(obj).then(res=>{
+          console.log("结案完成:",JSON.stringify(res.data))
+        })
+        this.getList()
       }).catch(() => {});
     },
     /*详细日志*/
@@ -756,7 +762,7 @@ export default {
         <hr style="border: border:0px;border-bottom:1px solid slategray;"/>
         <div class="my-top">
             <div class="my-list-row">
-              <div class="my-list-col-max-l">编码: ${this.printList.tasteId}——${this.stateList(this.printList.state)}</div>
+              <div class="my-list-col-max-l">编码: ${this.printList.tasteId} ———— ${this.stateList(this.printList.state)}</div>
               <div class="my-list-col-max-r">申请日期: ${this.printList.createTime}</div>
               <br/>
               <div class="my-list-col">业务姓名:&nbsp&nbsp&nbsp ${this.printList.businessName}</div>

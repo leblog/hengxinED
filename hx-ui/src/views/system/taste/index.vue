@@ -623,7 +623,7 @@
         </el-row>
       </div>
       <div v-if="isEdit ==='A'">
-        <el-button type="primary" size="small" @click="edit">修改</el-button>
+<!--        <el-button type="primary" size="small" @click="edit">修改</el-button>-->
         <el-button type="danger" size="small" @click="copyList">复制一份</el-button>
         <el-button type="primary" size="small" @click="printList">打印</el-button>
         <el-button type="primary" size="small" @click="copyListDetail">导出明细</el-button>
@@ -708,7 +708,7 @@ export default {
       /*地区详情回显*/
       matchMarketTemp: [],
       /*详情按钮控制，修改控制暂时不提供*/
-      isEdit: 'B',  // 详情页进入  //A: 详情 ，B：修改
+      isEdit: 'A',  // 详情页进入  //A: 详情 ，B：修改
       /*状态字典*/
       stateList,
       // 表单对齐方式
@@ -1033,19 +1033,19 @@ export default {
     this.reset()
     if (window.location.pathname !== '/kouwei/taste') {
       console.log("!=/kouwei/taste")
-      this.isEdit = 'A'
+      //this.isEdit = 'A'
       this.wxConfig();
       getTaste(this.$route.params.tasteId).then(response => {
         this.form = response.data
         //console.log("form:",JSON.stringify(this.form))
         this.hxTasteDetailList = response.data.hxTasteDetailList
         this.matchMarketTemp = eval(JSON.stringify(JSON.parse(this.form.matchMarket)))
-        //var str=eval(this.matchMarketTemp);
-        //alert(str[0][0]);
-        //response.data.matchMarket.splice(",")
-        //this.form.matchMarket = response.data.matchMarket
-
-        console.log("进入状态前",response.data.processNo.length)
+        if(this.$route.query.adjust!=null){
+          this.isEdit = 'B'
+          console.log("调整1:",this.$route.query.adjust)
+          console.log("调整2:",this.isEdit)
+        }
+        console.log("进入状态前",response.data.processNo)
         if(response.data.processNo.length === 0 ){
           console.log("进入状态中",response.data.processNo)
           this.processNoStatus = true;
@@ -1054,6 +1054,9 @@ export default {
           })*/
         }
         console.log("审核按钮状态",this.processNoStatus)
+        // 调整
+
+
       })
 
     }
@@ -1972,6 +1975,7 @@ export default {
               // 关闭当前tab页签，打开新页签
               const obj = { path: "/system/taste-data/index/"+ this.$route.params.tasteId};
               this.$tab.refreshPage(obj);
+              this.isEdit = 'A'
             }).catch(() => {});
 
           } else {

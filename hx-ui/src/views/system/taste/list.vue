@@ -85,7 +85,29 @@
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
     <div>
-
+      <!-- OA流转  -->
+      <el-tabs v-if="this.$route.query.type == 'list'" v-model="activeOA" type="card"  @tab-click="handleClick">
+        <el-tab-pane label="All" name="all"/>
+        <el-tab-pane label="已作废" name="-1"/>
+        <el-tab-pane label="已保存" name="0"/>
+        <el-tab-pane label="已撤回" name="2"/>
+        <el-tab-pane label="产品退回" name="3"/>
+        <el-tab-pane label="已驳回" name="4"/>
+        <el-tab-pane label="已提交" name="5"/>
+        <el-tab-pane label="已审核" name="6"/>
+        <el-tab-pane label="分配产品跟进人" name="7"/>
+        <el-tab-pane label="跟进中" name="8"/>
+        <el-tab-pane label="分配调香师" name="9"/>
+        <el-tab-pane label="任务退回" name="10"/>
+        <el-tab-pane label="分配调香师完毕" name="11"/>
+        <el-tab-pane label="已推送研发" name="12"/>
+        <el-tab-pane label="配方开发中" name="13"/>
+        <el-tab-pane label="配方完成" name="14"/>
+        <el-tab-pane label="口味确认中" name="15"/>
+        <el-tab-pane label="打印口味确认书" name="16"/>
+        <el-tab-pane label="口味确认完毕" name="17"/>
+        <el-tab-pane label="结案" name="18"/>
+      </el-tabs>
       <el-table v-loading="loading" :data="tasteList" @selection-change="handleSelectionChange" show-overflow-tooltip>
         <el-table-column type="selection" width="30" align="center"/>
         <el-table-column  label="序号" type="index" align="center"/>
@@ -213,7 +235,7 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="submitForm">确 定</el-button>
+        <el-button type="primary" @click="distribution">确 定</el-button>
         <el-button @click="cancel">取 消</el-button>
       </div>
     </el-dialog>
@@ -231,7 +253,7 @@ import {
   getWasteTaste,
   getDistribution,
   getAuditTaste,
-  getAgentTicketCodeApp
+  getAgentTicketCodeApp, start
 } from "@/api/system/taste";
 import cache from '@/plugins/cache'
 import stateList from '@/utils/stateList'
@@ -243,6 +265,8 @@ export default {
   // dicts: ['hx_common_is', 'hx_common_type'],
   data() {
     return {
+      /*流转状态*/
+      activeOA: 'all',
       /*showType 菜单显示不同数据*/
       showType: '',  //tech 标识产品技术任务分配
       /*状态加密*/
@@ -308,6 +332,7 @@ export default {
         isRecyclingSmoking: null,
         oilRingMaterial: null,
         vg: null,
+        state:null,
         viscosity: null,
         expectedCompletionTime: null,
         sampleRequestTime: null,
@@ -351,6 +376,18 @@ export default {
 
   },
   methods: {
+    /*OA流转状态监听*/
+    handleClick(tab, event) {
+      console.log(tab.name, event);
+      if(tab.name == 'all'){
+        this.queryParams.state = null;
+        this.handleQuery();
+      }else{
+        this.queryParams.state = tab.name;
+        this.handleQuery();
+      }
+
+    },
     /*微信*/
     async getWx(){
       let obj = {}
@@ -411,17 +448,16 @@ export default {
     handleAudit(row){
       // 作废将 state 字段状态变成 6
       this.$modal.confirm('您将强制审核通过"' + row.tasteId + '"口味单是否确认？').then(function() {
-
-      }).then(() => {
         getAuditTaste(row.tasteId)
-        this.$modal.msgSuccess('已审核通过');
+      }).then(() => {
         this.getList();
+        //this.$modal.msgSuccess('已审核通过');
       }).catch(() => {
         this.$modal.msgSuccess('已取消');
       });
 
     },
-    /*分配跟进人*/
+    /*分配跟进人--字典*/
     handleDistribution(row){
         this.reset();
         // 获取以一些数据
@@ -436,6 +472,22 @@ export default {
         })
         this.open = true;
         this.title = "分配跟进人";
+    },
+    /*分配跟进人--确认*/
+    distribution(){
+      console.log("跟进人:",this.form.follower)
+      // 改变为7已审核状态
+      let obj = {}
+      obj.tasteId = this.form.tasteId
+      obj.state = '6'
+      this.$modal.confirm('确认分配跟进人吗?').then(function() {
+
+      }).then(() => {
+        start(obj).then(res=>{})
+        this.$modal.msgSuccess("分配完成");
+        // 刷新当前页签
+        this.$tab.refreshPage();
+      }).catch(() => {});
     },
     // 作废  waste
     handleWaste(row){
@@ -458,9 +510,9 @@ export default {
       getTaste(row.tasteId).then(res =>{
         this.printList = res.data
         this.printListDetail = res.data.hxTasteDetailList
-        console.log("数据来了:{}"+ JSON.stringify(this.printListDetail))
+        //console.log("数据来了:{}"+ JSON.stringify(this.printListDetail))
       });
-      if(this.printListDetail[0].perfumer == null){
+      if(this.printListDetail.length != 0){
         this.$modal.msgError("请分配调香师后方可打印")
       } else {
         setTimeout(()=>{
@@ -471,7 +523,7 @@ export default {
     },
     /*打印*/
     printEvent() {
-      console.log("我是打印明细",JSON.stringify(this.printList))
+      //console.log("我是打印明细",JSON.stringify(this.printList))
       const username = this.$store.state.user.name;
       // 打印样式
       const printStyle = `
@@ -498,14 +550,14 @@ export default {
         }
         .my-list-col-max-l {
           float: left;
-          width: 50%;
+          width: 66%;
           height: 28px;
           line-height: 28px;
           color: #F8490B;
         }
         .my-list-col-max-r {
           float: right;
-          width: 50%;
+          width: 34%;
           height: 28px;
           line-height: 28px;
           text-align: right;

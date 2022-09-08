@@ -282,6 +282,11 @@ public class HxTasteController extends BaseController
             hxTaste.setState(StrUtil.toString(TatseFolder.PRODUCTRETURN.getCode()));
             hxTasteService.updateHxTasteStart(hxTaste);
         }
+        //分配跟进人 (状态是已审核可分配跟进人)
+        if(dataState.equals(TatseFolder.AUDIT.getCode())){
+            hxTaste.setState(StrUtil.toString(TatseFolder.DISTRIBUTE.getCode()));
+            hxTasteService.updateHxTasteStart(hxTaste);
+        }
         //开始跟进流程  流程等于 分配跟进人状态下允许操作
         if(dataState.equals(TatseFolder.DISTRIBUTE.getCode())){
             if(i != TatseFolder.DISTRIBUTE.getCode()){
@@ -306,6 +311,15 @@ public class HxTasteController extends BaseController
                 throw new ServiceException("状态不正确,请确保微信审批已通过,以及口味明细调香师再开始跟进");
             }else if(true){checkOut(hxTaste);}
             hxTaste.setState(StrUtil.toString(TatseFolder.PUSHEDRD.getCode()));
+            hxTasteService.updateHxTasteStart(hxTaste);
+        }
+
+        //结案完成  申请结果等于结案完成
+        if(dataState.equals(TatseFolder.CASECLOSED.getCode())){
+            if(i.equals(TatseFolder.CASECLOSED.getCode())){
+                throw new ServiceException("不可重复结案完成");
+            }
+            hxTaste.setState(StrUtil.toString(TatseFolder.CASECLOSED.getCode()));
             hxTasteService.updateHxTasteStart(hxTaste);
         }
 
