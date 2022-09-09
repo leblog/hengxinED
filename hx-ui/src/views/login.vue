@@ -1,5 +1,6 @@
 <template>
   <div class="login">
+    <div id="wx_qrcode" >企业微信</div>
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form">
       <h3 class="title">{{ $t('login.title') }}</h3>
       <lang-select class="set-language" />
@@ -123,6 +124,7 @@ export default {
     // 发请求拦截请求让用户登录
     console.log("路由1{}",window.location.href)
     console.log("路由2{}",window.location.pathname)
+    /*无感知企业微信授权*/
     /*if(window.location.pathname === "/login"){
       window.location.href = null
       window.location.href =
@@ -135,6 +137,35 @@ export default {
         `&agentid=1000042#wechat_redirect`
 
     }*/
+
+    /*扫码授权*/
+    if(window.location.pathname === "/login"){
+      var wwLogin = new WwLogin({
+        "id": "wx_qrcode",
+        "appid": "ww0530511650e0c6c8",
+        "agentid": "1000042",
+        "redirect_uri": "http://rds.cnhstar.com:44346/dev-api/open/wx/callback/str",
+        "state": "123",
+        "href": ".impowerBox .qrcode {width: 200px;}\n" +
+          ".impowerBox .title {display: none;}\n" +
+          ".impowerBox .info {width: 200px;}\n" +
+          ".status_icon {display: none  !important}\n" +
+          ".impowerBox .status {text-align: center;} ",
+        "lang": "zh",
+      });
+      axios.get("https://open.work.weixin.qq.com/wwopen/sso/qrConnect?" +
+        "appid=ww0530511650e0c6c8" +
+        "&agentid=1000042" +
+        "&redirect_uri=http://rds.cnhstar.com:44346/dev-api/open/wx/callback/str" +
+        "&state=123").then(res=>(
+          console.log("获取code 验证码:",res)
+      ))
+
+
+    }
+
+
+
 // 44346端口   &redirect_uri=http://rds.cnhstar.com:44346/dev-api/open/wx/callback
     //this.$router.(``)
     /*var strings = this.$route.query.detail.split('/index?detail=');

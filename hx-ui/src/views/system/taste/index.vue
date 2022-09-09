@@ -1046,7 +1046,7 @@ export default {
           console.log("调整2:",this.isEdit)
         }
         console.log("进入状态前",response.data.processNo)
-        if(response.data.processNo.length === 0 ){
+        if(response.data.processNo == null ){
           console.log("进入状态中",response.data.processNo)
           this.processNoStatus = true;
           /*setTimeout(()=>{
@@ -1059,6 +1059,8 @@ export default {
 
       })
 
+    }else{
+      this.isEdit = 'B'
     }
     console.log("this.isEdit"+this.isEdit)
 
@@ -1192,8 +1194,18 @@ export default {
     },
     /*审批详情*/
     auditDeatil(){
-      this.oaType = "10002"
-      this.handleCommand("5")
+      wx.invoke('thirdPartyOpenPage', {
+          "oaType": '10002',// String
+          "templateId": 'a8f97896837d07d2ea691e71b0a60fbd_696238615',// String //测试模板id a8f97896837d07d2ea691e71b0a60fbd_696238615
+          "thirdNo": this.form.tasteId,// String  后端请求绑定的模板id
+          "extData": {
+            'fieldList': [],
+          }
+        },
+        function(res) {
+          console.log("详情成功:"+res);
+        }
+      )
     },
     /*推送该申请单在企业微信中审批*/
     auditPush(e,k) {
@@ -1274,9 +1286,8 @@ export default {
               }//https://open.weixin.qq.com/connect/oauth2/authorize?appid=ww0530511650e0c6c8&redirect_uri=http://rds.cnhstar.com:44346?detail=1564875584438435840&response_type=code&scope=snsapi_base&state=
             },
             function(res) {
-              console.log("提交成功1:"+res);
-            }
-          )
+              console.log("审批提交成功/输出接口的回调信息:"+JSON.stringify(res));
+            });
           /* wx.ready(function(){
              // 输出接口的回调信息
              console.log("提交成功:"+res);

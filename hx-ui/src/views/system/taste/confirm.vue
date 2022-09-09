@@ -419,20 +419,33 @@ export default {
     },
     /*确认配方*/
     handle6(row){
-      this.$message.info("确认配方TODO");
+      //this.$message.info("确认配方TODO");
       this.$modal.confirm('确认信息').then(function() {
 
       }).then(() => {
-
+        let obj = {}
+        obj.tasteId = row.tasteId
+        obj.state = "17"
+        start(obj).then(res=>{
+          console.log("提交研发:",JSON.stringify(res.data))
+        })
+        this.getList()
+        this.$tab.refreshPage();
       }).catch(() => {});
     },
     /*反确认配方*/
     handle7(row){
-      this.$message.info("反确认配方TODO");
+
       this.$modal.confirm('确认信息').then(function() {
 
       }).then(() => {
-
+        let obj = {}
+        obj.tasteId = row.tasteId
+        obj.state = "15"
+        start(obj).then(res=>{
+        })
+        this.getList()
+        this.$tab.refreshPage();
       }).catch(() => {});
     },
     /*打印配方确认单*/
@@ -478,6 +491,8 @@ export default {
           console.log("结案完成:",JSON.stringify(res.data))
         })
         this.getList()
+        // 刷新当前页签
+        this.$tab.refreshPage();
       }).catch(() => {});
     },
     /*详细日志*/

@@ -5,8 +5,10 @@ import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletResponse;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.http.HttpRequest;
 import cn.hutool.json.JSONUtil;
 import com.hx.common.annotation.RepeatSubmit;
 import com.hx.common.core.domain.entity.SysUser;
@@ -14,12 +16,14 @@ import com.hx.common.exception.ServiceException;
 import com.hx.common.utils.DateUtils;
 import com.hx.common.utils.StringUtils;
 import com.hx.system.domain.HxTaste;
+import com.hx.system.domain.SysConfig;
 import com.hx.system.domain.SysOperLog;
 import com.hx.system.domain.enums.TatseFolder;
 import com.hx.system.domain.vo.LogVO;
 import com.hx.system.domain.vo.OwnerVO;
 import com.hx.system.mapper.HxTasteMapper;
 import com.hx.system.service.IHxTasteService;
+import com.hx.system.service.ISysConfigService;
 import com.hx.system.service.ISysOperLogService;
 import com.hx.system.service.ISysUserService;
 import lombok.extern.slf4j.Slf4j;
@@ -61,6 +65,8 @@ public class HxTasteController extends BaseController
     private ISysUserService userService;
     @Autowired
     private ISysOperLogService operLogService;
+    @Autowired
+    private ISysConfigService configService;
 
 
 
@@ -279,9 +285,32 @@ public class HxTasteController extends BaseController
         // 校验
         //退回分配
         if(dataState.equals(TatseFolder.PRODUCTRETURN.getCode())){
+            //退回业务 -- 发送通知
+            if("wxmsg".equals(h.getRemark())){
+                SysConfig sysConfig = configService.selectConfigById(6L);
+                String json ="{\n" +
+                        "   \"touser\" : \"hanlele|UserID2|UserID3\",\n" +
+                        "   \"toparty\" : \"PartyID1|PartyID2\",\n" +
+                        "   \"totag\" : \"TagID1 | TagID2\",\n" +
+                        "   \"msgtype\" : \"text\",\n" +
+                        "   \"agentid\" : 1000042,\n" +
+                        "   \"text\" : {\n" +
+                        "   \"content\" : \" "+ DateUtil.format(DateUtils.getNowDate(), "yyyy/MM/dd HH:mm:ss")+"你的单据"+hxTaste.getSpNo()+"已被产品部退回，请修改后重新提交审核\"\n" +
+                        "   },\n" +
+                        "   \"safe\":0,\n" +
+                        "   \"enable_id_trans\": 0,\n" +
+                        "   \"enable_duplicate_check\": 0,\n" +
+                        "   \"duplicate_check_interval\": 1800\n" +
+                        "}";
+                String body = HttpRequest.post("https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token="+sysConfig.getConfigValue())
+                        .body(json)
+                        .execute().body();
+                log.info("请求结果{}",body);
+            }
             hxTaste.setState(StrUtil.toString(TatseFolder.PRODUCTRETURN.getCode()));
             hxTasteService.updateHxTasteStart(hxTaste);
         }
+
         //分配跟进人 (状态是已审核可分配跟进人)
         if(dataState.equals(TatseFolder.AUDIT.getCode())){
             hxTaste.setState(StrUtil.toString(TatseFolder.DISTRIBUTE.getCode()));
@@ -314,6 +343,16 @@ public class HxTasteController extends BaseController
             hxTasteService.updateHxTasteStart(hxTaste);
         }
 
+        // 反确认配方
+        if(dataState.equals(TatseFolder.TASTECONFIRMED.getCode())){
+            hxTaste.setState(StrUtil.toString(TatseFolder.TASTECONFIRMED.getCode()));
+            hxTasteService.updateHxTasteStart(hxTaste);
+        }
+        // 确认配方
+        if(dataState.equals(TatseFolder.TASTEISCONFIRMED.getCode())){
+            hxTaste.setState(StrUtil.toString(TatseFolder.TASTEISCONFIRMED.getCode()));
+            hxTasteService.updateHxTasteStart(hxTaste);
+        }
         //结案完成  申请结果等于结案完成
         if(dataState.equals(TatseFolder.CASECLOSED.getCode())){
             if(i.equals(TatseFolder.CASECLOSED.getCode())){
