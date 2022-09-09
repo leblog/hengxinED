@@ -1,5 +1,7 @@
 package com.hx.system.domain;
 
+import lombok.Data;
+import lombok.ToString;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import com.hx.common.annotation.Excel;
@@ -7,10 +9,12 @@ import com.hx.common.core.domain.BaseEntity;
 
 /**
  * 口味申请单明细对象 hx_taste_detail
- * 
+ *
  * @author lusifer
  * @date 2022-05-25
  */
+@Data
+@ToString
 public class HxTasteDetail extends BaseEntity
 {
     private static final long serialVersionUID = 1L;
@@ -69,156 +73,20 @@ public class HxTasteDetail extends BaseEntity
     /** 版本 */
     @Excel(name = "版本")
     private String version;
+    @Excel(name = "口味状态")
+    private String tasteStatus;
+    @Excel(name = "分配调香师的ID")
+    private String selectUserId;
+    @Excel(name = "选择配方版本的ID")
+    private String selectTasteId;
+    @Excel(name = "选择配方版本") //这里的字段是根据调香师的配方表进行拼接生成的  拼接规则:  DRD22090127-A[ X00167 蜜瓜冰 ] VG: 40  丁盐：Y8-3  浓度：19mg
+    private String selectVersion;
 
-    public void setId(Long id) 
-    {
-        this.id = id;
-    }
+//    taste_status
+//    select_user_id
+    //select_taste_id
+    //select_version
 
-    public Long getId() 
-    {
-        return id;
-    }
-    public void setTasteName(String tasteName) 
-    {
-        this.tasteName = tasteName;
-    }
 
-    public String getTasteName() 
-    {
-        return tasteName;
-    }
-    public void setTasteId(String tasteId)
-    {
-        this.tasteId = tasteId;
-    }
 
-    public String getTasteId()
-    {
-        return tasteId;
-    }
-    public void setTasteDetail(String tasteDetail) 
-    {
-        this.tasteDetail = tasteDetail;
-    }
-
-    public String getTasteDetail() 
-    {
-        return tasteDetail;
-    }
-    public void setIsBasicTaste(String isBasicTaste)
-    {
-        this.isBasicTaste = isBasicTaste;
-    }
-
-    public String getIsBasicTaste()
-    {
-        return isBasicTaste;
-    }
-    public void setBasicTasteName(String basicTasteName) 
-    {
-        this.basicTasteName = basicTasteName;
-    }
-
-    public String getBasicTasteName() 
-    {
-        return basicTasteName;
-    }
-    public void setBasicTasteImprovementIdeas(String basicTasteImprovementIdeas) 
-    {
-        this.basicTasteImprovementIdeas = basicTasteImprovementIdeas;
-    }
-
-    public String getBasicTasteImprovementIdeas() 
-    {
-        return basicTasteImprovementIdeas;
-    }
-    public void setCapacity(String capacity) 
-    {
-        this.capacity = capacity;
-    }
-
-    public String getCapacity() 
-    {
-        return capacity;
-    }
-    public void setVg(String vg) 
-    {
-        this.vg = vg;
-    }
-
-    public String getVg() 
-    {
-        return vg;
-    }
-    public void setNicType(String nicType) 
-    {
-        this.nicType = nicType;
-    }
-
-    public String getNicType() 
-    {
-        return nicType;
-    }
-    public void setNicConcentration(String nicConcentration) 
-    {
-        this.nicConcentration = nicConcentration;
-    }
-
-    public String getNicConcentration() 
-    {
-        return nicConcentration;
-    }
-    public void setNicUnit(String nicUnit) 
-    {
-        this.nicUnit = nicUnit;
-    }
-
-    public String getNicUnit() 
-    {
-        return nicUnit;
-    }
-    public void setPerfumer(String perfumer) 
-    {
-        this.perfumer = perfumer;
-    }
-
-    public String getPerfumer() 
-    {
-        return perfumer;
-    }
-    public void setVersion(String version) 
-    {
-        this.version = version;
-    }
-
-    public String getVersion() 
-    {
-        return version;
-    }
-
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("id", getId())
-            .append("tasteName", getTasteName())
-            .append("tasteId", getTasteId())
-            .append("tasteDetail", getTasteDetail())
-            .append("isBasicTaste", getIsBasicTaste())
-            .append("basicTasteName", getBasicTasteName())
-            .append("basicTasteImprovementIdeas", getBasicTasteImprovementIdeas())
-            .append("capacity", getCapacity())
-            .append("vg", getVg())
-            .append("nicType", getNicType())
-            .append("nicConcentration", getNicConcentration())
-            .append("nicUnit", getNicUnit())
-            .append("perfumer", getPerfumer())
-            .append("version", getVersion())
-            .append("createBy", getCreateBy())
-            .append("createTime", getCreateTime())
-            .append("updateBy", getUpdateBy())
-            .append("updateTime", getUpdateTime())
-            .append("remark", getRemark())
-            .toString();
-    }
 }

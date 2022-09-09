@@ -579,11 +579,50 @@
                 <vxe-input v-model="scope.row.version" type="text" placeholder="请输入"/>
               </template>
             </vxe-column>
-            <vxe-column title="操作">
-              <template #default="{ row }">
-                <vxe-button type="text" status="primary" @click="removeSelectEvent(row)">删除</vxe-button>
+            <!-- 新增逻辑 START   -->
+            <vxe-column field="selectUserId" :edit-render="{}" title="分配调香师" width="120" v-show="Number(this.form.start) >= 6">
+              <template slot="header">
+                <span>分配调香师</span>
+              </template>
+              <template #edit="scope">
+                <vxe-input v-model="scope.row.selectUserId" type="text" placeholder="请输入"/>
               </template>
             </vxe-column>
+            <vxe-column field="selectVersion" :edit-render="{}" title="选择口味版本" width="120" v-show="Number(this.form.start) >= 6">
+              <template slot="header">
+                <span>选择口味版本</span>
+              </template>
+              <template #edit="scope">
+                <vxe-input v-model="scope.row.selectVersion" type="text" placeholder="请输入"/>
+              </template>
+            </vxe-column>
+            <vxe-column field="tasteStatus" :edit-render="{}" title="口味状态" width="120" v-show="Number(this.form.start) >= 6">
+              <template slot="header">
+                <span>口味状态</span>
+              </template>
+              <template #edit="scope">
+                <vxe-input v-model="scope.row.tasteStatus" type="text" placeholder="请输入"/>
+              </template>
+            </vxe-column>
+
+
+            <vxe-column field="selectTasteId" :edit-render="{}" title="进度状态TODO" width="120" v-show="Number(this.form.start) >= 6">
+              <template slot="header">
+                <span>进度状态TODO</span>
+              </template>
+              <template #edit="scope">
+                <vxe-input v-model="scope.row.selectTasteId" type="text" placeholder="请输入"/>
+              </template>
+            </vxe-column>
+            <!-- 新增逻辑 END   -->
+            <vxe-column title="操作" width="350">
+              <template #default="{ row }">
+                <vxe-button status="warning" content="删除" @click="removeSelectEvent(row)"></vxe-button>
+                <vxe-button status="danger" content="保存调香师" @click="saveSelectUserId(row)"></vxe-button>
+                <vxe-button status="danger" content="选择配方版本" @click="selectVersion(row)"></vxe-button>
+              </template>
+            </vxe-column>
+
             <template #empty>
               <span style="color: red;">
                 <!-- <img src="https://pic2.zhimg.com/50/v2-f7031359103859e1ed38559715ef5f3f_hd.gif">-->
@@ -1523,6 +1562,14 @@ export default {
         return 'mg/ml'
       }
       return ''
+    },
+    // 保存调香师
+    saveSelectUserId(){
+      this.$modal.msg("保存调香师todo")
+    },
+    // 选择配方版本
+    selectVersion(){
+      this.$modal.msg("选择配方版本todo")
     },
     // 单元格删除
     async removeSelectEvent(row) {

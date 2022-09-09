@@ -67,6 +67,10 @@
         <result property="nicUnit"    column="sub_nic_unit"    />
         <result property="perfumer"    column="sub_perfumer"    />
         <result property="version"    column="sub_version"    />
+        <result property="tasteStatus"    column="sub_taste_status"    />
+        <result property="selectUserId"    column="sub_select_user_id"    />
+        <result property="selectTasteId"    column="sub_select_taste_id"    />
+        <result property="selectVersion"    column="sub_select_version"    />
         <result property="createBy"    column="sub_create_by"    />
         <result property="createTime"    column="sub_create_time"    />
         <result property="updateBy"    column="sub_update_by"    />
@@ -127,7 +131,9 @@
 
     <select id="selectHxTasteListDetail" parameterType="HxTaste" resultMap="HxTasteResult">
         select a.taste_id, a.dept_id, a.taste_copy_id, a.process_no, a.sp_no, a.business_name, a.business_code, a.customers_name, a.customers_code, a.taste_num, a.referee_num, a.send_num, a.is_supply, a.is_try, a.visit_time, a.is_smoking, a.smoking_type, a.heating_wire_type, a.heating_wire_resistance, a.capacity, a.oil_guide_cotton_type, a.is_recycling_smoking, a.oil_ring_material, a.vg, a.viscosity,a.sweetness,a.coolness, a.expected_completion_time, a.sample_request_time, a.estimated_finish_time, a.match_market, a.samples_num, a.mailing_information, a.create_by, a.create_time, a.update_by, a.update_time, a.remark, a.state, a.deleted,a.follower,
-               b.id as sub_id, b.taste_name as sub_taste_name, b.taste_id as sub_taste_id, b.taste_detail as sub_taste_detail, b.is_basic_taste as sub_is_basic_taste, b.basic_taste_name as sub_basic_taste_name, b.basic_taste_improvement_ideas as sub_basic_taste_improvement_ideas, b.capacity as sub_capacity, b.vg as sub_vg, b.nic_type as sub_nic_type, b.nic_concentration as sub_nic_concentration, b.nic_unit as sub_nic_unit, b.perfumer as sub_perfumer, b.version as sub_version, b.create_by as sub_create_by, b.create_time as sub_create_time, b.update_by as sub_update_by, b.update_time as sub_update_time, b.remark as sub_remark
+               b.id as sub_id, b.taste_name as sub_taste_name, b.taste_id as sub_taste_id, b.taste_detail as sub_taste_detail, b.is_basic_taste as sub_is_basic_taste, b.basic_taste_name as sub_basic_taste_name, b.basic_taste_improvement_ideas as sub_basic_taste_improvement_ideas, b.capacity as sub_capacity, b.vg as sub_vg, b.nic_type as sub_nic_type, b.nic_concentration as sub_nic_concentration, b.nic_unit as sub_nic_unit, b.perfumer as sub_perfumer, b.version as sub_version,
+            b.taste_status as sub_taste_status, b.select_user_id as sub_select_user_id, b.select_taste_id as sub_select_taste_id, b.select_version as sub_select_version
+                , b.create_by as sub_create_by, b.create_time as sub_create_time, b.update_by as sub_update_by, b.update_time as sub_update_time, b.remark as sub_remark
         from hx_taste a
         left join hx_taste_detail b on b.taste_id = a.taste_id
         where a.deleted = '0'
@@ -136,7 +142,9 @@
 
     <select id="selectHxTasteByTasteId" parameterType="String" resultMap="HxTasteHxTasteDetailResult">
         select a.taste_id, a.dept_id, a.taste_copy_id, a.process_no, a.sp_no, a.business_name, a.business_code, a.customers_name, a.customers_code, a.taste_num, a.referee_num, a.send_num, a.is_supply, a.is_try, a.visit_time, a.is_smoking, a.smoking_type, a.heating_wire_type, a.heating_wire_resistance, a.capacity, a.oil_guide_cotton_type, a.is_recycling_smoking, a.oil_ring_material, a.vg, a.viscosity,a.sweetness,a.coolness, a.expected_completion_time, a.sample_request_time, a.estimated_finish_time, a.match_market, a.samples_num, a.mailing_information, a.create_by, a.create_time, a.update_by, a.update_time, a.remark, a.state, a.deleted,a.follower,
-               b.id as sub_id, b.taste_name as sub_taste_name, b.taste_id as sub_taste_id, b.taste_detail as sub_taste_detail, b.is_basic_taste as sub_is_basic_taste, b.basic_taste_name as sub_basic_taste_name, b.basic_taste_improvement_ideas as sub_basic_taste_improvement_ideas, b.capacity as sub_capacity, b.vg as sub_vg, b.nic_type as sub_nic_type, b.nic_concentration as sub_nic_concentration, b.nic_unit as sub_nic_unit, b.perfumer as sub_perfumer, b.version as sub_version, b.create_by as sub_create_by, b.create_time as sub_create_time, b.update_by as sub_update_by, b.update_time as sub_update_time, b.remark as sub_remark
+               b.id as sub_id, b.taste_name as sub_taste_name, b.taste_id as sub_taste_id, b.taste_detail as sub_taste_detail, b.is_basic_taste as sub_is_basic_taste, b.basic_taste_name as sub_basic_taste_name, b.basic_taste_improvement_ideas as sub_basic_taste_improvement_ideas, b.capacity as sub_capacity, b.vg as sub_vg, b.nic_type as sub_nic_type, b.nic_concentration as sub_nic_concentration, b.nic_unit as sub_nic_unit, b.perfumer as sub_perfumer, b.version as sub_version,
+               b.taste_status as sub_taste_status, b.select_user_id as sub_select_user_id, b.select_taste_id as sub_select_taste_id, b.select_version as sub_select_version
+                , b.create_by as sub_create_by, b.create_time as sub_create_time, b.update_by as sub_update_by, b.update_time as sub_update_time, b.remark as sub_remark
         from hx_taste a
         left join hx_taste_detail b on b.taste_id = a.taste_id
         where a.taste_id = #{tasteId}
@@ -305,7 +313,9 @@
     <insert id="batchHxTasteDetail">
         insert into hx_taste_detail( id, taste_name, taste_id, taste_detail, is_basic_taste, basic_taste_name, basic_taste_improvement_ideas, capacity, vg, nic_type, nic_concentration, nic_unit, perfumer, version, create_by, create_time, update_by, update_time, remark) values
         <foreach item="item" index="index" collection="list" separator=",">
-            ( #{item.id}, #{item.tasteName}, #{item.tasteId}, #{item.tasteDetail}, #{item.isBasicTaste}, #{item.basicTasteName}, #{item.basicTasteImprovementIdeas}, #{item.capacity}, #{item.vg}, #{item.nicType}, #{item.nicConcentration}, #{item.nicUnit}, #{item.perfumer}, #{item.version}, #{item.createBy}, #{item.createTime}, #{item.updateBy}, #{item.updateTime}, #{item.remark})
+            ( #{item.id}, #{item.tasteName}, #{item.tasteId}, #{item.tasteDetail}, #{item.isBasicTaste}, #{item.basicTasteName}, #{item.basicTasteImprovementIdeas}, #{item.capacity}, #{item.vg}, #{item.nicType}, #{item.nicConcentration}, #{item.nicUnit}, #{item.perfumer},
+            #{item.version}, #{item.tasteStatus},#{item.selectUserId},#{item.selectTasteId},#{item.selectVersion},
+            #{item.createBy}, #{item.createTime}, #{item.updateBy}, #{item.updateTime}, #{item.remark})
         </foreach>
     </insert>
 </mapper>
