@@ -67,7 +67,7 @@ public class WxCommon extends BaseController {
      * 获取企业的jsapi_ticket
      * 每120秒执行一次更新操作
      */
-    @Scheduled(fixedDelay = 120000)
+    @Scheduled(fixedDelay = 121000)
     @CrossOrigin
     public void jsapiTicket() {
         // 查询出来企业token  数据缓存
@@ -90,9 +90,9 @@ public class WxCommon extends BaseController {
 
     /**
      * 获取应用的jsapi_ticket
-     * 每120秒执行一次更新操作
+     * 每121秒执行一次更新操作
      */
-    @Scheduled(fixedDelay = 120000)
+    @Scheduled(fixedDelay = 122000)
     public void jsapiAppTicket() {
         // 查询出来企业token  数据缓存
         String accessToken = configService.selectConfigByKey("wx.work.accessToken");

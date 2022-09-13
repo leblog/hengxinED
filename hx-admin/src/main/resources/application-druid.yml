@@ -31,12 +31,17 @@ spring:
 
             # 从库数据源  (物料表T_BD_SampleMaterial)
             slave:
-                # 从数据源开关/默认关闭
-                enabled: false
+                enabled: true
                 driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-                url: jdbc:sqlserver://10.10.7.33:1433;DatabaseName=Hamdoo.V2.1-HS;SelectMethod=cursor;rewriteBatchedStatements=true
-                username: ro
-                password: Hs@2022
+                url: jdbc:sqlserver://localhost:1433;DatabaseName=Hamdoo.V2.1-HS;SelectMethod=cursor;rewriteBatchedStatements=true
+                username: sa
+                password: 123456
+                # 从数据源开关/默认关闭
+                #enabled: true
+                #driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+                #url: jdbc:sqlserver://10.10.7.33:1433;DatabaseName=Hamdoo.V2.1-HS;SelectMethod=cursor;rewriteBatchedStatements=true
+                #username: ro
+                #password: Hs@2022
         #        postgres:
         #          driverClassName: org.postgresql.Driver
         #          url: jdbc:postgresql://localhost:5432/postgres?useUnicode=true&characterEncoding=utf8&useSSL=true&autoReconnect=true&reWriteBatchedInserts=true
@@ -62,7 +67,8 @@ spring:
             # 配置一个连接在池中最大生存的时间，单位是毫秒
             maxEvictableIdleTimeMillis: 900000
             # 配置检测连接是否有效
-            validationQuery: SELECT 1 FROM DUAL
+            # validationQuery: SELECT 1 FROM DUAL #MYSQL 可以使用
+            validationQuery: SELECT 1
             testWhileIdle: true
             testOnBorrow: false
             testOnReturn: false

@@ -480,6 +480,7 @@ export default {
       let obj = {}
       obj.tasteId = this.form.tasteId
       obj.state = '6'
+      obj.follower = this.form.follower
       this.$modal.confirm('确认分配跟进人吗?').then(function() {
 
       }).then(() => {

@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-    <div id="wx_qrcode" >企业微信</div>
+<!--    <div id="wx_qrcode" >企业微信</div>-->
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form">
       <h3 class="title">{{ $t('login.title') }}</h3>
       <lang-select class="set-language" />

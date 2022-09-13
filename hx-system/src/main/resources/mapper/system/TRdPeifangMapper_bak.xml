@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hx.system.mapper.TRdPeifangMapper">
+
+    <resultMap type="TRdPeifang" id="TRdPeifangResult">
+        <result property="id"    column="ID"    />
+        <result property="fid"    column="FID"    />
+        <result property="fbillno"    column="FBillNo"    />
+        <result property="fdate"    column="FDate"    />
+        <result property="frdcode"    column="FRDCode"    />
+        <result property="fstatus"    column="FStatus"    />
+        <result property="ftiaoxiangshi"    column="FTiaoxiangshi"    />
+        <result property="fpeifangleibie"    column="FPeifangleibie"    />
+        <result property="ftxsqdh"    column="FTxsqdh"    />
+        <result property="fvg"    column="FVG"    />
+        <result property="fpg"    column="FPG"    />
+        <result property="fnicleibie"    column="FNicLeibie"    />
+        <result property="fnicdanwei"    column="FNicDanwei"    />
+        <result property="fnicazhanbi"    column="FNicAZhanbi"    />
+        <result property="fnicbzhanbi"    column="FNicBZhanbi"    />
+        <result property="fnicnongdu"    column="FNicNongdu"    />
+        <result property="ftxsqdhmxfid"    column="FTxsqdhMxFID"    />
+        <result property="fyanfadaima"    column="FYanfadaima"    />
+        <result property="fkouweimingcheng"    column="FKouweimingcheng"    />
+        <result property="fbanben"    column="FBanben"    />
+        <result property="fkongzhishunxu"    column="FKongzhishunxu"    />
+        <result property="fshoukongbianma"    column="FShoukongbianma"    />
+        <result property="fshoukongshijian"    column="FShoukongshijian"    />
+        <result property="fkaishishijian"    column="FKaishishijian"    />
+        <result property="fjieshushijian"    column="FJieshushijian"    />
+        <result property="fguanlianpeifangfid"    column="FGuanlianPeifangFID"    />
+        <result property="fmaterialerpid"    column="FMaterialErpId"    />
+        <result property="fkouweidalei"    column="FKouweidalei"    />
+        <result property="fbomerpid"    column="FBOMErpId"    />
+        <result property="fisdeleted"    column="FIsDeleted"    />
+        <result property="flastmodifyby"    column="FLastModifyBy"    />
+        <result property="fcreatetime"    column="FCreateTime"    />
+        <result property="flastmodifytime"    column="FLastModifyTime"    />
+    </resultMap>
+
+    <sql id="selectTRdPeifangVo">
+        select ID, FID, FBillNo, FDate, FRDCode, FStatus, FTiaoxiangshi, FPeifangleibie, FTxsqdh, FVG, FPG, FNicLeibie, FNicDanwei, FNicAZhanbi, FNicBZhanbi, FNicNongdu, FTxsqdhMxFID, FYanfadaima, FKouweimingcheng, FBanben, FKongzhishunxu, FShoukongbianma, FShoukongshijian, FKaishishijian, FJieshushijian, FGuanlianPeifangFID, FMaterialErpId, FKouweidalei, FBOMErpId, FIsDeleted, FLastModifyBy, FCreateTime, FLastModifyTime from [T_R&amp;D_Peifang]
+    </sql>
+
+    <select id="selectTRdPeifangList" parameterType="TRdPeifang" resultMap="TRdPeifangResult">
+        SELECT * FROM [][T_R&amp;D_Peifang]
+
+    </select>
+    <select id="selectTRdPeifangListT" parameterType="TRdPeifang" resultMap="TRdPeifangResult">
+        <include refid="selectTRdPeifangVo"/>
+        <where>
+            <if test="id != null "> and ID = #{id}</if>
+            <if test="fid != null  and fid != ''"> and FID = #{fid}</if>
+            <if test="fbillno != null  and fbillno != ''"> and FBillNo = #{fbillno}</if>
+            <if test="fdate != null "> and FDate = #{fdate}</if>
+            <if test="frdcode != null  and frdcode != ''"> and FRDCode = #{frdcode}</if>
+            <if test="fstatus != null "> and FStatus = #{fstatus}</if>
+            <if test="ftiaoxiangshi != null  and ftiaoxiangshi != ''"> and FTiaoxiangshi = #{ftiaoxiangshi}</if>
+            <if test="fpeifangleibie != null  and fpeifangleibie != ''"> and FPeifangleibie = #{fpeifangleibie}</if>
+            <if test="ftxsqdh != null  and ftxsqdh != ''"> and FTxsqdh = #{ftxsqdh}</if>
+            <if test="fvg != null "> and FVG = #{fvg}</if>
+            <if test="fpg != null "> and FPG = #{fpg}</if>
+            <if test="fnicleibie != null  and fnicleibie != ''"> and FNicLeibie = #{fnicleibie}</if>
+            <if test="fnicdanwei != null  and fnicdanwei != ''"> and FNicDanwei = #{fnicdanwei}</if>
+            <if test="fnicazhanbi != null  and fnicazhanbi != ''"> and FNicAZhanbi = #{fnicazhanbi}</if>
+            <if test="fnicbzhanbi != null  and fnicbzhanbi != ''"> and FNicBZhanbi = #{fnicbzhanbi}</if>
+            <if test="fnicnongdu != null  and fnicnongdu != ''"> and FNicNongdu = #{fnicnongdu}</if>
+            <if test="ftxsqdhmxfid != null  and ftxsqdhmxfid != ''"> and FTxsqdhMxFID = #{ftxsqdhmxfid}</if>
+            <if test="fyanfadaima != null  and fyanfadaima != ''"> and FYanfadaima = #{fyanfadaima}</if>
+            <if test="fkouweimingcheng != null  and fkouweimingcheng != ''"> and FKouweimingcheng = #{fkouweimingcheng}</if>
+            <if test="fbanben != null  and fbanben != ''"> and FBanben = #{fbanben}</if>
+            <if test="fkongzhishunxu != null "> and FKongzhishunxu = #{fkongzhishunxu}</if>
+            <if test="fshoukongbianma != null  and fshoukongbianma != ''"> and FShoukongbianma = #{fshoukongbianma}</if>
+            <if test="fshoukongshijian != null "> and FShoukongshijian = #{fshoukongshijian}</if>
+            <if test="fkaishishijian != null "> and FKaishishijian = #{fkaishishijian}</if>
+            <if test="fjieshushijian != null "> and FJieshushijian = #{fjieshushijian}</if>
+            <if test="fguanlianpeifangfid != null  and fguanlianpeifangfid != ''"> and FGuanlianPeifangFID = #{fguanlianpeifangfid}</if>
+            <if test="fmaterialerpid != null  and fmaterialerpid != ''"> and FMaterialErpId = #{fmaterialerpid}</if>
+            <if test="fkouweidalei != null  and fkouweidalei != ''"> and FKouweidalei = #{fkouweidalei}</if>
+            <if test="fbomerpid != null  and fbomerpid != ''"> and FBOMErpId = #{fbomerpid}</if>
+            <if test="fisdeleted != null "> and FIsDeleted = #{fisdeleted}</if>
+            <if test="flastmodifyby != null  and flastmodifyby != ''"> and FLastModifyBy = #{flastmodifyby}</if>
+            <if test="fcreatetime != null "> and FCreateTime = #{fcreatetime}</if>
+            <if test="flastmodifytime != null "> and FLastModifyTime = #{flastmodifytime}</if>
+        </where>
+    </select>
+
+    <select id="selectTRdPeifangById" parameterType="Long" resultMap="TRdPeifangResult">
+        <include refid="selectTRdPeifangVo"/>
+        where ID = #{id}
+    </select>
+
+    <insert id="insertTRdPeifang" parameterType="TRdPeifang">
+        insert into [T_R&amp;D_Peifang]
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">ID,</if>
+            <if test="fid != null and fid != ''">FID,</if>
+            <if test="fbillno != null">FBillNo,</if>
+            <if test="fdate != null">FDate,</if>
+            <if test="frdcode != null">FRDCode,</if>
+            <if test="fstatus != null">FStatus,</if>
+            <if test="ftiaoxiangshi != null">FTiaoxiangshi,</if>
+            <if test="fpeifangleibie != null">FPeifangleibie,</if>
+            <if test="ftxsqdh != null">FTxsqdh,</if>
+            <if test="fvg != null">FVG,</if>
+            <if test="fpg != null">FPG,</if>
+            <if test="fnicleibie != null">FNicLeibie,</if>
+            <if test="fnicdanwei != null">FNicDanwei,</if>
+            <if test="fnicazhanbi != null">FNicAZhanbi,</if>
+            <if test="fnicbzhanbi != null">FNicBZhanbi,</if>
+            <if test="fnicnongdu != null">FNicNongdu,</if>
+            <if test="ftxsqdhmxfid != null">FTxsqdhMxFID,</if>
+            <if test="fyanfadaima != null">FYanfadaima,</if>
+            <if test="fkouweimingcheng != null">FKouweimingcheng,</if>
+            <if test="fbanben != null">FBanben,</if>
+            <if test="fkongzhishunxu != null">FKongzhishunxu,</if>
+            <if test="fshoukongbianma != null">FShoukongbianma,</if>
+            <if test="fshoukongshijian != null">FShoukongshijian,</if>
+            <if test="fkaishishijian != null">FKaishishijian,</if>
+            <if test="fjieshushijian != null">FJieshushijian,</if>
+            <if test="fguanlianpeifangfid != null">FGuanlianPeifangFID,</if>
+            <if test="fmaterialerpid != null">FMaterialErpId,</if>
+            <if test="fkouweidalei != null">FKouweidalei,</if>
+            <if test="fbomerpid != null">FBOMErpId,</if>
+            <if test="fisdeleted != null">FIsDeleted,</if>
+            <if test="flastmodifyby != null and flastmodifyby != ''">FLastModifyBy,</if>
+            <if test="fcreatetime != null">FCreateTime,</if>
+            <if test="flastmodifytime != null">FLastModifyTime,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="fid != null and fid != ''">#{fid},</if>
+            <if test="fbillno != null">#{fbillno},</if>
+            <if test="fdate != null">#{fdate},</if>
+            <if test="frdcode != null">#{frdcode},</if>
+            <if test="fstatus != null">#{fstatus},</if>
+            <if test="ftiaoxiangshi != null">#{ftiaoxiangshi},</if>
+            <if test="fpeifangleibie != null">#{fpeifangleibie},</if>
+            <if test="ftxsqdh != null">#{ftxsqdh},</if>
+            <if test="fvg != null">#{fvg},</if>
+            <if test="fpg != null">#{fpg},</if>
+            <if test="fnicleibie != null">#{fnicleibie},</if>
+            <if test="fnicdanwei != null">#{fnicdanwei},</if>
+            <if test="fnicazhanbi != null">#{fnicazhanbi},</if>
+            <if test="fnicbzhanbi != null">#{fnicbzhanbi},</if>
+            <if test="fnicnongdu != null">#{fnicnongdu},</if>
+            <if test="ftxsqdhmxfid != null">#{ftxsqdhmxfid},</if>
+            <if test="fyanfadaima != null">#{fyanfadaima},</if>
+            <if test="fkouweimingcheng != null">#{fkouweimingcheng},</if>
+            <if test="fbanben != null">#{fbanben},</if>
+            <if test="fkongzhishunxu != null">#{fkongzhishunxu},</if>
+            <if test="fshoukongbianma != null">#{fshoukongbianma},</if>
+            <if test="fshoukongshijian != null">#{fshoukongshijian},</if>
+            <if test="fkaishishijian != null">#{fkaishishijian},</if>
+            <if test="fjieshushijian != null">#{fjieshushijian},</if>
+            <if test="fguanlianpeifangfid != null">#{fguanlianpeifangfid},</if>
+            <if test="fmaterialerpid != null">#{fmaterialerpid},</if>
+            <if test="fkouweidalei != null">#{fkouweidalei},</if>
+            <if test="fbomerpid != null">#{fbomerpid},</if>
+            <if test="fisdeleted != null">#{fisdeleted},</if>
+            <if test="flastmodifyby != null and flastmodifyby != ''">#{flastmodifyby},</if>
+            <if test="fcreatetime != null">#{fcreatetime},</if>
+            <if test="flastmodifytime != null">#{flastmodifytime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTRdPeifang" parameterType="TRdPeifang">
+        update [T_R&amp;D_Peifang]
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="fid != null and fid != ''">FID = #{fid},</if>
+            <if test="fbillno != null">FBillNo = #{fbillno},</if>
+            <if test="fdate != null">FDate = #{fdate},</if>
+            <if test="frdcode != null">FRDCode = #{frdcode},</if>
+            <if test="fstatus != null">FStatus = #{fstatus},</if>
+            <if test="ftiaoxiangshi != null">FTiaoxiangshi = #{ftiaoxiangshi},</if>
+            <if test="fpeifangleibie != null">FPeifangleibie = #{fpeifangleibie},</if>
+            <if test="ftxsqdh != null">FTxsqdh = #{ftxsqdh},</if>
+            <if test="fvg != null">FVG = #{fvg},</if>
+            <if test="fpg != null">FPG = #{fpg},</if>
+            <if test="fnicleibie != null">FNicLeibie = #{fnicleibie},</if>
+            <if test="fnicdanwei != null">FNicDanwei = #{fnicdanwei},</if>
+            <if test="fnicazhanbi != null">FNicAZhanbi = #{fnicazhanbi},</if>
+            <if test="fnicbzhanbi != null">FNicBZhanbi = #{fnicbzhanbi},</if>
+            <if test="fnicnongdu != null">FNicNongdu = #{fnicnongdu},</if>
+            <if test="ftxsqdhmxfid != null">FTxsqdhMxFID = #{ftxsqdhmxfid},</if>
+            <if test="fyanfadaima != null">FYanfadaima = #{fyanfadaima},</if>
+            <if test="fkouweimingcheng != null">FKouweimingcheng = #{fkouweimingcheng},</if>
+            <if test="fbanben != null">FBanben = #{fbanben},</if>
+            <if test="fkongzhishunxu != null">FKongzhishunxu = #{fkongzhishunxu},</if>
+            <if test="fshoukongbianma != null">FShoukongbianma = #{fshoukongbianma},</if>
+            <if test="fshoukongshijian != null">FShoukongshijian = #{fshoukongshijian},</if>
+            <if test="fkaishishijian != null">FKaishishijian = #{fkaishishijian},</if>
+            <if test="fjieshushijian != null">FJieshushijian = #{fjieshushijian},</if>
+            <if test="fguanlianpeifangfid != null">FGuanlianPeifangFID = #{fguanlianpeifangfid},</if>
+            <if test="fmaterialerpid != null">FMaterialErpId = #{fmaterialerpid},</if>
+            <if test="fkouweidalei != null">FKouweidalei = #{fkouweidalei},</if>
+            <if test="fbomerpid != null">FBOMErpId = #{fbomerpid},</if>
+            <if test="fisdeleted != null">FIsDeleted = #{fisdeleted},</if>
+            <if test="flastmodifyby != null and flastmodifyby != ''">FLastModifyBy = #{flastmodifyby},</if>
+            <if test="fcreatetime != null">FCreateTime = #{fcreatetime},</if>
+            <if test="flastmodifytime != null">FLastModifyTime = #{flastmodifytime},</if>
+        </trim>
+        where ID = #{id}
+    </update>
+
+    <delete id="deleteTRdPeifangById" parameterType="Long">
+        delete from [T_R&amp;D_Peifang] where ID = #{id}
+    </delete>
+
+    <delete id="deleteTRdPeifangByIds" parameterType="String">
+        delete from [T_R&amp;D_Peifang] where ID in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

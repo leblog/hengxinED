@@ -311,9 +311,14 @@
     </delete>
 
     <insert id="batchHxTasteDetail">
-        insert into hx_taste_detail( id, taste_name, taste_id, taste_detail, is_basic_taste, basic_taste_name, basic_taste_improvement_ideas, capacity, vg, nic_type, nic_concentration, nic_unit, perfumer, version, create_by, create_time, update_by, update_time, remark) values
+        insert into hx_taste_detail( id, taste_name, taste_id, taste_detail, is_basic_taste, basic_taste_name,
+        basic_taste_improvement_ideas,
+        capacity, vg, nic_type, nic_concentration, nic_unit, perfumer, version, taste_status, select_user_id,
+        select_taste_id, select_version,  create_by, create_time, update_by, update_time, remark) values
         <foreach item="item" index="index" collection="list" separator=",">
-            ( #{item.id}, #{item.tasteName}, #{item.tasteId}, #{item.tasteDetail}, #{item.isBasicTaste}, #{item.basicTasteName}, #{item.basicTasteImprovementIdeas}, #{item.capacity}, #{item.vg}, #{item.nicType}, #{item.nicConcentration}, #{item.nicUnit}, #{item.perfumer},
+            ( #{item.id}, #{item.tasteName}, #{item.tasteId}, #{item.tasteDetail}, #{item.isBasicTaste}, #{item.basicTasteName},
+            #{item.basicTasteImprovementIdeas}, #{item.capacity}, #{item.vg}, #{item.nicType}, #{item.nicConcentration},
+            #{item.nicUnit}, #{item.perfumer},
             #{item.version}, #{item.tasteStatus},#{item.selectUserId},#{item.selectTasteId},#{item.selectVersion},
             #{item.createBy}, #{item.createTime}, #{item.updateBy}, #{item.updateTime}, #{item.remark})
         </foreach>

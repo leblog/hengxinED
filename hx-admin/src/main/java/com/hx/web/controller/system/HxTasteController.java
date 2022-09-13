@@ -314,6 +314,7 @@ public class HxTasteController extends BaseController
         //分配跟进人 (状态是已审核可分配跟进人)
         if(dataState.equals(TatseFolder.AUDIT.getCode())){
             hxTaste.setState(StrUtil.toString(TatseFolder.DISTRIBUTE.getCode()));
+            hxTaste.setFollower(h.getFollower());
             hxTasteService.updateHxTasteStart(hxTaste);
         }
         //开始跟进流程  流程等于 分配跟进人状态下允许操作
