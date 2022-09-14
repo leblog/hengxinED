@@ -1,6 +1,9 @@
 package com.hx.framework.manager.factory;
 
 import java.util.TimerTask;
+
+import cn.hutool.core.util.IdUtil;
+import com.hx.common.utils.uuid.IdUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.hx.common.constant.Constants;
@@ -18,7 +21,7 @@ import eu.bitwalker.useragentutils.UserAgent;
 
 /**
  * 异步工厂（产生任务用）
- * 
+ *
  * @author lusifer
  */
 public class AsyncFactory
@@ -27,7 +30,7 @@ public class AsyncFactory
 
     /**
      * 记录登录信息
-     * 
+     *
      * @param username 用户名
      * @param status 状态
      * @param message 消息
@@ -59,6 +62,7 @@ public class AsyncFactory
                 String browser = userAgent.getBrowser().getName();
                 // 封装对象
                 SysLogininfor logininfor = new SysLogininfor();
+                //logininfor.setInfoId(IdUtil.getSnowflakeNextId());
                 logininfor.setUserName(username);
                 logininfor.setIpaddr(ip);
                 logininfor.setLoginLocation(address);
@@ -82,7 +86,7 @@ public class AsyncFactory
 
     /**
      * 操作日志记录
-     * 
+     *
      * @param operLog 操作日志信息
      * @return 任务task
      */

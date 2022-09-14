@@ -83,7 +83,7 @@
                is_supply, is_try, visit_time, is_smoking, smoking_type, heating_wire_type, heating_wire_resistance, capacity,
                oil_guide_cotton_type, is_recycling_smoking, oil_ring_material, vg, viscosity,sweetness,coolness, expected_completion_time,
                sample_request_time, estimated_finish_time, match_market, samples_num, mailing_information, create_by, create_time,
-               update_by, update_time, state, deleted ,remark ,follower from `hx_taste`
+               update_by, update_time, state, deleted ,remark ,follower from hx_taste
 
     </sql>
         <!--where deleted = '0'-->
