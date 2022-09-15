@@ -169,7 +169,7 @@
 		<if test="genPath != null and genPath != ''">#{genPath},</if>
 		<if test="remark != null and remark != ''">#{remark},</if>
 		<if test="createBy != null and createBy != ''">#{createBy},</if>
-		getdate()
+		SYSDATETIME()
 		)
 	</insert>
 
@@ -192,7 +192,7 @@
 			<if test="options != null and options != ''">options = #{options},</if>
 			<if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
 			<if test="remark != null">remark = #{remark},</if>
-			update_time = getdate()
+			update_time = SYSDATETIME()
 		</set>
 		where table_id = #{tableId}
 	</update>

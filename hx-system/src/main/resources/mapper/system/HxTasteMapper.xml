@@ -146,7 +146,8 @@
                b.taste_status as sub_taste_status, b.select_user_id as sub_select_user_id, b.select_taste_id as sub_select_taste_id, b.select_version as sub_select_version
                 , b.create_by as sub_create_by, b.create_time as sub_create_time, b.update_by as sub_update_by, b.update_time as sub_update_time, b.remark as sub_remark
         from hx_taste a
-        left join hx_taste_detail b on b.taste_id = a.taste_id
+        left join hx_taste_detail b
+        on b.taste_id = a.taste_id
         where a.taste_id = #{tasteId}
         and a.deleted = '0'
     </select>
@@ -311,16 +312,19 @@
     </delete>
 
     <insert id="batchHxTasteDetail">
-        insert into hx_taste_detail( id, taste_name, taste_id, taste_detail, is_basic_taste, basic_taste_name,
+        <!--允许将显式值插入表的标识列中 ON-允许  OFF-不允许-->
+<!--        set identity_insert hx_taste_detail ON;-->
+        insert into hx_taste_detail(  taste_name, taste_id, taste_detail, is_basic_taste, basic_taste_name,
         basic_taste_improvement_ideas,
         capacity, vg, nic_type, nic_concentration, nic_unit, perfumer, version, taste_status, select_user_id,
         select_taste_id, select_version,  create_by, create_time, update_by, update_time, remark) values
         <foreach item="item" index="index" collection="list" separator=",">
-            ( #{item.id}, #{item.tasteName}, #{item.tasteId}, #{item.tasteDetail}, #{item.isBasicTaste}, #{item.basicTasteName},
+            (  #{item.tasteName}, #{item.tasteId}, #{item.tasteDetail}, #{item.isBasicTaste}, #{item.basicTasteName},
             #{item.basicTasteImprovementIdeas}, #{item.capacity}, #{item.vg}, #{item.nicType}, #{item.nicConcentration},
             #{item.nicUnit}, #{item.perfumer},
             #{item.version}, #{item.tasteStatus},#{item.selectUserId},#{item.selectTasteId},#{item.selectVersion},
-            #{item.createBy}, #{item.createTime}, #{item.updateBy}, #{item.updateTime}, #{item.remark})
+            #{item.createBy}, #{item.createTime,jdbcType=TIMESTAMP}, #{item.updateBy}, #{item.updateTime,jdbcType=TIMESTAMP}, #{item.remark})
         </foreach>
+<!--        set identity_insert hx_taste_detail OFF;-->
     </insert>
 </mapper>

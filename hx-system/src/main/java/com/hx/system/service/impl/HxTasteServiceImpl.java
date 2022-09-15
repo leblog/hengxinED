@@ -46,7 +46,7 @@ public class HxTasteServiceImpl implements IHxTasteService
     {
         HxTaste hxTaste = hxTasteMapper.selectHxTasteByTasteId(tasteId);
         //log.info("口味单数据:{}",hxTaste);
-        if(StrUtil.isEmpty(hxTaste.getSpNo())){
+        if(StrUtil.isBlank(hxTaste.getSpNo())){
             //判断sp_NO是否重复
             String id = SeqRD.getId();
             /*

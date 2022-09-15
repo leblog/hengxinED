@@ -328,6 +328,7 @@
         <div class="tableDiv" v-if="isEdit ==='A'"><!--详情-->
           <vxe-table
             ref="xTable"
+            height="400"
             border
             resizable
             show-overflow
@@ -351,45 +352,45 @@
               </template>
             </vxe-column>
             <vxe-column field="isBasicTaste" title="有基础口味" :show-header-overflow="true"
-                        :title-help="{message: '该明细是选项,批量赋值请使用双击单元格操作!'}" width="120">
+                        :title-help="{message: '该明细是选项,批量赋值请使用双击单元格操作!'}" width="60">
               <template #edit="scope">
                 <vxe-select v-model="scope.row.isBasicTaste" transfer>
                   <vxe-option v-for="item in sexList" :key="item.value" :value="item.value" :label="item.label"/>
                 </vxe-select>
               </template>
             </vxe-column>
-            <vxe-column field="basicTasteName"  title="基础口味名称/编号" width="150">
+            <vxe-column field="basicTasteName"  title="基础口味名称/编号" width="70">
               <template #edit="scope">
                 <vxe-input v-model="scope.row.basicTasteName" type="text" placeholder="请输入"/>
               </template>
             </vxe-column>
-            <vxe-column field="basicTasteImprovementIdeas" title="基础口味改善建议" width="150">
+            <vxe-column field="basicTasteImprovementIdeas" title="基础口味改善建议" width="120">
               <template #edit="scope">
                 <vxe-input v-model="scope.row.basicTasteImprovementIdeas" type="text" placeholder="请输入"/>
               </template>
             </vxe-column>
-            <vxe-column field="capacity"  title="容量" width="80">
+            <vxe-column field="capacity"  title="容量" width="50">
               <template #edit="scope">
                 <vxe-input v-model="scope.row.capacity" type="text" placeholder="请输入"/>
               </template>
             </vxe-column>
-            <vxe-column field="vg"   title="VG" width="80">
+            <vxe-column field="vg"   title="VG" width="40">
               <template #edit="scope">
                 <vxe-input v-model="scope.row.vg" type="text" placeholder="请输入"/>
               </template>
             </vxe-column>
-            <vxe-column field="nicType"   title="NIC类别" width="100">
+            <vxe-column field="nicType"   title="NIC类别" width="80">
               <template #edit="scope">
                 <vxe-input v-model="scope.row.nicType" type="text" placeholder="请输入"/>
               </template>
             </vxe-column>
-            <vxe-column field="nicConcentration" title="NIC浓度"  width="100">
+            <vxe-column field="nicConcentration" title="NIC浓度"  width="80">
               <template #edit="scope">
                 <vxe-input v-model="scope.row.nicConcentration" type="text" placeholder="请输入"/>
               </template>
             </vxe-column>
             <vxe-column field="nicUnit" title="NIC单位"
-                        :title-help="{message: '该明细是选项,批量赋值请使用双击单元格操作!'}" width="110">
+                        :title-help="{message: '该明细是选项,批量赋值请使用双击单元格操作!'}" width="60">
               <template #edit="scope">
                 <vxe-select v-model="scope.row.nicUnit" transfer>
                   <vxe-option v-for="item in nicUnitList" :key="item.value" :value="item.value" :label="item.label"/>
@@ -397,14 +398,14 @@
               </template>
             </vxe-column>
 
-            <vxe-column field="selectUserId" :edit-render="{}" title="分配调香师">
+            <vxe-column field="selectUserId" :edit-render="{}" title="分配调香师" width="100">
               <template #edit="scope">
                 <vxe-select v-model="scope.row.selectUserId" transfer>
                   <vxe-option v-for="item in selectUserId" :key="item.value" :value="item.value" :label="item.label"/>
                 </vxe-select>
               </template>
             </vxe-column>
-            <vxe-column field="tasteStatus" :edit-render="{}" title="口味状态">
+            <vxe-column field="tasteStatus" :edit-render="{}" title="口味状态" width="100">
               <template #edit="scope">
                 <vxe-input v-model="scope.row.tasteStatus" type="text" placeholder="请输入"/>
               </template>
@@ -417,18 +418,18 @@
                 <vxe-input v-model="scope.row.version" type="text" placeholder="请输入"/>
               </template>
             </vxe-column>-->
-            <vxe-column title="操作">
+            <vxe-column title="操作"  fixed="right" width="200">
               <template #default="{ row }">
                 <vxe-button status="danger" size="mini"  content="取消" @click="cancelDan(row)"></vxe-button>
                 <vxe-button status="danger" size="mini"  content="保存调香师" @click="saveSelectUserId(row)"></vxe-button>
               </template>
             </vxe-column>
-            <template #empty>
+<!--            <template #empty>
               <span style="color: red;">
-                <!-- <img src="https://pic2.zhimg.com/50/v2-f7031359103859e1ed38559715ef5f3f_hd.gif">-->
+                &lt;!&ndash; <img src="https://pic2.zhimg.com/50/v2-f7031359103859e1ed38559715ef5f3f_hd.gif">&ndash;&gt;
                 <p>没有更多数据了,请添加数据！</p>
               </span>
-            </template>
+            </template>-->
           </vxe-table>
         </div>
 
@@ -1567,11 +1568,14 @@ export default {
     // 保存调香师
     saveSelectUserId(row){
       console.log("数据明细:",JSON.stringify(row))
-      if(row.selectUserId !== null){
-        this.$modal.msgError('已经选择了调香师,不可更换,若更换请联系研发请退回')
-      }else{
-      this.submitForm()
-      }
+      getTaste(row.tasteId).then(res=>{
+        if(res.data.selectUserId != null){
+          this.$modal.msgError('已经选择了调香师,不可更换,若更换请联系研发请退回')
+        }else{
+          this.submitForm()
+        }
+      })
+
       //this.$modal.msg("保存调香师todo")  Number() >= 6
 
       /*if(this.form.start!=null){

@@ -135,7 +135,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<select id="checkUserNameUnique" parameterType="String" resultType="int">
-		select count(1) from sys_user where user_name = #{userName} limit 1
+		select  count(1) from sys_user where user_name = #{userName}
+<!--		select count(1) from sys_user where user_name = #{userName} limit 1-->
 	</select>
 
 	<select id="checkPhoneUnique" parameterType="String" resultMap="SysUserResult">
@@ -180,7 +181,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  			<if test="status != null and status != ''">#{status},</if>
  			<if test="createBy != null and createBy != ''">#{createBy},</if>
  			<if test="remark != null and remark != ''">#{remark},</if>
- 			getdate()
+ 			SYSDATETIME()
  		)
 	</insert>
 
@@ -200,7 +201,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  			<if test="loginDate != null">login_date = #{loginDate},</if>
  			<if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
  			<if test="remark != null">remark = #{remark},</if>
- 			update_time = getdate()
+ 			update_time = SYSDATETIME()
  		</set>
  		where user_id = #{userId}
 	</update>

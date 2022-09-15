@@ -69,7 +69,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="hasChildByDeptId" parameterType="Long" resultType="int">
 		select count(1) from sys_dept
-		where del_flag = '0' and parent_id = #{deptId} limit 1
+		where del_flag = '0' and parent_id = #{deptId}
+<!--		where del_flag = '0' and parent_id = #{deptId} limit 1-->
 	</select>
 
 	<select id="selectChildrenDeptById" parameterType="Long" resultMap="SysDeptResult">
@@ -82,7 +83,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="checkDeptNameUnique" resultMap="SysDeptResult">
 	    <include refid="selectDeptVo"/>
-		where dept_name=#{deptName} and parent_id = #{parentId} limit 1
+		where dept_name=#{deptName} and parent_id = #{parentId}
+<!--		where dept_name=#{deptName} and parent_id = #{parentId} limit 1-->
 	</select>
 
     <insert id="insertDept" parameterType="SysDept">
@@ -109,7 +111,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  			<if test="email != null and email != ''">#{email},</if>
  			<if test="status != null">#{status},</if>
  			<if test="createBy != null and createBy != ''">#{createBy},</if>
- 			getdate()
+ 			SYSDATETIME()
  		)
 	</insert>
 
@@ -125,7 +127,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  			<if test="email != null">email = #{email},</if>
  			<if test="status != null and status != ''">status = #{status},</if>
  			<if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
- 			update_time = getdate()
+ 			update_time = SYSDATETIME()
  		</set>
  		where dept_id = #{deptId}
 	</update>
