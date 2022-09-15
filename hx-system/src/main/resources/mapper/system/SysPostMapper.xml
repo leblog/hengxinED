@@ -64,7 +64,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="checkPostNameUnique" parameterType="String" resultMap="SysPostResult">
 		<include refid="selectPostVo"/>
-		 where post_name=#{postName} TOP 1
+		 where post_name=#{postName}
 	</select>
 
 	<select id="checkPostCodeUnique" parameterType="String" resultMap="SysPostResult">

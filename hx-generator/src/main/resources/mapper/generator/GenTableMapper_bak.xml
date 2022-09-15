@@ -75,18 +75,18 @@
 		</where>
 	</select>
 	<!--SQLserver版本-->
-	<!--	<select id="selectDbTableList" parameterType="GenTable" resultMap="GenTableResult">
-            select cast(name as nvarchar) as table_name from sysObjects
-            where xtype='U'
-            and name <![CDATA[ <>]]> 'dtproperties'
-            AND name NOT LIKE 'qrtz_%'
-            AND name NOT LIKE 'gen_%'
-    &lt;!&ndash;		AND name NOT IN (select table_name from gen_table)&ndash;&gt;
-            <if test="tableName != null and tableName != ''">
-                AND lower(CAST(name AS VARCHAR)) like lower(concat('%', #{tableName}, '%'))
-            </if>
-            order by name desc
-        </select>-->
+<!--	<select id="selectDbTableList" parameterType="GenTable" resultMap="GenTableResult">
+		select cast(name as nvarchar) as table_name from sysObjects
+		where xtype='U'
+		and name <![CDATA[ <>]]> 'dtproperties'
+		AND name NOT LIKE 'qrtz_%'
+		AND name NOT LIKE 'gen_%'
+&lt;!&ndash;		AND name NOT IN (select table_name from gen_table)&ndash;&gt;
+		<if test="tableName != null and tableName != ''">
+			AND lower(CAST(name AS VARCHAR)) like lower(concat('%', #{tableName}, '%'))
+		</if>
+		order by name desc
+	</select>-->
 
 	<!--<select id="selectDbTableList" parameterType="GenTable" resultMap="GenTableResult">
 		SELECT cast(D.NAME as nvarchar) as table_name,cast(F.VALUE as nvarchar) as table_comment,
@@ -112,24 +112,22 @@
 
 	<select id="selectDbTableList" parameterType="GenTable" resultMap="GenTableResult">
 		SELECT cast(D.NAME as nvarchar) as table_name,cast(F.VALUE as nvarchar) as table_comment,
-		crdate as create_time,refdate as update_time FROM SYSOBJECTS   D
-		inner JOIN SYS.EXTENDED_PROPERTIES F ON D.ID=F.MAJOR_ID
-		AND F.MINOR_ID=0 AND D.XTYPE='U' AND D.NAME!='DTPROPERTIES'
-		AND D.NAME NOT LIKE 'qrtz_%' AND D.NAME NOT LIKE 'gen_%'
+		crdate as create_time,refdate as update_time FROM    SYSOBJECTS   D
+		inner   JOIN   SYS.EXTENDED_PROPERTIES F   ON   D.ID=F.MAJOR_ID
+		AND   F.MINOR_ID=0 AND   D.XTYPE='U' AND  D.NAME!='DTPROPERTIES'
 		AND D.NAME NOT IN (select table_name from gen_table)
 		<if test="tableName != null and tableName != ''">
-			AND lower(CAST(D.NAME AS VARCHAR)) like lower(concat('%', #{tableName}, '%'))
+			AND lower(table_name) like lower(('%' + #{tableName} + '%'))
 		</if>
 		<if test="tableComment != null and tableComment != ''">
-			AND lower(CAST(F.value AS VARCHAR)) like lower(concat('%', #{tableComment}, '%'))
+			AND lower(table_comment) like lower(('%' + #{tableComment} + '%'))
 		</if>
-		<if test="params.beginTime != null and params.beginTime != ''"><!-- 开始时间检索 -->
-			AND CONVERT(varchar(100), create_time, 112) &gt;= CONVERT(varchar(100), #{params.beginTime}, 112)
+		<if test="beginTime != null and beginTime != ''"><!-- 开始时间检索 -->
+			and datediff(dd,#{beginTime},create_time)&gt;= 0
 		</if>
-		<if test="params.endTime != null and params.endTime != ''"><!-- 结束时间检索 -->
-			AND CONVERT(varchar(100), create_time, 112) &lt;= CONVERT(varchar(100), #{params.endTime}, 112)
+		<if test="endTime != null and endTime != ''"><!-- 结束时间检索 -->
+			and datediff(dd,create_time,#{endTime})&lt;= 0
 		</if>
-		order by create_time desc
 	</select>
 
 	<select id="selectDbTableListByNames" resultMap="GenTableResult">

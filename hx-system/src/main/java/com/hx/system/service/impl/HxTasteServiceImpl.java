@@ -42,6 +42,7 @@ public class HxTasteServiceImpl implements IHxTasteService
      * @return 口味申请单
      */
     @Override
+    @DataScope(deptAlias = "d", userAlias = "u")
     public HxTaste selectHxTasteByTasteId(String tasteId)
     {
         HxTaste hxTaste = hxTasteMapper.selectHxTasteByTasteId(tasteId);
@@ -74,11 +75,13 @@ public class HxTasteServiceImpl implements IHxTasteService
      * @return 口味申请单
      */
     @Override
+    @DataScope(deptAlias = "d", userAlias = "u")
     public List<HxTaste> selectHxTasteList(HxTaste hxTaste)
     {
         return hxTasteMapper.selectHxTasteList(hxTaste);
     }
     @Override
+    @DataScope(deptAlias = "d", userAlias = "u")
     public List<HxTaste> selectHxTasteListDetail(HxTaste hxTaste)
     {
         return hxTasteMapper.selectHxTasteListDetail(hxTaste);

@@ -24,6 +24,7 @@
             highlight-current
             @node-click="handleNodeClick"
           />
+<!--          @node-click="handleNodeClick"-->
         </div>
       </el-col>
       <!--用户数据-->
@@ -471,6 +472,7 @@ export default {
     /** 查询用户列表 */
     getList() {
       this.loading = true;
+      console.log()
       listUser(this.addDateRange(this.queryParams, this.dateRange)).then(response => {
           this.userList = response.rows;
           this.total = response.total;

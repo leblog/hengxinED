@@ -124,7 +124,8 @@
             <if test="samplesNum != null "> and samples_num = #{samplesNum}</if>
             <if test="mailingInformation != null  and mailingInformation != ''"> and mailing_information = #{mailingInformation}</if>
         </where>
-
+        <!-- 数据范围过滤 -->
+        ${params.dataScope}
     </select>
 
 
@@ -137,7 +138,8 @@
         from hx_taste a
         left join hx_taste_detail b on b.taste_id = a.taste_id
         where a.deleted = '0'
-
+        <!-- 数据范围过滤 -->
+        ${params.dataScope}
     </select>
 
     <select id="selectHxTasteByTasteId" parameterType="String" resultMap="HxTasteHxTasteDetailResult">
@@ -150,6 +152,8 @@
         on b.taste_id = a.taste_id
         where a.taste_id = #{tasteId}
         and a.deleted = '0'
+        <!-- 数据范围过滤 -->
+        ${params.dataScope}
     </select>
 
     <insert id="insertHxTaste" parameterType="HxTaste">
