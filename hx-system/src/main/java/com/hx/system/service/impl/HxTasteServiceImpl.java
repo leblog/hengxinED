@@ -81,7 +81,6 @@ public class HxTasteServiceImpl implements IHxTasteService
         return hxTasteMapper.selectHxTasteList(hxTaste);
     }
     @Override
-    @DataScope(deptAlias = "d", userAlias = "u")
     public List<HxTaste> selectHxTasteListDetail(HxTaste hxTaste)
     {
         return hxTasteMapper.selectHxTasteListDetail(hxTaste);
@@ -181,7 +180,7 @@ public class HxTasteServiceImpl implements IHxTasteService
      * @return 结果
      */
     @Transactional
-    //@Override
+    @Override
     public int deleteHxTasteByTasteIds(String[] tasteIds)
     {
         hxTasteMapper.deleteHxTasteDetailByTasteIds(tasteIds);
@@ -195,7 +194,7 @@ public class HxTasteServiceImpl implements IHxTasteService
      * @return 结果
      */
     @Transactional
-    //@Override
+    @Override
     public int deleteHxTasteByTasteId(String tasteId)
     {
         hxTasteMapper.deleteHxTasteDetailByTasteId(tasteId);

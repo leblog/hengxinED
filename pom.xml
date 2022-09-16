@@ -185,6 +185,12 @@
                 <artifactId>hx-common</artifactId>
                 <version>${hx.version}</version>
             </dependency>
+            <!-- 测试工具-->
+            <dependency>
+                <groupId>com.hx</groupId>
+                <artifactId>hx-test</artifactId>
+                <version>${hx.version}</version>
+            </dependency>
 
 
 
@@ -198,6 +204,7 @@
         <module>hx-quartz</module>
         <module>hx-generator</module>
         <module>hx-common</module>
+        <module>hx-test</module>
     </modules>
     <packaging>pom</packaging>
 
