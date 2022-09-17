@@ -17,6 +17,7 @@ import com.hx.system.domain.vo.WxTxtMsgReqVo;
 import com.hx.system.domain.vo.WxTxtMsgResVo;
 import com.hx.system.service.ISysConfigService;
 import com.hx.system.service.ISysUserService;
+import com.hx.web.controller.wx.v1.WxCommon;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -119,7 +120,18 @@ public class WxAuth extends BaseController {
         log.info("用户code换取信息:{}", s);
         log.info("用户code换取信息:{}", DeviceId);
         if (!JSONUtil.parseObj(s).getStr("errcode").equals("0")) {
-            throw new ServiceException("绑定微信ID失败,请退出系统重试");
+            String URLALL = "https://qyapi.weixin.qq.com/cgi-bin/gettoken" +
+                    "?corpid=ww0530511650e0c6c8" +
+                    "&corpsecret=oo3yxMeLKEFZrbwe91ERqYCcP8Ak_Q0Oo8Pl8ipxnxA";
+            String result = HttpUtil.get(URLALL);
+            JSONObject obj = JSONUtil.parseObj(result);
+            String token = obj.getStr("access_token");
+            // 存入/更新token
+            SysConfig config = new SysConfig();
+            config.setConfigId(6L);
+            config.setConfigValue(token);
+            configService.updateConfig(config);
+            //throw new ServiceException("绑定微信ID失败,请退出系统重试");
         }
         //绑定到本机中账户
         SysUser user = new SysUser();
@@ -271,7 +283,18 @@ public class WxAuth extends BaseController {
         String jsapiTicket = JSONUtil.parseObj(res).getStr("ticket");
         log.info("应用票据请求结果{}", res);
         if (!"0" .equals(JSONUtil.parseObj(res).getStr("errcode"))) {
-            throw new ServiceException("获取微信获取应用的jsapi_ticket异常");
+            String URLALL = "https://qyapi.weixin.qq.com/cgi-bin/gettoken" +
+                    "?corpid=ww0530511650e0c6c8" +
+                    "&corpsecret=oo3yxMeLKEFZrbwe91ERqYCcP8Ak_Q0Oo8Pl8ipxnxA";
+            String result = HttpUtil.get(URLALL);
+            JSONObject obj = JSONUtil.parseObj(result);
+            String token = obj.getStr("access_token");
+            // 存入/更新token
+            SysConfig config = new SysConfig();
+            config.setConfigId(6L);
+            config.setConfigValue(token);
+            configService.updateConfig(config);
+            //throw new ServiceException("获取微信获取应用的jsapi_ticket异常");
         }
         //更新票据
         SysConfig config = new SysConfig();

@@ -1,7 +1,10 @@
 package com.hx.test.mapper;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.hx.test.domain.Peifang;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.poi.ss.formula.functions.T;
 
 /**
 * @author RD02
@@ -10,6 +13,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 * @Entity com.hx.test.domain.Peifang
 */
 public interface PeifangMapper extends BaseMapper<Peifang> {
+    IPage<T> page(IPage<T> page, Wrapper<T> queryWrapper);
+
 
 }
 
