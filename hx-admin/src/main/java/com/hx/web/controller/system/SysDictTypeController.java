@@ -25,7 +25,7 @@ import com.hx.system.service.ISysDictTypeService;
 
 /**
  * 数据字典信息
- * 
+ *
  * @author lusifer
  */
 @RestController

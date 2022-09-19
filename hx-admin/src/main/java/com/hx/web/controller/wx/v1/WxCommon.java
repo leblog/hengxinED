@@ -34,7 +34,7 @@ public class WxCommon extends BaseController {
      * @return
      */
 
-    @Scheduled(fixedDelay = 120000)
+    @Scheduled(fixedDelay = 3400000)
     public void getToken(){
         // 优化存在系统配置中,不判断失效,每一小时拉取更新一次,存入数据库中
         // 自带审批应用 lAi8lBjZtLq2h687uoOzy1MaRXPVM1NNi7MGNapOD-w lAi8lBjZtLq2h687uoOzy1MaRXPVM1NNi7MGNapOD-w
@@ -67,7 +67,7 @@ public class WxCommon extends BaseController {
      * 获取企业的jsapi_ticket
      * 每120秒执行一次更新操作
      */
-    @Scheduled(fixedDelay = 121000)
+    @Scheduled(fixedDelay = 3401000)
     @CrossOrigin
     public void jsapiTicket() {
         // 查询出来企业token  数据缓存
@@ -92,7 +92,7 @@ public class WxCommon extends BaseController {
      * 获取应用的jsapi_ticket
      * 每121秒执行一次更新操作
      */
-    @Scheduled(fixedDelay = 122000)
+    @Scheduled(fixedDelay = 3402000)
     public void jsapiAppTicket() {
         // 查询出来企业token  数据缓存
         String accessToken = configService.selectConfigByKey("wx.work.accessToken");

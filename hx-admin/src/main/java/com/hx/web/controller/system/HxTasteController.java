@@ -14,12 +14,10 @@ import com.hx.common.annotation.RepeatSubmit;
 import com.hx.common.core.domain.entity.SysUser;
 import com.hx.common.exception.ServiceException;
 import com.hx.common.utils.DateUtils;
-import com.hx.common.utils.StringUtils;
 import com.hx.system.domain.HxTaste;
 import com.hx.system.domain.SysConfig;
 import com.hx.system.domain.SysOperLog;
 import com.hx.system.domain.enums.TatseFolder;
-import com.hx.system.domain.vo.LogVO;
 import com.hx.system.domain.vo.OwnerVO;
 import com.hx.system.mapper.HxTasteMapper;
 import com.hx.system.service.IHxTasteService;
@@ -43,8 +41,6 @@ import com.hx.common.core.domain.AjaxResult;
 import com.hx.common.enums.BusinessType;
 import com.hx.common.utils.poi.ExcelUtil;
 import com.hx.common.core.page.TableDataInfo;
-
-import static com.hx.common.utils.SecurityUtils.getUsername;
 
 /**
  * 口味申请单Controller
