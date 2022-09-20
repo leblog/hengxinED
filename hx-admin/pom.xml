@@ -72,12 +72,17 @@
             <artifactId>hx-generator</artifactId>
         </dependency>
 
+
         <!-- 测试模块-->
+       <!-- <dependency>
+            <groupId>com.hx</groupId>
+            <artifactId>hx-demo</artifactId>
+        </dependency>-->
+        <!-- 研发调香模块-->
         <dependency>
             <groupId>com.hx</groupId>
-            <artifactId>hx-test</artifactId>
+            <artifactId>hx-rd</artifactId>
         </dependency>
-
 
         <dependency>
             <groupId>org.projectlombok</groupId>

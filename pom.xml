@@ -186,9 +186,15 @@
                 <version>${hx.version}</version>
             </dependency>
             <!-- 测试工具-->
+            <!--<dependency>
+                <groupId>com.hx</groupId>
+                <artifactId>hx-demo</artifactId>
+                <version>${hx.version}</version>
+            </dependency>-->
+            <!-- 研发调香派单-->
             <dependency>
                 <groupId>com.hx</groupId>
-                <artifactId>hx-test</artifactId>
+                <artifactId>hx-rd</artifactId>
                 <version>${hx.version}</version>
             </dependency>
 
@@ -204,7 +210,8 @@
         <module>hx-quartz</module>
         <module>hx-generator</module>
         <module>hx-common</module>
-        <module>hx-test</module>
+        <!--<module>hx-demo</module>-->
+        <module>hx-rd</module>
     </modules>
     <packaging>pom</packaging>
 

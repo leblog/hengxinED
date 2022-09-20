@@ -34,23 +34,31 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- mybatis-plus 增强CRUD -->
+        <!-- mybatis-plus 增强CRUD 3.5.0 移除了apicontroller -->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>3.5.1</version>
+            <version>3.5.2</version>
         </dependency>
         <!-- mybatis-plus 代码生成 -->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-generator</artifactId>
-            <version>3.5.3</version>
+            <version>3.5.2</version>
         </dependency>
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-extension</artifactId>
             <version>3.5.2</version>
         </dependency>
+        <!--模板引擎，规定必须设置-->
+        <dependency>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity-engine-core</artifactId>
+            <version>2.3</version>
+        </dependency>
+
+
         <!-- 自动化测试 -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
