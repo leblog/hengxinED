@@ -161,7 +161,7 @@
 </template>
 
 <script>
-import {getTaste} from "@/api/system/taste";
+import {getTaste} from "@/api/system/tasteSQLServer";
 import stateList from '@/utils/stateList'
 import spStatus from '@/utils/wx/sp_status'
 import spStatusChild from '@/utils/wx/sp_status_child'
@@ -184,9 +184,10 @@ export default {
     }else{
       //校验长度
       if(this.$route.query.detail.length>=19){
+        console.log("数据来了:{}" + JSON.stringify(this.$route.query.detail))
         getTaste(this.$route.query.detail).then(res => {
           this.form = res.data
-          //console.log("数据来了:{}" + JSON.stringify(this.form))
+
         });
         if(this.$route.query.print === "true"){
           setTimeout(() => {

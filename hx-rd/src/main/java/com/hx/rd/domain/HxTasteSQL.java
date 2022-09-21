@@ -4,29 +4,47 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.hx.common.annotation.Excel;
+import com.hx.common.core.domain.BaseEntity;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.NotNull;
-import java.io.Serializable;
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
+import java.util.List;
 
 /**
+ * 口味申请单对象 hx_taste
  *
- * @TableName T_SAL_Txsqd
+ * @author lusifer
+ * @date 2022-05-25
  */
-@TableName(value ="T_SAL_Txsqd")
-@Data
-public class TSalTxsqd implements Serializable {
+@Getter
+@Setter
+@ToString
+public class HxTasteSQL extends BaseEntity
+{
+    private static final long serialVersionUID = 1L;
 
-   @TableId(type = IdType.AUTO)
-   private Long id;
+    /**
+     *
+     */
+    @TableId(type = IdType.AUTO)
+    private Long id;
 
-    @NotNull(message = "唯一ID不能为空")
+    /**
+     *
+     */
+    @NotBlank(message = "FID不能为空")
     private String fid;
 
-
-    @NotNull(message = "企业微信审批ID不能为空")
+    /**
+     *
+     */
+    @NotBlank(message = "fbillno不能为空")
     private String fbillno;
 
     /**
@@ -34,7 +52,10 @@ public class TSalTxsqd implements Serializable {
      */
     private Integer fstatus;
 
-    @NotNull(message = "申请人不能为空")
+    /**
+     *
+     */
+    @NotBlank(message = "申请人不能为空")
     private String fshenqingren;
 
     /**
@@ -183,7 +204,7 @@ public class TSalTxsqd implements Serializable {
     private String fyanyoucangrongliang;
 
     /**
-     *
+     * 导油棉类型
      */
     private String fdaoyoumianzhonglei;
 
@@ -193,7 +214,7 @@ public class TSalTxsqd implements Serializable {
     private String fnigudinghanliang;
 
     /**
-     *
+     * 油环材质类型
      */
     private String fyoubeicaizhi;
 
@@ -250,15 +271,17 @@ public class TSalTxsqd implements Serializable {
     /**
      *
      */
-    @NotNull(message = "最后更新人不能为空")
+    @NotBlank(message = "最后更新人 flastmodifyby 不能为空")
     private String flastmodifyby;
 
     /**
      *
      */
-    @NotNull(message = "最后更新时间不能为空")
+    @NotBlank(message = "最后更新时间 flastmodifytime 不能为空")
     private Date flastmodifytime;
 
-    @TableField(exist = false)
-    private static final long serialVersionUID = 1L;
+    /** 口味申请单明细信息 */
+    private List<HxTasteSQLDetail> hxTasteDetailList;
+
+
 }

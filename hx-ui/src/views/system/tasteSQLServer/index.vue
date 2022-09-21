@@ -1,40 +1,5 @@
 <template>
   <div class="app-container">
-    <el-form :label-position="labelPosition" v-show="showSearch" ref="queryForm" :model="queryParams" size="small"
-             :inline="true" label-width="68px">
-      <el-form-item label="业务部门" prop="deptId">
-        <el-input
-          v-model="queryParams.deptId"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="业务姓名" prop="businessName">
-        <el-input
-          v-model="queryParams.businessName"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="业务代码" prop="businessCode">
-        <el-input
-          v-model="queryParams.businessCode"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="客户名称" prop="customersName">
-        <el-input
-          v-model="queryParams.customersName"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
-        <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
-      </el-form-item>
-    </el-form>
 
     <div class="itemFrom">
       <el-form
@@ -56,16 +21,16 @@
         <!--  添加业务  -->
         <el-row :gutter="24"><!--type="flex" justify="space-around"-->
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
-            <el-form-item label="业务姓名" prop="businessName">
-              <el-input v-model="form.businessName" />
+            <el-form-item label="业务姓名" prop="fyewuxingming">
+              <el-input v-model="form.fyewuxingming" />
             </el-form-item>
           </el-col>
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
             <!--TODO 绑定后端数据-->
-            <el-form-item label="业务部门" prop="deptId">
-              <el-select v-model="form.deptId" style="width: 100%" clearable >
+            <el-form-item label="业务部门" prop="fyewubumen">
+              <el-select v-model="form.fyewubumen" style="width: 100%" clearable >
                 <el-option
-                  v-for="item in deptId"
+                  v-for="item in fyewubumen"
                   :key="item.value"
                   :label="item.label"
                   :value="item.value"
@@ -74,39 +39,39 @@
             </el-form-item>
           </el-col>
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
-            <el-form-item label="业务代码" prop="businessCode">
-              <el-input v-model="form.businessCode" />
+            <el-form-item label="业务代码" prop="fyewudaima">
+              <el-input v-model="form.fyewudaima" />
             </el-form-item>
           </el-col>
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
-            <el-form-item label="客户名称" prop="customersName">
-              <el-input v-model="form.customersName" />
+            <el-form-item label="客户名称" prop="fkehumingcheng">
+              <el-input v-model="form.fkehumingcheng" />
             </el-form-item>
           </el-col>
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
-            <el-form-item label="客户代码" prop="customersCode">
-              <el-input v-model="form.customersCode" />
+            <el-form-item label="客户代码" prop="fkehudaima">
+              <el-input v-model="form.fkehudaima" />
             </el-form-item>
           </el-col>
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
-            <el-form-item label="口味数量" prop="tasteNum">
-              <el-input v-model="form.tasteNum" type="number" :min="1" />
+            <el-form-item label="口味数量" prop="fkouweishuliang">
+              <el-input v-model="form.fkouweishuliang" type="number" :min="1" />
             </el-form-item>
           </el-col>
           <!--          <el-col :xs="{span:24}"  :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
-            <el-form-item label="上次申请单号" prop="refereeNum">
-              <el-input v-model="form.refereeNum" placeholder="请输入上次申请单号" />
+            <el-form-item label="上次申请单号" prop="fshangcishenqingdanhao">
+              <el-input v-model="form.fshangcishenqingdanhao" placeholder="请输入上次申请单号" />
             </el-form-item>
           </el-col>-->
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
-            <el-form-item label="第几次送样" prop="sendNum">
-              <el-input v-model="form.sendNum" type="number" :min="1" />
+            <el-form-item label="第几次送样" prop="fdijicisongyang">
+              <el-input v-model="form.fdijicisongyang" type="number" :min="1" />
             </el-form-item>
           </el-col>
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
-            <el-form-item label="来访日期" prop="visitTime">
+            <el-form-item label="来访日期" prop="flaifangriqi">
               <el-date-picker
-                v-model="form.visitTime"
+                v-model="form.flaifangriqi"
                 style="width: 100%"
                 clearable
                 type="datetime"
@@ -114,11 +79,11 @@
             </el-form-item>
           </el-col>
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
-            <el-form-item label="发热丝种类" prop="heatingWireType">
-              <el-select v-model="form.heatingWireType" style="width: 100%" >
+            <el-form-item label="发热丝种类" prop="ffaresizhonglei">
+              <el-select v-model="form.ffaresizhonglei" style="width: 100%" >
                 <el-option
 
-                  v-for="dict in heatingWireType"
+                  v-for="dict in ffaresizhonglei"
                   :key="dict.value"
                   :label="dict.label"
                   :value="dict.value"
@@ -127,8 +92,8 @@
             </el-form-item>
           </el-col>
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
-            <el-form-item label="口味专供" prop="isSupply"><!-- class="el-form-item el-form-item__content"-->
-              <el-radio-group v-model="form.isSupply" style="width: 100%;">
+            <el-form-item label="口味专供" prop="fkouweizhuangong"><!-- class="el-form-item el-form-item__content"-->
+              <el-radio-group v-model="form.fkouweizhuangong" style="width: 100%;">
                 <el-radio v-model="radio" label="是">是</el-radio>
                 <el-radio v-model="radio" label="否">否</el-radio>
               </el-radio-group>
@@ -136,8 +101,8 @@
           </el-col>
 
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
-            <el-form-item label="现场试油" prop="isTry"><!--class="el-form-item el-form-item__content" -->
-              <el-radio-group v-model="form.isTry" style="width: 100%;">
+            <el-form-item label="现场试油" prop="fxianchangshiyou"><!--class="el-form-item el-form-item__content" -->
+              <el-radio-group v-model="form.fxianchangshiyou" style="width: 100%;">
                 <el-radio v-model="radio" label="是">是</el-radio>
                 <el-radio v-model="radio" label="否">否</el-radio>
               </el-radio-group>
@@ -145,34 +110,34 @@
           </el-col>
 
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
-            <el-form-item label="自带烟具" prop="isSmoking"><!--class="el-form-item el-form-item__content" -->
-              <el-radio-group v-model="form.isSmoking" style="width: 100%;">
+            <el-form-item label="自带烟具" prop="fzidaiyanju"><!--class="el-form-item el-form-item__content" -->
+              <el-radio-group v-model="form.fzidaiyanju" style="width: 100%;">
                 <el-radio v-model="radio" label="是">是</el-radio>
                 <el-radio v-model="radio" label="否">否</el-radio>
               </el-radio-group>
             </el-form-item>
           </el-col>
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
-            <el-form-item label="烟具类型" prop="smokingType"><!--class="el-form-item el-form-item__content"-->
-              <el-radio-group v-model="form.smokingType" style="width: 100%;">
+            <el-form-item label="烟具类型" prop="fyanjuleixing"><!--class="el-form-item el-form-item__content"-->
+              <el-radio-group v-model="form.fyanjuleixing" style="width: 100%;">
                 <el-radio v-model="radio" label="一次性">一次性</el-radio>
                 <el-radio v-model="radio" label="换弹式">换弹式</el-radio>
               </el-radio-group>
             </el-form-item>
           </el-col>
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
-            <el-form-item prop="isRecyclingSmoking" label="是否回收烟具"><!--class="el-form-item el-form-item__content" -->
-              <el-radio-group v-model="form.isRecyclingSmoking" style="width: 100%;">
+            <el-form-item label="是否回收烟具" prop="fhuishouyanju"><!--class="el-form-item el-form-item__content" -->
+              <el-radio-group v-model="form.fhuishouyanju" style="width: 100%;">
                 <el-radio v-model="radio" label="是">是</el-radio>
                 <el-radio v-model="radio" label="否">否</el-radio>
               </el-radio-group>
             </el-form-item>
           </el-col>
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
-            <el-form-item label="导油棉类型" prop="oilGuideCottonType">
-              <el-select v-model="form.oilGuideCottonType" style="width: 100%" >
+            <el-form-item label="导油棉类型" prop="fdaoyoumianzhonglei">
+              <el-select v-model="form.fdaoyoumianzhonglei" style="width: 100%" >
                 <el-option
-                  v-for="dict in oilGuideCottonType"
+                  v-for="dict in fdaoyoumianzhonglei"
                   :key="dict.value"
                   :label="dict.label"
                   :value="dict.value"
@@ -181,21 +146,21 @@
             </el-form-item>
           </el-col>
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
-            <el-form-item label="发热丝阻值" prop="heatingWireResistance">
-              <el-input v-model="form.heatingWireResistance" />
+            <el-form-item label="发热丝阻值" prop="ffaresizuzhi">
+              <el-input v-model="form.ffaresizuzhi" />
             </el-form-item>
           </el-col>
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
-            <el-form-item label="烟油仓容量" prop="capacity">
-              <el-input v-model="form.capacity" />
+            <el-form-item label="烟油仓容量" prop="fyanyoucangrongliang">
+              <el-input v-model="form.fyanyoucangrongliang" />
             </el-form-item>
           </el-col>
 
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
-            <el-form-item label="油环材质类型" prop="oilRingMaterial">
-              <el-select v-model="form.oilRingMaterial" style="width: 100%" >
+            <el-form-item label="油环材质类型" prop="fyoubeicaizhi">
+              <el-select v-model="form.fyoubeicaizhi" style="width: 100%" >
                 <el-option
-                  v-for="dict in oilRingMaterial"
+                  v-for="dict in fyoubeicaizhi"
                   :key="dict.value"
                   :label="dict.label"
                   :value="dict.value"
@@ -205,47 +170,46 @@
           </el-col>
 
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
-            <el-form-item label="甜度(1-10)" prop="sweetness">
-              <el-input v-model="form.sweetness" type="number" :min="0" />
+            <el-form-item label="甜度(1-10)" prop="ftiandu">
+              <el-input v-model="form.ftiandu" type="number" :min="0" />
             </el-form-item>
           </el-col>
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
-            <el-form-item label="凉度(1-10)" prop="coolness">
-              <el-input v-model="form.coolness" type="number" :min="0" />
+            <el-form-item label="凉度(1-10)" prop="fliangdu">
+              <el-input v-model="form.fliangdu" type="number" :min="0" />
             </el-form-item>
           </el-col>
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
-            <el-form-item label="粘稠度(1-10)" prop="viscosity">
-              <el-input v-model="form.viscosity" type="number" :min="1" />
+            <el-form-item label="粘稠度(1-10)" prop="fnianchoudu">
+              <el-input v-model="form.fnianchoudu" type="number" :min="1" />
             </el-form-item>
           </el-col>
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
-            <el-form-item label="期望完成时间" prop="expectedCompletionTime">
+            <el-form-item label="期望完成时间" prop="fqiwangwanchengshijian">
               <el-date-picker
-                v-model="form.expectedCompletionTime"
+                v-model="form.fqiwangwanchengshijian"
                 style="width: 100%"
                 clearable
                 type="datetime"
-
               />
             </el-form-item>
           </el-col>
 
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
-            <el-form-item label="样品数量" prop="samplesNum">
-              <el-input v-model="form.samplesNum" type="number" :min="1" />
+            <el-form-item label="样品数量" prop="fyangpinxuqiushuliang">
+              <el-input v-model="form.fyangpinxuqiushuliang" type="number" :min="1" />
             </el-form-item>
           </el-col>
           <!--          <el-col :xs="{span:24}"  :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
-            <el-form-item label="VG" prop="vg">
-              <el-input v-model="form.vg" />
+            <el-form-item label="VG" prop="fvg">
+              <el-input v-model="form.fvg" />
             </el-form-item>
           </el-col>-->
 
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
-            <el-form-item label="样品需求日期" prop="sampleRequestTime">
+            <el-form-item label="样品需求日期" prop="fyangpinxuqiuriqi">
               <el-date-picker
-                v-model="form.sampleRequestTime"
+                v-model="form.fyangpinxuqiuriqi"
                 style="width: 100%"
                 clearable
                 type="datetime"
@@ -253,9 +217,9 @@
             </el-form-item>
           </el-col>
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
-            <el-form-item label="预计完成时间" prop="estimatedFinishTime">
+            <el-form-item label="预计完成时间" prop="fyujiwanchengshijian">
               <el-date-picker
-                v-model="form.estimatedFinishTime"
+                v-model="form.fyujiwanchengshijian"
                 style="width: 100%"
                 clearable
                 type="datetime"
@@ -265,7 +229,7 @@
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
 
             <!--            修改回显 详情回显数据库选中内容 -->
-            <el-form-item label="匹配市场" prop="matchMarket" show-overflow-tooltip v-if="isEdit ==='A'">
+            <el-form-item label="匹配市场" prop="fpipeishichang" show-overflow-tooltip v-if="isEdit ==='A'">
               <el-cascader
                 :disabled="true"
                 v-model="matchMarketTemp"
@@ -280,7 +244,7 @@
               />
               <!-- :collapse-tags="true" 折叠选中标签             -->
             </el-form-item>
-            <el-form-item label="匹配市场" prop="matchMarket" v-if="isEdit ==='B'">
+            <el-form-item label="匹配市场" prop="fpipeishichang" v-if="isEdit ==='B'">
               <el-cascader
                 v-model="matchMarketTemp"
                 style="width: 100%;"
@@ -298,15 +262,15 @@
           </el-col>
 
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
-            <el-form-item label="邮寄信息" prop="mailingInformation">
-              <el-input v-model="form.mailingInformation" type="textarea" />
+            <el-form-item label="邮寄信息" prop="fyoujixinxi">
+              <el-input v-model="form.fyoujixinxi" type="textarea" />
             </el-form-item>
           </el-col>
 
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
-            <el-form-item label="备注" prop="remark">
+            <el-form-item label="备注" prop="fbeizhu">
               <el-input
-                v-model="form.remark"
+                v-model="form.fbeizhu"
                 autosize
                 type="textarea"
               />
@@ -341,73 +305,73 @@
             @edit-actived="editActivedEvent"
           >
             <vxe-column type="seq" title="序号" width="50"/>
-            <vxe-column field="tasteName" title="口味名称" width="100"><!--show-header-overflow-->
+            <vxe-column field="fkouweimingcheng" title="口味名称" width="100"><!--show-header-overflow-->
               <template #edit="scope">
-                <vxe-input v-model="scope.row.tasteName"  type="text" placeholder="请输入"/>
+                <vxe-input v-model="scope.row.fkouweimingcheng"  type="text" placeholder="请输入"/>
               </template>
             </vxe-column>
-            <vxe-column field="tasteDetail"  title="口味描述" width="100">
+            <vxe-column field="fkouweimiaoshu"  title="口味描述" width="100">
               <template #edit="scope">
-                <vxe-input v-model="scope.row.tasteDetail" type="text" placeholder="请输入"/>
+                <vxe-input v-model="scope.row.fkouweimiaoshu" type="text" placeholder="请输入"/>
               </template>
             </vxe-column>
-            <vxe-column field="isBasicTaste" title="有基础口味" :show-header-overflow="true"
+            <vxe-column field="fjichukouwei" title="有基础口味" :show-header-overflow="true"
                         :title-help="{message: '该明细是选项,批量赋值请使用双击单元格操作!'}" width="60">
               <template #edit="scope">
-                <vxe-select v-model="scope.row.isBasicTaste" transfer>
+                <vxe-select v-model="scope.row.fjichukouwei" transfer>
                   <vxe-option v-for="item in sexList" :key="item.value" :value="item.value" :label="item.label"/>
                 </vxe-select>
               </template>
             </vxe-column>
-            <vxe-column field="basicTasteName"  title="基础口味名称/编号" width="70">
+            <vxe-column field="fjichukouweimingcheng"  title="基础口味名称/编号" width="70">
               <template #edit="scope">
-                <vxe-input v-model="scope.row.basicTasteName" type="text" placeholder="请输入"/>
+                <vxe-input v-model="scope.row.fjichukouweimingcheng" type="text" placeholder="请输入"/>
               </template>
             </vxe-column>
-            <vxe-column field="basicTasteImprovementIdeas" title="基础口味改善建议" width="120">
+            <vxe-column field="fjichukouweigaishanyijian" title="基础口味改善建议" width="120">
               <template #edit="scope">
-                <vxe-input v-model="scope.row.basicTasteImprovementIdeas" type="text" placeholder="请输入"/>
+                <vxe-input v-model="scope.row.fjichukouweigaishanyijian" type="text" placeholder="请输入"/>
               </template>
             </vxe-column>
-            <vxe-column field="capacity"  title="容量" width="50">
+            <vxe-column field="frongliang"  title="容量" width="50">
               <template #edit="scope">
-                <vxe-input v-model="scope.row.capacity" type="text" placeholder="请输入"/>
+                <vxe-input v-model="scope.row.frongliang" type="text" placeholder="请输入"/>
               </template>
             </vxe-column>
-            <vxe-column field="vg"   title="VG" width="40">
+            <vxe-column field="fvg"   title="VG" width="40">
               <template #edit="scope">
-                <vxe-input v-model="scope.row.vg" type="text" placeholder="请输入"/>
+                <vxe-input v-model="scope.row.fvg" type="text" placeholder="请输入"/>
               </template>
             </vxe-column>
-            <vxe-column field="nicType"   title="NIC类别" width="80">
+            <vxe-column field="fniclb"   title="NIC类别" width="80">
               <template #edit="scope">
-                <vxe-input v-model="scope.row.nicType" type="text" placeholder="请输入"/>
+                <vxe-input v-model="scope.row.fniclb" type="text" placeholder="请输入"/>
               </template>
             </vxe-column>
-            <vxe-column field="nicConcentration" title="NIC浓度"  width="80">
+            <vxe-column field="fnicnd" title="NIC浓度"  width="80">
               <template #edit="scope">
-                <vxe-input v-model="scope.row.nicConcentration" type="text" placeholder="请输入"/>
+                <vxe-input v-model="scope.row.fnicnd" type="text" placeholder="请输入"/>
               </template>
             </vxe-column>
-            <vxe-column field="nicUnit" title="NIC单位"
+            <vxe-column field="fnicdw" title="NIC单位"
                         :title-help="{message: '该明细是选项,批量赋值请使用双击单元格操作!'}" width="60">
               <template #edit="scope">
-                <vxe-select v-model="scope.row.nicUnit" transfer>
+                <vxe-select v-model="scope.row.fnicdw" transfer>
                   <vxe-option v-for="item in nicUnitList" :key="item.value" :value="item.value" :label="item.label"/>
                 </vxe-select>
               </template>
             </vxe-column>
 
-            <vxe-column field="selectUserId" :edit-render="{}" title="分配调香师" width="100">
+            <vxe-column field="ffentiaoxiangshi" :edit-render="{}" title="分配调香师" width="100">
               <template #edit="scope">
-                <vxe-select v-model="scope.row.selectUserId" transfer>
+                <vxe-select v-model="scope.row.ffentiaoxiangshi" transfer>
                   <vxe-option v-for="item in selectUserId" :key="item.value" :value="item.value" :label="item.label"/>
                 </vxe-select>
               </template>
             </vxe-column>
-            <vxe-column field="tasteStatus" :edit-render="{}" title="口味状态" width="100">
+            <vxe-column field="fkwzhuangtai" :edit-render="{}" title="口味状态" width="100">
               <template #edit="scope">
-                <vxe-input v-model="scope.row.tasteStatus" type="text" placeholder="请输入"/>
+                <vxe-input v-model="scope.row.fkwzhuangtai" type="text" placeholder="请输入"/>
               </template>
             </vxe-column>
 <!--            <vxe-column field="version" :edit-render="{}" title="版本" width="80">
@@ -476,12 +440,12 @@
                 </vxe-select>
               </template>
             </vxe-column>
-            <vxe-column field="basicTasteName" :edit-render="{}" title="基础口味名称/编号" width="150">
+            <vxe-column field="fjichukouweimingcheng" :edit-render="{}" title="基础口味名称/编号" width="150">
               <template slot="header">
-                <span @dblclick="reduce('basicTasteName')">基础口味名称/编号</span>
+                <span @dblclick="reduce('fjichukouweimingcheng')">基础口味名称/编号</span>
               </template>
               <template #edit="scope">
-                <vxe-input v-model="scope.row.basicTasteName" type="text" placeholder="请输入"/>
+                <vxe-input v-model="scope.row.fjichukouweimingcheng" type="text" placeholder="请输入"/>
               </template>
             </vxe-column>
             <vxe-column field="basicTasteImprovementIdeas" title="基础口味改善建议" :edit-render="{}" width="150">
@@ -492,12 +456,12 @@
                 <vxe-input v-model="scope.row.basicTasteImprovementIdeas" type="text" placeholder="请输入"/>
               </template>
             </vxe-column>
-            <vxe-column field="capacity" :edit-render="{}" title="容量" width="80">
+            <vxe-column field="fyanyoucangrongliang" :edit-render="{}" title="容量" width="80">
               <template slot="header">
-                <span @dblclick="reduce('capacity')">容量</span>
+                <span @dblclick="reduce('fyanyoucangrongliang')">容量</span>
               </template>
               <template #edit="scope">
-                <vxe-input v-model="scope.row.capacity" type="text" placeholder="请输入"/>
+                <vxe-input v-model="scope.row.fyanyoucangrongliang" type="text" placeholder="请输入"/>
               </template>
             </vxe-column>
             <vxe-column field="vg" :edit-render="{}" title="VG" width="80">
@@ -577,7 +541,7 @@
             </vxe-column>-->
             <!-- 新增逻辑 END   -->
 
-            <vxe-column title="操作" width="240" fixed="right" >
+            <vxe-column title="操作" width="100" fixed="right" >
               <template #default="{ row }">
                 <vxe-button status="warning" size="mini" type="text" content="删除" @click="removeSelectEvent(row)"></vxe-button>
               </template>
@@ -667,7 +631,7 @@ import {
   updateAuitDetail,
   getAgentTicket,
   updateTasteProcessNo
-} from "@/api/system/taste";
+} from "@/api/system/tasteSQLServer";
 import addressJson from '@/utils/addressJson'
 import stateList from '@/utils/stateList'
 import spStatus from '@/utils/wx/sp_status'
@@ -676,7 +640,7 @@ import iFrame from "@/components/iFrame";
 import CountDown from "@/components/CountDown";
 
 export default {
-  name: 'Taste',
+  name: 'Detail',
   components: {iFrame,CountDown},
   // components: {vtable},
   // dicts: ['hx_common_is', 'hx_common_type'],
@@ -731,7 +695,7 @@ export default {
       addressJson,
       // 字典
       // 油环材质
-      oilRingMaterial: [{
+      fyoubeicaizhi: [{
         value: 'PC',
         label: 'PC'
       }, {
@@ -742,7 +706,7 @@ export default {
         label: '其他'
       }],
       // 导油棉类型
-      oilGuideCottonType: [{
+      fdaoyoumianzhonglei: [{
         value: '有机棉',
         label: '有机棉'
       }, {
@@ -762,7 +726,7 @@ export default {
         label: '其他'
       }],
       // 发热丝种类
-      heatingWireType: [{
+      ffaresizhonglei: [{
         value: '网芯',
         label: '网芯'
       }, {
@@ -778,7 +742,7 @@ export default {
         value: '陶瓷',
         label: '陶瓷'
       }],
-      deptId: [{
+      fyewubumen: [{
         value: '国内业务一组',
         label: '国内业务一组'
       }, {
@@ -836,7 +800,7 @@ export default {
         {label: '有基础口味', prop: 'isBasicTaste', width: '80', edit: true, type: 'text'},
         {label: '基础口味名称/编号', prop: 'basicTasteName', width: '80', edit: true},
         {label: '基础口味改善建议', prop: 'basicTasteImprovementIdeas', width: '80', edit: true},
-        {label: '容量', prop: 'capacity', width: '80', edit: true},
+        {label: '容量', prop: 'fyanyoucangrongliang', width: '80', edit: true},
         {label: 'VG', prop: 'vg', width: '80', edit: true, type: 'number'},
         {label: 'NIC类别', prop: 'nicType', width: '80', edit: true},
         {label: 'NIC浓度', prop: 'nicConcentration', width: '80', edit: true, type: 'number'},
@@ -873,117 +837,81 @@ export default {
       title: '',
       // 是否显示弹出层
       open: false,
-      // 查询参数
-      queryParams: {
-        pageNum: 1,
-        pageSize: 10,
-        deptId: null,
-        businessName: null,
-        businessCode: null,
-        customersName: null,
-        customersCode: null,
-        tasteNum: null,
-        refereeNum: null,
-        sendNum: null,
-        isSupply: null,
-        isTry: null,
-        visitTime: null,
-        isSmoking: null,
-        smokingType: null,
-        heatingWireType: null,
-        heatingWireResistance: null,
-        capacity: null,
-        oilGuideCottonType: null,
-        isRecyclingSmoking: null,
-        oilRingMaterial: null,
-        vg: null,
-        sweetness: null,
-        coolness: null,
-        deleted: null,
-        status: null,
-        viscosity: null,
-        expectedCompletionTime: null,
-        sampleRequestTime: null,
-        estimatedFinishTime: null,
-        matchMarket: null,
-        samplesNum: null,
-        mailingInformation: null
-      },
       // 表单参数
       form: {},
       // 表单校验
       rules: {
-        deptId: [
+        fyewubumen: [
           {required: true, message: '不能为空', trigger: 'change'}
         ],
-        businessName: [
+        fyewuxingming: [
           {required: true, message: '不能为空', trigger: 'blur'},
           {min: 3, max: 50, message: '需3个字符以上', trigger: 'blur'}
         ],
-        businessCode: [
+        fyewudaima: [
           {required: true, message: '不能为空', trigger: 'blur'}
         ],
-        customersName: [
+        fkehumingcheng: [
           {required: true, message: '不能为空', trigger: 'blur'}
         ],
-        customersCode: [
+        fkehudaima: [
           {required: true, message: '不能为空', trigger: 'blur'}
         ],
-        tasteNum: [
+        fkouweishuliang: [
           {required: true, message: '不能为空', trigger: 'blur'}
         ],
-        /* refereeNum: [
+        /* fshangcishenqingdanhao: [
           { required: true, message: '不能为空', trigger: 'blur' }
         ], */
-        sendNum: [
+        fdijicisongyang: [
           {required: true, message: '不能为空', trigger: 'blur'}
         ],
-        isSupply: [
+        fkouweizhuangong: [
           {required: true, message: '不能为空', trigger: 'blur'}
         ],
-        isTry: [
+        fxianchangshiyou: [
           {required: true, message: '不能为空', trigger: 'blur'}
         ],
-        visitTime: [
+        flaifangriqi: [
           {required: true, message: '不能为空', trigger: 'blur'}
         ],
-        isSmoking: [
+        fzidaiyanju: [
           {required: true, message: '不能为空', trigger: 'blur'}
         ],
-        smokingType: [
+        fyanjuleixing: [
           {required: true, message: '不能为空', trigger: 'change'}
         ],
-        heatingWireType: [
+        ffaresizhonglei: [
           {required: true, message: '不能为空', trigger: 'change'}
         ],
-        heatingWireResistance: [
+        ffaresizuzhi: [
           {required: true, message: '不能为空', trigger: 'blur'}
         ],
-        capacity: [
+        fyanyoucangrongliang: [
           {required: true, message: '不能为空', trigger: 'blur'}
         ],
-        oilGuideCottonType: [
+        fdaoyoumianzhonglei: [
           {required: true, message: '不能为空', trigger: 'change'}
         ],
-        isRecyclingSmoking: [
+        fhuishouyanju: [
           {required: true, message: '不能为空', trigger: 'blur'}
         ],
-        oilRingMaterial: [
+        fyoubeicaizhi: [
           {required: true, message: '不能为空', trigger: 'change'}
         ],
-        viscosity: [
+        fnianchoudu: [
           {required: true, message: '不能为空', trigger: 'blur'}
         ],
-        expectedCompletionTime: [
+        fqiwangwanchengshijian: [
           {required: true, message: '不能为空', trigger: 'blur'}
         ],
-        estimatedFinishTime: [
+        fyujiwanchengshijian: [
           {required: true, message: '不能为空', trigger: 'blur'}
         ],
         matchMarket: [
           {required: true, message: '不能为空', trigger: 'change'}
         ],
-        mailingInformation: [
+        fyoujixinxi: [
           {required: true, message: '不能为空', trigger: 'blur'}
         ]
         /* remark: [
@@ -1008,7 +936,7 @@ export default {
         basicTasteImprovementIdeas: [
           {required: true, message: '不能为空'}
         ],
-        capacity: [
+        fyanyoucangrongliang: [
           {required: true, message: '不能为空'}
         ],
         vg: [
@@ -1054,11 +982,12 @@ export default {
 
   created() {
     this.reset()
-    if (window.location.pathname !== '/kouwei/taste') {
-      console.log("!=/kouwei/taste")
+    if (window.location.search !== '') {
+      console.log("this.$route.query.fid",this.$route.query.fid)
+      console.log("this.$route.params.fid",this.$route.params.fid)
       //this.isEdit = 'A'
       this.wxConfig();
-      getTaste(this.$route.params.tasteId).then(response => {
+      getTaste(this.$route.query.fid).then(response => {
         this.form = response.data
         //console.log("form:",JSON.stringify(this.form))
         this.hxTasteDetailList = response.data.hxTasteDetailList
@@ -1283,19 +1212,19 @@ export default {
                   }, {
                     'title': '业务姓名',
                     'type': 'text',
-                    'value': this.form.businessName,
+                    'value': this.form.fyewuxingming,
                   }, {
                     'title': '客户名称',
                     'type': 'text',
-                    'value': this.form.customersName,
+                    'value': this.form.fkehumingcheng,
                   }, {
                     'title': '客户代码',
                     'type': 'text',
-                    'value': this.form.customersCode,
+                    'value': this.form.fkehudaima,
                   }, {
                     'title': '业务部门',
                     'type': 'text',
-                    'value': this.form.deptId,
+                    'value': this.form.fyewubumen,
                   }, {
                     'title': '查看详情',
                     'type': 'link',		// link类型，用于在审批详情页展示第三方订单跳转地址
@@ -1468,11 +1397,11 @@ export default {
     // 地区选中添加
     handleChange(value) {
       console.log(JSON.stringify(value.length))
-      if (value.length > 3) {
-        this.$modal.alertError("警告:多选地区只会保留前三个");
+      if (value.length > 5) {
+        this.$modal.alertError("警告:多选地区只会保留前 5 个");
         for (let i = 0; i < value.length; i++) {
           // 保留前3个数据
-          value.splice(3)
+          value.splice(5)
         }
       }
       this.form.matchMarket = JSON.stringify(value)
@@ -1486,7 +1415,7 @@ export default {
         obj.isBasicTaste = '否'
         obj.basicTasteName = ''
         obj.basicTasteImprovementIdeas = ''
-        obj.capacity = ''
+        obj.fyanyoucangrongliang = ''
         obj.vg = ''
         obj.nicType = ''
         obj.nicConcentration = ''
@@ -1505,7 +1434,7 @@ export default {
       obj.isBasicTaste = ''
       obj.basicTasteName = ''
       obj.basicTasteImprovementIdeas = ''
-      obj.capacity = ''
+      obj.fyanyoucangrongliang = ''
       obj.vg = ''
       obj.nicType = ''
       obj.nicConcentration = ''
@@ -1688,9 +1617,9 @@ export default {
             this.hxTasteDetailList[i].basicTasteImprovementIdeas = row.basicTasteImprovementIdeas
           }
         }
-        if (column.property === 'capacity') {
+        if (column.property === 'fyanyoucangrongliang') {
           for (let i = nums1 - nums2; i < this.hxTasteDetailList.length; i++) {
-            this.hxTasteDetailList[i].capacity = row.capacity
+            this.hxTasteDetailList[i].fyanyoucangrongliang = row.fyanyoucangrongliang
           }
         }
         if (column.property === 'vg') {
@@ -1773,7 +1702,7 @@ export default {
           obj.isBasicTaste = ''
           obj.basicTasteName = ''
           obj.basicTasteImprovementIdeas = ''
-          obj.capacity = ''
+          obj.fyanyoucangrongliang = ''
           obj.vg = ''
           obj.nicType = ''
           obj.nicConcentration = ''
@@ -1796,8 +1725,8 @@ export default {
           if (temp[0] === 'basicTasteImprovementIdeas') {
             obj.basicTasteImprovementIdeas = ss[i]
           }
-          if (temp[0] === 'capacity') {
-            obj.capacity = ss[i]
+          if (temp[0] === 'fyanyoucangrongliang') {
+            obj.fyanyoucangrongliang = ss[i]
           }
           if (temp[0] === 'vg') {
             obj.vg = ss[i]
@@ -1867,8 +1796,8 @@ export default {
             if (temp[0] === 'basicTasteImprovementIdeas') {
               this.hxTasteDetailList[i].basicTasteImprovementIdeas = ss[i]
             }
-            if (temp[0] === 'capacity') {
-              this.hxTasteDetailList[i].capacity = ss[i]
+            if (temp[0] === 'fyanyoucangrongliang') {
+              this.hxTasteDetailList[i].fyanyoucangrongliang = ss[i]
             }
             if (temp[0] === 'vg') {
               this.hxTasteDetailList[i].vg = ss[i]
@@ -1957,65 +1886,60 @@ export default {
     // 表单重置
     reset() {
       this.form = {
-        tasteId: null,
-        deptId: null,
-        tasteCopyId: null,
-        spNo: null,
-        processNo: null,
-        businessName: null,
-        businessCode: null,
-        customersName: null,
-        customersCode: null,
-        tasteNum: null,
-        refereeNum: null,
-        sendNum: null,
-        isSupply: '否',
-        isTry: '否',
-        visitTime: null,
-        isSmoking: '否',
-        smokingType: '一次性',
-        heatingWireType: null,
-        heatingWireResistance: null,
-        capacity: null,
-        oilGuideCottonType: null,
-        isRecyclingSmoking: '否',
-        oilRingMaterial: null,
-        vg: null,
-        sweetness: null,
-        coolness: null,
-        deleted: null,
-        status: null,
-        viscosity: null,
-        expectedCompletionTime: null,
-        sampleRequestTime: null,
-        estimatedFinishTime: null,
-        matchMarket: null,
-        // matchMarketTemp: null,
-        start: null,
-        samplesNum: null,
-        mailingInformation: null,
-        createBy: null,
-        createTime: null,
-        updateBy: null,
-        updateTime: null,
-        remark: '',
-        follower: null
+        fid: null,
+        fbillno: null,
+        fstatus: null,
+        fshenqingren: null,
+        fsqrid: null,
+        fyuanshenqingren: null,
+        fyuansqrid: null,
+        fyewuxingming: null,
+        fyewubumen: null,
+        fsqriqi: null,
+        fkehumingcheng: null,
+        fkehudaima: null,
+        fyewudaima: null,
+        flaifangriqi: null,
+        fdijicisongyang: null,
+        fxiangmuxinxi: null,
+        fshangcishenqingdanhao: null,
+        fkegongyanju: null,
+        fkouweishuliang: null,
+        fyangpinxuqiuriqi: null,
+        fyanjuleixing: '一次性',
+        fpipeishichang: null,
+        ftiandu: null,
+        fliangdu: null,
+        fnianchoudu: null,
+        fkouweizhuangong: '否',
+        fxianchangshiyou: '否',
+        fyoujixinxi: null,
+        fzidaiyanju: '否',
+        fhuishouyanju: '否',
+        ffaresizhonglei: null,
+        ffaresizuzhi: null,
+        fyanyoucangrongliang: null,
+        fdaoyoumianzhonglei: null,
+        fnigudinghanliang: null,
+        fyoubeicaizhi: null,
+        fqiwangwanchengshijian: null,
+        fyangpinxuqiushuliang: null,
+        fyujiwanchengshijian: null,
+        fvg: null,
+        fbeizhu: null,
+        ffenpeigenjinren: null,
+        fcurspbillno: null,
+        ftijiaotime: null,
+        fshenhetime: null,
+        ffenpeitime: null,
+        flastmodifyby: null,
+        flastmodifytime: null
       }
       this.hxTasteDetailList = []
       this.auitDetailList = []
       this.auitDetailListObj = []
       // this.resetForm("form");  //TODO
       this.isTable = false
-    },
-    /** 搜索按钮操作 */
-    handleQuery() {
-      this.queryParams.pageNum = 1
-      this.getList()
-    },
-    /** 重置所有按钮操作 */
-    resetQuery() {
-      this.resetForm('queryForm')
-      this.handleQuery()
     },
     // 多选框选中数据
     handleSelectionChange(selection) {
@@ -2056,7 +1980,7 @@ export default {
               updateTaste(this.form).then(response => {})
               this.$modal.msgSuccess('修改成功')
               // 关闭当前tab页签，打开新页签
-              const obj = { path: "/system/taste-data/index/"+ this.$route.params.tasteId};
+              const obj = { path: "/taste/taste-data/index/"+ this.$route.params.fid};
               this.$tab.refreshPage(obj);
               this.isEdit = 'A'
             }).catch(() => {});
@@ -2068,7 +1992,7 @@ export default {
               addTaste(this.form).then(response => {
                 this.$modal.msgSuccess('新增成功')
                 // 关闭当前tab页签，打开新页签
-                const obj = { path: "/system/taste-data/index/"+ response.data};
+                const obj = { path: "/taste/taste-data/index/"+ response.data};
                 this.$tab.refreshPage(obj);
               })
             }).catch(() => {});
@@ -2101,7 +2025,7 @@ export default {
       obj.isBasicTaste = ''
       obj.basicTasteName = ''
       obj.basicTasteImprovementIdeas = ''
-      obj.capacity = ''
+      obj.fyanyoucangrongliang = ''
       obj.vg = ''
       obj.nicType = ''
       obj.nicConcentration = ''

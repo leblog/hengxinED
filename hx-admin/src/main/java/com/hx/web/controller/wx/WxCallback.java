@@ -2,9 +2,7 @@ package com.hx.web.controller.wx;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.http.Header;
 import cn.hutool.http.HttpRequest;
-import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.hx.common.annotation.Log;
@@ -14,23 +12,15 @@ import com.hx.common.core.domain.AjaxResult;
 import com.hx.common.core.domain.entity.SysUser;
 import com.hx.common.enums.BusinessType;
 import com.hx.common.exception.ServiceException;
-import com.hx.common.utils.DateUtils;
-import com.hx.common.utils.StringUtils;
 import com.hx.system.domain.HxTaste;
-import com.hx.system.domain.vo.*;
 import com.hx.system.service.IHxTasteService;
 import com.hx.system.service.ISysConfigService;
 import com.hx.system.service.ISysUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.awt.*;
-import java.security.Timestamp;
-import java.time.LocalDateTime;
 import java.util.*;
 import java.util.List;
 

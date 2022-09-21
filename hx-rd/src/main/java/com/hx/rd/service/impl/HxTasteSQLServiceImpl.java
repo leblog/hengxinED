@@ -1,19 +1,20 @@
-package com.hx.system.service.impl;
+package com.hx.rd.service.impl;
 
 import cn.hutool.core.util.StrUtil;
 import com.hx.common.annotation.DataScope;
 import com.hx.common.utils.DateUtils;
 import com.hx.common.utils.StringUtils;
 import com.hx.common.utils.uuid.SeqRD;
-import com.hx.system.domain.HxTaste;
-import com.hx.system.domain.HxTasteDetail;
-import com.hx.system.mapper.HxTasteMapper;
-import com.hx.system.service.IHxTasteService;
+import com.hx.rd.domain.HxTasteSQL;
+import com.hx.rd.domain.HxTasteSQLDetail;
+import com.hx.rd.mapper.HxTasteSQLMapper;
+import com.hx.rd.service.IHxTasteSQLService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,39 +28,37 @@ import static com.hx.common.utils.SecurityUtils.getUsername;
  */
 @Service
 @Slf4j
-public class HxTasteServiceImpl implements IHxTasteService
+public class HxTasteSQLServiceImpl implements IHxTasteSQLService
 {
     @Autowired
-    private HxTasteMapper hxTasteMapper;
+    private HxTasteSQLMapper hxTasteMapper;
     /**
      * 查询口味申请单
      *
-     * @param tasteId 口味申请单主键
      * @return 口味申请单
      */
     @Override
-    @DataScope(deptAlias = "d", userAlias = "u")
-    public HxTaste selectHxTasteByTasteId(String tasteId)
+    public HxTasteSQL selectHxTasteByTasteId(String fid)
     {
-        HxTaste hxTaste = hxTasteMapper.selectHxTasteByTasteId(tasteId);
+        //HxTasteSQL hxTaste = hxTasteMapper.selectHxTasteByTasteId(fid);
         //log.info("口味单数据:{}",hxTaste);
-        if(StrUtil.isBlank(hxTaste.getSpNo())){
-            //判断sp_NO是否重复
-            String id = SeqRD.getId();
-            /*
-            HxTaste taste = new HxTaste();
-            taste.setSpNo(hxTaste.getSpNo());
-            List<HxTaste> list = selectHxTasteList(taste);
-            if(Objects.equals(list.get(0).getSpNo(), id)){
-                log.info("审批Id重复:{}", list.get(0).getSpNo());
-                log.info("审批Id重复:{}", id);
-                log.info("重新获取审批Id重复:{}", SeqRD.getId());
-            }*/
-            hxTaste.setSpNo(id);
-            log.info("SpNO为空,新增绑定单号为{}",hxTaste.getSpNo());
-            hxTasteMapper.updateHxTaste(hxTaste);
-        }
-        HxTaste id = hxTasteMapper.selectHxTasteByTasteId(tasteId);
+//        if(StrUtil.isBlank(hxTaste.getFbillno())){
+//            //判断sp_NO是否重复
+//            String id = SeqRD.getId();
+//            /*
+//            HxTaste taste = new HxTaste();
+//            taste.setSpNo(hxTaste.getSpNo());
+//            List<HxTaste> list = selectHxTasteList(taste);
+//            if(Objects.equals(list.get(0).getSpNo(), id)){
+//                log.info("审批Id重复:{}", list.get(0).getSpNo());
+//                log.info("审批Id重复:{}", id);
+//                log.info("重新获取审批Id重复:{}", SeqRD.getId());
+//            }*/
+//            hxTaste.setFbillno(id);
+//            log.info("Fbillno为空,新增绑定单号为{}",hxTaste.getFbillno());
+//            hxTasteMapper.updateHxTaste(hxTaste);
+//        }
+        HxTasteSQL id = hxTasteMapper.selectHxTasteByTasteId(fid);
         return id;
 
     }
@@ -71,13 +70,12 @@ public class HxTasteServiceImpl implements IHxTasteService
      * @return 口味申请单
      */
     @Override
-    @DataScope(deptAlias = "d", userAlias = "u")
-    public List<HxTaste> selectHxTasteList(HxTaste hxTaste)
+    public List<HxTasteSQL> selectHxTasteList(HxTasteSQL hxTaste)
     {
         return hxTasteMapper.selectHxTasteList(hxTaste);
     }
     @Override
-    public List<HxTaste> selectHxTasteListDetail(HxTaste hxTaste)
+    public List<HxTasteSQL> selectHxTasteListDetail(HxTasteSQL hxTaste)
     {
         return hxTasteMapper.selectHxTasteListDetail(hxTaste);
     }
@@ -132,7 +130,7 @@ public class HxTasteServiceImpl implements IHxTasteService
      */
     @Transactional
     @Override
-    public int insertHxTaste(HxTaste hxTaste)
+    public int insertHxTaste(HxTasteSQL hxTaste)
     {
         //插入详情表
         insertHxTasteDetail(hxTaste);
@@ -147,11 +145,11 @@ public class HxTasteServiceImpl implements IHxTasteService
      */
     @Transactional
     @Override
-    public int updateHxTaste(HxTaste hxTaste)
+    public int updateHxTaste(HxTasteSQL hxTaste)
     {
-        hxTaste.setUpdateTime(DateUtils.getNowDate());
-        hxTaste.setUpdateBy(getUsername());
-        hxTasteMapper.deleteHxTasteDetailByTasteId(hxTaste.getTasteId());
+        hxTaste.setFlastmodifytime(DateUtils.getNowDate());
+        hxTaste.setFlastmodifyby(getUsername());
+        hxTasteMapper.deleteHxTasteDetailByTasteId(hxTaste.getFid());
         insertHxTasteDetail(hxTaste);
         return hxTasteMapper.updateHxTaste(hxTaste);
     }
@@ -163,38 +161,37 @@ public class HxTasteServiceImpl implements IHxTasteService
      */
     @Transactional
     @Override
-    public int updateHxTasteStart(HxTaste hxTaste)
+    public int
+    updateHxTasteStart(HxTasteSQL hxTaste)
     {
-        hxTaste.setUpdateTime(DateUtils.getNowDate());
-        hxTaste.setUpdateBy(getUsername());
+        hxTaste.setFlastmodifytime(DateUtils.getNowDate());
+        hxTaste.setFlastmodifyby(getUsername());
         return hxTasteMapper.updateHxTaste(hxTaste);
     }
     /**
      * 批量删除口味申请单
      *
-     * @param tasteIds 需要删除的口味申请单主键
      * @return 结果
      */
     @Transactional
     @Override
-    public int deleteHxTasteByTasteIds(String[] tasteIds)
+    public int deleteHxTasteByTasteIds(String[] fid)
     {
-        hxTasteMapper.deleteHxTasteDetailByTasteIds(tasteIds);
-        return hxTasteMapper.deleteHxTasteByTasteIds(tasteIds);
+        hxTasteMapper.deleteHxTasteDetailByTasteIds(fid);
+        return hxTasteMapper.deleteHxTasteByTasteIds(fid);
     }
 
     /**
      * 删除口味申请单信息
      *
-     * @param tasteId 口味申请单主键
      * @return 结果
      */
     @Transactional
     @Override
-    public int deleteHxTasteByTasteId(String tasteId)
+    public int deleteHxTasteByTasteId(String fid)
     {
-        hxTasteMapper.deleteHxTasteDetailByTasteId(tasteId);
-        return hxTasteMapper.deleteHxTasteByTasteId(tasteId);
+        hxTasteMapper.deleteHxTasteDetailByTasteId(fid);
+        return hxTasteMapper.deleteHxTasteByTasteId(fid);
     }
 
     /**
@@ -202,16 +199,16 @@ public class HxTasteServiceImpl implements IHxTasteService
      *
      * @param hxTaste 口味申请单对象
      */
-    public void insertHxTasteDetail(HxTaste hxTaste)
+    public void insertHxTasteDetail(HxTasteSQL hxTaste)
     {
-        List<HxTasteDetail> hxTasteDetailList = hxTaste.getHxTasteDetailList();
-        String tasteId = hxTaste.getTasteId();
+        List<HxTasteSQLDetail> hxTasteDetailList = hxTaste.getHxTasteDetailList();
+        String fid = hxTaste.getFid();
         if (StringUtils.isNotNull(hxTasteDetailList))
         {
-            List<HxTasteDetail> list = new ArrayList<HxTasteDetail>();
-            for (HxTasteDetail hxTasteDetail : hxTasteDetailList)
+            List<HxTasteSQLDetail> list = new ArrayList<HxTasteSQLDetail>();
+            for (HxTasteSQLDetail hxTasteDetail : hxTasteDetailList)
             {
-                hxTasteDetail.setTasteId(tasteId);
+                hxTasteDetail.setFid(fid);
                 list.add(hxTasteDetail);
             }
             if (list.size() > 0)

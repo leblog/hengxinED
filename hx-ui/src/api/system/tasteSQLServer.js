@@ -3,16 +3,16 @@ import request from '@/utils/request'
 // 查询口味申请单列表
 export function listTaste(query) {
   return request({
-    url: '/open/crud/list',
+    url: '/system/tasteSQL/list',
     method: 'get',
     params: query
   })
 }
 
 // 查询口味申请单详细
-export function getTaste(tasteId) {
+export function getTaste(fid) {
   return request({
-    url: '/open/crud/query/' + tasteId,
+    url: '/system/tasteSQL/query/' + fid,
     method: 'get'
   })
 }
@@ -20,7 +20,7 @@ export function getTaste(tasteId) {
 // 新增口味申请单
 export function addTaste(data) {
   return request({
-    url: '/open/crud',
+    url: '/system/tasteSQL',
     method: 'post',
     data: data
   })
@@ -29,7 +29,7 @@ export function addTaste(data) {
 // 修改口味申请单
 export function updateTaste(data) {
   return request({
-    url: '/open/crud',
+    url: '/system/tasteSQL',
     method: 'put',
     data: data
   })
@@ -38,7 +38,7 @@ export function updateTaste(data) {
 // 绑定口味申请单审批流程编码
 export function updateTasteProcessNo(data) {
   return request({
-    url: '/open/crud/editPresson',
+    url: '/system/tasteSQL/editPresson',
     method: 'put',
     data: data
   })
@@ -47,15 +47,15 @@ export function updateTasteProcessNo(data) {
 // 删除口味申请单
 export function delTaste(tasteId) {
   return request({
-    url: '/open/crud/' + tasteId,
+    url: '/system/tasteSQL/' + tasteId,
     method: 'delete'
   })
 }
 
 // 作废口味申请单
-export function getWasteTaste(tasteId) {
+export function getWasteTaste(fid) {
   return request({
-    url: '/open/crud/waste/' + tasteId,
+    url: '/system/tasteSQL/waste/' + fid,
     method: 'get'
   })
 }
@@ -64,7 +64,7 @@ export function getWasteTaste(tasteId) {
 // 分配跟进人字典-获取分配人字典数据
 export function getDistribution() {
   return request({
-    url: '/open/crud/getDistribution',
+    url: '/system/tasteSQL/getDistribution',
     method: 'get'
   })
 }
@@ -72,7 +72,7 @@ export function getDistribution() {
 /*查询口味申请单日志*/
 export function getLog(tasteId) {
   return request({
-    url: '/open/crud/oper/' + tasteId,
+    url: '/system/tasteSQL/oper/' + tasteId,
     method: 'get',
     query: {
       isAsc:'desc',
@@ -82,16 +82,16 @@ export function getLog(tasteId) {
 }
 
 /*强制审核通过口味申请单*/
-export function getAuditTaste(tasteId) {
+export function getAuditTaste(fid) {
   return request({
-    url: '/open/crud/audit/' + tasteId,
+    url: '/system/tasteSQL/audit/' + fid,
     method: 'get'
   })
 }
 /*查询个人信息接口*/
 export function getUserDetail() {
   return request({
-    url: '/open/crud/userDetail',
+    url: '/system/tasteSQL/userDetail',
     method: 'get'
   })
 }
@@ -164,7 +164,7 @@ export function wxAuthorize() {
  */
 export function start(data) {
   return request({
-    url: '/open/crud/start',
+    url: '/system/tasteSQL/start',
     method: 'put',
     data: data
     /*query: {

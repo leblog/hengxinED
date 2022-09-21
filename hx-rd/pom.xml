@@ -18,6 +18,10 @@
             <groupId>com.hx</groupId>
             <artifactId>hx-common</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.hx</groupId>
+            <artifactId>hx-system</artifactId>
+        </dependency>
         <!--微软 SQL Server  8.4.1.jre8-->
         <dependency>
             <groupId>com.microsoft.sqlserver</groupId>

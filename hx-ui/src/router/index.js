@@ -148,11 +148,26 @@ export const dynamicRoutes = [
       {
         path: 'index/:tasteId(\\d+)',  //'index/:tasteId(\\d+)',
         component: () => import('@/views/system/taste/index'),
-        name: 'Detail',
-        meta: { title: '口味数据', activeMenu: '/system/taste' }
+        name: 'Taste',
+        meta: { title: '口味数据' }
       }
     ]
   },
+
+  /*{
+    path: '/system/taste-dataSQL',
+    component: Layout,
+    hidden: true,
+    permissions: ['taste:query'],
+    children: [
+      {
+        path: 'index/:fid(\\d+)',
+        component: () => import('@/views/system/tasteSQLServer/index'),
+        name: 'Detail',
+        meta: { title: '口味数据'}
+      }
+    ]
+  },*/
   {
     path: '/monitor/job-log',
     component: Layout,

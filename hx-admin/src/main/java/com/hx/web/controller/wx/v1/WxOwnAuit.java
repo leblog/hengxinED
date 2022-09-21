@@ -12,8 +12,6 @@ import com.hx.common.core.domain.entity.SysUser;
 import com.hx.common.enums.BusinessType;
 import com.hx.common.exception.ServiceException;
 import com.hx.system.domain.HxTaste;
-import com.hx.system.domain.vo.WxTxtMsgReqVo;
-import com.hx.system.domain.vo.WxTxtMsgResVo;
 import com.hx.system.service.IHxTasteService;
 import com.hx.system.service.ISysConfigService;
 import com.hx.system.service.ISysUserService;
@@ -21,9 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.awt.*;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 

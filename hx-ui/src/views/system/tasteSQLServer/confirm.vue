@@ -207,7 +207,7 @@ import {
   getDistribution,
   getLog,
   start
-} from "@/api/system/taste";
+} from "@/api/system/tasteSQLServer";
 import cache from '@/plugins/cache'
 import stateList from '@/utils/stateList'
 import {parseTime} from "@/utils/ruoyi";

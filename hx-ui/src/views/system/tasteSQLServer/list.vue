@@ -3,7 +3,7 @@
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch"  label-width="68px">
       <el-form-item label="口味编码" prop="deptId">
         <el-input
-          v-model="queryParams.tasteId"
+          v-model="queryParams.fid"
           placeholder="请输入口味编码"
           clearable
           @keyup.enter.native="handleQuery"
@@ -111,34 +111,34 @@
       <el-table v-loading="loading" :data="tasteList" @selection-change="handleSelectionChange" show-overflow-tooltip>
         <el-table-column type="selection" width="30" align="center"/>
         <el-table-column  label="序号" type="index" align="center"/>
-        <el-table-column label="单据编码" width="180" align="center" prop="tasteId" show-overflow-tooltip/>
-        <el-table-column label="状态"  width="150" align="center" prop="state" show-overflow-tooltip>
+        <el-table-column label="单据编码" width="180" align="center" prop="fid" show-overflow-tooltip/>
+        <el-table-column label="状态"  width="150" align="center" prop="fstatus" show-overflow-tooltip>
           <template slot-scope="scope">
-            <el-tag v-if="scope.row.state == '-1'" type="danger">{{stateList(scope.row.state)}}</el-tag>
-            <el-tag v-else-if="scope.row.state == '3'" type="danger">{{stateList(scope.row.state)}}</el-tag>
-            <el-tag v-else-if="scope.row.state == '8'" type="success">{{stateList(scope.row.state)}}</el-tag>
-            <el-tag v-else>{{stateList(scope.row.state)}}</el-tag>
+            <el-tag v-if="scope.row.state == '-1'" type="danger">{{stateList(scope.row.fstatus)}}</el-tag>
+            <el-tag v-else-if="scope.row.state == '3'" type="danger">{{stateList(scope.row.fstatus)}}</el-tag>
+            <el-tag v-else-if="scope.row.state == '8'" type="success">{{stateList(scope.row.fstatus)}}</el-tag>
+            <el-tag v-else>{{stateList(scope.row.fstatus)}}</el-tag>
             <!--   type="danger"  type="warning"  type="success"  -->
           </template>
         </el-table-column>
-        <el-table-column label="录入人" align="center" prop="createBy"/>
-        <el-table-column label="业务姓名" align="center" prop="businessName" show-overflow-tooltip/>
-        <el-table-column v-if="showType==='list'" label="业务部门" align="center" width="150" prop="deptId" show-overflow-tooltip/>
-        <el-table-column v-if="showType==='list'" label="日期" width="150" align="center" prop="createTime" sortable show-overflow-tooltip>
-          <template slot-scope="scope">{{ parseTime(scope.row.createTime, '{y}-{m}-{d} {h}:{i}') }}</template>
+        <el-table-column label="录入人" align="center" prop="fshenqingren"/>
+        <el-table-column label="业务姓名" align="center" prop="fyewuxingming" show-overflow-tooltip/>
+        <el-table-column v-if="showType==='list'" label="业务部门" align="center" width="150" prop="fyewubumen" show-overflow-tooltip/>
+        <el-table-column v-if="showType==='list'" label="最后更新日期" width="150" align="center" prop="flastmodifytime" sortable show-overflow-tooltip>
+          <template slot-scope="scope">{{ parseTime(scope.row.flastmodifytime, '{y}-{m}-{d} {h}:{i}') }}</template>
         </el-table-column>
-        <el-table-column v-if="showType==='tech'" label="单据日期" width="150" align="center" prop="createTime" sortable show-overflow-tooltip>
-          <template slot-scope="scope">{{ parseTime(scope.row.createTime, '{y}-{m}-{d} {h}:{i}') }}</template>
+        <el-table-column v-if="showType==='tech'" label="单据日期" width="150" align="center" prop="flastmodifytime" sortable show-overflow-tooltip>
+          <template slot-scope="scope">{{ parseTime(scope.row.flastmodifytime, '{y}-{m}-{d} {h}:{i}') }}</template>
         </el-table-column>
-        <el-table-column label="客户名称" align="center" prop="customersName"/>
-        <el-table-column label="客户代码" align="center" prop="customersCode"/>
-        <el-table-column v-if="showType==='tech'" label="现场试油" align="center" prop="isTry"/>
-        <el-table-column v-if="showType==='tech'" label="来访日期" width="150" align="center" prop="visitTime" sortable show-overflow-tooltip>
-          <template slot-scope="scope">{{ parseTime(scope.row.visitTime, '{y}-{m}-{d} {h}:{i}') }}</template>
+        <el-table-column label="客户名称" align="center" prop="fkehumingcheng"/>
+        <el-table-column label="客户代码" align="center" prop="fkehudaima"/>
+        <el-table-column v-if="showType==='tech'" label="现场试油" align="center" prop="fxianchangshiyou"/>
+        <el-table-column v-if="showType==='tech'" label="来访日期" width="150" align="center" prop="flaifangriqi" sortable show-overflow-tooltip>
+          <template slot-scope="scope">{{ parseTime(scope.row.flaifangriqi, '{y}-{m}-{d} {h}:{i}') }}</template>
         </el-table-column>
 
-        <el-table-column label="客户跟进人" width="100" align="center" prop="follower"/>
-        <el-table-column label="操作" align="center" width="200" class-name="small-padding fixed-width" fixed="right">
+        <el-table-column label="客户跟进人" width="100" align="center" prop="ffenpeigenjinren"/>
+        <el-table-column label="操作" align="center" width="120" class-name="small-padding fixed-width" fixed="right">
           <template slot-scope="scope">
             <el-button
               size="mini"
@@ -155,14 +155,14 @@
               @click="commit(scope.row)"
             >测试-提交
             </el-button>-->
-            <el-button
+<!--            <el-button
               size="mini"
               type="text"
               icon="el-icon-delete"
               @click="handleDelete(scope.row)"
               v-hasPermi="['taste:remove']"
             >删除
-            </el-button>
+            </el-button>-->
             <el-dropdown  v-if="showType==='list'" size="mini" @command="(command) => handleCommand(command, scope.row)"><!-- v-hasPermi="['monitor:job:changestate', 'monitor:job:query']"-->
             <span class="el-dropdown-link">
               <i class="el-icon-d-arrow-right el-icon--right"></i>更多
@@ -312,38 +312,57 @@ export default {
       queryParams: {
         pageNum: 1,
         pageSize: 10,
-        tasteId: null,
-        deptId: null,
-        businessName: null,
-        businessCode: null,
-        customersName: null,
-        customersCode: null,
-        tasteNum: null,
-        refereeNum: null,
-        sendNum: null,
-        isSupply: null,
-        isTry: null,
-        visitTime: null,
-        isSmoking: null,
-        smokingType: null,
-        heatingWireType: null,
-        heatingWireResistance: null,
-        capacity: null,
-        oilGuideCottonType: null,
-        isRecyclingSmoking: null,
-        oilRingMaterial: null,
-        vg: null,
-        state:null,
-        viscosity: null,
-        expectedCompletionTime: null,
-        sampleRequestTime: null,
-        estimatedFinishTime: null,
-        matchMarket: null,
-        samplesNum: null,
-        mailingInformation: null,
-        deleted: '0',
-        isAsc:'desc',
-        orderByColumn:'createTime'
+        fid: null,
+        fbillno: null,
+        fstatus: null,
+        fshenqingren: null,
+        fsqrid: null,
+        fyuanshenqingren: null,
+        fyuansqrid: null,
+        fyewuxingming: null,
+        fyewubumen: null,
+        fsqriqi: null,
+        fkehumingcheng: null,
+        fkehudaima: null,
+        fyewudaima: null,
+        flaifangriqi: null,
+        fdijicisongyang: null,
+        fxiangmuxinxi: null,
+        fshangcishenqingdanhao: null,
+        fkegongyanju: null,
+        fkouweishuliang: null,
+        fyangpinxuqiuriqi: null,
+        fyanjuleixing: null,
+        fpipeishichang: null,
+        ftiandu: null,
+        fliangdu: null,
+        fnianchoudu: null,
+        fkouweizhuangong: null,
+        fxianchangshiyou: null,
+        fyoujixinxi: null,
+        fzidaiyanju: null,
+        fhuishouyanju: null,
+        ffaresizhonglei: null,
+        ffaresizuzhi: null,
+        fyanyoucangrongliang: null,
+        fdaoyoumianzhonglei: null,
+        fnigudinghanliang: null,
+        fyoubeicaizhi: null,
+        fqiwangwanchengshijian: null,
+        fyangpinxuqiushuliang: null,
+        fyujiwanchengshijian: null,
+        fvg: null,
+        fbeizhu: null,
+        ffenpeigenjinren: null,
+        fcurspbillno: null,
+        ftijiaotime: null,
+        fshenhetime: null,
+        ffenpeitime: null,
+        flastmodifyby: null,
+        flastmodifytime: null
+        // deleted: '0',
+        // isAsc:'desc',
+        // orderByColumn:'createTime'
 
       },
       // 表单参数
@@ -381,10 +400,10 @@ export default {
     handleClick(tab, event) {
       console.log(tab.name, event);
       if(tab.name == 'all'){
-        this.queryParams.state = null;
+        this.queryParams.fstatus = null;
         this.handleQuery();
       }else{
-        this.queryParams.state = tab.name;
+        this.queryParams.fstatus = tab.name;
         this.handleQuery();
       }
 
@@ -421,9 +440,8 @@ export default {
     },
     /*详情*/
     handleDetail(row){
-      //this.$router.push({ path: '/kouwei/taste' ,query: { tasteId:row.tasteId } });
-      this.$router.push({ path: '/system/taste-data/index/'+row.tasteId});
-      //this.$router.push({ path: '/system/taste-data/index/'+row.tasteId, query: {id: "1", name: "你好呀"} });
+      console.log("跳转",row.fid)
+      this.$router.push({ path: '/taste/add',query: {fid: row.fid} });
     },
     // 更多操作触发
     handleCommand(command, row) {
@@ -448,8 +466,8 @@ export default {
     // 审核
     handleAudit(row){
       // 作废将 state 字段状态变成 6
-      this.$modal.confirm('您将强制审核通过"' + row.tasteId + '"口味单是否确认？').then(function() {
-        getAuditTaste(row.tasteId)
+      this.$modal.confirm('您将强制审核通过"' + row.fid + '"口味单是否确认？').then(function() {
+        getAuditTaste(row.fid)
       }).then(() => {
         this.getList();
         //this.$modal.msgSuccess('已审核通过');
@@ -494,8 +512,8 @@ export default {
     // 作废  waste
     handleWaste(row){
       // 作废将 state 字段状态变成 -1
-      this.$modal.confirm('是否确认作废口味ID为"' + row.tasteId + '"的数据项？').then(function() {
-        getWasteTaste(row.tasteId)
+      this.$modal.confirm('是否确认作废口味ID为"' + row.fid + '"的数据项？').then(function() {
+        getWasteTaste(row.fid)
       }).then(() => {
         this.getList();
         this.$modal.msgSuccess('已作废');
@@ -509,7 +527,9 @@ export default {
     // 打印需要的数据处理
     handlePrint(row){
       // 获取分组好的数据
-      getTaste(row.tasteId).then(res =>{
+      // 跳转打印
+      this.$router.push({path:"/print?detail="+row.fid+`&print=true`})
+      /*getTaste(row.fid).then(res =>{
         this.printList = res.data
         this.printListDetail = res.data.hxTasteDetailList
         //console.log("数据来了:{}"+ JSON.stringify(this.printListDetail))
@@ -520,7 +540,7 @@ export default {
         setTimeout(()=>{
           this.printEvent()
         },800)
-      }
+      }*/
 
     },
     /*打印*/
@@ -685,45 +705,54 @@ export default {
 // 表单重置
     reset() {
       this.form = {
-        tasteId: null,
-        deptId: null,
-        tasteCopyId: null,
-        businessName: null,
-        businessCode: null,
-        customersName: null,
-        customersCode: null,
-        tasteNum: null,
-        refereeNum: null,
-        sendNum: null,
-        isSupply: 0,
-        isTry: 0,
-        visitTime: null,
-        isSmoking: 0,
-        smokingType: null,
-        heatingWireType: null,
-        heatingWireResistance: null,
-        capacity: null,
-        oilGuideCottonType: null,
-        isRecyclingSmoking: 0,
-        oilRingMaterial: null,
-        vg: null,
-        viscosity: null,
-        deleted: null,
-        state: null,
-        coolness: null,
-        sweetness: null,
-        expectedCompletionTime: null,
-        sampleRequestTime: null,
-        estimatedFinishTime: null,
-        matchMarket: null,
-        samplesNum: null,
-        mailingInformation: null,
-        createBy: null,
-        createTime: null,
-        updateBy: null,
-        updateTime: null,
-        remark: "",
-        follower:''
+        fid: null,
+        fbillno: null,
+        fstatus: null,
+        fshenqingren: null,
+        fsqrid: null,
+        fyuanshenqingren: null,
+        fyuansqrid: null,
+        fyewuxingming: null,
+        fyewubumen: null,
+        fsqriqi: null,
+        fkehumingcheng: null,
+        fkehudaima: null,
+        fyewudaima: null,
+        flaifangriqi: null,
+        fdijicisongyang: null,
+        fxiangmuxinxi: null,
+        fshangcishenqingdanhao: null,
+        fkegongyanju: null,
+        fkouweishuliang: null,
+        fyangpinxuqiuriqi: null,
+        fyanjuleixing: '一次性',
+        fpipeishichang: null,
+        ftiandu: null,
+        fliangdu: null,
+        fnianchoudu: null,
+        fkouweizhuangong: '否',
+        fxianchangshiyou: '否',
+        fyoujixinxi: null,
+        fzidaiyanju: '否',
+        fhuishouyanju: '否',
+        ffaresizhonglei: null,
+        ffaresizuzhi: null,
+        fyanyoucangrongliang: null,
+        fdaoyoumianzhonglei: null,
+        fnigudinghanliang: null,
+        fyoubeicaizhi: null,
+        fqiwangwanchengshijian: null,
+        fyangpinxuqiushuliang: null,
+        fyujiwanchengshijian: null,
+        fvg: null,
+        fbeizhu: null,
+        ffenpeigenjinren: null,
+        fcurspbillno: null,
+        ftijiaotime: null,
+        fshenhetime: null,
+        ffenpeitime: null,
+        flastmodifyby: null,
+        flastmodifytime: null
       };
       this.hxTasteDetailList = [];
       this.resetForm("form");
