@@ -45,22 +45,26 @@
       <el-table v-loading="loading" :data="tasteList" @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="30" align="center"/>
         <el-table-column  label="序号" type="index" align="center"/>
-        <el-table-column label="单据编码" width="100" align="center" prop="tasteId"/>
+        <el-table-column label="单据编码" width="100" align="center" prop="fid" show-overflow-tooltip/>
 <!--        <el-table-column label="项目信息" width="100" align="center" prop="tasteId"/>-->
         <el-table-column label="状态" width="130" align="center" prop="state">
           <template slot-scope="scope">
             <el-tag :type="stateListType">{{stateList(scope.row.state)}}</el-tag>
           </template>
         </el-table-column>
-        <el-table-column label="录入人" align="center" prop="createBy"/>
-        <el-table-column label="业务姓名" align="center" prop="businessName"/>
-        <el-table-column label="业务部门" align="center" width="120" prop="deptId"/>
-        <el-table-column label="日期" align="center" width="100" prop="createTime"/>
-        <el-table-column label="客户名称" align="center" prop="customersName"/>
-        <el-table-column label="客户编码" align="center" prop="customersCode"/>
-        <el-table-column label="现场试油" align="center" prop="isTry"/>
-        <el-table-column label="来访日期" align="center" width="100" prop="visitTime"/>
-        <el-table-column label="分配跟进人" align="center"  width="100" prop="follower"/>
+        <el-table-column label="录入人" align="center" prop="fshenqingren"/>
+        <el-table-column label="业务姓名" align="center" prop="fyewuxingming"/>
+        <el-table-column label="业务部门" align="center" width="120" prop="fyewubumen"/>
+        <el-table-column label="日期" align="center" width="100" prop="flastmodifytime" sortable show-overflow-tooltip>
+          <template slot-scope="scope">{{ parseTime(scope.row.flastmodifytime, '{y}-{m}-{d} {h}:{i}') }}</template>
+        </el-table-column>
+        <el-table-column label="客户名称" align="center" prop="fkehumingcheng"/>
+        <el-table-column label="客户编码" align="center" prop="fkehudaima"/>
+        <el-table-column label="现场试油" align="center" prop="fxianchangshiyou"/>
+        <el-table-column label="来访日期" width="150" align="center" prop="flaifangriqi" sortable show-overflow-tooltip>
+          <template slot-scope="scope">{{ parseTime(scope.row.flaifangriqi, '{y}-{m}-{d} {h}:{i}') }}</template>
+        </el-table-column>
+        <el-table-column label="分配跟进人" align="center"  width="100" prop="ffenpeigenjinren"/>
         <el-table-column label="操作" align="center" width="150" class-name="small-padding fixed-width" fixed="right">
           <template slot-scope="scope">
             <el-button
@@ -255,35 +259,7 @@ export default {
       queryParams: {
         pageNum: 1,
         pageSize: 10,
-        deptId: null,
-        businessName: null,
-        businessCode: null,
-        customersName: null,
-        customersCode: null,
-        tasteNum: null,
-        refereeNum: null,
-        sendNum: null,
-        isSupply: null,
-        isTry: null,
-        visitTime: null,
-        isSmoking: null,
-        smokingType: null,
-        heatingWireType: null,
-        heatingWireResistance: null,
-        capacity: null,
-        oilGuideCottonType: null,
-        isRecyclingSmoking: null,
-        oilRingMaterial: null,
-        vg: null,
-        viscosity: null,
-        expectedCompletionTime: null,
-        sampleRequestTime: null,
-        estimatedFinishTime: null,
-        matchMarket: null,
-        samplesNum: null,
-        mailingInformation: null,
-        state: '12',
-        deleted: '0'
+        fstatus: 12,
       },
       // 表单参数
       form: {},
@@ -304,7 +280,7 @@ export default {
   methods: {
     /*详情*/
     handleDetail(row){
-      this.$router.push({ path: '/system/taste-data/index/'+row.tasteId });
+      this.$router.push({ path: '/taste/add',query: {fid: row.fid} });
     },
     // 更多操作触发
     handleCommand(command, row) {
@@ -360,7 +336,7 @@ export default {
 
       // 改变为7已审核状态
       let obj = {}
-      obj.tasteId = row.tasteId
+      obj.fid = row.fid
       obj.state = '3'
       this.$modal.confirm('确认退回分配吗?').then(function() {
 

@@ -26,7 +26,7 @@ public class HxTasteSQLDetail
      *
      */
     @NotBlank(message = "明细ID 不能为空")
-    @TableId(type = IdType.ASSIGN_ID)
+    @TableId(type = IdType.ASSIGN_UUID)
     private String fid;
 
     /**

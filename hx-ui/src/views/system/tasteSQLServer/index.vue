@@ -15,7 +15,7 @@
         <!-- 显示企业微信审批编码  -->
         <el-row :gutter="24" v-if="isEdit==='A'"><!--type="flex" justify="space-around"-->
           <el-col>
-            <el-divider content-position="center">企业微信审批编码:{{ form.spNo == null ? '未提交审批' : form.spNo }}</el-divider>
+            <el-divider content-position="center">企业微信审批编码:{{ form.fbillno == null ? '未提交审批' : form.fbillno }}</el-divider>
           </el-col>
         </el-row>
         <!--  添加业务  -->
@@ -55,7 +55,7 @@
           </el-col>
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
             <el-form-item label="口味数量" prop="fkouweishuliang">
-              <el-input v-model="form.fkouweishuliang" type="number" :min="1" />
+              <el-input v-model="form.fkouweishuliang"  :min="1" />
             </el-form-item>
           </el-col>
           <!--          <el-col :xs="{span:24}"  :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
@@ -63,9 +63,14 @@
               <el-input v-model="form.fshangcishenqingdanhao" placeholder="请输入上次申请单号" />
             </el-form-item>
           </el-col>-->
-          <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
+<!--          <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
             <el-form-item label="第几次送样" prop="fdijicisongyang">
-              <el-input v-model="form.fdijicisongyang" type="number" :min="1" />
+              <el-input v-model="form.fdijicisongyang"  :min="1" />
+            </el-form-item>
+          </el-col>-->
+          <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
+            <el-form-item label="项目信息" prop="fxiangmuxinxi">
+              <el-input v-model="form.fxiangmuxinxi"  :min="1" />
             </el-form-item>
           </el-col>
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
@@ -119,9 +124,10 @@
           </el-col>
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
             <el-form-item label="烟具类型" prop="fyanjuleixing"><!--class="el-form-item el-form-item__content"-->
-              <el-radio-group v-model="form.fyanjuleixing" style="width: 100%;">
-                <el-radio v-model="radio" label="一次性">一次性</el-radio>
-                <el-radio v-model="radio" label="换弹式">换弹式</el-radio>
+              <el-radio-group v-model="form.fyanjuleixing" style="width: 120%;">
+                <el-radio v-model="radio" label="一次性" >一次性</el-radio>
+                <el-radio v-model="radio" label="换弹式" >换弹式</el-radio>
+                <el-radio v-model="radio" label="开放式" >开放式</el-radio>
               </el-radio-group>
             </el-form-item>
           </el-col>
@@ -171,17 +177,17 @@
 
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
             <el-form-item label="甜度(1-10)" prop="ftiandu">
-              <el-input v-model="form.ftiandu" type="number" :min="0" />
+              <el-input v-model="form.ftiandu"  :min="0" />
             </el-form-item>
           </el-col>
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
             <el-form-item label="凉度(1-10)" prop="fliangdu">
-              <el-input v-model="form.fliangdu" type="number" :min="0" />
+              <el-input v-model="form.fliangdu"  :min="0" />
             </el-form-item>
           </el-col>
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
             <el-form-item label="粘稠度(1-10)" prop="fnianchoudu">
-              <el-input v-model="form.fnianchoudu" type="number" :min="1" />
+              <el-input v-model="form.fnianchoudu"  :min="1" />
             </el-form-item>
           </el-col>
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
@@ -197,11 +203,11 @@
 
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
             <el-form-item label="样品数量" prop="fyangpinxuqiushuliang">
-              <el-input v-model="form.fyangpinxuqiushuliang" type="number" :min="1" />
+              <el-input v-model="form.fyangpinxuqiushuliang"  :min="1" />
             </el-form-item>
           </el-col>
           <!--          <el-col :xs="{span:24}"  :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
-            <el-form-item label="VG" prop="fvg">
+            <el-form-item label="fvg" prop="fvg">
               <el-input v-model="form.fvg" />
             </el-form-item>
           </el-col>-->
@@ -296,7 +302,7 @@
             border
             resizable
             show-overflow
-            :show-header-overflow="true"
+
             :show-header="true"
             :data="form.hxTasteDetailList"
             :edit-rules="validRules"
@@ -304,6 +310,7 @@
             :edit-config="{trigger: 'click', mode: 'row'}"
             @edit-actived="editActivedEvent"
           >
+<!--            :show-header-overflow="true"-->
             <vxe-column type="seq" title="序号" width="50"/>
             <vxe-column field="fkouweimingcheng" title="口味名称" width="100"><!--show-header-overflow-->
               <template #edit="scope">
@@ -338,7 +345,7 @@
                 <vxe-input v-model="scope.row.frongliang" type="text" placeholder="请输入"/>
               </template>
             </vxe-column>
-            <vxe-column field="fvg"   title="VG" width="40">
+            <vxe-column field="fvg"   title="fvg" width="40">
               <template #edit="scope">
                 <vxe-input v-model="scope.row.fvg" type="text" placeholder="请输入"/>
               </template>
@@ -357,7 +364,7 @@
                         :title-help="{message: '该明细是选项,批量赋值请使用双击单元格操作!'}" width="60">
               <template #edit="scope">
                 <vxe-select v-model="scope.row.fnicdw" transfer>
-                  <vxe-option v-for="item in nicUnitList" :key="item.value" :value="item.value" :label="item.label"/>
+                  <vxe-option v-for="item in fnicdwList" :key="item.value" :value="item.value" :label="item.label"/>
                 </vxe-select>
               </template>
             </vxe-column>
@@ -374,26 +381,26 @@
                 <vxe-input v-model="scope.row.fkwzhuangtai" type="text" placeholder="请输入"/>
               </template>
             </vxe-column>
-<!--            <vxe-column field="version" :edit-render="{}" title="版本" width="80">
+<!--            <vxe-column field="fbanben" :edit-render="{}" title="版本" width="80">
               <template slot="header">
-                <span @dblclick="reduce('version')">版本</span>
+                <span @dblclick="reduce('fbanben')">版本</span>
               </template>
               <template #edit="scope">
-                <vxe-input v-model="scope.row.version" type="text" placeholder="请输入"/>
+                <vxe-input v-model="scope.row.fbanben" type="text" placeholder="请输入"/>
               </template>
             </vxe-column>-->
             <vxe-column title="操作"  fixed="right" width="200">
               <template #default="{ row }">
-                <vxe-button status="danger" size="mini"  content="取消" @click="cancelDan(row)"></vxe-button>
+                <vxe-button status="danger" size="mini" type="text"  content="取消" @click="cancelDan(row)"></vxe-button>
                 <vxe-button status="danger" size="mini"  content="保存调香师" @click="saveSelectUserId(row)"></vxe-button>
               </template>
             </vxe-column>
-<!--            <template #empty>
+            <template #empty>
               <span style="color: red;">
-                &lt;!&ndash; <img src="https://pic2.zhimg.com/50/v2-f7031359103859e1ed38559715ef5f3f_hd.gif">&ndash;&gt;
+                <!-- <img src="https://pic2.zhimg.com/50/v2-f7031359103859e1ed38559715ef5f3f_hd.gif">-->
                 <p>没有更多数据了,请添加数据！</p>
               </span>
-            </template>-->
+            </template>
           </vxe-table>
         </div>
 
@@ -413,29 +420,29 @@
             @edit-actived="editActivedEvent"
           >
             <vxe-column type="seq" title="序号" width="50"/>
-            <vxe-column field="tasteName" :edit-render="{}" title="口味名称" width="100"><!--show-header-overflow-->
+            <vxe-column field="fkouweimingcheng" :edit-render="{}" title="口味名称" width="100"><!--show-header-overflow-->
               <template slot="header"><!--:title-help="{message: '自定义图标', icon: 'fa fa-bell'}"-->
-                <span @dblclick="reduce('tasteName')">口味名称</span>
+                <span @dblclick="reduce('fkouweimingcheng')">口味名称</span>
               </template>
               <template #edit="scope">
-                <vxe-input v-model="scope.row.tasteName"  type="text" placeholder="请输入"/>
+                <vxe-input v-model="scope.row.fkouweimingcheng"  type="text" placeholder="请输入"/>
               </template>
             </vxe-column>
-            <vxe-column field="tasteDetail" :edit-render="{}" title="口味描述" width="100">
+            <vxe-column field="fkouweimiaoshu" :edit-render="{}" title="口味描述" width="100">
               <template slot="header">
-                <span @dblclick="reduce('tasteDetail')">口味描述</span>
+                <span @dblclick="reduce('fkouweimiaoshu')">口味描述</span>
               </template>
               <template #edit="scope">
-                <vxe-input v-model="scope.row.tasteDetail" type="text" placeholder="请输入"/>
+                <vxe-input v-model="scope.row.fkouweimiaoshu" type="text" placeholder="请输入"/>
               </template>
             </vxe-column>
-            <vxe-column field="isBasicTaste" title="有基础口味" :show-header-overflow="true" :edit-render="{}"
+            <vxe-column field="fjichukouwei" title="有基础口味" :show-header-overflow="true" :edit-render="{}"
                         :title-help="{message: '该明细是选项,批量赋值请使用双击单元格操作!'}" width="120">
               <template #default="{ row }">
-                <span>{{ row.isBasicTaste }}</span>
+                <span>{{ row.fjichukouwei }}</span>
               </template>
               <template #edit="scope">
-                <vxe-select v-model="scope.row.isBasicTaste" transfer>
+                <vxe-select v-model="scope.row.fjichukouwei" transfer>
                   <vxe-option v-for="item in sexList" :key="item.value" :value="item.value" :label="item.label"/>
                 </vxe-select>
               </template>
@@ -448,72 +455,72 @@
                 <vxe-input v-model="scope.row.fjichukouweimingcheng" type="text" placeholder="请输入"/>
               </template>
             </vxe-column>
-            <vxe-column field="basicTasteImprovementIdeas" title="基础口味改善建议" :edit-render="{}" width="150">
+            <vxe-column field="fjichukouweigaishanyijian" title="基础口味改善建议" :edit-render="{}" width="150">
               <template slot="header">
-                <span @dblclick="reduce('basicTasteImprovementIdeas')">基础口味改善建议</span>
+                <span @dblclick="reduce('fjichukouweigaishanyijian')">基础口味改善建议</span>
               </template>
               <template #edit="scope">
-                <vxe-input v-model="scope.row.basicTasteImprovementIdeas" type="text" placeholder="请输入"/>
+                <vxe-input v-model="scope.row.fjichukouweigaishanyijian" type="text" placeholder="请输入"/>
               </template>
             </vxe-column>
-            <vxe-column field="fyanyoucangrongliang" :edit-render="{}" title="容量" width="80">
+            <vxe-column field="frongliang" :edit-render="{}" title="容量" width="80">
               <template slot="header">
-                <span @dblclick="reduce('fyanyoucangrongliang')">容量</span>
+                <span @dblclick="reduce('frongliang')">容量</span>
               </template>
               <template #edit="scope">
-                <vxe-input v-model="scope.row.fyanyoucangrongliang" type="text" placeholder="请输入"/>
+                <vxe-input v-model="scope.row.frongliang" type="text" placeholder="请输入"/>
               </template>
             </vxe-column>
-            <vxe-column field="vg" :edit-render="{}" title="VG" width="80">
+            <vxe-column field="fvg" :edit-render="{}" title="fvg" width="80">
               <template slot="header">
-                <span @dblclick="reduce('vg')">VG</span>
+                <span @dblclick="reduce('fvg')">fvg</span>
               </template>
               <template #edit="scope">
-                <vxe-input v-model="scope.row.vg" type="text" placeholder="请输入"/>
+                <vxe-input v-model="scope.row.fvg" type="text" placeholder="请输入"/>
               </template>
             </vxe-column>
-            <vxe-column field="nicType" :edit-render="{}"  title="NIC类别" :title-help="{message: '编辑勾选', icon: 'fa fa-bell'}"
+            <vxe-column field="fniclb" :edit-render="{}"  title="NIC类别" :title-help="{message: '编辑勾选', icon: 'fa fa-bell'}"
                         width="100">
               <template slot="header">
-                <span @dblclick="reduce('nicType')">NIC类别</span>
+                <span @dblclick="reduce('fniclb')">NIC类别</span>
               </template>
               <template #edit="scope">
-                <vxe-input v-model="scope.row.nicType" type="text" placeholder="请输入"/>
+                <vxe-input v-model="scope.row.fniclb" type="text" placeholder="请输入"/>
               </template>
             </vxe-column>
-            <vxe-column field="nicConcentration" title="NIC浓度" :edit-render="{}" width="100">
+            <vxe-column field="fnicnd" title="NIC浓度" :edit-render="{}" width="100">
               <template slot="header">
-                <span @dblclick="reduce('nicConcentration')">NIC浓度</span>
+                <span @dblclick="reduce('fnicnd')">NIC浓度</span>
               </template>
               <template #edit="scope">
-                <vxe-input v-model="scope.row.nicConcentration" type="text" placeholder="请输入"/>
+                <vxe-input v-model="scope.row.fnicnd" type="text" placeholder="请输入"/>
               </template>
             </vxe-column>
-            <vxe-column field="nicUnit" title="NIC单位" :edit-render="{}"
+            <vxe-column field="fnicdw" title="NIC单位" :edit-render="{}"
                         :title-help="{message: '该明细是选项,批量赋值请使用双击单元格操作!'}" width="110">
               <template #default="{ row }">
-                <span>{{ row.nicUnit }}</span>
+                <span>{{ row.fnicdw }}</span>
               </template>
               <template #edit="scope">
-                <vxe-select v-model="scope.row.nicUnit" transfer>
-                  <vxe-option v-for="item in nicUnitList" :key="item.value" :value="item.value" :label="item.label"/>
+                <vxe-select v-model="scope.row.fnicdw" transfer>
+                  <vxe-option v-for="item in fnicdwList" :key="item.value" :value="item.value" :label="item.label"/>
                 </vxe-select>
               </template>
             </vxe-column>
-            <vxe-column field="perfumer" :edit-render="{}" title="调香师" v-show="false" width="100">
+            <vxe-column field="ffentiaoxiangshi" :edit-render="{}" title="调香师" v-show="false" width="100">
               <template slot="header">
-                <span @dblclick="reduce('perfumer')">调香师</span>
+                <span @dblclick="reduce('ffentiaoxiangshi')">调香师</span>
               </template>
               <template #edit="scope">
-                <vxe-input v-model="scope.row.perfumer" type="text" placeholder="请输入"/>
+                <vxe-input v-model="scope.row.ffentiaoxiangshi" type="text" placeholder="请输入"/>
               </template>
             </vxe-column>
-            <vxe-column field="version" :edit-render="{}" title="版本" v-show="false" width="80">
+            <vxe-column field="fbanben" :edit-render="{}" title="版本" v-show="false" width="80">
               <template slot="header">
-                <span @dblclick="reduce('version')">版本</span>
+                <span @dblclick="reduce('fbanben')">版本</span>
               </template>
               <template #edit="scope">
-                <vxe-input v-model="scope.row.version" type="text" placeholder="请输入"/>
+                <vxe-input v-model="scope.row.fbanben" type="text" placeholder="请输入"/>
               </template>
             </vxe-column>
             <!-- 新增逻辑 START   -->
@@ -524,9 +531,9 @@
                 </vxe-select>
               </template>
             </vxe-column>
-<!--            <vxe-column field="selectVersion" :edit-render="{}" title="选择口味版本" width="120" v-if="showSelectUserId">
+<!--            <vxe-column field="selectfbanben" :edit-render="{}" title="选择口味版本" width="120" v-if="showSelectUserId">
               <template #edit="scope">
-                <vxe-input v-model="scope.row.selectVersion" type="text" placeholder="请输入"/>
+                <vxe-input v-model="scope.row.selectfbanben" type="text" placeholder="请输入"/>
               </template>
             </vxe-column>-->
 <!--            <vxe-column field="tasteStatus" :edit-render="{}" title="口味状态" width="120" v-if="showSelectUserId">
@@ -541,7 +548,7 @@
             </vxe-column>-->
             <!-- 新增逻辑 END   -->
 
-            <vxe-column title="操作" width="100" fixed="right" >
+            <vxe-column title="操作" width="120" fixed="right" >
               <template #default="{ row }">
                 <vxe-button status="warning" size="mini" type="text" content="删除" @click="removeSelectEvent(row)"></vxe-button>
               </template>
@@ -661,7 +668,7 @@ export default {
       /*展示分配调香师*/
       showSelectUserId: false,
       showSelectUserIdTwo: true,
-      showVersion: false,
+      showfbanben: false,
       /*审核按钮button*/
       processNoStatus: false,
       /*企业微信字典*/
@@ -766,7 +773,7 @@ export default {
         {label: '否', value: '否'},
         {label: '是', value: '是'}
       ],
-      nicUnitList: [
+      fnicdwList: [
         {label: '请选择', value: '请选择'},
         {label: 'mg/g', value: 'mg/g'},
         {label: 'mg/ml', value: 'mg/ml'}
@@ -795,20 +802,20 @@ export default {
        * {"TxsId":"SW0030","TxsDm":"Y","TxsNm":"Y 李绍兵"}]
        */
       tableColumn: [
-        {label: '口味名称', prop: 'tasteName', width: '140', edit: true, type: 'text'},
-        {label: '口味描述', prop: 'tasteDetail', width: '140', edit: true, type: 'text'},
-        {label: '有基础口味', prop: 'isBasicTaste', width: '80', edit: true, type: 'text'},
-        {label: '基础口味名称/编号', prop: 'basicTasteName', width: '80', edit: true},
-        {label: '基础口味改善建议', prop: 'basicTasteImprovementIdeas', width: '80', edit: true},
-        {label: '容量', prop: 'fyanyoucangrongliang', width: '80', edit: true},
-        {label: 'VG', prop: 'vg', width: '80', edit: true, type: 'number'},
-        {label: 'NIC类别', prop: 'nicType', width: '80', edit: true},
-        {label: 'NIC浓度', prop: 'nicConcentration', width: '80', edit: true, type: 'number'},
-        {label: 'NIC单位', prop: 'nicUnit', width: '80', edit: true, type: 'number'},
-        {label: '调香师', prop: 'perfumer', width: '80', edit: true},
-        {label: '版本', prop: 'version', width: '80', edit: true}
+        {label: '口味名称', prop: 'fkouweimingcheng', width: '140', edit: true, type: 'text'},
+        {label: '口味描述', prop: 'fkouweimiaoshu', width: '140', edit: true, type: 'text'},
+        {label: '有基础口味', prop: 'fjichukouwei', width: '80', edit: true, type: 'text'},
+        {label: '基础口味名称/编号', prop: 'fjichukouweimingcheng', width: '80', edit: true},
+        {label: '基础口味改善建议', prop: 'fjichukouweigaishanyijian', width: '80', edit: true},
+        {label: '容量', prop: 'frongliang', width: '80', edit: true},
+        {label: 'fvg', prop: 'fvg', width: '80', edit: true, type: 'number'},
+        {label: 'NIC类别', prop: 'fniclb', width: '80', edit: true},
+        {label: 'NIC浓度', prop: 'fnicnd', width: '80', edit: true, type: 'number'},
+        {label: 'NIC单位', prop: 'fnicdw', width: '80', edit: true, type: 'number'},
+        {label: '调香师', prop: 'ffentiaoxiangshi', width: '80', edit: true},
+        {label: '版本', prop: 'fbanben', width: '80', edit: true}
       ],
-      // { label: '版本', prop: 'version', width: '80', edit: true }
+      // { label: '版本', prop: 'fbanben', width: '80', edit: true }
       // { field: 'nickname', title: '昵称', span: 8, itemRender: { name: '$input', props: { placeholder: '请输入昵称' } } },
       // 查看数据、隐藏数据
       detail: '查看',
@@ -819,7 +826,7 @@ export default {
       // 选中数组
       ids: [],
       // 子表选中数据
-      checkedHxTasteDetail: [],
+      checkedHxfkouweimiaoshu: [],
       // 非单个禁用
       single: true,
       // 非多个禁用
@@ -841,7 +848,7 @@ export default {
       form: {},
       // 表单校验
       rules: {
-        fyewubumen: [
+        /*fyewubumen: [
           {required: true, message: '不能为空', trigger: 'change'}
         ],
         fyewuxingming: [
@@ -860,9 +867,9 @@ export default {
         fkouweishuliang: [
           {required: true, message: '不能为空', trigger: 'blur'}
         ],
-        /* fshangcishenqingdanhao: [
+        /!* fshangcishenqingdanhao: [
           { required: true, message: '不能为空', trigger: 'blur' }
-        ], */
+        ], *!/
         fdijicisongyang: [
           {required: true, message: '不能为空', trigger: 'blur'}
         ],
@@ -870,6 +877,9 @@ export default {
           {required: true, message: '不能为空', trigger: 'blur'}
         ],
         fxianchangshiyou: [
+          {required: true, message: '不能为空', trigger: 'blur'}
+        ],
+        fxiangmuxinxi: [
           {required: true, message: '不能为空', trigger: 'blur'}
         ],
         flaifangriqi: [
@@ -908,54 +918,54 @@ export default {
         fyujiwanchengshijian: [
           {required: true, message: '不能为空', trigger: 'blur'}
         ],
-        matchMarket: [
+        matchMarketTemp: [
           {required: true, message: '不能为空', trigger: 'change'}
         ],
         fyoujixinxi: [
           {required: true, message: '不能为空', trigger: 'blur'}
-        ]
+        ]*/
         /* remark: [
           { required: true, message: '不能为空', trigger: 'blur' }
         ] */
       },
       // 明细校验
       validRules: {
-        tasteName: [
+        fkouweimingcheng: [
           {required: true, message: '不能为空'},
           {validator: nameValid}
         ],
-        tasteDetail: [
+        fkouweimiaoshu: [
           {required: true, message: '不能为空'}
         ],
-        isBasicTaste: [
+        fjichukouwei: [
           {required: true, message: '不能为空'}
         ],
-        basicTasteName: [
+        fjichukouweimingcheng: [
           {required: true, message: '不能为空'}
         ],
-        basicTasteImprovementIdeas: [
+        fjichukouweigaishanyijian: [
           {required: true, message: '不能为空'}
         ],
-        fyanyoucangrongliang: [
+        frongliang: [
           {required: true, message: '不能为空'}
         ],
-        vg: [
+        fvg: [
           {required: true, message: '不能为空'},
           {pattern: '^[0-9]{0,3}$', message: '格式不正确'}
         ],
-        nicType: [
+        fniclb: [
           {required: true, message: '不能为空'}
         ],
-        nicConcentration: [
+        fnicnd: [
           {required: true, message: '不能为空'}
         ],
-        nicUnit: [
+        fnicdw: [
           {required: true, message: '不能为空'}
         ],
-        perfumer: [
+        ffentiaoxiangshi: [
           {required: true, message: '不能为空'}
         ],
-        version: [
+        fbanben: [
           {required: true, message: '不能为空'}
         ]
       },
@@ -988,11 +998,20 @@ export default {
       //this.isEdit = 'A'
       this.wxConfig();
       getTaste(this.$route.query.fid).then(response => {
+        console.log("111")
         this.form = response.data
-        //console.log("form:",JSON.stringify(this.form))
+        //console.log("this.$route.query.adjust:",this.$route.query.adjust)
         this.hxTasteDetailList = response.data.hxTasteDetailList
-        this.matchMarketTemp = eval(JSON.stringify(JSON.parse(this.form.matchMarket)))
-        if(this.$route.query.adjust!=null){
+        if(this.form.fpipeishichang.indexOf('[') != -1){
+          this.matchMarketTemp = eval(JSON.stringify(JSON.parse(this.form.fpipeishichang)))
+          console.log("集合1:",this.matchMarketTemp)
+        }else{
+          this.matchMarketTemp = this.form.fpipeishichang.split('[]')
+          console.log("集合2:",this.matchMarketTemp)
+        }
+        //
+        if(this.$route.query.adjust === 'adjust'){
+          console.log("222")
           this.isEdit = 'B'
           console.log("调整1:",this.$route.query.adjust)
           console.log("调整2:",this.isEdit)
@@ -1075,7 +1094,7 @@ export default {
           },
           fail: (res) => {
             console.log("agent config 失败: ", res);
-            alert("企业微信调用SDK agent config 失败")
+            this.$modal.msgError("企业微信  agent config 调用失败: 请联系管理员", res)
             //alert("agentId失败:" + JSON.stringify(res));
             if (res.errMsg.indexOf("function not exist") > -1) {
               alert("版本过低请升级");
@@ -1103,16 +1122,16 @@ export default {
     /*复制一份该申请单*/
     copyList() {
       console.log("进入复制")
-      let tasteCopyId = this.form.tasteId
-      delete this.form.tasteId
-      delete this.form.follower
-      delete this.form.spNo //删除绑定的审批单号
-      delete this.form.processNo //删除绑定的审批流程号
+      //let tasteCopyId = this.form.tasteId
+      delete this.form.fid
+      delete this.form.ffenpeigenjinren
+      delete this.form.fbillno //删除绑定的审批单号
+      //delete this.form.processNo //删除绑定的审批流程号
       for (let i = 0; i < this.form.hxTasteDetailList.length; i++) {
         delete this.form.hxTasteDetailList[i].id
-        delete this.form.hxTasteDetailList[i].tasteId
+        delete this.form.hxTasteDetailList[i].fparentid
       }
-      this.form.tasteCopyId = tasteCopyId
+      //this.form.tasteCopyId = tasteCopyId
       //直接调用保存方法
       addTaste(this.form).then(response => {
         this.$modal.msgSuccess('复制成功,请到列表页中查看')
@@ -1120,14 +1139,14 @@ export default {
       })
       //跳转到,列表中查看新复制的
       setTimeout(() => {
-        this.$router.push({path: '/kouwei/tasteList/'});
+        this.$router.push({path: '/taste/list?type=list'});
       }, 1000)
 
 
     },
     /*打印该申请单*/
     printList() {
-      this.$router.push({path:"/print?detail="+this.form.tasteId+`&print=true`})
+      this.$router.push({path:"/printTwo?detail="+this.form.fid+`&print=true`})
     },
     /*复制该申请单明细*/
     copyListDetail() {
@@ -1151,7 +1170,7 @@ export default {
       wx.invoke('thirdPartyOpenPage', {
           "oaType": '10002',// String
           "templateId": 'a8f97896837d07d2ea691e71b0a60fbd_696238615',// String //测试模板id a8f97896837d07d2ea691e71b0a60fbd_696238615
-          "thirdNo": this.form.tasteId,// String  后端请求绑定的模板id
+          "thirdNo": this.form.fid,// String  后端请求绑定的模板id
           "extData": {
             'fieldList': [],
           }
@@ -1163,8 +1182,6 @@ export default {
     },
     /*推送该申请单在企业微信中审批*/
     auditPush(e,k) {
-
-
       this.$modal.confirm('您确认进行该操作吗? ').then(function() {
       }).then(() => {
         // 调用sdk
@@ -1172,12 +1189,11 @@ export default {
         // 完整路由
         console.log("接收1", JSON.stringify(e))
         console.log("接收2", JSON.stringify(k))
-        console.log("路由:",window.location.origin+`/print?detail=`+this.form.tasteId)
         let self = this
         // 输出接口的回调信息
         // 开始绑定更新单号  绑定然后更新 审批流程字典
-        let obj = {}
-        obj.id = self.$route.params.tasteId
+        let obj = {}  //TODO更新已提交审批的状态
+        obj.id = self.$route.params.fid
         obj.processNo = k
         console.log(obj)
         if(this.form.processNo === null){
@@ -1198,17 +1214,17 @@ export default {
           wx.invoke('thirdPartyOpenPage', {
               "oaType": this.oaType,// String
               "templateId": e,// String //测试模板id a8f97896837d07d2ea691e71b0a60fbd_696238615
-              "thirdNo": this.form.tasteId,// String  后端请求绑定的模板id
+              "thirdNo": this.form.fid,// String  后端请求绑定的模板id
               "extData": {
                 'fieldList': [
                   {
                     'title': '单据编号',
                     'type': 'text',
-                    'value': this.form.spNo,
+                    'value': this.form.fbillno,
                   }, {
                     'title': '录入人',
                     'type': 'text',
-                    'value': this.form.createBy,
+                    'value': this.form.fshenqingren,
                   }, {
                     'title': '业务姓名',
                     'type': 'text',
@@ -1228,14 +1244,14 @@ export default {
                   }, {
                     'title': '查看详情',
                     'type': 'link',		// link类型，用于在审批详情页展示第三方订单跳转地址
-                    'value': window.location.origin+`/print?detail=`+this.form.tasteId,
+                    'value': window.location.origin+`/printTwo?detail=`+this.form.fid,
                     // 获取用户的code  // window.location.href
                     //https://open.weixin.qq.com/connect/oauth2/authorize?appid=ww0530511650e0c6c8&redirect_uri=&response_type=code&scope=snsapi_base&state=#wechat_redirect
                     //https://open.weixin.qq.com/connect/oauth2/authorize?appid=ww0530511650e0c6c8&redirect_uri=`+window.location.origin+`?detail=`+this.form.tasteId+`&response_type=code&scope=snsapi_base&state=#wechat_redirect
                   }, {
                     'title': '打印详情',
                     'type': 'link',		// link类型，用于在审批详情页展示第三方订单跳转地址
-                    'value': window.location.origin+`/print?detail=`+this.form.tasteId+`&print=true`,
+                    'value': window.location.origin+`/printTwo?detail=`+this.form.fid+`&print=true`,
                   }],
               }//https://open.weixin.qq.com/connect/oauth2/authorize?appid=ww0530511650e0c6c8&redirect_uri=http://rds.cnhstar.com:44346?detail=1564875584438435840&response_type=code&scope=snsapi_base&state=
             },
@@ -1326,9 +1342,9 @@ export default {
     auditUpdateList() {
       this.$modal.confirm('确认更新审批吗?').then(function () {
       }).then(() => {
-        getTaste(this.form.tasteId).then(response => {
-          if (response.data.spNo != null) {
-            updateAuitDetail(this.form.tasteId).then((res) => {
+        getTaste(this.form.fid).then(response => {
+          if (response.data.fbillno != null) {
+            updateAuitDetail(this.form.fid).then((res) => {
               console.log(JSON.stringify(res))
               this.$modal.msgSuccess(res.msg);
             })
@@ -1404,44 +1420,44 @@ export default {
           value.splice(5)
         }
       }
-      this.form.matchMarket = JSON.stringify(value)
+      this.form.fpipeishichang = JSON.stringify(value)
     },
     /* 渲染默认添加一行 */
     defultDeatil() {
       this.$nextTick(() => {
         const obj = {}
-        obj.tasteName = ''
-        obj.tasteDetail = ''
-        obj.isBasicTaste = '否'
-        obj.basicTasteName = ''
-        obj.basicTasteImprovementIdeas = ''
-        obj.fyanyoucangrongliang = ''
-        obj.vg = ''
-        obj.nicType = ''
-        obj.nicConcentration = ''
-        obj.nicUnit = 'mg/ml'
-        obj.perfumer = ''
-        obj.version = ''
-        obj.remark = ''
+        obj.fkouweimingcheng = ''
+        obj.fkouweimiaoshu = ''
+        obj.fjichukouwei = '否'
+        obj.fjichukouweimingcheng = ''
+        obj.fjichukouweigaishanyijian = ''
+        obj.frongliang = ''
+        obj.fvg = ''
+        obj.fniclb = ''
+        obj.fnicnd = ''
+        obj.fnicdw = 'mg/ml'
+        obj.ffentiaoxiangshi = ''
+        obj.fbanben = ''
+
         this.hxTasteDetailList.push(obj)
       })
     },
     /* tabble START*/
     createList(e) {
       const obj = {}
-      obj.tasteName = ''
-      obj.tasteDetail = ''
-      obj.isBasicTaste = ''
-      obj.basicTasteName = ''
-      obj.basicTasteImprovementIdeas = ''
-      obj.fyanyoucangrongliang = ''
-      obj.vg = ''
-      obj.nicType = ''
-      obj.nicConcentration = ''
-      obj.nicUnit = ''
-      obj.perfumer = ''
-      obj.version = ''
-      obj.remark = ''
+      obj.fkouweimingcheng = ''
+      obj.fkouweimiaoshu = ''
+      obj.fjichukouwei = ''
+      obj.fjichukouweimingcheng = ''
+      obj.fjichukouweigaishanyijian = ''
+      obj.frongliang = ''
+      obj.fvg = ''
+      obj.fniclb = ''
+      obj.fnicnd = ''
+      obj.fnicdw = ''
+      obj.ffentiaoxiangshi = ''
+      obj.fbanben = ''
+
       for (let i = 0; i < e; i++) {
         this.hxTasteDetailList.push(obj)
       }
@@ -1460,7 +1476,7 @@ export default {
         this.detail = '隐藏'
       }
     },
-    formatIsBasicTaste(value) {
+    formatfjichukouwei(value) {
       if (value === '1') {
         return '否'
       }
@@ -1484,42 +1500,48 @@ export default {
      */
     cancelDan(row){
       console.log("数据明细:",JSON.stringify(row))
-      if(row.tasteStatus == '已取消'){
+
+      if(row.fkwzhuangtai !== null){
         this.$modal.msgError('已经取消了该配方,不可更换,若更换请联系研发请退回')
       }else{
         this.$modal.confirm('确认取消吗?若取消必须联系研发确认!!!').then(function() {
         }).then(() => {
-          row.tasteStatus = '已取消'
-          this.submitForm()
+          row.fkwzhuangtai = '已取消'
+          this.quxiao(1)
         }).catch(() => {});
       }
     },
     // 保存调香师
     saveSelectUserId(row){
       console.log("数据明细:",JSON.stringify(row))
-      getTaste(row.tasteId).then(res=>{
-        if(res.data.selectUserId != null){
-          this.$modal.msgError('已经选择了调香师,不可更换,若更换请联系研发请退回')
-        }else{
-          this.submitForm()
-        }
-      })
+      this.$modal.confirm('确认保存吗?').then(function() {
+      }).then(() => {
+        this.quxiao(2)
+      }).catch(() => {});
+      /*if(row.ffentiaoxiangshi !== null){
+        this.$modal.msgError('已经选择了调香师,不可更换,若更换请联系研发请退回')
+      }else{
+        this.$modal.confirm('确认取消吗?若取消必须联系研发确认!!!').then(function() {
+        }).then(() => {
+          this.quxiao(2)
+        }).catch(() => {});
+      }*/
 
       //this.$modal.msg("保存调香师todo")  Number() >= 6
 
       /*if(this.form.start!=null){
         this.showSelectUserIdTwo = false
         this.showSelectUserId = true
-        this.showVersion = true
+        this.showfbanben = true
       }else{
         this.$modal.msgError("流程状态不正确,请保证已保存或已审核")
       }*/
     },
     // 选择配方版本
-    /*selectVersion(){
+    /*selectfbanben(){
       //this.$modal.msg("选择配方版本todo")
       if(this.form.start!=null){
-        this.showVersion = true
+        this.showfbanben = true
       }else{
         this.$modal.msgError("流程状态不正确,请保证已保存或已审核")
       }
@@ -1592,64 +1614,64 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        if (column.field === 'tasteName') {
+        if (column.field === 'fkouweimingcheng') {
           for (let i = nums1 - nums2; i < this.hxTasteDetailList.length; i++) {
-            this.hxTasteDetailList[i].tasteName = row.tasteName
+            this.hxTasteDetailList[i].fkouweimingcheng = row.fkouweimingcheng
           }
         }
-        if (column.property === 'tasteDetail') {
+        if (column.property === 'fkouweimiaoshu') {
           for (let i = nums1 - nums2; i < this.hxTasteDetailList.length; i++) {
-            this.hxTasteDetailList[i].tasteDetail = row.tasteDetail
+            this.hxTasteDetailList[i].fkouweimiaoshu = row.fkouweimiaoshu
           }
         }
-        if (column.property === 'isBasicTaste') {
+        if (column.property === 'fjichukouwei') {
           for (let i = nums1 - nums2; i < this.hxTasteDetailList.length; i++) {
-            this.hxTasteDetailList[i].isBasicTaste = row.isBasicTaste
+            this.hxTasteDetailList[i].fjichukouwei = row.fjichukouwei
           }
         }
-        if (column.property === 'basicTasteName') {
+        if (column.property === 'fjichukouweimingcheng') {
           for (let i = nums1 - nums2; i < this.hxTasteDetailList.length; i++) {
-            this.hxTasteDetailList[i].basicTasteName = row.basicTasteName
+            this.hxTasteDetailList[i].fjichukouweimingcheng = row.fjichukouweimingcheng
           }
         }
-        if (column.property === 'basicTasteImprovementIdeas') {
+        if (column.property === 'fjichukouweigaishanyijian') {
           for (let i = nums1 - nums2; i < this.hxTasteDetailList.length; i++) {
-            this.hxTasteDetailList[i].basicTasteImprovementIdeas = row.basicTasteImprovementIdeas
+            this.hxTasteDetailList[i].fjichukouweigaishanyijian = row.fjichukouweigaishanyijian
           }
         }
-        if (column.property === 'fyanyoucangrongliang') {
+        if (column.property === 'frongliang') {
           for (let i = nums1 - nums2; i < this.hxTasteDetailList.length; i++) {
-            this.hxTasteDetailList[i].fyanyoucangrongliang = row.fyanyoucangrongliang
+            this.hxTasteDetailList[i].frongliang = row.fgrongliang
           }
         }
-        if (column.property === 'vg') {
+        if (column.property === 'fvg') {
           for (let i = nums1 - nums2; i < this.hxTasteDetailList.length; i++) {
-            this.hxTasteDetailList[i].vg = row.vg
+            this.hxTasteDetailList[i].fvg = row.fvg
           }
         }
-        if (column.property === 'nicType') {
+        if (column.property === 'fniclb') {
           for (let i = nums1 - nums2; i < this.hxTasteDetailList.length; i++) {
-            this.hxTasteDetailList[i].nicType = row.nicType
+            this.hxTasteDetailList[i].fniclb = row.fniclb
           }
         }
-        if (column.property === 'nicConcentration') {
+        if (column.property === 'fnicnd') {
           for (let i = nums1 - nums2; i < this.hxTasteDetailList.length; i++) {
-            this.hxTasteDetailList[i].nicConcentration = row.nicConcentration
+            this.hxTasteDetailList[i].fnicnd = row.fnicnd
           }
         }
-        if (column.property === 'nicUnit') {
+        if (column.property === 'fnicdw') {
           for (let i = nums1 - nums2; i < this.hxTasteDetailList.length; i++) {
-            this.hxTasteDetailList[i].nicUnit = row.nicUnit
+            this.hxTasteDetailList[i].fnicdw = row.fnicdw
           }
         }
-        if (column.property === 'perfumer') {
+        if (column.property === 'ffentiaoxiangshi') {
           for (let i = nums1 - nums2; i < this.hxTasteDetailList.length; i++) {
-            this.hxTasteDetailList[i].perfumer = row.perfumer
+            this.hxTasteDetailList[i].ffentiaoxiangshi = row.ffentiaoxiangshi
           }
         }
-        if (column.property === 'version') {
+        if (column.property === 'fbanben') {
           for (let i = nums1 - nums2; i < this.hxTasteDetailList.length; i++) {
-            this.hxTasteDetailList[i].version = row.version
+            this.hxTasteDetailList[i].fbanben = row.fbanben
           }
         }
         this.$message({
@@ -1697,54 +1719,54 @@ export default {
         this.hxTasteDetailList.length = 0
         for (let i = 0; i < ss.length; i++) {
           const obj = {}
-          obj.tasteName = ''
-          obj.tasteDetail = ''
-          obj.isBasicTaste = ''
-          obj.basicTasteName = ''
-          obj.basicTasteImprovementIdeas = ''
-          obj.fyanyoucangrongliang = ''
-          obj.vg = ''
-          obj.nicType = ''
-          obj.nicConcentration = ''
-          obj.nicUnit = ''
-          obj.perfumer = ''
-          obj.version = ''
-          obj.remark = ''
-          if (temp[0] === 'tasteName') {
-            obj.tasteName = ss[i]
+          obj.fkouweimingcheng = ''
+          obj.fkouweimiaoshu = ''
+          obj.fjichukouwei = ''
+          obj.fjichukouweimingcheng = ''
+          obj.fjichukouweigaishanyijian = ''
+          obj.frongliang = ''
+          obj.fvg = ''
+          obj.fniclb = ''
+          obj.fnicnd = ''
+          obj.fnicdw = ''
+          obj.ffentiaoxiangshi = ''
+          obj.fbanben = ''
+
+          if (temp[0] === 'fkouweimingcheng') {
+            obj.fkouweimingcheng = ss[i]
           }
-          if (temp[0] === 'tasteDetail') {
-            obj.tasteDetail = ss[i]
+          if (temp[0] === 'fkouweimiaoshu') {
+            obj.fkouweimiaoshu = ss[i]
           }
-          if (temp[0] === 'isBasicTaste') {
-            obj.isBasicTaste = ss[i]
+          if (temp[0] === 'fjichukouwei') {
+            obj.fjichukouwei = ss[i]
           }
-          if (temp[0] === 'basicTasteName') {
-            obj.basicTasteName = ss[i]
+          if (temp[0] === 'fjichukouweimingcheng') {
+            obj.fjichukouweimingcheng = ss[i]
           }
-          if (temp[0] === 'basicTasteImprovementIdeas') {
-            obj.basicTasteImprovementIdeas = ss[i]
+          if (temp[0] === 'fjichukouweigaishanyijian') {
+            obj.fjichukouweigaishanyijian = ss[i]
           }
-          if (temp[0] === 'fyanyoucangrongliang') {
-            obj.fyanyoucangrongliang = ss[i]
+          if (temp[0] === 'frongliang') {
+            obj.frongliang = ss[i]
           }
-          if (temp[0] === 'vg') {
-            obj.vg = ss[i]
+          if (temp[0] === 'fvg') {
+            obj.fvg = ss[i]
           }
-          if (temp[0] === 'nicType') {
-            obj.nicType = ''
+          if (temp[0] === 'fniclb') {
+            obj.fniclb = ''
           }
-          if (temp[0] === 'nicConcentration') {
-            obj.nicConcentration = ss[i]
+          if (temp[0] === 'fnicnd') {
+            obj.fnicnd = ss[i]
           }
-          if (temp[0] === 'nicUnit') {
-            obj.nicUnit = ss[i]
+          if (temp[0] === 'fnicdw') {
+            obj.fnicdw = ss[i]
           }
-          if (temp[0] === 'perfumer') {
-            obj.perfumer = ss[i]
+          if (temp[0] === 'ffentiaoxiangshi') {
+            obj.ffentiaoxiangshi = ss[i]
           }
-          if (temp[0] === 'version') {
-            obj.version = ss[i]
+          if (temp[0] === 'fbanben') {
+            obj.fbanben = ss[i]
           }
           if (temp[0] === 'remark') {
             obj.remark = ss[i]
@@ -1777,49 +1799,49 @@ export default {
           console.log('逻辑：有缓存', typeof this.hxTasteDetailList)
           for (let i = 0; i < ss.length; i++) {
             console.log(this.hxTasteDetailList[i])
-            if (temp[0] === 'tasteName') {
-              this.hxTasteDetailList[i].tasteName = ss[i]
+            if (temp[0] === 'fkouweimingcheng') {
+              this.hxTasteDetailList[i].fkouweimingcheng = ss[i]
             }
-            if (temp[0] === 'tasteDetail') {
-              this.hxTasteDetailList[i].tasteDetail = ss[i]
+            if (temp[0] === 'fkouweimiaoshu') {
+              this.hxTasteDetailList[i].fkouweimiaoshu = ss[i]
             }
-            if (temp[0] === 'isBasicTaste') {
-              this.hxTasteDetailList[i].isBasicTaste = ss[i]
+            if (temp[0] === 'fjichukouwei') {
+              this.hxTasteDetailList[i].fjichukouwei = ss[i]
               this.$message({
                 type: 'error',
                 message: '该明细是选项,批量赋值请使用双击单元格操作!'
               })
             }
-            if (temp[0] === 'basicTasteName') {
-              this.hxTasteDetailList[i].basicTasteName = ss[i]
+            if (temp[0] === 'fjichukouweimingcheng') {
+              this.hxTasteDetailList[i].fjichukouweimingcheng = ss[i]
             }
-            if (temp[0] === 'basicTasteImprovementIdeas') {
-              this.hxTasteDetailList[i].basicTasteImprovementIdeas = ss[i]
+            if (temp[0] === 'fjichukouweigaishanyijian') {
+              this.hxTasteDetailList[i].fjichukouweigaishanyijian = ss[i]
             }
-            if (temp[0] === 'fyanyoucangrongliang') {
-              this.hxTasteDetailList[i].fyanyoucangrongliang = ss[i]
+            if (temp[0] === 'frongliang') {
+              this.hxTasteDetailList[i].frongliang = ss[i]
             }
-            if (temp[0] === 'vg') {
-              this.hxTasteDetailList[i].vg = ss[i]
+            if (temp[0] === 'fvg') {
+              this.hxTasteDetailList[i].fvg = ss[i]
             }
-            if (temp[0] === 'nicType') {
-              this.hxTasteDetailList[i].nicType = ss[i]
+            if (temp[0] === 'fniclb') {
+              this.hxTasteDetailList[i].fniclb = ss[i]
             }
-            if (temp[0] === 'nicConcentration') {
-              this.hxTasteDetailList[i].nicConcentration = ss[i]
+            if (temp[0] === 'fnicnd') {
+              this.hxTasteDetailList[i].fnicnd = ss[i]
             }
-            if (temp[0] === 'nicUnit') {
-              this.hxTasteDetailList[i].nicUnit = ss[i]
+            if (temp[0] === 'fnicdw') {
+              this.hxTasteDetailList[i].fnicdw = ss[i]
               this.$message({
                 type: 'error',
                 message: '该明细是选项,批量赋值请使用双击单元格操作!'
               })
             }
-            if (temp[0] === 'perfumer') {
-              this.hxTasteDetailList[i].perfumer = ss[i]
+            if (temp[0] === 'ffentiaoxiangshi') {
+              this.hxTasteDetailList[i].ffentiaoxiangshi = ss[i]
             }
-            if (temp[0] === 'version') {
-              this.hxTasteDetailList[i].version = ss[i]
+            if (temp[0] === 'fbanben') {
+              this.hxTasteDetailList[i].fbanben = ss[i]
             }
             if (temp[0] === 'remark') {
               this.hxTasteDetailList[i].remark = ss[i]
@@ -1964,24 +1986,41 @@ export default {
         this.title = '修改口味申请单'
       })
     },
+    /*取消修改*/
+    quxiao(e){
+      updateTaste(this.form).then(response => {})
+      const obj = { path: "/taste/add", query: {fid: this.form.fid} };
+      // 刷新指定页签
+      this.$tab.refreshPage(obj);
+      if(e === 1){
+        this.$modal.msgSuccess('取消单成功')
+      }else if(e === 2){
+        this.$modal.msgSuccess('保存调香师成功')
+      }
+
+      this.isEdit = 'A'
+    },
     /** 提交按钮 */
     submitForm() {
       console.log("内容:" + typeof this.form.matchMarket)
       this.$refs['form'].validate(valid1 => {
         //this.$refs['xTable'].validate(valid2 => {
         if (valid1) { // || valid2
-          this.form.matchMarket = JSON.stringify(this.matchMarketTemp)
+          this.form.fpipeishichang = JSON.stringify(this.matchMarketTemp)
           this.form.hxTasteDetailList = this.hxTasteDetailList
           this.open = false
-          if (this.$route.params.tasteId != null) {
+          if (this.$route.params.fid != null) {
             this.$modal.confirm('修改之后不可以再更改').then(function() {
 
             }).then(() => {
               updateTaste(this.form).then(response => {})
+              const obj = { path: "/taste/add", query: {fid: row.fid} };
+              // 刷新指定页签
+              this.$tab.refreshPage(obj);
+              /* const obj = { path: "/system/taste-data/index/"+ this.$route.params.tasteId};
+              this.$tab.refreshPage(obj);*/
               this.$modal.msgSuccess('修改成功')
               // 关闭当前tab页签，打开新页签
-              const obj = { path: "/taste/taste-data/index/"+ this.$route.params.fid};
-              this.$tab.refreshPage(obj);
               this.isEdit = 'A'
             }).catch(() => {});
 
@@ -1990,10 +2029,14 @@ export default {
 
             }).then(() => {
               addTaste(this.form).then(response => {
+
+                // const obj = { path: "/taste/add", query: {fid: response.data} };
+                this.$tab.closePage().then(() => {
+                  // 执行结束的逻辑
+                  this.$router.push({ path: "/taste/add", query: {fid: response.data} });
+                })
                 this.$modal.msgSuccess('新增成功')
                 // 关闭当前tab页签，打开新页签
-                const obj = { path: "/taste/taste-data/index/"+ response.data};
-                this.$tab.refreshPage(obj);
               })
             }).catch(() => {});
 
@@ -2014,42 +2057,42 @@ export default {
       })
     },
     /** 口味申请单明细序号 */
-    rowHxTasteDetailIndex({row, rowIndex}) {
+    rowHxfkouweimiaoshuIndex({row, rowIndex}) {
       row.index = rowIndex + 1
     },
     /** 口味申请单明细添加按钮操作 */
-    handleAddHxTasteDetail() {
+    handleAddHxfkouweimiaoshu() {
       const obj = {}
-      obj.tasteName = ''
-      obj.tasteDetail = ''
-      obj.isBasicTaste = ''
-      obj.basicTasteName = ''
-      obj.basicTasteImprovementIdeas = ''
-      obj.fyanyoucangrongliang = ''
-      obj.vg = ''
-      obj.nicType = ''
-      obj.nicConcentration = ''
-      obj.nicUnit = ''
-      obj.perfumer = ''
-      obj.version = ''
-      obj.remark = ''
+      obj.fkouweimingcheng = ''
+      obj.fkouweimiaoshu = ''
+      obj.fjichukouwei = ''
+      obj.fjichukouweimingcheng = ''
+      obj.fjichukouweigaishanyijian = ''
+      obj.frongliang = ''
+      obj.fvg = ''
+      obj.fniclb = ''
+      obj.fnicnd = ''
+      obj.fnicdw = ''
+      obj.ffentiaoxiangshi = ''
+      obj.fbanben = ''
+
       this.hxTasteDetailList.push(obj)
     },
     /** 口味申请单明细删除按钮操作 */
-    handleDeleteHxTasteDetail() {
-      if (this.checkedHxTasteDetail.length === 0) {
+    handleDeleteHxfkouweimiaoshu() {
+      if (this.checkedHxfkouweimiaoshu.length === 0) {
         this.$modal.msgError('请先选择要删除的口味申请单明细数据')
       } else {
         const hxTasteDetailList = this.hxTasteDetailList
-        const checkedHxTasteDetail = this.checkedHxTasteDetail
+        const checkedHxfkouweimiaoshu = this.checkedHxfkouweimiaoshu
         this.hxTasteDetailList = hxTasteDetailList.filter(function (item) {
-          return checkedHxTasteDetail.indexOf(item.index) === -1
+          return checkedHxfkouweimiaoshu.indexOf(item.index) === -1
         })
       }
     },
     /** 复选框选中数据 */
-    handleHxTasteDetailSelectionChange(selection) {
-      this.checkedHxTasteDetail = selection.map(item => item.index)
+    handleHxfkouweimiaoshuSelectionChange(selection) {
+      this.checkedHxfkouweimiaoshu = selection.map(item => item.index)
     },
     /** 导出按钮操作 */
     handleExport() {

@@ -1,17 +1,17 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch"  label-width="68px">
-<!--      <el-form-item label="部门Id" prop="deptId">
+<!--      <el-form-item label="部门Id" prop="fyewubumen">
         <el-input
-          v-model="queryParams.deptId"
+          v-model="queryParams.fyewubumen"
           placeholder="请输入部门Id"
           clearable
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>-->
-      <el-form-item label="业务姓名" prop="businessName">
+      <el-form-item label="业务姓名" prop="fyewuxingming">
         <el-input
-          v-model="queryParams.businessName"
+          v-model="queryParams.fyewuxingming"
           placeholder="请输入业务姓名"
           clearable
           @keyup.enter.native="handleQuery"
@@ -25,9 +25,9 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>-->
-      <el-form-item label="客户名称" prop="customersName">
+      <el-form-item label="客户名称" prop="fkehumingcheng">
         <el-input
-          v-model="queryParams.customersName"
+          v-model="queryParams.fkehumingcheng"
           placeholder="请输入客户名称"
           clearable
           @keyup.enter.native="handleQuery"
@@ -42,25 +42,29 @@
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
     <div>
-      <el-table v-loading="loading" :data="tasteList" @selection-change="handleSelectionChange">
+      <el-table v-loading="loading" :data="tasteList" @selection-change="handleSelectionChange" show-overflow-tooltip>
         <el-table-column type="selection" width="30" align="center"/>
         <el-table-column  label="序号" type="index" align="center"/>
-        <el-table-column label="单据编码" width="100" align="center" prop="tasteId"/>
-<!--        <el-table-column label="项目信息" width="100" align="center" prop="tasteId"/>-->
-        <el-table-column label="状态" width="130" align="center" prop="state">
+        <el-table-column label="单据编码" width="100" align="center" prop="fid" show-overflow-tooltip/>
+        <el-table-column label="项目信息" width="100" align="center" prop="fxiangmuxinxi"/>
+        <el-table-column label="状态" width="130" align="center" prop="fstatus">
           <template slot-scope="scope">
-            <el-tag :type="stateListType">{{stateList(scope.row.state)}}</el-tag>
+            <el-tag :type="stateListType">{{stateList(scope.row.fstatus)}}</el-tag>
           </template>
         </el-table-column>
-        <el-table-column label="录入人" align="center" prop="createBy"/>
-        <el-table-column label="业务姓名" align="center" prop="businessName"/>
-        <el-table-column label="业务部门" align="center" width="120" prop="deptId"/>
-        <el-table-column label="日期" align="center" width="100" prop="createTime"/>
-        <el-table-column label="客户名称" align="center" prop="customersName"/>
-        <el-table-column label="客户编码" align="center" prop="customersCode"/>
-        <el-table-column label="现场试油" align="center" prop="isTry"/>
-        <el-table-column label="来访日期" align="center" width="100" prop="visitTime"/>
-        <el-table-column label="分配跟进人" align="center"  width="100" prop="follower"/>
+        <el-table-column label="录入人" align="center" prop="fshenqingren"/>
+        <el-table-column label="业务姓名" align="center" prop="fyewuxingming"/>
+        <el-table-column label="业务部门" align="center" width="120" prop="fyewubumen"/>
+        <el-table-column label="日期" align="center" width="100" prop="fsqriqi">
+          <template slot-scope="scope">{{ parseTime(scope.row.fsqriqi, '{y}-{m}-{d}') }}</template>
+        </el-table-column>
+        <el-table-column label="客户名称" align="center" prop="fkehumingcheng"/>
+        <el-table-column label="客户编码" align="center" prop="fkehudaima"/>
+        <el-table-column label="现场试油" align="center" prop="fxianchangshiyou"/>
+        <el-table-column label="来访日期" align="center" width="100" prop="flaifangriqi">
+          <template slot-scope="scope">{{ parseTime(scope.row.flaifangriqi, '{y}-{m}-{d} {h}:{i}') }}</template>
+        </el-table-column>
+        <el-table-column label="分配跟进人" align="center"  width="100" prop="ffenpeigenjinren"/>
         <el-table-column label="操作" align="center" width="150" class-name="small-padding fixed-width" fixed="right">
           <template slot-scope="scope">
             <el-button
@@ -111,11 +115,11 @@
         :print-config="{}"
         :data="printListDetail">
         <vxe-column type="seq" width="10"></vxe-column>
-        <vxe-column field="tasteName" width="100" title="口味名称"></vxe-column>
-        <vxe-column field="tasteDetail" title="口味描述"></vxe-column>
-        <vxe-column field="isBasicTaste" title="有基础口味"></vxe-column>
-        <vxe-column field="basicTasteImprovementIdeas" title="基础口味改善建议"></vxe-column>
-        <vxe-column field="capacity" title="容量"></vxe-column>
+        <vxe-column field="fkouweimingcheng" width="100" title="口味名称"></vxe-column>
+        <vxe-column field="fkouweimiaoshu" title="口味描述"></vxe-column>
+        <vxe-column field="fjichukouwei" title="有基础口味"></vxe-column>
+        <vxe-column field="fjichukouweigaishanyijian" title="基础口味改善建议"></vxe-column>
+        <vxe-column field="frongliang" title="容量"></vxe-column>
         <vxe-column field="vg" title="VG"></vxe-column>
         <vxe-column field="nicType" title="NIC类别"></vxe-column>
         <vxe-column field="nicConcentration" title="NIC浓度"></vxe-column>
@@ -134,8 +138,8 @@
         :print-config="{}"
         :data="printListDetail">
         <vxe-column type="seq" width="10"></vxe-column>
-        <vxe-column field="tasteName" title="口味名称">
-<!--          <template>{{printList.hxTasteDetailList.tasteName}}</template>-->
+        <vxe-column field="fkouweimingcheng" title="口味名称">
+<!--          <template>{{printList.hxTasteDetailList.fkouweimingcheng}}</template>-->
         </vxe-column>
         <vxe-column field="a" width="100" title="口味编码-版本"></vxe-column>
         <vxe-column field="nicConcentration" title="NIC浓度"></vxe-column>
@@ -255,35 +259,57 @@ export default {
       queryParams: {
         pageNum: 1,
         pageSize: 10,
-        deptId: null,
-        businessName: null,
-        businessCode: null,
-        customersName: null,
-        customersCode: null,
-        tasteNum: null,
-        refereeNum: null,
-        sendNum: null,
-        isSupply: null,
-        isTry: null,
-        visitTime: null,
-        isSmoking: null,
-        smokingType: null,
-        heatingWireType: null,
-        heatingWireResistance: null,
-        capacity: null,
-        oilGuideCottonType: null,
-        isRecyclingSmoking: null,
-        oilRingMaterial: null,
-        vg: null,
-        viscosity: null,
-        expectedCompletionTime: null,
-        sampleRequestTime: null,
-        estimatedFinishTime: null,
-        matchMarket: null,
-        samplesNum: null,
-        mailingInformation: null,
-        state: '7',
-        deleted: '0'
+        fid: null,
+        fbillno: null,
+        fstatus: 7,
+        fshenqingren: null,
+        fsqrid: null,
+        fyuanshenqingren: null,
+        fyuansqrid: null,
+        fyewuxingming: null,
+        fyewubumen: null,
+        fsqriqi: null,
+        fkehumingcheng: null,
+        fkehudaima: null,
+        fyewudaima: null,
+        flaifangriqi: null,
+        fdijicisongyang: null,
+        fxiangmuxinxi: null,
+        fshangcishenqingdanhao: null,
+        fkegongyanju: null,
+        fkouweishuliang: null,
+        fyangpinxuqiuriqi: null,
+        fyanjuleixing: null,
+        fpipeishichang: null,
+        ftiandu: null,
+        fliangdu: null,
+        fnianchoudu: null,
+        fkouweizhuangong: null,
+        fxianchangshiyou: null,
+        fyoujixinxi: null,
+        fzidaiyanju: null,
+        fhuishouyanju: null,
+        ffaresizhonglei: null,
+        ffaresizuzhi: null,
+        fyanyoucangrongliang: null,
+        fdaoyoumianzhonglei: null,
+        fnigudinghanliang: null,
+        fyoubeicaizhi: null,
+        fqiwangwanchengshijian: null,
+        fyangpinxuqiushuliang: null,
+        fyujiwanchengshijian: null,
+        fvg: null,
+        fbeizhu: null,
+        ffenpeigenjinren: null,
+        fcurspbillno: null,
+        ftijiaotime: null,
+        fshenhetime: null,
+        ffenpeitime: null,
+        flastmodifyby: null,
+        flastmodifytime: null,
+        //deleted: '0',
+        isAsc:'desc',
+        orderByColumn:'flastmodifytime'
       },
       // 表单参数
       form: {},
@@ -304,7 +330,7 @@ export default {
   methods: {
     /*详情*/
     handleDetail(row){
-      this.$router.push({ path: '/system/taste-data/index/'+row.tasteId });
+      this.$router.push({ path: '/taste/add',query: {fid: row.fid} });
     },
     // 更多操作触发
     handleCommand(command, row) {
@@ -360,8 +386,8 @@ export default {
 
       // 改变为7已审核状态
       let obj = {}
-      obj.tasteId = row.tasteId
-      obj.state = '3'
+      obj.fid = row.fid
+      obj.fstatus = 3
       this.$modal.confirm('确认退回分配吗?').then(function() {
 
       }).then(() => {
@@ -379,8 +405,8 @@ export default {
 
       }).then(() => {
         let obj = {}
-        obj.tasteId = row.tasteId
-        obj.state = '3'
+        obj.fid = row.fid
+        obj.fstatus = 3
         obj.remark =  "wxmsg"
         start(obj).then(res=>{})
         this.$modal.msgSuccess("退回分配完成");
@@ -394,17 +420,18 @@ export default {
       this.$modal.confirm('温馨提示:确定取消此口味吗?取消后将无法恢复，并且请确定研发没有开始调油: ! !').then(function() {
       }).then(() => {
         // 关闭当前tab页签，打开新页签   跳转 adjust   kouwei/taste
-        const obj = { path: "/system/taste-data/index/"+ row.tasteId + "?adjust=adjust"};
-        this.$tab.refreshPage(obj);
+        this.$router.push({ path: '/taste/add',query: {fid: row.fid,adjust: 'adjust'} });
+        /*const obj = { path: "/system/taste-data/index/"+ row.fid + "?adjust=adjust"};
+        this.$tab.refreshPage(obj);*/
       }).catch(() => {});
     },
     /*开始  关联研发表*/
     handle4(row){
-      this.$modal.confirm('温馨提示:确认开始跟进ID为"' + row.tasteId + '"的数据项？').then(function() {
+      this.$modal.confirm('温馨提示:确认开始跟进ID为"' + row.fid + '"的数据项？').then(function() {
       }).then(() => {
         let obj = {}
-        obj.tasteId = row.tasteId
-        obj.state = row.state
+        obj.fid = row.fid
+        obj.fstatus = row.fstatus
         start(obj).then(res=>{
           console.log("开始跟进:",JSON.stringify(res.data))
         })
@@ -414,11 +441,11 @@ export default {
     },
     /*提交研发*/
     handle5(row){
-      this.$modal.confirm('温馨提示:确认将ID为"' + row.tasteId + '"提交研发？').then(function() {
+      this.$modal.confirm('温馨提示:确认将ID为"' + row.fid + '"提交研发？').then(function() {
       }).then(() => {
         let obj = {}
-        obj.tasteId = row.tasteId
-        obj.state = row.state
+        obj.fid = row.fid
+        obj.fstatus = row.fstatus
         start(obj).then(res=>{
           console.log("提交研发:",JSON.stringify(res.data))
         })
@@ -433,8 +460,8 @@ export default {
 
       }).then(() => {
         let obj = {}
-        obj.tasteId = row.tasteId
-        obj.state = "17"
+        obj.fid = row.fid
+        obj.fstatus = 17
         start(obj).then(res=>{
           console.log("提交研发:",JSON.stringify(res.data))
         })
@@ -449,8 +476,8 @@ export default {
 
       }).then(() => {
         let obj = {}
-        obj.tasteId = row.tasteId
-        obj.state = "15"
+        obj.fid = row.fid
+        obj.fstatus = 15
         start(obj).then(res=>{
         })
         this.getList()
@@ -460,7 +487,7 @@ export default {
     /*打印配方确认单*/
     handle8(row){
       this.$modal.loading("加载打印插件中，请稍候...");
-      getTaste(row.tasteId).then(res =>{
+      getTaste(row.fid).then(res =>{
         this.printList = res.data
         this.printListDetail = res.data.hxTasteDetailList
         console.log("数据来了:{}"+ JSON.stringify(this.printListDetail))
@@ -494,8 +521,8 @@ export default {
 
       }).then(() => {
         let obj = {}
-        obj.tasteId = row.tasteId
-        obj.state = "18"
+        obj.fid = row.fid
+        obj.fstatus = 18
         start(obj).then(res=>{
           console.log("结案完成:",JSON.stringify(res.data))
         })
@@ -506,7 +533,7 @@ export default {
     },
     /*详细日志*/
     handle10(row){
-      getLog(row.tasteId).then((res)=>{
+      getLog(row.fid).then((res)=>{
         this.logList = res.data
       })
       this.open = true
@@ -523,7 +550,7 @@ export default {
     /*分配跟进人*/
     handleDistribution(row){
         this.reset();
-        getTaste(row.tasteId).then((resp)=>{
+        getTaste(row.fid).then((resp)=>{
           this.form = resp.data
         })
       console.log("1123"+ JSON.stringify(this.form ))
@@ -536,9 +563,9 @@ export default {
     },
     // 作废  waste
     handleWaste(row){
-      // 作废将 state 字段状态变成 -1
-      this.$modal.confirm('是否确认作废口味ID为"' + row.tasteId + '"的数据项？').then(function() {
-        getWasteTaste(row.tasteId)
+      // 作废将 fstatus 字段状态变成 -1
+      this.$modal.confirm('是否确认作废口味ID为"' + row.fid + '"的数据项？').then(function() {
+        getWasteTaste(row.fid)
       }).then(() => {
         this.getList();
         this.$modal.msgSuccess('已作废');
@@ -550,7 +577,7 @@ export default {
     handlePrint(row){
       // 获取分组好的数据
       this.$modal.loading("加载打印插件中，请稍候...");
-      getTaste(row.tasteId).then(res =>{
+      getTaste(row.fid).then(res =>{
         this.printList = res.data
         this.printListDetail = res.data.hxTasteDetailList
         console.log("数据来了:{}"+ JSON.stringify(this.printListDetail))
@@ -561,7 +588,7 @@ export default {
              this.$modal.msgError("我猜,您应该没有填写明细")
            }else{
              for (let i = 0; i < res.data.hxTasteDetailList.length; i++) {
-               if(res.data.hxTasteDetailList[i].perfumer === ''){
+               if(res.data.hxTasteDetailList[i].ftiaoxiangshi === ''){
                  this.$modal.closeLoading()
                  this.$modal.notifyWarning("我猜,您应该有一个没有分配调香师");
                }else{
@@ -639,37 +666,37 @@ export default {
         <h1 class="title">烟油口味申请表</h1>
         <div class="my-top">
             <div class="my-list-row">
-              <div class="my-list-col-max-l">编码: ${this.printList.tasteId} ———— ${this.stateList(this.printList.state)}</div>
-              <div class="my-list-col-max-r">申请日期: ${this.printList.createTime}</div>
+              <div class="my-list-col-max-l">编码: ${this.printList.fid} — ${this.stateList(this.printList.fstatus)}</div>
+              <div class="my-list-col-max-r">申请日期: ${this.parseTime(this.printList.fsqriqi, '{y}-{m}-{d} {h}:{i}')}</div>
               <br/>
-              <div class="my-list-col">业务姓名:&nbsp&nbsp&nbsp ${this.printList.businessName}</div>
-              <div class="my-list-col">业务部门:&nbsp&nbsp&nbsp ${this.printList.deptId}</div>
-              <div class="my-list-col">业务代码:&nbsp&nbsp&nbsp${this.printList.businessCode}</div>
-              <div class="my-list-col">客户名称:&nbsp&nbsp&nbsp${this.printList.customersName} </div>
-              <div class="my-list-col">客户代码:&nbsp&nbsp&nbsp${this.printList.customersCode}</div>
-              <div class="my-list-col">口味数量:&nbsp&nbsp&nbsp${this.printList.tasteNum}</div>
-              <div class="my-list-col">第几次送样:&nbsp&nbsp&nbsp${this.printList.sendNum}</div>
-              <div class="my-list-col">来访日期:&nbsp&nbsp&nbsp${this.printList.visitTime}</div>
-              <div class="my-list-col">发热丝种类:&nbsp&nbsp&nbsp${this.printList.heatingWireType}</div>
-              <div class="my-list-col">口味专供:&nbsp&nbsp&nbsp${this.printList.isSupply}</div>
-              <div class="my-list-col">现场试油:&nbsp&nbsp&nbsp${this.printList.isTry}</div>
-              <div class="my-list-col">自带烟具:&nbsp&nbsp&nbsp${this.printList.isSmoking}</div>
-              <div class="my-list-col">烟具类型:&nbsp&nbsp&nbsp${this.printList.smokingType}</div>
-              <div class="my-list-col">是否回收烟具:&nbsp&nbsp&nbsp${this.printList.isRecyclingSmoking}</div>
-              <div class="my-list-col">导油棉类型:&nbsp&nbsp&nbsp${this.printList.oilGuideCottonType}</div>
-              <div class="my-list-col">发热丝阻值:&nbsp&nbsp&nbsp${this.printList.heatingWireResistance}</div>
-              <div class="my-list-col">烟油仓容量:&nbsp&nbsp&nbsp${this.printList.capacity}</div>
-              <div class="my-list-col">油环材质类型:&nbsp&nbsp&nbsp${this.printList.oilRingMaterial}</div>
-              <div class="my-list-col">甜度(1-10):&nbsp&nbsp&nbsp${this.printList.sweetness}</div>
-              <div class="my-list-col">凉度(1-10):&nbsp&nbsp&nbsp${this.printList.coolness}</div>
-              <div class="my-list-col">粘稠度(1-10):&nbsp&nbsp&nbsp${this.printList.viscosity}</div>
-              <div class="my-list-col">期望完成时间:&nbsp&nbsp&nbsp${this.printList.expectedCompletionTime}</div>
-              <div class="my-list-col">样品数量:&nbsp&nbsp&nbsp${this.printList.samplesNum}</div>
-              <div class="my-list-col">样品需求日期:&nbsp&nbsp&nbsp${this.printList.sampleRequestTime}</div>
-              <div class="my-list-col">预计完成时间:&nbsp&nbsp&nbsp${this.printList.estimatedFinishTime}</div>
-              <div class="my-list-col">匹配市场:&nbsp&nbsp&nbsp${JSON.parse(this.printList.matchMarket)}</div>
-              <div class="my-list-col">邮寄信息:&nbsp&nbsp&nbsp${this.printList.mailingInformation}</div>
-              <div class="my-list-col">备注:&nbsp&nbsp&nbsp${this.printList.remark}</div>
+              <div class="my-list-col">业务姓名:&nbsp&nbsp&nbsp ${this.printList.fyewuxingming}</div>
+              <div class="my-list-col">业务部门:&nbsp&nbsp&nbsp ${this.printList.fyewubumen}</div>
+              <div class="my-list-col">业务代码:&nbsp&nbsp&nbsp${this.printList.fyewudaima}</div>
+              <div class="my-list-col">客户名称:&nbsp&nbsp&nbsp${this.printList.fkehumingcheng} </div>
+              <div class="my-list-col">客户代码:&nbsp&nbsp&nbsp${this.printList.fkehudaima}</div>
+              <div class="my-list-col">口味数量:&nbsp&nbsp&nbsp${this.printList.fkouweishuliang}</div>
+              <div class="my-list-col">第几次送样:&nbsp&nbsp&nbsp${this.printList.fdijicisongyang}</div>
+              <div class="my-list-col">来访日期:&nbsp&nbsp&nbsp${this.parseTime(this.printList.flaifangriqi, '{y}-{m}-{d} {h}:{i}')}</div>
+              <div class="my-list-col">发热丝种类:&nbsp&nbsp&nbsp${this.printList.ffaresizhonglei}</div>
+              <div class="my-list-col">口味专供:&nbsp&nbsp&nbsp${this.printList.fkouweizhuangong}</div>
+              <div class="my-list-col">现场试油:&nbsp&nbsp&nbsp${this.printList.fxianchangshiyou}</div>
+              <div class="my-list-col">自带烟具:&nbsp&nbsp&nbsp${this.printList.fzidaiyanju}</div>
+              <div class="my-list-col">烟具类型:&nbsp&nbsp&nbsp${this.printList.fyanjuleixing}</div>
+              <div class="my-list-col">是否回收烟具:&nbsp&nbsp&nbsp${this.printList.fhuishouyanju}</div>
+              <div class="my-list-col">导油棉类型:&nbsp&nbsp&nbsp${this.printList.fdaoyoumianzhonglei}</div>
+              <div class="my-list-col">发热丝阻值:&nbsp&nbsp&nbsp${this.printList.ffaresizuzhi}</div>
+              <div class="my-list-col">烟油仓容量:&nbsp&nbsp&nbsp${this.printList.fyanyoucangrongliang}</div>
+              <div class="my-list-col">油环材质类型:&nbsp&nbsp&nbsp${this.printList.fyoubeicaizhi}</div>
+              <div class="my-list-col">甜度(1-10):&nbsp&nbsp&nbsp${this.printList.ftiandu}</div>
+              <div class="my-list-col">凉度(1-10):&nbsp&nbsp&nbsp${this.printList.fliangdu}</div>
+              <div class="my-list-col">粘稠度(1-10):&nbsp&nbsp&nbsp${this.printList.fnianchoudu}</div>
+              <div class="my-list-col">期望完成时间:&nbsp&nbsp&nbsp${this.parseTime(this.printList.fqiwangwanchengshijian, '{y}-{m}-{d} {h}:{i}')}</div>
+              <div class="my-list-col">样品数量:&nbsp&nbsp&nbsp${this.printList.fyangpinxuqiushuliang}</div>
+              <div class="my-list-col">样品需求日期:&nbsp&nbsp&nbsp${this.parseTime(this.printList.fyangpinxuqiuriqi, '{y}-{m}-{d} {h}:{i}')}</div>
+              <div class="my-list-col">预计完成时间:&nbsp&nbsp&nbsp${this.parseTime(this.printList.fyujiwanchengshijian, '{y}-{m}-{d} {h}:{i}')}</div>
+              <div class="my-list-col">匹配市场:&nbsp&nbsp&nbsp${this.printList.fpipeishichang}</div>
+              <div class="my-list-col">邮寄信息:&nbsp&nbsp&nbsp${this.printList.fyoujixinxi}</div>
+              <div class="my-list-col">备注:&nbsp&nbsp&nbsp${this.printList.fbeizhu}</div>
             </div>
             <hr/>
             <b>口味明细</b>
@@ -699,12 +726,12 @@ export default {
         style: printStyle,
         columns: [
           {type: 'seq'},
-          {field: 'tasteName'},
-          {field: 'tasteDetail'},
-          {field: 'isBasicTaste'},
-          {field: 'basicTasteName'},
-          {field: 'basicTasteImprovementIdeas'},
-          {field: 'capacity'},
+          {field: 'fkouweimingcheng'},
+          {field: 'fkouweimiaoshu'},
+          {field: 'fjichukouwei'},
+          {field: 'basicfkouweimingcheng'},
+          {field: 'fjichukouweigaishanyijian'},
+          {field: 'frongliang'},
           {field: 'vg'},
           {field: 'nicType'},
           {field: 'nicConcentration'},
@@ -716,6 +743,46 @@ export default {
           return topHtml + content + bottomHtml
         }
       })
+    },
+    // 日期格式化
+    parseTime(time, pattern) {
+      if (arguments.length === 0 || !time) {
+        return null
+      }
+      const format = pattern || '{y}-{m}-{d} {h}:{i}:{s}'
+      let date
+      if (typeof time === 'object') {
+        date = time
+      } else {
+        if ((typeof time === 'string') && (/^[0-9]+$/.test(time))) {
+          time = parseInt(time)
+        } else if (typeof time === 'string') {
+          time = time.replace(new RegExp(/-/gm), '/').replace('T', ' ').replace(new RegExp(/\.[\d]{3}/gm), '');
+        }
+        if ((typeof time === 'number') && (time.toString().length === 10)) {
+          time = time * 1000
+        }
+        date = new Date(time)
+      }
+      const formatObj = {
+        y: date.getFullYear(),
+        m: date.getMonth() + 1,
+        d: date.getDate(),
+        h: date.getHours(),
+        i: date.getMinutes(),
+        s: date.getSeconds(),
+        a: date.getDay()
+      }
+      const time_str = format.replace(/{(y|m|d|h|i|s|a)+}/g, (result, key) => {
+        let value = formatObj[key]
+        // Note: getDay() returns 0 on Sunday
+        if (key === 'a') { return ['日', '一', '二', '三', '四', '五', '六'][value] }
+        if (result.length > 0 && value < 10) {
+          value = '0' + value
+        }
+        return value || 0
+      })
+      return time_str
     },
     /*打印 确认配方单*/
     printEventOk() {
@@ -786,37 +853,37 @@ export default {
         <hr style="border: border:0px;border-bottom:1px solid slategray;"/>
         <div class="my-top">
             <div class="my-list-row">
-              <div class="my-list-col-max-l">编码: ${this.printList.tasteId}——${this.stateList(this.printList.state)}</div>
-              <div class="my-list-col-max-r">申请日期: ${this.printList.createTime}</div>
+              <div class="my-list-col-max-l">编码: ${this.printList.fid} — ${this.stateList(this.printList.fstatus)}</div>
+              <div class="my-list-col-max-r">申请日期: ${this.parseTime(this.printList.fsqriqi, '{y}-{m}-{d} {h}:{i}')}</div>
               <br/>
-              <div class="my-list-col">业务姓名:&nbsp&nbsp&nbsp ${this.printList.businessName}</div>
-              <div class="my-list-col">业务部门:&nbsp&nbsp&nbsp ${this.printList.deptId}</div>
-              <div class="my-list-col">业务代码:&nbsp&nbsp&nbsp${this.printList.businessCode}</div>
-              <div class="my-list-col">客户名称:&nbsp&nbsp&nbsp${this.printList.customersName} </div>
-              <div class="my-list-col">客户代码:&nbsp&nbsp&nbsp${this.printList.customersCode}</div>
-              <div class="my-list-col">口味数量:&nbsp&nbsp&nbsp${this.printList.tasteNum}</div>
-              <div class="my-list-col">第几次送样:&nbsp&nbsp&nbsp${this.printList.sendNum}</div>
-              <div class="my-list-col">来访日期:&nbsp&nbsp&nbsp${this.printList.visitTime}</div>
-              <div class="my-list-col">发热丝种类:&nbsp&nbsp&nbsp${this.printList.heatingWireType}</div>
-              <div class="my-list-col">口味专供:&nbsp&nbsp&nbsp${this.printList.isSupply}</div>
-              <div class="my-list-col">现场试油:&nbsp&nbsp&nbsp${this.printList.isTry}</div>
-              <div class="my-list-col">自带烟具:&nbsp&nbsp&nbsp${this.printList.isSmoking}</div>
-              <div class="my-list-col">烟具类型:&nbsp&nbsp&nbsp${this.printList.smokingType}</div>
-              <div class="my-list-col">是否回收烟具:&nbsp&nbsp&nbsp${this.printList.isRecyclingSmoking}</div>
-              <div class="my-list-col">导油棉类型:&nbsp&nbsp&nbsp${this.printList.oilGuideCottonType}</div>
-              <div class="my-list-col">发热丝阻值:&nbsp&nbsp&nbsp${this.printList.heatingWireResistance}</div>
-              <div class="my-list-col">烟油仓容量:&nbsp&nbsp&nbsp${this.printList.capacity}</div>
-              <div class="my-list-col">油环材质类型:&nbsp&nbsp&nbsp${this.printList.oilRingMaterial}</div>
-              <div class="my-list-col">甜度(1-10):&nbsp&nbsp&nbsp${this.printList.sweetness}</div>
-              <div class="my-list-col">凉度(1-10):&nbsp&nbsp&nbsp${this.printList.coolness}</div>
-              <div class="my-list-col">粘稠度(1-10):&nbsp&nbsp&nbsp${this.printList.viscosity}</div>
-              <div class="my-list-col">期望完成时间:&nbsp&nbsp&nbsp${this.printList.expectedCompletionTime}</div>
-              <div class="my-list-col">样品数量:&nbsp&nbsp&nbsp${this.printList.samplesNum}</div>
-              <div class="my-list-col">样品需求日期:&nbsp&nbsp&nbsp${this.printList.sampleRequestTime}</div>
-              <div class="my-list-col">预计完成时间:&nbsp&nbsp&nbsp${this.printList.estimatedFinishTime}</div>
-              <div class="my-list-col">匹配市场:&nbsp&nbsp&nbsp${JSON.parse(this.printList.matchMarket)}</div>
-              <div class="my-list-col">邮寄信息:&nbsp&nbsp&nbsp${this.printList.mailingInformation}</div>
-              <div class="my-list-col">备注:&nbsp&nbsp&nbsp${this.printList.remark}</div>
+              <div class="my-list-col">业务姓名:&nbsp&nbsp&nbsp ${this.printList.fyewuxingming}</div>
+              <div class="my-list-col">业务部门:&nbsp&nbsp&nbsp ${this.printList.fyewubumen}</div>
+              <div class="my-list-col">业务代码:&nbsp&nbsp&nbsp${this.printList.fyewudaima}</div>
+              <div class="my-list-col">客户名称:&nbsp&nbsp&nbsp${this.printList.fkehumingcheng} </div>
+              <div class="my-list-col">客户代码:&nbsp&nbsp&nbsp${this.printList.fkehudaima}</div>
+              <div class="my-list-col">口味数量:&nbsp&nbsp&nbsp${this.printList.fkouweishuliang}</div>
+              <div class="my-list-col">第几次送样:&nbsp&nbsp&nbsp${this.printList.fdijicisongyang}</div>
+              <div class="my-list-col">来访日期:&nbsp&nbsp&nbsp${this.parseTime(this.printList.flaifangriqi, '{y}-{m}-{d} {h}:{i}')}</div>
+              <div class="my-list-col">发热丝种类:&nbsp&nbsp&nbsp${this.printList.ffaresizhonglei}</div>
+              <div class="my-list-col">口味专供:&nbsp&nbsp&nbsp${this.printList.fkouweizhuangong}</div>
+              <div class="my-list-col">现场试油:&nbsp&nbsp&nbsp${this.printList.fxianchangshiyou}</div>
+              <div class="my-list-col">自带烟具:&nbsp&nbsp&nbsp${this.printList.fzidaiyanju}</div>
+              <div class="my-list-col">烟具类型:&nbsp&nbsp&nbsp${this.printList.fyanjuleixing}</div>
+              <div class="my-list-col">是否回收烟具:&nbsp&nbsp&nbsp${this.printList.fhuishouyanju}</div>
+              <div class="my-list-col">导油棉类型:&nbsp&nbsp&nbsp${this.printList.fdaoyoumianzhonglei}</div>
+              <div class="my-list-col">发热丝阻值:&nbsp&nbsp&nbsp${this.printList.ffaresizuzhi}</div>
+              <div class="my-list-col">烟油仓容量:&nbsp&nbsp&nbsp${this.printList.fyanyoucangrongliang}</div>
+              <div class="my-list-col">油环材质类型:&nbsp&nbsp&nbsp${this.printList.fyoubeicaizhi}</div>
+              <div class="my-list-col">甜度(1-10):&nbsp&nbsp&nbsp${this.printList.ftiandu}</div>
+              <div class="my-list-col">凉度(1-10):&nbsp&nbsp&nbsp${this.printList.fliangdu}</div>
+              <div class="my-list-col">粘稠度(1-10):&nbsp&nbsp&nbsp${this.printList.fnianchoudu}</div>
+              <div class="my-list-col">期望完成时间:&nbsp&nbsp&nbsp${this.parseTime(this.printList.fqiwangwanchengshijian, '{y}-{m}-{d} {h}:{i}')}</div>
+              <div class="my-list-col">样品数量:&nbsp&nbsp&nbsp${this.printList.fyangpinxuqiushuliang}</div>
+              <div class="my-list-col">样品需求日期:&nbsp&nbsp&nbsp${this.parseTime(this.printList.fyangpinxuqiuriqi, '{y}-{m}-{d} {h}:{i}')}</div>
+              <div class="my-list-col">预计完成时间:&nbsp&nbsp&nbsp${this.parseTime(this.printList.fyujiwanchengshijian, '{y}-{m}-{d} {h}:{i}')}</div>
+              <div class="my-list-col">匹配市场:&nbsp&nbsp&nbsp${this.printList.fpipeishichang}</div>
+              <div class="my-list-col">邮寄信息:&nbsp&nbsp&nbsp${this.printList.fyoujixinxi}</div>
+              <div class="my-list-col">备注:&nbsp&nbsp&nbsp${this.printList.fbeizhu}</div>
             </div>
         </div>`
       // 打印底部内容模板
@@ -825,7 +892,7 @@ export default {
           <div class="my-list-row">
               <div class="my-list-col-min">研发部(签字): </div>
               <div class="my-list-col-min">项目组长(签字): </div>
-              <div class="my-list-col-min">业务员(签字): ${this.printList.businessName}</div>
+              <div class="my-list-col-min">业务员(签字): ${this.printList.fyewuxingming}</div>
               <div class="my-list-col-min">项目负责人(签字): ${this.$store.state.user.name}</div>
           </div>
 
@@ -876,7 +943,7 @@ export default {
         style: printStyle,
         columns: [
           {type: 'seq'},
-          {field: 'tasteName'},
+          {field: 'fkouweimingcheng'},
           {field: 'a'},
           {field: 'nicConcentration'},
           {field: 'vg'},
@@ -920,44 +987,54 @@ export default {
 // 表单重置
     reset() {
       this.form = {
-        tasteId: null,
-        deptId: null,
-        businessName: null,
-        businessCode: null,
-        customersName: null,
-        customersCode: null,
-        tasteNum: null,
-        refereeNum: null,
-        sendNum: null,
-        isSupply: 0,
-        isTry: 0,
-        visitTime: null,
-        isSmoking: 0,
-        smokingType: null,
-        heatingWireType: null,
-        heatingWireResistance: null,
-        capacity: null,
-        oilGuideCottonType: null,
-        isRecyclingSmoking: 0,
-        oilRingMaterial: null,
-        vg: null,
-        viscosity: null,
-        deleted: null,
-        state: null,
-        coolness: null,
-        sweetness: null,
-        expectedCompletionTime: null,
-        sampleRequestTime: null,
-        estimatedFinishTime: null,
-        matchMarket: null,
-        samplesNum: null,
-        mailingInformation: null,
-        createBy: null,
-        createTime: null,
-        updateBy: null,
-        updateTime: null,
-        remark: "",
-        follower:''
+        fid: null,
+        fbillno: null,
+        fstatus: null,
+        fshenqingren: null,
+        fsqrid: null,
+        fyuanshenqingren: null,
+        fyuansqrid: null,
+        fyewuxingming: null,
+        fyewubumen: null,
+        fsqriqi: null,
+        fkehumingcheng: null,
+        fkehudaima: null,
+        fyewudaima: null,
+        flaifangriqi: null,
+        fdijicisongyang: null,
+        fxiangmuxinxi: null,
+        fshangcishenqingdanhao: null,
+        fkegongyanju: null,
+        fkouweishuliang: null,
+        fyangpinxuqiuriqi: null,
+        fyanjuleixing: '一次性',
+        fpipeishichang: null,
+        ftiandu: null,
+        fliangdu: null,
+        fnianchoudu: null,
+        fkouweizhuangong: '否',
+        fxianchangshiyou: '否',
+        fyoujixinxi: null,
+        fzidaiyanju: '否',
+        fhuishouyanju: '否',
+        ffaresizhonglei: null,
+        ffaresizuzhi: null,
+        fyanyoucangrongliang: null,
+        fdaoyoumianzhonglei: null,
+        fnigudinghanliang: null,
+        fyoubeicaizhi: null,
+        fqiwangwanchengshijian: null,
+        fyangpinxuqiushuliang: null,
+        fyujiwanchengshijian: null,
+        fvg: null,
+        fbeizhu: null,
+        ffenpeigenjinren: null,
+        fcurspbillno: null,
+        ftijiaotime: null,
+        fshenhetime: null,
+        ffenpeitime: null,
+        flastmodifyby: null,
+        flastmodifytime: null
       };
       this.hxTasteDetailList = [];
       this.resetForm("form");
@@ -978,7 +1055,7 @@ export default {
     ,
 // 多选框选中数据
     handleSelectionChange(selection) {
-      this.ids = selection.map(item => item.tasteId)
+      this.ids = selection.map(item => item.fid)
       this.single = selection.length !== 1
       this.multiple = !selection.length
     }
@@ -994,19 +1071,19 @@ export default {
     /** 修改按钮操作 */
     handleUpdate(row) {
       this.reset();
-      const tasteId = row.tasteId || this.ids
-      console.log("页面:"+tasteId)
-      //this.$router.push({ path: "/system/taste", query: {id: tasteId} });
-      // getTaste(tasteId).then(response => {
+      const fid = row.fid || this.ids
+      console.log("页面:"+fid)
+      //this.$router.push({ path: "/system/taste", query: {id: fid} });
+      // getTaste(fid).then(response => {
       //   this.form = response.data;
       //   this.hxTasteDetailList = response.data.hxTasteDetailList;
       //   this.open = true;
       //   this.title = "修改口味申请单";
       // });
-      //var routePromise = this.$tab.openPage("口味申请单", "/tool/taste?id="+tasteId);
+      //var routePromise = this.$tab.openPage("口味申请单", "/tool/taste?id="+fid);
       //console.log(routePromise.toString())
 
-      //this.$router.push({ path: "/tool/taste", query: {id: tasteId} });
+      //this.$router.push({ path: "/tool/taste", query: {id: fid} });
     }
     ,
     /** 提交按钮 */
@@ -1014,7 +1091,7 @@ export default {
       this.$refs["form"].validate(valid => {
         if (valid) {
           this.form.hxTasteDetailList = this.hxTasteDetailList;
-          if (this.form.tasteId != null) {
+          if (this.form.fid != null) {
             updateTaste(this.form).then(response => {
               this.$modal.msgSuccess("修改成功");
               this.open = false;
@@ -1033,9 +1110,9 @@ export default {
     ,
     /** 删除按钮操作 */
     handleDelete(row) {
-      const tasteIds = row.tasteId || this.ids;
-      this.$modal.confirm('是否确认删除口味申请单编号为"' + tasteIds + '"的数据项？').then(function () {
-        return delTaste(tasteIds);
+      const fids = row.fid || this.ids;
+      this.$modal.confirm('是否确认删除口味申请单编号为"' + fids + '"的数据项？').then(function () {
+        return delTaste(fids);
       }).then(() => {
         this.getList();
         this.$modal.msgSuccess("删除成功");
@@ -1051,19 +1128,18 @@ export default {
     /** 口味申请单明细添加按钮操作 */
     handleAddHxTasteDetail() {
       let obj = {};
-      obj.tasteName = "";
-      obj.tasteDetail = "";
-      obj.isBasicTaste = "";
-      obj.basicTasteName = "";
-      obj.basicTasteImprovementIdeas = "";
-      obj.capacity = "";
-      obj.vg = "";
-      obj.nicType = "";
-      obj.nicConcentration = "";
-      obj.nicUnit = "";
-      obj.perfumer = "";
-      obj.version = "";
-      obj.remark = "";
+      obj.fkouweimingcheng = ''
+      obj.fkouweimiaoshu = ''
+      obj.fjichukouwei = ''
+      obj.fjichukouweimingcheng = ''
+      obj.fjichukouweigaishanyijian = ''
+      obj.frongliang = ''
+      obj.fvg = ''
+      obj.fniclb = ''
+      obj.fnicnd = ''
+      obj.fnicdw = ''
+      obj.ffentiaoxiangshi = ''
+      obj.fbanben = ''
       this.hxTasteDetailList.push(obj);
     },
     /** 口味申请单明细删除按钮操作 */

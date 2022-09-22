@@ -115,7 +115,7 @@ export function auitDetail(spNo) {
 /*更新(同步)审批接口*/
 export function updateAuitDetail(spNo) {
   return request({
-    url: '/system/wxOwn/callback/updateAuitDetail/'+ spNo,
+    url: '/system/wxOwn/callback/updateAuitSQLDetail/'+ spNo,
     method: 'get'
   })
 }

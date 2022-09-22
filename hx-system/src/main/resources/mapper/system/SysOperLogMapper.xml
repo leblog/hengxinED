@@ -54,6 +54,9 @@
 			<if test="operName != null and operName != ''">
 				AND oper_name like concat('%', #{operName}, '%')
 			</if>
+			<if test="operUrl != null and operUrl != ''">
+				AND oper_url like concat('%', #{operUrl}, '%')
+			</if>
 			<if test="params.beginTime != null and params.beginTime != ''"><!-- 开始时间检索 -->
 				AND CONVERT(varchar(100), oper_time, 112) &gt;= CONVERT(varchar(100), #{params.beginTime}, 112)
 			</if>

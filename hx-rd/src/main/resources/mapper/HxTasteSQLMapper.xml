@@ -9,51 +9,51 @@
         <result property="fid" column="FID" jdbcType="CHAR"/>
         <result property="fbillno" column="FBillNo" jdbcType="CHAR"/>
         <result property="fstatus" column="FStatus" jdbcType="INTEGER"/>
-        <result property="fshenqingren" column="FShenqingren" jdbcType="VARCHAR"/>
-        <result property="fsqrid" column="FSqrID" jdbcType="VARCHAR"/>
-        <result property="fyuanshenqingren" column="FYuanShenqingren" jdbcType="VARCHAR"/>
-        <result property="fyuansqrid" column="FYuanSqrID" jdbcType="VARCHAR"/>
-        <result property="fyewuxingming" column="FYewuxingming" jdbcType="VARCHAR"/>
-        <result property="fyewubumen" column="FYewubumen" jdbcType="VARCHAR"/>
+        <result property="fshenqingren" column="FShenqingren" />
+        <result property="fsqrid" column="FSqrID" />
+        <result property="fyuanshenqingren" column="FYuanShenqingren" />
+        <result property="fyuansqrid" column="FYuanSqrID" />
+        <result property="fyewuxingming" column="FYewuxingming" />
+        <result property="fyewubumen" column="FYewubumen" />
         <result property="fsqriqi" column="Fsqriqi" jdbcType="DATE"/>
-        <result property="fkehumingcheng" column="Fkehumingcheng" jdbcType="VARCHAR"/>
-        <result property="fkehudaima" column="Fkehudaima" jdbcType="VARCHAR"/>
-        <result property="fyewudaima" column="Fyewudaima" jdbcType="VARCHAR"/>
+        <result property="fkehumingcheng" column="Fkehumingcheng" />
+        <result property="fkehudaima" column="Fkehudaima" />
+        <result property="fyewudaima" column="Fyewudaima" />
         <result property="flaifangriqi" column="Flaifangriqi" jdbcType="DATE"/>
-        <result property="fdijicisongyang" column="Fdijicisongyang" jdbcType="VARCHAR"/>
-        <result property="fxiangmuxinxi" column="Fxiangmuxinxi" jdbcType="VARCHAR"/>
-        <result property="fshangcishenqingdanhao" column="Fshangcishenqingdanhao" jdbcType="VARCHAR"/>
-        <result property="fkegongyanju" column="Fkegongyanju" jdbcType="VARCHAR"/>
-        <result property="fkouweishuliang" column="Fkouweishuliang" jdbcType="VARCHAR"/>
+        <result property="fdijicisongyang" column="Fdijicisongyang" />
+        <result property="fxiangmuxinxi" column="Fxiangmuxinxi" />
+        <result property="fshangcishenqingdanhao" column="Fshangcishenqingdanhao" />
+        <result property="fkegongyanju" column="Fkegongyanju" />
+        <result property="fkouweishuliang" column="Fkouweishuliang" />
         <result property="fyangpinxuqiuriqi" column="Fyangpinxuqiuriqi" jdbcType="DATE"/>
-        <result property="fyanjuleixing" column="Fyanjuleixing" jdbcType="VARCHAR"/>
-        <result property="fpipeishichang" column="Fpipeishichang" jdbcType="VARCHAR"/>
-        <result property="ftiandu" column="Ftiandu" jdbcType="VARCHAR"/>
-        <result property="fliangdu" column="Fliangdu" jdbcType="VARCHAR"/>
-        <result property="fnianchoudu" column="Fnianchoudu" jdbcType="VARCHAR"/>
-        <result property="fkouweizhuangong" column="Fkouweizhuangong" jdbcType="VARCHAR"/>
-        <result property="fxianchangshiyou" column="Fxianchangshiyou" jdbcType="VARCHAR"/>
-        <result property="fyoujixinxi" column="Fyoujixinxi" jdbcType="VARCHAR"/>
-        <result property="fzidaiyanju" column="Fzidaiyanju" jdbcType="VARCHAR"/>
-        <result property="fhuishouyanju" column="Fhuishouyanju" jdbcType="VARCHAR"/>
-        <result property="ffaresizhonglei" column="Ffaresizhonglei" jdbcType="VARCHAR"/>
-        <result property="ffaresizuzhi" column="Ffaresizuzhi" jdbcType="VARCHAR"/>
-        <result property="fyanyoucangrongliang" column="Fyanyoucangrongliang" jdbcType="VARCHAR"/>
-        <result property="fdaoyoumianzhonglei" column="Fdaoyoumianzhonglei" jdbcType="VARCHAR"/>
-        <result property="fnigudinghanliang" column="Fnigudinghanliang" jdbcType="VARCHAR"/>
-        <result property="fyoubeicaizhi" column="Fyoubeicaizhi" jdbcType="VARCHAR"/>
-        <result property="fqiwangwanchengshijian" column="Fqiwangwanchengshijian" jdbcType="TIMESTAMP"/>
-        <result property="fyangpinxuqiushuliang" column="Fyangpinxuqiushuliang" jdbcType="VARCHAR"/>
-        <result property="fyujiwanchengshijian" column="Fyujiwanchengshijian" jdbcType="TIMESTAMP"/>
-        <result property="fvg" column="FVG" jdbcType="VARCHAR"/>
-        <result property="fbeizhu" column="Fbeizhu" jdbcType="VARCHAR"/>
-        <result property="ffenpeigenjinren" column="Ffenpeigenjinren" jdbcType="VARCHAR"/>
-        <result property="fcurspbillno" column="FCurSpBillNo" jdbcType="VARCHAR"/>
-        <result property="ftijiaotime" column="FTijiaoTime" jdbcType="TIMESTAMP"/>
-        <result property="fshenhetime" column="FShenheTime" jdbcType="TIMESTAMP"/>
-        <result property="ffenpeitime" column="FFenpeiTime" jdbcType="TIMESTAMP"/>
-        <result property="flastmodifyby" column="FLastModifyBy" jdbcType="VARCHAR"/>
-        <result property="flastmodifytime" column="FLastModifyTime" jdbcType="TIMESTAMP"/>
+        <result property="fyanjuleixing" column="Fyanjuleixing" />
+        <result property="fpipeishichang" column="Fpipeishichang" />
+        <result property="ftiandu" column="Ftiandu" />
+        <result property="fliangdu" column="Fliangdu" />
+        <result property="fnianchoudu" column="Fnianchoudu" />
+        <result property="fkouweizhuangong" column="Fkouweizhuangong" />
+        <result property="fxianchangshiyou" column="Fxianchangshiyou" />
+        <result property="fyoujixinxi" column="Fyoujixinxi" />
+        <result property="fzidaiyanju" column="Fzidaiyanju" />
+        <result property="fhuishouyanju" column="Fhuishouyanju" />
+        <result property="ffaresizhonglei" column="Ffaresizhonglei" />
+        <result property="ffaresizuzhi" column="Ffaresizuzhi" />
+        <result property="fyanyoucangrongliang" column="Fyanyoucangrongliang" />
+        <result property="fdaoyoumianzhonglei" column="Fdaoyoumianzhonglei" />
+        <result property="fnigudinghanliang" column="Fnigudinghanliang" />
+        <result property="fyoubeicaizhi" column="Fyoubeicaizhi" />
+        <result property="fqiwangwanchengshijian" column="Fqiwangwanchengshijian" />
+        <result property="fyangpinxuqiushuliang" column="Fyangpinxuqiushuliang" />
+        <result property="fyujiwanchengshijian" column="Fyujiwanchengshijian" />
+        <result property="fvg" column="FVG" />
+        <result property="fbeizhu" column="Fbeizhu" />
+        <result property="ffenpeigenjinren" column="Ffenpeigenjinren" />
+        <result property="fcurspbillno" column="FCurSpBillNo" />
+        <result property="ftijiaotime" column="FTijiaoTime" />
+        <result property="fshenhetime" column="FShenheTime" />
+        <result property="ffenpeitime" column="FFenpeiTime" />
+        <result property="flastmodifyby" column="FLastModifyBy" />
+        <result property="flastmodifytime" column="FLastModifyTime" />
     </resultMap>
 
     <resultMap id="HxTasteHxTasteDetailResult" type="HxTasteSQL" extends="HxTasteResult">
@@ -61,52 +61,52 @@
     </resultMap>
 
     <resultMap type="HxTasteSQLDetail" id="HxTasteDetailResult">
-        <result property="fid" column="sub_FID" jdbcType="VARCHAR"/>
+        <result property="fid" column="sub_FID" />
         <result property="fseq" column="sub_FSeq" jdbcType="BIGINT"/>
-        <result property="fparentid" column="sub_FParentId" jdbcType="VARCHAR"/>
-        <result property="fkouweimingcheng" column="sub_Fkouweimingcheng" jdbcType="VARCHAR"/>
-        <result property="fkouweimiaoshu" column="sub_Fkouweimiaoshu" jdbcType="VARCHAR"/>
-        <result property="fjichukouwei" column="sub_Fjichukouwei" jdbcType="VARCHAR"/>
-        <result property="fjichukouweimingcheng" column="sub_Fjichukouweimingcheng" jdbcType="VARCHAR"/>
-        <result property="fjichukouweigaishanyijian" column="sub_Fjichukouweigaishanyijian" jdbcType="VARCHAR"/>
-        <result property="frongliang" column="sub_Frongliang" jdbcType="VARCHAR"/>
-        <result property="fvg" column="sub_Fvg" jdbcType="VARCHAR"/>
-        <result property="fniclb" column="sub_Fniclb" jdbcType="VARCHAR"/>
-        <result property="fnicnd" column="sub_Fnicnd" jdbcType="VARCHAR"/>
-        <result property="fnicdw" column="sub_Fnicdw" jdbcType="VARCHAR"/>
-        <result property="ftiaoxiangshi" column="sub_Ftiaoxiangshi" jdbcType="VARCHAR"/>
-        <result property="fbanben" column="sub_Fbanben" jdbcType="VARCHAR"/>
-        <result property="fxuanzepeifangbanben" column="sub_Fxuanzepeifangbanben" jdbcType="VARCHAR"/>
-        <result property="fxuanzepeifangbanbenid" column="sub_FxuanzepeifangbanbenID" jdbcType="VARCHAR"/>
-        <result property="ffentiaoxiangshi" column="sub_Ffentiaoxiangshi" jdbcType="VARCHAR"/>
-        <result property="ffentiaoxiangshiid" column="sub_FfentiaoxiangshiID" jdbcType="VARCHAR"/>
-        <result property="fkwzhuangtai" column="sub_FKwZhuangtai" jdbcType="VARCHAR"/>
-        <result property="fxgzhuangtai" column="sub_FXgZhuangtai" jdbcType="VARCHAR"/>
-        <result property="fjdzhuangtai" column="sub_FJdZhuangtai" jdbcType="VARCHAR"/>
-        <result property="fyujiwanchengshijian" column="sub_Fyujiwanchengshijian" jdbcType="TIMESTAMP"/>
+        <result property="fparentid" column="sub_FParentId" />
+        <result property="fkouweimingcheng" column="sub_Fkouweimingcheng" />
+        <result property="fkouweimiaoshu" column="sub_Fkouweimiaoshu" />
+        <result property="fjichukouwei" column="sub_Fjichukouwei" />
+        <result property="fjichukouweimingcheng" column="sub_Fjichukouweimingcheng" />
+        <result property="fjichukouweigaishanyijian" column="sub_Fjichukouweigaishanyijian" />
+        <result property="frongliang" column="sub_Frongliang" />
+        <result property="fvg" column="sub_Fvg" />
+        <result property="fniclb" column="sub_Fniclb" />
+        <result property="fnicnd" column="sub_Fnicnd" />
+        <result property="fnicdw" column="sub_Fnicdw" />
+        <result property="ftiaoxiangshi" column="sub_Ftiaoxiangshi" />
+        <result property="fbanben" column="sub_Fbanben" />
+        <result property="fxuanzepeifangbanben" column="sub_Fxuanzepeifangbanben" />
+        <result property="fxuanzepeifangbanbenid" column="sub_FxuanzepeifangbanbenID" />
+        <result property="ffentiaoxiangshi" column="sub_Ffentiaoxiangshi" />
+        <result property="ffentiaoxiangshiid" column="sub_FfentiaoxiangshiID" />
+        <result property="fkwzhuangtai" column="sub_FKwZhuangtai" />
+        <result property="fxgzhuangtai" column="sub_FXgZhuangtai" />
+        <result property="fjdzhuangtai" column="sub_FJdZhuangtai" />
+        <result property="fyujiwanchengshijian" column="sub_Fyujiwanchengshijian"/>
         <result property="fisdeleted" column="sub_FIsDeleted" jdbcType="INTEGER"/>
-        <result property="ffenpeitiaoxiangshitime" column="sub_FfenpeitiaoxiangshiTime" jdbcType="TIMESTAMP"/>
-        <result property="lastmodifyby" column="sub_LastModifyBy" jdbcType="VARCHAR"/>
+        <result property="ffenpeitiaoxiangshitime" column="sub_FfenpeitiaoxiangshiTime" />
+        <result property="lastmodifyby" column="sub_LastModifyBy" />
     </resultMap>
 
     <sql id="selectHxTasteSQLVo">
-        select ID,FID,FBillNo,
-               FStatus,FShenqingren,FSqrID,
-               FYuanShenqingren,FYuanSqrID,FYewuxingming,
-               FYewubumen,Fsqriqi,Fkehumingcheng,
-               Fkehudaima,Fyewudaima,Flaifangriqi,
-               Fdijicisongyang,Fxiangmuxinxi,Fshangcishenqingdanhao,
-               Fkegongyanju,Fkouweishuliang,Fyangpinxuqiuriqi,
-               Fyanjuleixing,Fpipeishichang,Ftiandu,
-               Fliangdu,Fnianchoudu,Fkouweizhuangong,
-               Fxianchangshiyou,Fyoujixinxi,Fzidaiyanju,
-               Fhuishouyanju,Ffaresizhonglei,Ffaresizuzhi,
-               Fyanyoucangrongliang,Fdaoyoumianzhonglei,Fnigudinghanliang,
-               Fyoubeicaizhi,Fqiwangwanchengshijian,Fyangpinxuqiushuliang,
-               Fyujiwanchengshijian,FVG,Fbeizhu,
-               Ffenpeigenjinren,FCurSpBillNo,FTijiaoTime,
-               FShenheTime,FFenpeiTime,FLastModifyBy,
-               FLastModifyTime from T_SAL_Txsqd
+        select id,fid,fbillno,
+               fstatus,fshenqingren,fsqrid,
+               fyuanshenqingren,fyuansqrid,fyewuxingming,
+               fyewubumen,fsqriqi,fkehumingcheng,
+               fkehudaima,fyewudaima,flaifangriqi,
+               fdijicisongyang,fxiangmuxinxi,fshangcishenqingdanhao,
+               fkegongyanju,fkouweishuliang,fyangpinxuqiuriqi,
+               fyanjuleixing,fpipeishichang,ftiandu,
+               fliangdu,fnianchoudu,fkouweizhuangong,
+               fxianchangshiyou,fyoujixinxi,fzidaiyanju,
+               fhuishouyanju,ffaresizhonglei,ffaresizuzhi,
+               fyanyoucangrongliang,fdaoyoumianzhonglei,fnigudinghanliang,
+               fyoubeicaizhi,fqiwangwanchengshijian,fyangpinxuqiushuliang,
+               fyujiwanchengshijian,fvg,fbeizhu,
+               ffenpeigenjinren,fcurspbillno,ftijiaotime,
+               fshenhetime,ffenpeitime,flastmodifyby,
+               flastmodifytime from t_sal_txsqd
 
     </sql>
         <!--where deleted = '0'-->
@@ -131,307 +131,307 @@
 
 
     <select id="selectHxTasteListDetail"  parameterType="HxTasteSQL" resultMap="HxTasteResult">
-        select  a.FID,a.FBillNo,a.FStatus,a.FShenqingren,a.FSqrID,a.FYuanShenqingren,a.FYuanSqrID,a.FYewuxingming,a.FYewubumen,a.Fsqriqi,a.Fkehumingcheng,a.Fkehudaima,a.Fyewudaima,a.Flaifangriqi,a.Fdijicisongyang,a.Fxiangmuxinxi,a.Fshangcishenqingdanhao,a.Fkegongyanju,a.Fkouweishuliang,a.Fyangpinxuqiuriqi,a.Fyanjuleixing,a.Fpipeishichang,a.Ftiandu,a.Fliangdu,a.Fnianchoudu,a.Fkouweizhuangong,a.Fxianchangshiyou,a.Fyoujixinxi,a.Fzidaiyanju,a.Fhuishouyanju,a.Ffaresizhonglei,a.Ffaresizuzhi,a.Fyanyoucangrongliang,a.Fdaoyoumianzhonglei,a.Fnigudinghanliang,a.Fyoubeicaizhi,a.Fqiwangwanchengshijian,a.Fyangpinxuqiushuliang,a.Fyujiwanchengshijian,a.FVG,a.Fbeizhu,a.Ffenpeigenjinren,a.FCurSpBillNo,a.FTijiaoTime,a.FShenheTime,a.FFenpeiTime,a.FLastModifyBy,a.FLastModifyTime,
-                b.FID as sub_FID  ,b.FSeq as sub_FSeq  ,b.FParentId as sub_FParentId,
-                b.Fkouweimingcheng as sub_Fkouweimingcheng  ,b.Fkouweimiaoshu as sub_Fkouweimiaoshu  ,
-                b.Fjichukouwei as sub_Fjichukouwei  ,b.Fjichukouweimingcheng as sub_Fjichukouweimingcheng  ,
-                b.Fjichukouweigaishanyijian as sub_Fjichukouweigaishanyijian  ,b.Frongliang as sub_Frongliang  ,
-                b.Fvg as sub_Fvg  ,b.Fniclb as sub_Fniclb  ,b.Fnicnd as sub_Fnicnd  ,b.Fnicdw as sub_Fnicdw  ,b.Ftiaoxiangshi as sub_Ftiaoxiangshi  ,b.Fbanben as sub_Fbanben  ,
-                b.Fxuanzepeifangbanben as sub_Fxuanzepeifangbanben  ,b.FxuanzepeifangbanbenID as sub_FxuanzepeifangbanbenID  ,b.Ffentiaoxiangshi as sub_Ffentiaoxiangshi  ,
-                b.FfentiaoxiangshiID as sub_FfentiaoxiangshiID  ,b.FKwZhuangtai as sub_FKwZhuangtai  ,
-                b.FXgZhuangtai as sub_FXgZhuangtai  ,b.FJdZhuangtai as sub_FJdZhuangtai  ,b.Fyujiwanchengshijian as sub_Fyujiwanchengshijian  ,b.FIsDeleted as sub_FIsDeleted  ,
-                b.FfenpeitiaoxiangshiTime as sub_FfenpeitiaoxiangshiTime  ,b.LastModifyBy as sub_LastModifyBy
-        from T_SAL_Txsqd a
-        left join T_SAL_Txsqdmx b on b.FParentId = a.FID
+        select  a.fid,a.fbillno,a.fstatus,a.fshenqingren,a.fsqrid,a.fyuanshenqingren,a.fyuansqrid,a.fyewuxingming,a.fyewubumen,a.fsqriqi,a.fkehumingcheng,a.fkehudaima,a.fyewudaima,a.flaifangriqi,a.fdijicisongyang,a.fxiangmuxinxi,a.fshangcishenqingdanhao,a.fkegongyanju,a.fkouweishuliang,a.fyangpinxuqiuriqi,a.fyanjuleixing,a.fpipeishichang,a.ftiandu,a.fliangdu,a.fnianchoudu,a.fkouweizhuangong,a.fxianchangshiyou,a.fyoujixinxi,a.fzidaiyanju,a.fhuishouyanju,a.ffaresizhonglei,a.ffaresizuzhi,a.fyanyoucangrongliang,a.fdaoyoumianzhonglei,a.fnigudinghanliang,a.fyoubeicaizhi,a.fqiwangwanchengshijian,a.fyangpinxuqiushuliang,a.fyujiwanchengshijian,a.fvg,a.fbeizhu,a.ffenpeigenjinren,a.fcurspbillno,a.ftijiaotime,a.fshenhetime,a.ffenpeitime,a.flastmodifyby,a.flastmodifytime,
+                b.fid as sub_fid  ,b.fseq as sub_fseq  ,b.fparentid as sub_fparentid,
+                b.fkouweimingcheng as sub_fkouweimingcheng  ,b.fkouweimiaoshu as sub_fkouweimiaoshu  ,
+                b.fjichukouwei as sub_fjichukouwei  ,b.fjichukouweimingcheng as sub_fjichukouweimingcheng  ,
+                b.fjichukouweigaishanyijian as sub_fjichukouweigaishanyijian  ,b.frongliang as sub_frongliang  ,
+                b.fvg as sub_fvg  ,b.fniclb as sub_fniclb  ,b.fnicnd as sub_fnicnd  ,b.fnicdw as sub_fnicdw  ,b.ftiaoxiangshi as sub_ftiaoxiangshi  ,b.fbanben as sub_fbanben  ,
+                b.fxuanzepeifangbanben as sub_fxuanzepeifangbanben  ,b.fxuanzepeifangbanbenid as sub_fxuanzepeifangbanbenid  ,b.ffentiaoxiangshi as sub_ffentiaoxiangshi  ,
+                b.ffentiaoxiangshiid as sub_ffentiaoxiangshiid  ,b.fkwzhuangtai as sub_fkwzhuangtai  ,
+                b.fxgzhuangtai as sub_fxgzhuangtai  ,b.fjdzhuangtai as sub_fjdzhuangtai  ,b.fyujiwanchengshijian as sub_fyujiwanchengshijian  ,b.fisdeleted as sub_fisdeleted  ,
+                b.ffenpeitiaoxiangshitime as sub_ffenpeitiaoxiangshitime  ,b.lastmodifyby as sub_lastmodifyby
+        from t_sal_txsqd a
+        left join t_sal_txsqdmx b on b.fparentid = a.fid
 
     </select>
 <!--and a.deleted = '0'-->
     <select id="selectHxTasteByTasteId" parameterType="String" resultMap="HxTasteHxTasteDetailResult">
-        select  a.FID,a.FBillNo,a.FStatus,a.FShenqingren,a.FSqrID,a.FYuanShenqingren,a.FYuanSqrID,a.FYewuxingming,a.FYewubumen,a.Fsqriqi,a.Fkehumingcheng,a.Fkehudaima,a.Fyewudaima,a.Flaifangriqi,a.Fdijicisongyang,a.Fxiangmuxinxi,a.Fshangcishenqingdanhao,a.Fkegongyanju,a.Fkouweishuliang,a.Fyangpinxuqiuriqi,a.Fyanjuleixing,a.Fpipeishichang,a.Ftiandu,a.Fliangdu,a.Fnianchoudu,a.Fkouweizhuangong,a.Fxianchangshiyou,a.Fyoujixinxi,a.Fzidaiyanju,a.Fhuishouyanju,a.Ffaresizhonglei,a.Ffaresizuzhi,a.Fyanyoucangrongliang,a.Fdaoyoumianzhonglei,a.Fnigudinghanliang,a.Fyoubeicaizhi,a.Fqiwangwanchengshijian,a.Fyangpinxuqiushuliang,a.Fyujiwanchengshijian,a.FVG,a.Fbeizhu,a.Ffenpeigenjinren,a.FCurSpBillNo,a.FTijiaoTime,a.FShenheTime,a.FFenpeiTime,a.FLastModifyBy,a.FLastModifyTime,
-        b.FID as sub_FID,b.FSeq as sub_FSeq,b.FParentId as sub_FParentId,
-        b.Fkouweimingcheng as sub_Fkouweimingcheng,b.Fkouweimiaoshu as sub_Fkouweimiaoshu,
-        b.Fjichukouwei as sub_Fjichukouwei,b.Fjichukouweimingcheng as sub_Fjichukouweimingcheng,
-        b.Fjichukouweigaishanyijian as sub_Fjichukouweigaishanyijian,b.Frongliang as sub_Frongliang,
-        b.Fvg as sub_Fvg,b.Fniclb as sub_Fniclb,b.Fnicnd as sub_Fnicnd,b.Fnicdw as sub_Fnicdw,b.Ftiaoxiangshi as sub_Ftiaoxiangshi,b.Fbanben as sub_Fbanben,
-        b.Fxuanzepeifangbanben as sub_Fxuanzepeifangbanben,b.FxuanzepeifangbanbenID as sub_FxuanzepeifangbanbenID,b.Ffentiaoxiangshi as sub_Ffentiaoxiangshi,
-        b.FfentiaoxiangshiID as sub_FfentiaoxiangshiID,b.FKwZhuangtai as sub_FKwZhuangtai,
-        b.FXgZhuangtai as sub_FXgZhuangtai,b.FJdZhuangtai as sub_FJdZhuangtai,b.Fyujiwanchengshijian as sub_Fyujiwanchengshijian,b.FIsDeleted as sub_FIsDeleted,
-        b.FfenpeitiaoxiangshiTime as sub_FfenpeitiaoxiangshiTime,b.LastModifyBy as sub_LastModifyBy
-        from T_SAL_Txsqd a
-        left join T_SAL_Txsqdmx b
-        on b.FParentId = a.FID
-        where a.FID = #{fid}
+        select  a.fid,a.fbillno,a.fstatus,a.fshenqingren,a.fsqrid,a.fyuanshenqingren,a.fyuansqrid,a.fyewuxingming,a.fyewubumen,a.fsqriqi,a.fkehumingcheng,a.fkehudaima,a.fyewudaima,a.flaifangriqi,a.fdijicisongyang,a.fxiangmuxinxi,a.fshangcishenqingdanhao,a.fkegongyanju,a.fkouweishuliang,a.fyangpinxuqiuriqi,a.fyanjuleixing,a.fpipeishichang,a.ftiandu,a.fliangdu,a.fnianchoudu,a.fkouweizhuangong,a.fxianchangshiyou,a.fyoujixinxi,a.fzidaiyanju,a.fhuishouyanju,a.ffaresizhonglei,a.ffaresizuzhi,a.fyanyoucangrongliang,a.fdaoyoumianzhonglei,a.fnigudinghanliang,a.fyoubeicaizhi,a.fqiwangwanchengshijian,a.fyangpinxuqiushuliang,a.fyujiwanchengshijian,a.fvg,a.fbeizhu,a.ffenpeigenjinren,a.fcurspbillno,a.ftijiaotime,a.fshenhetime,a.ffenpeitime,a.flastmodifyby,a.flastmodifytime,
+        b.fid as sub_fid,b.fseq as sub_fseq,b.fparentid as sub_fparentid,
+        b.fkouweimingcheng as sub_fkouweimingcheng,b.fkouweimiaoshu as sub_fkouweimiaoshu,
+        b.fjichukouwei as sub_fjichukouwei,b.fjichukouweimingcheng as sub_fjichukouweimingcheng,
+        b.fjichukouweigaishanyijian as sub_fjichukouweigaishanyijian,b.frongliang as sub_frongliang,
+        b.fvg as sub_fvg,b.fniclb as sub_fniclb,b.fnicnd as sub_fnicnd,b.fnicdw as sub_fnicdw,b.ftiaoxiangshi as sub_ftiaoxiangshi,b.fbanben as sub_fbanben,
+        b.fxuanzepeifangbanben as sub_fxuanzepeifangbanben,b.fxuanzepeifangbanbenid as sub_fxuanzepeifangbanbenid,b.ffentiaoxiangshi as sub_ffentiaoxiangshi,
+        b.ffentiaoxiangshiid as sub_ffentiaoxiangshiid,b.fkwzhuangtai as sub_fkwzhuangtai,
+        b.fxgzhuangtai as sub_fxgzhuangtai,b.fjdzhuangtai as sub_fjdzhuangtai,b.fyujiwanchengshijian as sub_fyujiwanchengshijian,b.fisdeleted as sub_fisdeleted,
+        b.ffenpeitiaoxiangshitime as sub_ffenpeitiaoxiangshitime,b.lastmodifyby as sub_lastmodifyby
+        from t_sal_txsqd a
+        left join t_sal_txsqdmx b
+        on b.fparentid = a.fid
+        where a.fid = #{fid}
 
 
     </select>
 
     <insert id="insertHxTaste"  parameterType="HxTasteSQL">
-        insert into T_SAL_Txsqd
+        insert into t_sal_txsqd
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="id != null">ID,</if>
-            <if test="fid != null">FID,</if>
-            <if test="fbillno != null">FBillNo,</if>
-            <if test="fstatus != null">FStatus,</if>
-            <if test="fshenqingren != null">FShenqingren,</if>
-            <if test="fsqrid != null">FSqrID,</if>
-            <if test="fyuanshenqingren != null">FYuanShenqingren,</if>
-            <if test="fyuansqrid != null">FYuanSqrID,</if>
-            <if test="fyewuxingming != null">FYewuxingming,</if>
-            <if test="fyewubumen != null">FYewubumen,</if>
-            <if test="fsqriqi != null">Fsqriqi,</if>
-            <if test="fkehumingcheng != null">Fkehumingcheng,</if>
-            <if test="fkehudaima != null">Fkehudaima,</if>
-            <if test="fyewudaima != null">Fyewudaima,</if>
-            <if test="flaifangriqi != null">Flaifangriqi,</if>
-            <if test="fdijicisongyang != null">Fdijicisongyang,</if>
-            <if test="fxiangmuxinxi != null">Fxiangmuxinxi,</if>
-            <if test="fshangcishenqingdanhao != null">Fshangcishenqingdanhao,</if>
-            <if test="fkegongyanju != null">Fkegongyanju,</if>
-            <if test="fkouweishuliang != null">Fkouweishuliang,</if>
-            <if test="fyangpinxuqiuriqi != null">Fyangpinxuqiuriqi,</if>
-            <if test="fyanjuleixing != null">Fyanjuleixing,</if>
-            <if test="fpipeishichang != null">Fpipeishichang,</if>
-            <if test="ftiandu != null">Ftiandu,</if>
-            <if test="fliangdu != null">Fliangdu,</if>
-            <if test="fnianchoudu != null">Fnianchoudu,</if>
-            <if test="fkouweizhuangong != null">Fkouweizhuangong,</if>
-            <if test="fxianchangshiyou != null">Fxianchangshiyou,</if>
-            <if test="fyoujixinxi != null">Fyoujixinxi,</if>
-            <if test="fzidaiyanju != null">Fzidaiyanju,</if>
-            <if test="fhuishouyanju != null">Fhuishouyanju,</if>
-            <if test="ffaresizhonglei != null">Ffaresizhonglei,</if>
-            <if test="ffaresizuzhi != null">Ffaresizuzhi,</if>
-            <if test="fyanyoucangrongliang != null">Fyanyoucangrongliang,</if>
-            <if test="fdaoyoumianzhonglei != null">Fdaoyoumianzhonglei,</if>
-            <if test="fnigudinghanliang != null">Fnigudinghanliang,</if>
-            <if test="fyoubeicaizhi != null">Fyoubeicaizhi,</if>
-            <if test="fqiwangwanchengshijian != null">Fqiwangwanchengshijian,</if>
-            <if test="fyangpinxuqiushuliang != null">Fyangpinxuqiushuliang,</if>
-            <if test="fyujiwanchengshijian != null">Fyujiwanchengshijian,</if>
-            <if test="fvg != null">FVG,</if>
-            <if test="fbeizhu != null">Fbeizhu,</if>
-            <if test="ffenpeigenjinren != null">Ffenpeigenjinren,</if>
-            <if test="fcurspbillno != null">FCurSpBillNo,</if>
-            <if test="ftijiaotime != null">FTijiaoTime,</if>
-            <if test="fshenhetime != null">FShenheTime,</if>
-            <if test="ffenpeitime != null">FFenpeiTime,</if>
-            <if test="flastmodifyby != null">FLastModifyBy,</if>
-            <if test="flastmodifytime != null">FLastModifyTime,</if>
+            <if test="id != null">id,</if>
+            <if test="fid != null">fid,</if>
+            <if test="fbillno != null">fbillno,</if>
+            <if test="fstatus != null">fstatus,</if>
+            <if test="fshenqingren != null">fshenqingren,</if>
+            <if test="fsqrid != null">fsqrid,</if>
+            <if test="fyuanshenqingren != null">fyuanshenqingren,</if>
+            <if test="fyuansqrid != null">fyuansqrid,</if>
+            <if test="fyewuxingming != null">fyewuxingming,</if>
+            <if test="fyewubumen != null">fyewubumen,</if>
+            <if test="fsqriqi != null">fsqriqi,</if>
+            <if test="fkehumingcheng != null">fkehumingcheng,</if>
+            <if test="fkehudaima != null">fkehudaima,</if>
+            <if test="fyewudaima != null">fyewudaima,</if>
+            <if test="flaifangriqi != null">flaifangriqi,</if>
+            <if test="fdijicisongyang != null">fdijicisongyang,</if>
+            <if test="fxiangmuxinxi != null">fxiangmuxinxi,</if>
+            <if test="fshangcishenqingdanhao != null">fshangcishenqingdanhao,</if>
+            <if test="fkegongyanju != null">fkegongyanju,</if>
+            <if test="fkouweishuliang != null">fkouweishuliang,</if>
+            <if test="fyangpinxuqiuriqi != null">fyangpinxuqiuriqi,</if>
+            <if test="fyanjuleixing != null">fyanjuleixing,</if>
+            <if test="fpipeishichang != null">fpipeishichang,</if>
+            <if test="ftiandu != null">ftiandu,</if>
+            <if test="fliangdu != null">fliangdu,</if>
+            <if test="fnianchoudu != null">fnianchoudu,</if>
+            <if test="fkouweizhuangong != null">fkouweizhuangong,</if>
+            <if test="fxianchangshiyou != null">fxianchangshiyou,</if>
+            <if test="fyoujixinxi != null">fyoujixinxi,</if>
+            <if test="fzidaiyanju != null">fzidaiyanju,</if>
+            <if test="fhuishouyanju != null">fhuishouyanju,</if>
+            <if test="ffaresizhonglei != null">ffaresizhonglei,</if>
+            <if test="ffaresizuzhi != null">ffaresizuzhi,</if>
+            <if test="fyanyoucangrongliang != null">fyanyoucangrongliang,</if>
+            <if test="fdaoyoumianzhonglei != null">fdaoyoumianzhonglei,</if>
+            <if test="fnigudinghanliang != null">fnigudinghanliang,</if>
+            <if test="fyoubeicaizhi != null">fyoubeicaizhi,</if>
+            <if test="fqiwangwanchengshijian != null">fqiwangwanchengshijian,</if>
+            <if test="fyangpinxuqiushuliang != null">fyangpinxuqiushuliang,</if>
+            <if test="fyujiwanchengshijian != null">fyujiwanchengshijian,</if>
+            <if test="fvg != null">fvg,</if>
+            <if test="fbeizhu != null">fbeizhu,</if>
+            <if test="ffenpeigenjinren != null">ffenpeigenjinren,</if>
+            <if test="fcurspbillno != null">fcurspbillno,</if>
+            <if test="ftijiaotime != null">ftijiaotime,</if>
+            <if test="fshenhetime != null">fshenhetime,</if>
+            <if test="ffenpeitime != null">ffenpeitime,</if>
+            <if test="flastmodifyby != null">flastmodifyby,</if>
+            <if test="flastmodifytime != null">flastmodifytime</if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="id != null">#{id,jdbcType=BIGINT},</if>
-            <if test="fid != null">#{fid,jdbcType=CHAR},</if>
-            <if test="fbillno != null">#{fbillno,jdbcType=CHAR},</if>
-            <if test="fstatus != null">#{fstatus,jdbcType=INTEGER},</if>
-            <if test="fshenqingren != null">#{fshenqingren,jdbcType=VARCHAR},</if>
-            <if test="fsqrid != null">#{fsqrid,jdbcType=VARCHAR},</if>
-            <if test="fyuanshenqingren != null">#{fyuanshenqingren,jdbcType=VARCHAR},</if>
-            <if test="fyuansqrid != null">#{fyuansqrid,jdbcType=VARCHAR},</if>
-            <if test="fyewuxingming != null">#{fyewuxingming,jdbcType=VARCHAR},</if>
-            <if test="fyewubumen != null">#{fyewubumen,jdbcType=VARCHAR},</if>
+            <if test="id != null">#{id},</if>
+            <if test="fid != null">#{fid},</if>
+            <if test="fbillno != null">#{fbillno},</if>
+            <if test="fstatus != null">#{fstatus},</if>
+            <if test="fshenqingren != null">#{fshenqingren},</if>
+            <if test="fsqrid != null">#{fsqrid},</if>
+            <if test="fyuanshenqingren != null">#{fyuanshenqingren},</if>
+            <if test="fyuansqrid != null">#{fyuansqrid},</if>
+            <if test="fyewuxingming != null">#{fyewuxingming},</if>
+            <if test="fyewubumen != null">#{fyewubumen},</if>
             <if test="fsqriqi != null">#{fsqriqi,jdbcType=DATE},</if>
-            <if test="fkehumingcheng != null">#{fkehumingcheng,jdbcType=VARCHAR},</if>
-            <if test="fkehudaima != null">#{fkehudaima,jdbcType=VARCHAR},</if>
-            <if test="fyewudaima != null">#{fyewudaima,jdbcType=VARCHAR},</if>
+            <if test="fkehumingcheng != null">#{fkehumingcheng},</if>
+            <if test="fkehudaima != null">#{fkehudaima},</if>
+            <if test="fyewudaima != null">#{fyewudaima},</if>
             <if test="flaifangriqi != null">#{flaifangriqi,jdbcType=DATE},</if>
-            <if test="fdijicisongyang != null">#{fdijicisongyang,jdbcType=VARCHAR},</if>
-            <if test="fxiangmuxinxi != null">#{fxiangmuxinxi,jdbcType=VARCHAR},</if>
-            <if test="fshangcishenqingdanhao != null">#{fshangcishenqingdanhao,jdbcType=VARCHAR},</if>
-            <if test="fkegongyanju != null">#{fkegongyanju,jdbcType=VARCHAR},</if>
-            <if test="fkouweishuliang != null">#{fkouweishuliang,jdbcType=VARCHAR},</if>
-            <if test="fyangpinxuqiuriqi != null">#{fyangpinxuqiuriqi,jdbcType=DATE},</if>
-            <if test="fyanjuleixing != null">#{fyanjuleixing,jdbcType=VARCHAR},</if>
-            <if test="fpipeishichang != null">#{fpipeishichang,jdbcType=VARCHAR},</if>
-            <if test="ftiandu != null">#{ftiandu,jdbcType=VARCHAR},</if>
-            <if test="fliangdu != null">#{fliangdu,jdbcType=VARCHAR},</if>
-            <if test="fnianchoudu != null">#{fnianchoudu,jdbcType=VARCHAR},</if>
-            <if test="fkouweizhuangong != null">#{fkouweizhuangong,jdbcType=VARCHAR},</if>
-            <if test="fxianchangshiyou != null">#{fxianchangshiyou,jdbcType=VARCHAR},</if>
-            <if test="fyoujixinxi != null">#{fyoujixinxi,jdbcType=VARCHAR},</if>
-            <if test="fzidaiyanju != null">#{fzidaiyanju,jdbcType=VARCHAR},</if>
-            <if test="fhuishouyanju != null">#{fhuishouyanju,jdbcType=VARCHAR},</if>
-            <if test="ffaresizhonglei != null">#{ffaresizhonglei,jdbcType=VARCHAR},</if>
-            <if test="ffaresizuzhi != null">#{ffaresizuzhi,jdbcType=VARCHAR},</if>
-            <if test="fyanyoucangrongliang != null">#{fyanyoucangrongliang,jdbcType=VARCHAR},</if>
-            <if test="fdaoyoumianzhonglei != null">#{fdaoyoumianzhonglei,jdbcType=VARCHAR},</if>
-            <if test="fnigudinghanliang != null">#{fnigudinghanliang,jdbcType=VARCHAR},</if>
-            <if test="fyoubeicaizhi != null">#{fyoubeicaizhi,jdbcType=VARCHAR},</if>
-            <if test="fqiwangwanchengshijian != null">#{fqiwangwanchengshijian,jdbcType=TIMESTAMP},</if>
-            <if test="fyangpinxuqiushuliang != null">#{fyangpinxuqiushuliang,jdbcType=VARCHAR},</if>
-            <if test="fyujiwanchengshijian != null">#{fyujiwanchengshijian,jdbcType=TIMESTAMP},</if>
-            <if test="fvg != null">#{fvg,jdbcType=VARCHAR},</if>
-            <if test="fbeizhu != null">#{fbeizhu,jdbcType=VARCHAR},</if>
-            <if test="ffenpeigenjinren != null">#{ffenpeigenjinren,jdbcType=VARCHAR},</if>
-            <if test="fcurspbillno != null">#{fcurspbillno,jdbcType=VARCHAR},</if>
-            <if test="ftijiaotime != null">#{ftijiaotime,jdbcType=TIMESTAMP},</if>
-            <if test="fshenhetime != null">#{fshenhetime,jdbcType=TIMESTAMP},</if>
-            <if test="ffenpeitime != null">#{ffenpeitime,jdbcType=TIMESTAMP},</if>
-            <if test="flastmodifyby != null">#{flastmodifyby,jdbcType=VARCHAR},</if>
-            <if test="flastmodifytime != null">#{flastmodifytime,jdbcType=TIMESTAMP},</if>
+            <if test="fdijicisongyang != null">#{fdijicisongyang},</if>
+            <if test="fxiangmuxinxi != null">#{fxiangmuxinxi},</if>
+            <if test="fshangcishenqingdanhao != null">#{fshangcishenqingdanhao},</if>
+            <if test="fkegongyanju != null">#{fkegongyanju},</if>
+            <if test="fkouweishuliang != null">#{fkouweishuliang},</if>
+            <if test="fyangpinxuqiuriqi != null">#{fyangpinxuqiuriqi},</if>
+            <if test="fyanjuleixing != null">#{fyanjuleixing},</if>
+            <if test="fpipeishichang != null">#{fpipeishichang},</if>
+            <if test="ftiandu != null">#{ftiandu},</if>
+            <if test="fliangdu != null">#{fliangdu},</if>
+            <if test="fnianchoudu != null">#{fnianchoudu},</if>
+            <if test="fkouweizhuangong != null">#{fkouweizhuangong},</if>
+            <if test="fxianchangshiyou != null">#{fxianchangshiyou},</if>
+            <if test="fyoujixinxi != null">#{fyoujixinxi},</if>
+            <if test="fzidaiyanju != null">#{fzidaiyanju},</if>
+            <if test="fhuishouyanju != null">#{fhuishouyanju},</if>
+            <if test="ffaresizhonglei != null">#{ffaresizhonglei},</if>
+            <if test="ffaresizuzhi != null">#{ffaresizuzhi},</if>
+            <if test="fyanyoucangrongliang != null">#{fyanyoucangrongliang},</if>
+            <if test="fdaoyoumianzhonglei != null">#{fdaoyoumianzhonglei},</if>
+            <if test="fnigudinghanliang != null">#{fnigudinghanliang},</if>
+            <if test="fyoubeicaizhi != null">#{fyoubeicaizhi},</if>
+            <if test="fqiwangwanchengshijian != null">#{fqiwangwanchengshijian},</if>
+            <if test="fyangpinxuqiushuliang != null">#{fyangpinxuqiushuliang},</if>
+            <if test="fyujiwanchengshijian != null">#{fyujiwanchengshijian},</if>
+            <if test="fvg != null">#{fvg},</if>
+            <if test="fbeizhu != null">#{fbeizhu},</if>
+            <if test="ffenpeigenjinren != null">#{ffenpeigenjinren},</if>
+            <if test="fcurspbillno != null">#{fcurspbillno},</if>
+            <if test="ftijiaotime != null">#{ftijiaotime},</if>
+            <if test="fshenhetime != null">#{fshenhetime},</if>
+            <if test="ffenpeitime != null">#{ffenpeitime},</if>
+            <if test="flastmodifyby != null">#{flastmodifyby},</if>
+            <if test="flastmodifytime != null">#{flastmodifytime}</if>
         </trim>
     </insert>
 
     <update id="updateHxTaste"  parameterType="HxTasteSQL">
-        update T_SAL_Txsqd
+        update t_sal_txsqd
         <set>
             <if test="id != null">
-                ID = #{id},
+                id = #{id},
             </if>
             <if test="fid != null and fid != ''">
-                FID = #{fid},
+                fid = #{fid},
             </if>
             <if test="fbillno != null and fbillno != ''">
-                FBillNo = #{fbillno},
+                fbillno = #{fbillno},
             </if>
             <if test="fstatus != null">
-                FStatus = #{fstatus},
+                fstatus = #{fstatus},
             </if>
             <if test="fshenqingren != null and fshenqingren != ''">
-                FShenqingren = #{fshenqingren},
+                fshenqingren = #{fshenqingren},
             </if>
             <if test="fsqrid != null and fsqrid != ''">
-                FSqrID = #{fsqrid},
+                fsqrid = #{fsqrid},
             </if>
             <if test="fyuanshenqingren != null and fyuanshenqingren != ''">
-                FYuanShenqingren = #{fyuanshenqingren},
+                fyuanshenqingren = #{fyuanshenqingren},
             </if>
             <if test="fyuansqrid != null and fyuansqrid != ''">
-                FYuanSqrID = #{fyuansqrid},
+                fyuansqrid = #{fyuansqrid},
             </if>
             <if test="fyewuxingming != null and fyewuxingming != ''">
-                FYewuxingming = #{fyewuxingming},
+                fyewuxingming = #{fyewuxingming},
             </if>
             <if test="fyewubumen != null and fyewubumen != ''">
-                FYewubumen = #{fyewubumen},
+                fyewubumen = #{fyewubumen},
             </if>
             <if test="fsqriqi != null">
-                Fsqriqi = #{fsqriqi},
+                fsqriqi = #{fsqriqi},
             </if>
             <if test="fkehumingcheng != null and fkehumingcheng != ''">
-                Fkehumingcheng = #{fkehumingcheng},
+                fkehumingcheng = #{fkehumingcheng},
             </if>
             <if test="fkehudaima != null and fkehudaima != ''">
-                Fkehudaima = #{fkehudaima},
+                fkehudaima = #{fkehudaima},
             </if>
             <if test="fyewudaima != null and fyewudaima != ''">
-                Fyewudaima = #{fyewudaima},
+                fyewudaima = #{fyewudaima},
             </if>
             <if test="flaifangriqi != null">
-                Flaifangriqi = #{flaifangriqi},
+                flaifangriqi = #{flaifangriqi},
             </if>
             <if test="fdijicisongyang != null and fdijicisongyang != ''">
-                Fdijicisongyang = #{fdijicisongyang},
+                fdijicisongyang = #{fdijicisongyang},
             </if>
             <if test="fxiangmuxinxi != null and fxiangmuxinxi != ''">
-                Fxiangmuxinxi = #{fxiangmuxinxi},
+                fxiangmuxinxi = #{fxiangmuxinxi},
             </if>
             <if test="fshangcishenqingdanhao != null and fshangcishenqingdanhao != ''">
-                Fshangcishenqingdanhao = #{fshangcishenqingdanhao},
+                fshangcishenqingdanhao = #{fshangcishenqingdanhao},
             </if>
             <if test="fkegongyanju != null and fkegongyanju != ''">
-                Fkegongyanju = #{fkegongyanju},
+                fkegongyanju = #{fkegongyanju},
             </if>
             <if test="fkouweishuliang != null and fkouweishuliang != ''">
-                Fkouweishuliang = #{fkouweishuliang},
+                fkouweishuliang = #{fkouweishuliang},
             </if>
             <if test="fyangpinxuqiuriqi != null">
-                Fyangpinxuqiuriqi = #{fyangpinxuqiuriqi},
+                fyangpinxuqiuriqi = #{fyangpinxuqiuriqi},
             </if>
             <if test="fyanjuleixing != null and fyanjuleixing != ''">
-                Fyanjuleixing = #{fyanjuleixing},
+                fyanjuleixing = #{fyanjuleixing},
             </if>
             <if test="fpipeishichang != null and fpipeishichang != ''">
-                Fpipeishichang = #{fpipeishichang},
+                fpipeishichang = #{fpipeishichang},
             </if>
             <if test="ftiandu != null and ftiandu != ''">
-                Ftiandu = #{ftiandu},
+                ftiandu = #{ftiandu},
             </if>
             <if test="fliangdu != null and fliangdu != ''">
-                Fliangdu = #{fliangdu},
+                fliangdu = #{fliangdu},
             </if>
             <if test="fnianchoudu != null and fnianchoudu != ''">
-                Fnianchoudu = #{fnianchoudu},
+                fnianchoudu = #{fnianchoudu},
             </if>
             <if test="fkouweizhuangong != null and fkouweizhuangong != ''">
-                Fkouweizhuangong = #{fkouweizhuangong},
+                fkouweizhuangong = #{fkouweizhuangong},
             </if>
             <if test="fxianchangshiyou != null and fxianchangshiyou != ''">
-                Fxianchangshiyou = #{fxianchangshiyou},
+                fxianchangshiyou = #{fxianchangshiyou},
             </if>
             <if test="fyoujixinxi != null and fyoujixinxi != ''">
-                Fyoujixinxi = #{fyoujixinxi},
+                fyoujixinxi = #{fyoujixinxi},
             </if>
             <if test="fzidaiyanju != null and fzidaiyanju != ''">
-                Fzidaiyanju = #{fzidaiyanju},
+                fzidaiyanju = #{fzidaiyanju},
             </if>
             <if test="fhuishouyanju != null and fhuishouyanju != ''">
-                Fhuishouyanju = #{fhuishouyanju},
+                fhuishouyanju = #{fhuishouyanju},
             </if>
             <if test="ffaresizhonglei != null and ffaresizhonglei != ''">
-                Ffaresizhonglei = #{ffaresizhonglei},
+                ffaresizhonglei = #{ffaresizhonglei},
             </if>
             <if test="ffaresizuzhi != null and ffaresizuzhi != ''">
-                Ffaresizuzhi = #{ffaresizuzhi},
+                ffaresizuzhi = #{ffaresizuzhi},
             </if>
             <if test="fyanyoucangrongliang != null and fyanyoucangrongliang != ''">
-                Fyanyoucangrongliang = #{fyanyoucangrongliang},
+                fyanyoucangrongliang = #{fyanyoucangrongliang},
             </if>
             <if test="fdaoyoumianzhonglei != null and fdaoyoumianzhonglei != ''">
-                Fdaoyoumianzhonglei = #{fdaoyoumianzhonglei},
+                fdaoyoumianzhonglei = #{fdaoyoumianzhonglei},
             </if>
             <if test="fnigudinghanliang != null and fnigudinghanliang != ''">
-                Fnigudinghanliang = #{fnigudinghanliang},
+                fnigudinghanliang = #{fnigudinghanliang},
             </if>
             <if test="fyoubeicaizhi != null and fyoubeicaizhi != ''">
-                Fyoubeicaizhi = #{fyoubeicaizhi},
+                fyoubeicaizhi = #{fyoubeicaizhi},
             </if>
             <if test="fqiwangwanchengshijian != null">
-                Fqiwangwanchengshijian = #{fqiwangwanchengshijian},
+                fqiwangwanchengshijian = #{fqiwangwanchengshijian},
             </if>
             <if test="fyangpinxuqiushuliang != null and fyangpinxuqiushuliang != ''">
-                Fyangpinxuqiushuliang = #{fyangpinxuqiushuliang},
+                fyangpinxuqiushuliang = #{fyangpinxuqiushuliang},
             </if>
             <if test="fyujiwanchengshijian != null">
-                Fyujiwanchengshijian = #{fyujiwanchengshijian},
+                fyujiwanchengshijian = #{fyujiwanchengshijian},
             </if>
             <if test="fvg != null and fvg != ''">
-                FVG = #{fvg},
+                fvg = #{fvg},
             </if>
             <if test="fbeizhu != null and fbeizhu != ''">
-                Fbeizhu = #{fbeizhu},
+                fbeizhu = #{fbeizhu},
             </if>
             <if test="ffenpeigenjinren != null and ffenpeigenjinren != ''">
-                Ffenpeigenjinren = #{ffenpeigenjinren},
+                ffenpeigenjinren = #{ffenpeigenjinren},
             </if>
             <if test="fcurspbillno != null and fcurspbillno != ''">
-                FCurSpBillNo = #{fcurspbillno},
+                fcurspbillno = #{fcurspbillno},
             </if>
             <if test="ftijiaotime != null">
-                FTijiaoTime = #{ftijiaotime},
+                ftijiaotime = #{ftijiaotime},
             </if>
             <if test="fshenhetime != null">
-                FShenheTime = #{fshenhetime},
+                fshenhetime = #{fshenhetime},
             </if>
             <if test="ffenpeitime != null">
-                FFenpeiTime = #{ffenpeitime},
+                ffenpeitime = #{ffenpeitime},
             </if>
             <if test="flastmodifyby != null and flastmodifyby != ''">
-                FLastModifyBy = #{flastmodifyby},
+                flastmodifyby = #{flastmodifyby},
             </if>
             <if test="flastmodifytime != null">
-                FLastModifyTime = #{flastmodifytime},
+                flastmodifytime = #{flastmodifytime},
             </if>
         </set>
-        where Fid = #{fid}
+        where fid = #{fid}
     </update>
     <!--真实删除-->
     <delete id="deleteHxTasteByTasteId" parameterType="String">
-        delete from T_SAL_Txsqd where Fid = #{fid}
+        delete from t_sal_txsqd where fid = #{fid}
     </delete>
 
     <delete id="deleteHxTasteByTasteIds" parameterType="String">
-        delete from T_SAL_Txsqd where Fid in
-        <foreach item="tasteId" collection="array" open="(" separator="," close=")">
+        delete from t_sal_txsqd where fid in
+        <foreach item="tasteid" collection="array" open="(" separator="," close=")">
             #{fid}
         </foreach>
     </delete>
@@ -448,35 +448,35 @@
     </delete>-->
     <!--子表-->
     <delete id="deleteHxTasteDetailByTasteIds" parameterType="String">
-        delete from T_SAL_Txsqdmx where FParentId in
-        <foreach item="tasteId" collection="array" open="(" separator="," close=")">
+        delete from t_sal_txsqdmx where fparentid in
+        <foreach item="tasteid" collection="array" open="(" separator="," close=")">
             #{fid}
         </foreach>
     </delete>
 
     <delete id="deleteHxTasteDetailByTasteId" parameterType="String">
-        delete from T_SAL_Txsqdmx where FParentId = #{fid}
+        delete from t_sal_txsqdmx where fparentid = #{fid}
     </delete>
 
     <insert id="batchHxTasteDetail">
         <!--允许将显式值插入表的标识列中 ON-允许  OFF-不允许-->
 <!--        set identity_insert hx_taste_detail ON;-->
-        insert into T_SAL_Txsqdmx(  FSeq,FParentId,
-            Fkouweimingcheng,Fkouweimiaoshu,Fjichukouwei,
-            Fjichukouweimingcheng,Fjichukouweigaishanyijian,Frongliang,
-            Fvg,Fniclb,Fnicnd,
-            Fnicdw,Ftiaoxiangshi,Fbanben,
-            Fxuanzepeifangbanben,FxuanzepeifangbanbenID,Ffentiaoxiangshi,
-            FfentiaoxiangshiID,FKwZhuangtai,FXgZhuangtai,
-            FJdZhuangtai,Fyujiwanchengshijian,FIsDeleted,
-            FfenpeitiaoxiangshiTime,LastModifyBy) values
+        insert into t_sal_txsqdmx( fid, fseq,fparentid,
+            fkouweimingcheng,fkouweimiaoshu,fjichukouwei,
+            fjichukouweimingcheng,fjichukouweigaishanyijian,frongliang,
+            fvg,fniclb,fnicnd,
+            fnicdw,ftiaoxiangshi,fbanben,
+            fxuanzepeifangbanben,fxuanzepeifangbanbenid,ffentiaoxiangshi,
+            ffentiaoxiangshiid,fkwzhuangtai,fxgzhuangtai,
+            fjdzhuangtai,fyujiwanchengshijian,fisdeleted,
+            ffenpeitiaoxiangshitime,lastmodifyby) values
         <foreach item="item" index="index" collection="list" separator=",">
-            (  #{item.FSeq}, #{item.FParentId}, #{item.Fkouweimingcheng}, #{item.Fkouweimiaoshu}, #{item.Fjichukouwei},
-            #{item.Fjichukouweimingcheng}, #{item.Fjichukouweigaishanyijian}, #{item.Frongliang}, #{item.Fvg}, #{item.Fniclb},
-            #{item.Fnicnd}, #{item.Fnicdw},
-            #{item.Ftiaoxiangshi}, #{item.Fbanben},#{item.Fxuanzepeifangbanben},#{item.FxuanzepeifangbanbenID},#{item.Ffentiaoxiangshi},
-            #{item.FfentiaoxiangshiID}, #{item.FKwZhuangtai},#{item.FXgZhuangtai},#{item.FJdZhuangtai},#{item.Fyujiwanchengshijian,jdbcType=TIMESTAMP},
-            #{item.FIsDeleted}, #{item.FfenpeitiaoxiangshiTime,jdbcType=TIMESTAMP},#{item.LastModifyBy})
+            (  #{item.fid},#{item.fseq}, #{item.fparentid}, #{item.fkouweimingcheng}, #{item.fkouweimiaoshu}, #{item.fjichukouwei},
+            #{item.fjichukouweimingcheng}, #{item.fjichukouweigaishanyijian}, #{item.frongliang}, #{item.fvg}, #{item.fniclb},
+            #{item.fnicnd}, #{item.fnicdw},
+            #{item.ftiaoxiangshi}, #{item.fbanben},#{item.fxuanzepeifangbanben},#{item.fxuanzepeifangbanbenid},#{item.ffentiaoxiangshi},
+            #{item.ffentiaoxiangshiid}, #{item.fkwzhuangtai},#{item.fxgzhuangtai},#{item.fjdzhuangtai},#{item.fyujiwanchengshijian},
+            #{item.fisdeleted}, #{item.ffenpeitiaoxiangshitime},#{item.lastmodifyby})
         </foreach>
 <!--        set identity_insert hx_taste_detail OFF;-->
     </insert>

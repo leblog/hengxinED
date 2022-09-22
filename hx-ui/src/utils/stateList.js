@@ -1,4 +1,5 @@
 /*字典 type = {success,info,warning,danger}*/
+/*	申请单当前审批状态：1-审批中；2-已通过；3-已驳回；4-已撤销*/
 function stateList(e) {
   switch (e) {
     case -1:
@@ -6,15 +7,15 @@ function stateList(e) {
     case 0:
       return '已保存'
     case 1:
-      return '已保存'
+      return '审批中'
     case 2:
-      return '已撤回'
+      return '审批通过'
     case 3:
-      return '产品退回'
+      return '已驳回/产品退回'
     case 4:
-      return '已驳回'
+      return '已撤销'
     case 5:
-      return '已提交'
+      return '已提交,废弃'
     case 6:
       return '已审核'
     case 7:

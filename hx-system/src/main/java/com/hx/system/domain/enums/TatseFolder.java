@@ -3,16 +3,17 @@ package com.hx.system.domain.enums;
 /**
  * 口味状态
  * -1作废 ,0正常,1审核
+ * 	申请单当前审批状态：1-审批中；2-已通过；3-已驳回；4-已撤销
  * @author lusifer
  */
 public enum TatseFolder
 {
     WASTE(-1, "已作废"),
-    NORMAL(0, "状态0未使用"),
-    SAVED(1, "已保存"),
-    WITHDRAWN(2, "已撤回"),
-    PRODUCTRETURN(3, "产品退回"),
-    REJECTED(4, "已驳回"),
+    NORMAL(0, "已保存"),
+    SAVED(1, "审核中"),
+    WITHDRAWN(2, "审批通过"),
+    PRODUCTRETURN(3, "产品退回/已驳回"),
+    REJECTED(4, "已撤销"),
     SUBMITTED(5, "已提交"),
     AUDIT(6, "已审核"),
     DISTRIBUTE(7, "分配产品跟进人"),

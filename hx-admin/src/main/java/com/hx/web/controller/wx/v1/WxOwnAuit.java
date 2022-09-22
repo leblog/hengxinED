@@ -11,6 +11,8 @@ import com.hx.common.core.domain.AjaxResult;
 import com.hx.common.core.domain.entity.SysUser;
 import com.hx.common.enums.BusinessType;
 import com.hx.common.exception.ServiceException;
+import com.hx.rd.domain.HxTasteSQL;
+import com.hx.rd.service.IHxTasteSQLService;
 import com.hx.system.domain.HxTaste;
 import com.hx.system.service.IHxTasteService;
 import com.hx.system.service.ISysConfigService;
@@ -35,6 +37,8 @@ public class WxOwnAuit {
 
     @Autowired
     private IHxTasteService hxTasteService;
+    @Autowired
+    private IHxTasteSQLService hxTasteSQLService;
     @Autowired
     private ISysConfigService configService;
     @Autowired
@@ -168,6 +172,45 @@ public class WxOwnAuit {
             hxTasteT.setState(str);
             int i = hxTasteService.updateHxTasteStart(hxTasteT);
             return AjaxResult.success("审核状态不一致,已同步最新审核单状态");
+        }
+
+    }
+
+
+    @RepeatSubmit(interval = 1000, message = "请求过于频繁")
+    @Log(title = "口味申请单SQL-更新审批状态", businessType = BusinessType.UPDATE)
+    @GetMapping("/updateAuitSQLDetail/{spNo}")
+    public AjaxResult updateAuitSQLDetail(@PathVariable("spNo") String spNo) {
+        String token1 = configService.selectConfigByKey("wx.work.accessToken");
+        String url = " https://qyapi.weixin.qq.com/cgi-bin/corp/getopenapprovaldata?access_token="+token1;
+        String tempJson = "{\"thirdNo\" : \""+spNo+"\"}";
+        String res = HttpRequest.post(url)
+                .body(tempJson)
+                .timeout(20000)
+                .execute().body();
+        log.info("res:{}",res);
+        if(!Objects.equals(JSONUtil.parseObj(res).getStr("errmsg"), "ok")){
+            throw new ServiceException("没有提交审批或撤销审批");
+        }
+        String str1 = JSONUtil.parseObj(JSONUtil.parseObj(res).getStr("data")).getStr("OpenSpstatus");
+        /**
+         *  企业微信审批状态对照表
+         *  申请单当前审批状态：1-审批中；2-已通过；3-已驳回；4-已撤销
+         */
+        Integer str = new Integer(str1);
+        HxTasteSQL hxTaste = new HxTasteSQL();
+        hxTaste.setFid(spNo);
+        List<HxTasteSQL> list = hxTasteSQLService.selectHxTasteList(hxTaste);
+        int state = list.get(0).getFstatus();
+        if(Objects.equals(str, state)){
+            throw new ServiceException("企业微信审批状态与研发系统状态一致,请勿重复更新状态"+str);
+        }else{
+            //状态不一致  同步更新
+            HxTasteSQL hxTasteT = new HxTasteSQL();
+            hxTasteT.setFid(list.get(0).getFid());
+            hxTasteT.setFstatus(str);
+            int i = hxTasteSQLService.updateHxTasteStart(hxTasteT);
+            return AjaxResult.success("审核状态不一致,已同步最新审核单状态",str);
         }
 
     }

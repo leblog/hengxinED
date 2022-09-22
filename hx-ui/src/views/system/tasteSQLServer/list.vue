@@ -59,7 +59,7 @@
         </el-button>
       </el-col>
 
-      <el-col :span="1.5">
+<!--      <el-col :span="1.5">
         <el-button
           type="danger"
           plain
@@ -70,7 +70,7 @@
           v-hasPermi="['taste:remove']"
         >删除
         </el-button>
-      </el-col>
+      </el-col>-->
       <el-col :span="1.5">
         <el-button
           type="warning"
@@ -114,15 +114,16 @@
         <el-table-column label="单据编码" width="180" align="center" prop="fid" show-overflow-tooltip/>
         <el-table-column label="状态"  width="150" align="center" prop="fstatus" show-overflow-tooltip>
           <template slot-scope="scope">
-            <el-tag v-if="scope.row.state == '-1'" type="danger">{{stateList(scope.row.fstatus)}}</el-tag>
-            <el-tag v-else-if="scope.row.state == '3'" type="danger">{{stateList(scope.row.fstatus)}}</el-tag>
-            <el-tag v-else-if="scope.row.state == '8'" type="success">{{stateList(scope.row.fstatus)}}</el-tag>
+            <el-tag v-if="scope.row.state == -1" type="danger">{{stateList(scope.row.fstatus)}}</el-tag>
+            <el-tag v-else-if="scope.row.state == 3" type="danger">{{stateList(scope.row.fstatus)}}</el-tag>
+            <el-tag v-else-if="scope.row.state == 8" type="success">{{stateList(scope.row.fstatus)}}</el-tag>
             <el-tag v-else>{{stateList(scope.row.fstatus)}}</el-tag>
             <!--   type="danger"  type="warning"  type="success"  -->
           </template>
         </el-table-column>
         <el-table-column label="录入人" align="center" prop="fshenqingren"/>
         <el-table-column label="业务姓名" align="center" prop="fyewuxingming" show-overflow-tooltip/>
+        <el-table-column v-if="showType==='list'" label="项目信息" align="center" width="150" prop="fxiangmuxinxi" show-overflow-tooltip/>
         <el-table-column v-if="showType==='list'" label="业务部门" align="center" width="150" prop="fyewubumen" show-overflow-tooltip/>
         <el-table-column v-if="showType==='list'" label="最后更新日期" width="150" align="center" prop="flastmodifytime" sortable show-overflow-tooltip>
           <template slot-scope="scope">{{ parseTime(scope.row.flastmodifytime, '{y}-{m}-{d} {h}:{i}') }}</template>
@@ -223,8 +224,8 @@
     <!-- 添加或修改全球地区对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="120px">
-        <el-form-item label="分配跟进人" prop="follower">
-          <el-select v-model="form.follower" filterable placeholder="试试搜索 销售昵称">
+        <el-form-item label="分配跟进人" prop="ffenpeigenjinren">
+          <el-select v-model="form.ffenpeigenjinren" filterable placeholder="试试搜索 销售昵称">
             <el-option
               v-for="item in distributionList"
               :key="item.nickName"
@@ -359,18 +360,18 @@ export default {
         fshenhetime: null,
         ffenpeitime: null,
         flastmodifyby: null,
-        flastmodifytime: null
-        // deleted: '0',
-        // isAsc:'desc',
-        // orderByColumn:'createTime'
+        flastmodifytime: null,
+        //deleted: '0',
+        isAsc:'desc',
+        orderByColumn:'flastmodifytime'
 
       },
       // 表单参数
       form: {},
       // 表单校验
       rules: {
-        follower: [
-          {required: true, message: '不能为空', trigger: 'change'}
+        ffenpeigenjinren: [
+          {required: true, message: '跟进人不能为空', trigger: 'change'}
         ],
       }
     };
@@ -442,6 +443,7 @@ export default {
     handleDetail(row){
       console.log("跳转",row.fid)
       this.$router.push({ path: '/taste/add',query: {fid: row.fid} });
+      // this.$router.push({ path: '/tasteDetail/index/' + row.fid});
     },
     // 更多操作触发
     handleCommand(command, row) {
@@ -480,10 +482,10 @@ export default {
     handleDistribution(row){
         this.reset();
         // 获取以一些数据
-        getTaste(row.tasteId).then((resp)=>{
+        getTaste(row.fid).then((resp)=>{
           this.form = resp.data
           // 变更为分配跟进人状态
-          this.form.state = '7'
+          this.form.fstatus = 7
         })
         // 系统分配人接口
         getDistribution().then((res)=>{
@@ -494,12 +496,12 @@ export default {
     },
     /*分配跟进人--确认*/
     distribution(){
-      console.log("跟进人:",this.form.follower)
+      console.log("跟进人:",this.form.ffenpeigenjinren)
       // 改变为7已审核状态
       let obj = {}
-      obj.tasteId = this.form.tasteId
-      obj.state = '6'
-      obj.follower = this.form.follower
+      obj.fid = this.form.fid
+      obj.fstatus = 6
+      obj.ffenpeigenjinren = this.form.ffenpeigenjinren
       this.$modal.confirm('确认分配跟进人吗?').then(function() {
 
       }).then(() => {
@@ -528,7 +530,7 @@ export default {
     handlePrint(row){
       // 获取分组好的数据
       // 跳转打印
-      this.$router.push({path:"/print?detail="+row.fid+`&print=true`})
+      this.$router.push({path:"/printTwo?detail="+row.fid+`&print=true`})
       /*getTaste(row.fid).then(res =>{
         this.printList = res.data
         this.printListDetail = res.data.hxTasteDetailList
@@ -783,7 +785,7 @@ export default {
       this.reset();
       //this.open = true;
       //this.title = "添加口味申请单";
-      this.$tab.openPage("口味申请单", "/kouwei/taste");
+      this.$tab.openPage("口味申请单", "/taste/add");
     }
     ,
     /** 修改按钮操作 */
@@ -838,9 +840,9 @@ export default {
     ,
     /** 删除按钮操作 */
     handleDelete(row) {
-      const tasteIds = row.tasteId || this.ids;
-      this.$modal.confirm('是否确认删除口味申请单编号为"' + tasteIds + '"的数据项？').then(function () {
-        return delTaste(tasteIds);
+      const fid = row.fid || this.ids;
+      this.$modal.confirm('是否确认删除口味申请单编号为"' + fid + '"的数据项？').then(function () {
+        return delTaste(fid);
       }).then(() => {
         this.getList();
         this.$modal.msgSuccess("删除成功");
@@ -891,7 +893,7 @@ export default {
     ,
     /** 导出按钮操作 */
     handleExport() {
-      this.download('system/taste/export', {
+      this.download('system/tasteSQL/export', {
         ...this.queryParams
       }, `taste_${new Date().getTime()}.xlsx`)
     }

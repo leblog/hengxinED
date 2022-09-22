@@ -1,5 +1,6 @@
 package com.hx.rd.service.impl;
 
+import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
 import com.hx.common.annotation.DataScope;
 import com.hx.common.utils.DateUtils;
@@ -208,7 +209,8 @@ public class HxTasteSQLServiceImpl implements IHxTasteSQLService
             List<HxTasteSQLDetail> list = new ArrayList<HxTasteSQLDetail>();
             for (HxTasteSQLDetail hxTasteDetail : hxTasteDetailList)
             {
-                hxTasteDetail.setFid(fid);
+                hxTasteDetail.setFid(IdUtil.fastSimpleUUID());
+                hxTasteDetail.setFparentid(fid);
                 list.add(hxTasteDetail);
             }
             if (list.size() > 0)

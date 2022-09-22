@@ -57,6 +57,11 @@ export const constantRoutes = [
     hidden: true
   },
   {
+    path: '/printTwo',
+    component: () => import('@/views/system/tasteSQLServer/print'),
+    hidden: true
+  },
+  {
     path: '/404',
     component: () => import('@/views/error/404'),
     hidden: true
@@ -149,13 +154,13 @@ export const dynamicRoutes = [
         path: 'index/:tasteId(\\d+)',  //'index/:tasteId(\\d+)',
         component: () => import('@/views/system/taste/index'),
         name: 'Taste',
-        meta: { title: '口味数据' }
+        meta: { title: '口味数据Y' }
       }
     ]
   },
 
-  /*{
-    path: '/system/taste-dataSQL',
+  {
+    path: '/tasteDetail',
     component: Layout,
     hidden: true,
     permissions: ['taste:query'],
@@ -164,10 +169,10 @@ export const dynamicRoutes = [
         path: 'index/:fid(\\d+)',
         component: () => import('@/views/system/tasteSQLServer/index'),
         name: 'Detail',
-        meta: { title: '口味数据'}
+        meta: { title: '口味数据S'}
       }
     ]
-  },*/
+  },
   {
     path: '/monitor/job-log',
     component: Layout,

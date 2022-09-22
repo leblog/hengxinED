@@ -34,6 +34,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 /**
@@ -106,13 +107,13 @@ public class HxTasteSQLController extends BaseController
     {
         AjaxResult result = new AjaxResult();
         final String id = IdUtil.nanoId(36);
-        hxTaste.setFid(id);
+        hxTaste.setFid(id.toUpperCase());
         hxTaste.setFbillno(SeqRD.getId());
         hxTaste.setFlastmodifyby(getUsername());
+        hxTaste.setFsqriqi(DateUtils.getNowDate());
         hxTaste.setFlastmodifytime(DateUtils.getNowDate());
-        hxTaste.setFstatus(TatseFolder.NORMAL.getCode());
+        //hxTaste.setFstatus(TatseFolder.NORMAL.getCode());
         hxTaste.setFshenqingren(getUsername());
-        //hxTaste.setFstatus(TatseFolder.NORMAL.getCode()));
         result.put("res",hxTasteService.insertHxTaste(hxTaste));
         result.put("data",id);
         return result;
