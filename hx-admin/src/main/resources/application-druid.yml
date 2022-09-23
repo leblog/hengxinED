@@ -6,7 +6,7 @@ spring:
         druid:
             # 主库数据源
             master:
-                url: jdbc:sqlserver://127.0.0.1:1433;SelectMethod=cursor;DatabaseName=vuesqlserver
+                url: jdbc:sqlserver://127.0.0.1:1433;SelectMethod=cursor;DatabaseName=vuesqlserver2
                 username: sa
                 password: OcP2020123
 #        driverClassName: com.mysql.cj.jdbc.Driver

@@ -1,14 +1,6 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch"  label-width="68px">
-<!--      <el-form-item label="部门Id" prop="fyewubumen">
-        <el-input
-          v-model="queryParams.fyewubumen"
-          placeholder="请输入部门Id"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>-->
       <el-form-item label="业务姓名" prop="fyewuxingming">
         <el-input
           v-model="queryParams.fyewuxingming"
@@ -17,14 +9,6 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-<!--      <el-form-item label="业务代码" prop="businessCode">
-        <el-input
-          v-model="queryParams.businessCode"
-          placeholder="请输入业务代码"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>-->
       <el-form-item label="客户名称" prop="fkehumingcheng">
         <el-input
           v-model="queryParams.fkehumingcheng"

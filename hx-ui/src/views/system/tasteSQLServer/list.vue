@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch"  label-width="68px">
-      <el-form-item label="口味编码" prop="deptId">
+      <el-form-item label="口味编码" prop="fid">
         <el-input
           v-model="queryParams.fid"
           placeholder="请输入口味编码"
@@ -9,33 +9,33 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="部门" prop="deptId">
+      <el-form-item label="部门" prop="fyewubumen">
         <el-input
-          v-model="queryParams.deptId"
+          v-model="queryParams.fyewubumen"
           placeholder="请输入部门"
           clearable
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="业务姓名" prop="businessName">
+      <el-form-item label="业务姓名" prop="fyewuxingming">
         <el-input
-          v-model="queryParams.businessName"
+          v-model="queryParams.fyewuxingming"
           placeholder="请输入业务姓名"
           clearable
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="业务代码" prop="businessCode">
+      <el-form-item label="业务代码" prop="fyewudaima">
         <el-input
-          v-model="queryParams.businessCode"
+          v-model="queryParams.fyewudaima"
           placeholder="请输入业务代码"
           clearable
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="客户名称" prop="customersName">
+      <el-form-item label="客户名称" prop="fkehumingcheng">
         <el-input
-          v-model="queryParams.customersName"
+          v-model="queryParams.fkehumingcheng"
           placeholder="请输入客户名称"
           clearable
           @keyup.enter.native="handleQuery"

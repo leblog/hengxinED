@@ -106,7 +106,8 @@ public class HxTasteSQLController extends BaseController
     public AjaxResult add(@RequestBody HxTasteSQL hxTaste)
     {
         AjaxResult result = new AjaxResult();
-        final String id = IdUtil.nanoId(36);
+        //final String id = IdUtil.nanoId(36);
+        final String id = "C29N"+IdUtil.fastSimpleUUID().toUpperCase();
         hxTaste.setFid(id.toUpperCase());
         hxTaste.setFbillno(SeqRD.getId());
         hxTaste.setFlastmodifyby(getUsername());
