@@ -5,6 +5,52 @@ function stateList(e) {
     case -1:
       return '已作废'
     case 0:
+      return '' //不用了
+    case 1:
+      return '已保存'  //兼容旧版本的已保存
+    case 2:
+      return '已撤回'
+    case 3:
+      return '产品退回'
+    case 4:
+      return '已驳回'
+    case 5:
+      return '已提交'
+    case 7:
+      return '已审核'
+    case 10:
+      return '分配产品跟进人'
+    case 11:
+      return '跟进中'
+    case 12:
+      return '分配调香师'
+    case 13:
+      return '任务退回'
+    case 14:
+      return '分配调香师完毕'
+    case 20:
+      return '已推送研发'
+    case 21:
+      return '配方开发中'
+    case 29:
+      return '配方完成'
+    case 30:
+      return '口味确认中'
+    case 38:
+      return '打印口味确认书'
+    case 39:
+      return '口味确认完毕'
+    case 99:
+      return '结案'
+    default:
+      return '未知'
+  }
+}
+export default stateList
+
+/*case -1:
+      return '已作废'
+    case 0:
       return '已保存'
     case 1:
       return '审批中'
@@ -43,10 +89,7 @@ function stateList(e) {
     case 18:
       return '结案'
     default:
-      return '未知'
-  }
-}
-export default stateList
+      return '未知'*/
 /*function stateList(e) {
   switch (e) {
     case '-1':

@@ -89,24 +89,24 @@
       <el-tabs v-if="this.$route.query.type == 'list'" v-model="activeOA" type="card"  @tab-click="handleClick">
         <el-tab-pane label="All" name="all"/>
         <el-tab-pane label="已作废" name="-1"/>
-        <el-tab-pane label="已保存" name="0"/>
+        <el-tab-pane label="已保存" name="1"/>
         <el-tab-pane label="已撤回" name="2"/>
         <el-tab-pane label="产品退回" name="3"/>
         <el-tab-pane label="已驳回" name="4"/>
         <el-tab-pane label="已提交" name="5"/>
-        <el-tab-pane label="已审核" name="6"/>
-        <el-tab-pane label="分配产品跟进人" name="7"/>
-        <el-tab-pane label="跟进中" name="8"/>
-        <el-tab-pane label="分配调香师" name="9"/>
-        <el-tab-pane label="任务退回" name="10"/>
-        <el-tab-pane label="分配调香师完毕" name="11"/>
-        <el-tab-pane label="已推送研发" name="12"/>
-        <el-tab-pane label="配方开发中" name="13"/>
-        <el-tab-pane label="配方完成" name="14"/>
-        <el-tab-pane label="口味确认中" name="15"/>
-        <el-tab-pane label="打印口味确认书" name="16"/>
-        <el-tab-pane label="口味确认完毕" name="17"/>
-        <el-tab-pane label="结案" name="18"/>
+        <el-tab-pane label="已审核" name="7"/>
+        <el-tab-pane label="分配产品跟进人" name="10"/>
+        <el-tab-pane label="跟进中" name="11"/>
+        <el-tab-pane label="分配调香师" name="12"/>
+        <el-tab-pane label="任务退回" name="13"/>
+        <el-tab-pane label="分配调香师完毕" name="14"/>
+        <el-tab-pane label="已推送研发" name="20"/>
+        <el-tab-pane label="配方开发中" name="21"/>
+        <el-tab-pane label="配方完成" name="29"/>
+        <el-tab-pane label="口味确认中" name="30"/>
+        <el-tab-pane label="打印口味确认书" name="38"/>
+        <el-tab-pane label="口味确认完毕" name="39"/>
+        <el-tab-pane label="结案" name="99"/>
       </el-tabs>
       <el-table v-loading="loading" :data="tasteList" @selection-change="handleSelectionChange" show-overflow-tooltip>
         <el-table-column type="selection" width="30" align="center"/>
@@ -114,9 +114,9 @@
         <el-table-column label="单据编码" width="180" align="center" prop="fid" show-overflow-tooltip/>
         <el-table-column label="状态"  width="150" align="center" prop="fstatus" show-overflow-tooltip>
           <template slot-scope="scope">
-            <el-tag v-if="scope.row.state == -1" type="danger">{{stateList(scope.row.fstatus)}}</el-tag>
-            <el-tag v-else-if="scope.row.state == 3" type="danger">{{stateList(scope.row.fstatus)}}</el-tag>
-            <el-tag v-else-if="scope.row.state == 8" type="success">{{stateList(scope.row.fstatus)}}</el-tag>
+            <el-tag v-if="scope.row.fstatus == -1" type="danger">{{stateList(scope.row.fstatus)}}</el-tag>
+            <el-tag v-else-if="scope.row.fstatus == 3" type="danger">{{stateList(scope.row.fstatus)}}</el-tag>
+            <el-tag v-else-if="scope.row.fstatus == 8" type="success">{{stateList(scope.row.fstatus)}}</el-tag>
             <el-tag v-else>{{stateList(scope.row.fstatus)}}</el-tag>
             <!--   type="danger"  type="warning"  type="success"  -->
           </template>

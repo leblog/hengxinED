@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hx.rd.mapper.HxPeifangMapper">
+
+    <resultMap id="BaseResultMap" type="com.hx.rd.domain.HxPeifang">
+            <result property="id" column="ID" jdbcType="BIGINT"/>
+            <result property="fid" column="FID" jdbcType="VARCHAR"/>
+            <result property="fbillno" column="FBillNo" jdbcType="VARCHAR"/>
+            <result property="fdate" column="FDate" jdbcType="DATE"/>
+            <result property="frdcode" column="FRDCode" jdbcType="VARCHAR"/>
+            <result property="fstatus" column="FStatus" jdbcType="INTEGER"/>
+            <result property="ftiaoxiangshi" column="FTiaoxiangshi" jdbcType="VARCHAR"/>
+            <result property="fpeifangleibie" column="FPeifangleibie" jdbcType="VARCHAR"/>
+            <result property="fvg" column="FVG" jdbcType="FLOAT"/>
+            <result property="fpg" column="FPG" jdbcType="FLOAT"/>
+            <result property="fnicleibie" column="FNicLeibie" jdbcType="VARCHAR"/>
+            <result property="fnicdanwei" column="FNicDanwei" jdbcType="VARCHAR"/>
+            <result property="fnicazhanbi" column="FNicAZhanbi" jdbcType="CHAR"/>
+            <result property="fnicbzhanbi" column="FNicBZhanbi" jdbcType="CHAR"/>
+            <result property="fnicnongdu" column="FNicNongdu" jdbcType="CHAR"/>
+            <result property="ftxsqdh" column="FTxsqdh" jdbcType="VARCHAR"/>
+            <result property="ftxsqdhmxfid" column="FTxsqdhMxFID" jdbcType="VARCHAR"/>
+            <result property="fkehubianma" column="FKehubianma" jdbcType="VARCHAR"/>
+            <result property="fyanfadaima" column="FYanfadaima" jdbcType="VARCHAR"/>
+            <result property="fkouweimingcheng" column="FKouweimingcheng" jdbcType="VARCHAR"/>
+            <result property="fbanben" column="FBanben" jdbcType="VARCHAR"/>
+            <result property="fkongzhishunxu" column="FKongzhishunxu" jdbcType="BIT"/>
+            <result property="fshoukongkwmingcheng" column="FShoukongKwmingcheng" jdbcType="VARCHAR"/>
+            <result property="fshoukongbianma" column="FShoukongbianma" jdbcType="VARCHAR"/>
+            <result property="fshoukongshijian" column="FShoukongshijian" jdbcType="TIMESTAMP"/>
+            <result property="fkaishishijian" column="FKaishishijian" jdbcType="TIMESTAMP"/>
+            <result property="fjieshushijian" column="FJieshushijian" jdbcType="TIMESTAMP"/>
+            <result property="fguanlianpeifangfid" column="FGuanlianPeifangFID" jdbcType="VARCHAR"/>
+            <result property="fyanfaqufen" column="FYanfaqufen" jdbcType="VARCHAR"/>
+            <result property="fyanfayuanfid" column="FYanfaYuanFID" jdbcType="VARCHAR"/>
+            <result property="fmaterialerpid" column="FMaterialErpId" jdbcType="VARCHAR"/>
+            <result property="fkouweidalei" column="FKouweidalei" jdbcType="VARCHAR"/>
+            <result property="fbomerpid" column="FBOMErpId" jdbcType="VARCHAR"/>
+            <result property="fgybomerpid" column="FGYBOMErpId" jdbcType="VARCHAR"/>
+            <result property="fisdeleted" column="FIsDeleted" jdbcType="INTEGER"/>
+            <result property="fisupload" column="FIsUpload" jdbcType="INTEGER"/>
+            <result property="ffinishtime" column="FFinishTime" jdbcType="TIMESTAMP"/>
+            <result property="ftiaocankaoyangtime" column="FTiaocankaoyangTime" jdbcType="TIMESTAMP"/>
+            <result property="fcreatetime" column="FCreateTime" jdbcType="TIMESTAMP"/>
+            <result property="fcreateby" column="FCreateBy" jdbcType="VARCHAR"/>
+            <result property="flastmodifyby" column="FLastModifyBy" jdbcType="VARCHAR"/>
+            <result property="flastmodifytime" column="FLastModifyTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        ID,FID,FBillNo,
+        FDate,FRDCode,FStatus,
+        FTiaoxiangshi,FPeifangleibie,FVG,
+        FPG,FNicLeibie,FNicDanwei,
+        FNicAZhanbi,FNicBZhanbi,FNicNongdu,
+        FTxsqdh,FTxsqdhMxFID,FKehubianma,
+        FYanfadaima,FKouweimingcheng,FBanben,
+        FKongzhishunxu,FShoukongKwmingcheng,FShoukongbianma,
+        FShoukongshijian,FKaishishijian,FJieshushijian,
+        FGuanlianPeifangFID,FYanfaqufen,FYanfaYuanFID,
+        FMaterialErpId,FKouweidalei,FBOMErpId,
+        FGYBOMErpId,FIsDeleted,FIsUpload,
+        FFinishTime,FTiaocankaoyangTime,FCreateTime,
+        FCreateBy,FLastModifyBy,FLastModifyTime
+    </sql>
+
+
+
+    <!--<resultMap id="BaseResultMap" type="com.hx.rd.domain.TRdPeifangmx">
+           <result property="fid" column="FID" jdbcType="VARCHAR"/>
+           <result property="fparentid" column="FParentID" jdbcType="VARCHAR"/>
+           <result property="fseq" column="FSeq" jdbcType="INTEGER"/>
+           <result property="fwuliaobianma" column="FWuliaobianma" jdbcType="VARCHAR"/>
+           <result property="fwuliaomingcheng" column="FWuliaomingcheng" jdbcType="VARCHAR"/>
+           <result property="ftianjialiang" column="FTianjialiang" jdbcType="DECIMAL"/>
+           <result property="lastmodifyby" column="LastModifyBy" jdbcType="VARCHAR"/>
+           <result property="lastmodifytime" column="LastModifyTime" jdbcType="TIMESTAMP"/>
+           <result property="fstatus" column="FStatus" jdbcType="VARCHAR"/>
+   </resultMap>
+
+   <sql id="Base_Column_List">
+       FID,FParentID,FSeq,
+       FWuliaobianma,FWuliaomingcheng,FTianjialiang,
+       LastModifyBy,LastModifyTime,FStatus
+   </sql>-->
+</mapper>

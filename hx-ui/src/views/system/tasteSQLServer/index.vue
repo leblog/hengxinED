@@ -15,7 +15,10 @@
         <!-- 显示企业微信审批编码  -->
         <el-row :gutter="24" v-if="isEdit==='A'"><!--type="flex" justify="space-around"-->
           <el-col>
-            <el-divider content-position="center">企业微信审批编码:{{ form.fbillno == null ? '未提交审批' : form.fbillno }}</el-divider>
+            <el-divider content-position="center">
+              企业微信审批编码:{{ form.fbillno == null ? '未提交审批' : form.fbillno }}
+              状态:<el-tag size="mini">{{stateList(form.fstatus)}}</el-tag>
+            </el-divider>
           </el-col>
         </el-row>
         <!--  添加业务  -->
@@ -295,7 +298,7 @@
         </el-row>
         <!--   业务明细     -->
         <el-divider content-position="center">口味申请单明细信息</el-divider>
-        <div class="tableDiv" v-if="isEdit ==='A'"><!--详情-->
+        <div class="tableDiv" v-show="isEdit ==='A'"><!--详情-->
           <vxe-table
             ref="xTable"
             height="400"
@@ -376,7 +379,7 @@
                 </vxe-select>
               </template>
             </vxe-column>
-            <vxe-column field="fkwzhuangtai" :edit-render="{}" title="口味状态" width="100">
+            <vxe-column field="fkwzhuangtai" title="口味状态" width="100">
               <template #edit="scope">
                 <vxe-input v-model="scope.row.fkwzhuangtai" type="text" placeholder="请输入"/>
               </template>
@@ -404,7 +407,7 @@
           </vxe-table>
         </div>
 
-        <div class="tableDiv" v-if="isEdit ==='B'"> <!--添加-->
+        <div class="tableDiv" v-show="isEdit ==='B'"> <!--添加-->
           <vxe-table
             ref="xTable"
             border
@@ -523,6 +526,7 @@
                 <vxe-input v-model="scope.row.fbanben" type="text" placeholder="请输入"/>
               </template>
             </vxe-column>
+
             <!-- 新增逻辑 START   -->
             <vxe-column field="selectUserId" :edit-render="{}" title="分配调香师" width="120" v-if="showSelectUserId">
               <template #edit="scope">
@@ -547,8 +551,7 @@
               </template>
             </vxe-column>-->
             <!-- 新增逻辑 END   -->
-
-            <vxe-column title="操作" width="120" fixed="right" >
+            <vxe-column title="操作1" width="120" fixed="right" >
               <template #default="{ row }">
                 <vxe-button status="warning" size="mini" type="text" content="删除" @click="removeSelectEvent(row)"></vxe-button>
               </template>
@@ -561,6 +564,7 @@
               </span>
             </template>
           </vxe-table>
+
         </div>
 
       </el-form>
@@ -595,7 +599,7 @@
       <div v-if="isEdit ==='A'">
 <!--        <el-button type="primary" size="small" @click="edit">修改</el-button>-->
         <el-button type="danger" size="small" @click="copyList">复制一份</el-button>
-        <el-button type="primary" size="small" @click="printList">打印</el-button>
+        <el-button type="primary" size="small" @click="printList" >打印</el-button>
         <el-button type="primary" size="small" @click="copyListDetail">导出明细</el-button>
         <!--        <el-button type="danger" size="small" @click="auditPush">推送审核</el-button> &lt;!&ndash;auditPush&ndash;&gt;
                 <el-button type="primary" size="small" @click="auditList">查看审批详情</el-button>-->
@@ -1514,10 +1518,15 @@ export default {
     // 保存调香师
     saveSelectUserId(row){
       console.log("数据明细:",JSON.stringify(row))
-      this.$modal.confirm('确认保存吗?').then(function() {
-      }).then(() => {
-        this.quxiao(2)
-      }).catch(() => {});
+      if(row.ffentiaoxiangshi.length === 0){
+        this.$modal.msgError("未选择调香师不可保存")
+      }else{
+        this.$modal.confirm('确认保存吗?').then(function() {
+        }).then(() => {
+          this.quxiao(2)
+        }).catch(() => {});
+      }
+
       /*if(row.ffentiaoxiangshi !== null){
         this.$modal.msgError('已经选择了调香师,不可更换,若更换请联系研发请退回')
       }else{
@@ -2009,19 +2018,22 @@ export default {
           this.form.fpipeishichang = JSON.stringify(this.matchMarketTemp)
           this.form.hxTasteDetailList = this.hxTasteDetailList
           this.open = false
-          if (this.$route.params.fid != null) {
+          if (this.$route.query.fid != null) {
             this.$modal.confirm('修改之后不可以再更改').then(function() {
 
             }).then(() => {
               updateTaste(this.form).then(response => {})
-              const obj = { path: "/taste/add", query: {fid: row.fid} };
+              const obj = { path: "/taste/add", query: {fid: this.$route.query.fid} };
               // 刷新指定页签
               this.$tab.refreshPage(obj);
               /* const obj = { path: "/system/taste-data/index/"+ this.$route.params.tasteId};
               this.$tab.refreshPage(obj);*/
               this.$modal.msgSuccess('修改成功')
               // 关闭当前tab页签，打开新页签
-              this.isEdit = 'A'
+              setTimeout(()=>{
+                this.isEdit == 'A'
+              },800)
+
             }).catch(() => {});
 
           } else {

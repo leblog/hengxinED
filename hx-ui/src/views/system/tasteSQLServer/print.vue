@@ -40,8 +40,11 @@
         </el-row>
         <el-row :gutter="24">
           <!--   -->
-          <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
+<!--          <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
             <el-form-item label="第几次送样：">{{ form.fdijicisongyang }}</el-form-item>
+          </el-col>-->
+          <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
+            <el-form-item label="项目信息：">{{ form.fxiangmuxinxi }}</el-form-item>
           </el-col>
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
             <el-form-item label="来访日期：">{{ parseTime(form.flaifangriqi, '{y}-{m}-{d} {h}:{i}') }}</el-form-item>
@@ -133,25 +136,27 @@
 
       </el-card>
       <el-divider content-position="center">口味申请单明细信息</el-divider>
-      <vxe-table
-        border
-        ref="xTable"
-        :height="auto"
-        :print-config="{}"
-        :data="form.hxTasteDetailList">
-        <vxe-column type="seq" width="50"/>
-        <vxe-column field="fkouweimingcheng" width="120" title="口味名称"/>
-        <vxe-column field="fkouweimiaoshu" title="口味描述"/>
-        <vxe-column field="fjichukouwei" title="有基础口味"/>
-        <vxe-column field="fjichukouweigaishanyijian" title="基础口味改善建议"/>
-        <vxe-column field="frongliang" title="容量"/>
-        <vxe-column field="fvg" title="VG"/>
-        <vxe-column field="fniclb" title="NIC类别"/>
-        <vxe-column field="fnicnd" title="NIC浓度"/>
-        <vxe-column field="fnicdw" title="NIC单位"/>
-        <!--        <vxe-column field="ffentiaoxiangshi" title="指定调香师"></vxe-column>-->
-        <vxe-column field="ffentiaoxiangshi" title="分配调香师"/>
-      </vxe-table>
+      <div>
+        <vxe-table
+          border
+          ref="xTable"
+          height="9000"
+          :print-config="{}"
+          :data="form.hxTasteDetailList">
+          <vxe-column type="seq" width="50"/>
+          <vxe-column field="fkouweimingcheng" width="120" title="口味名称"/>
+          <vxe-column field="fkouweimiaoshu" title="口味描述"/>
+          <vxe-column field="fjichukouwei" title="有基础口味"/>
+          <vxe-column field="fjichukouweigaishanyijian" title="基础口味改善建议"/>
+          <vxe-column field="frongliang" title="容量"/>
+          <vxe-column field="fvg" title="VG"/>
+          <vxe-column field="fniclb" title="NIC类别"/>
+          <vxe-column field="fnicnd" title="NIC浓度"/>
+          <vxe-column field="fnicdw" title="NIC单位"/>
+<!--          <vxe-column field="ftiaoxi" title="指定调香师"></vxe-column>-->
+          <vxe-column field="ffentiaoxiangshi" title="分配调香师"/>
+        </vxe-table>
+      </div>
     </div>
 
     <!--  返回顶部  -->
@@ -311,7 +316,7 @@ export default {
               <div class="my-list-col">客户名称:&nbsp&nbsp&nbsp${this.form.fkehumingcheng} </div>
               <div class="my-list-col">客户代码:&nbsp&nbsp&nbsp${this.form.fkehudaima}</div>
               <div class="my-list-col">口味数量:&nbsp&nbsp&nbsp${this.form.fkouweishuliang}</div>
-              <div class="my-list-col">第几次送样:&nbsp&nbsp&nbsp${this.form.fdijicisongyang}</div>
+              <div class="my-list-col">第几次送样:&nbsp&nbsp&nbsp${this.form.fxiangmuxinxi}</div>
               <div class="my-list-col">来访日期:&nbsp&nbsp&nbsp${this.parseTime(this.form.flaifangriqi, '{y}-{m}-{d} {h}:{i}')}</div>
               <div class="my-list-col">发热丝种类:&nbsp&nbsp&nbsp${this.form.ffaresizhonglei}</div>
               <div class="my-list-col">口味专供:&nbsp&nbsp&nbsp${this.form.fkouweizhuangong}</div>

@@ -103,7 +103,8 @@ public class HxTasteSQLController extends BaseController
     {
         AjaxResult result = new AjaxResult();
         //final String id = IdUtil.nanoId(36);
-        final String id = "C29N"+IdUtil.fastSimpleUUID().toUpperCase();
+        // eg:SALEF6DF285BACDC4FEE961D9D63825266D5
+        final String id = "SALE"+IdUtil.fastSimpleUUID().toUpperCase();
         hxTaste.setFid(id.toUpperCase());
         hxTaste.setFbillno(SeqRD.getId());
         hxTaste.setFlastmodifyby(getUsername());
