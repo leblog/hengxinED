@@ -1,9 +1,12 @@
 package com.hx.rd.domain;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.hx.common.core.domain.BaseEntity;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -11,8 +14,9 @@ import java.util.Date;
  * @TableName T_R&D_Peifang
  */
 @Data
-@TableName("[T_R&amp;D_Peifang]")
-public class HxPeifang implements Serializable {
+//@TableName("[T_R&amp;D_Peifang]")
+public class HxPeifang extends BaseEntity{
+    private static final long serialVersionUID = 1L;
     /**
      *
      */
@@ -223,5 +227,4 @@ public class HxPeifang implements Serializable {
      */
     private Date flastmodifytime;
 
-    private static final long serialVersionUID = 1L;
 }

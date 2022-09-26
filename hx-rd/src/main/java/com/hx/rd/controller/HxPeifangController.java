@@ -1,106 +1,105 @@
 package com.hx.rd.controller;
 
+import java.util.List;
+import javax.servlet.http.HttpServletResponse;
+
+import com.hx.common.annotation.Log;
 import com.hx.common.core.controller.BaseController;
+import com.hx.common.core.domain.AjaxResult;
 import com.hx.common.core.page.TableDataInfo;
+import com.hx.common.enums.BusinessType;
+import com.hx.common.utils.poi.ExcelUtil;
 import com.hx.rd.domain.HxPeifang;
 import com.hx.rd.service.HxPeifangService;
-import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
+/**
+ * 调香师Controller
+ *
+ * @author lusifer
+ * @date 2022-09-26
+ */
 @RestController
-@Slf4j
-@RequestMapping("/open/RdPeifangSQL")
-public class HxPeifangController extends BaseController {
-
-
+@RequestMapping("/open/peifang")
+public class HxPeifangController extends BaseController
+{
     @Autowired
     private HxPeifangService peifangService;
 
     /**
-     * 查询口味申请单列表
+     * 查询调香师列表
      */
-    //@PreAuthorize("@ss.hasPermi('taste:list')")
+    //@PreAuthorize("@ss.hasPermi('peifang:peifang:list')")
     @GetMapping("/list")
     public TableDataInfo list(HxPeifang peifang)
     {
         startPage();
-        List<HxPeifang> list = peifangService.list();
+        List<HxPeifang> list = peifangService.selectPeifangList(peifang);
         return getDataTable(list);
     }
 
-/*
-    */
-/**
-     * 导出口味申请单列表
-     *//*
-
-    @PreAuthorize("@ss.hasPermi('taste:export')")
-    @Log(title = "口味申请单",businessType = BusinessType.EXPORT)
+    /**
+     * 导出调香师列表
+     */
+    //@PreAuthorize("@ss.hasPermi('peifang:peifang:export')")
+    @Log(title = "调香师", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
-    public void export(HttpServletResponse response, HxTasteSQL hxTaste)
+    public void export(HttpServletResponse response, HxPeifang peifang)
     {
-        List<HxTasteSQL> list = hxTasteService.selectHxTasteList(hxTaste);
-        ExcelUtil<HxTasteSQL> util = new ExcelUtil<HxTasteSQL>(HxTasteSQL.class);
-        util.exportExcel(response, list, "口味申请单数据");
+        List<HxPeifang> list = peifangService.selectPeifangList(peifang);
+        ExcelUtil<HxPeifang> util = new ExcelUtil<HxPeifang>(HxPeifang.class);
+        util.exportExcel(response, list, "调香师数据");
     }
 
-    */
-/**
-     * 获取口味申请单详细信息
-     *//*
-
-    */
-/*@PreAuthorize("@ss.hasPermi('taste:query')")*//*
-
-    @GetMapping(value = "/query/{fid}")
-    public AjaxResult getInfo(@PathVariable("fid") String fid)
+    /**
+     * 获取调香师详细信息
+     */
+    //@PreAuthorize("@ss.hasPermi('peifang:peifang:query')")
+    @GetMapping(value = "/{id}")
+    public AjaxResult getInfo(@PathVariable("id") Long id)
     {
-        return AjaxResult.success(hxTasteService.selectHxTasteByTasteId(fid));
+        return AjaxResult.success(peifangService.selectPeifangById(id));
     }
 
-    */
-/**
-     * 新增口味申请单
-     *//*
-
-    @PreAuthorize("@ss.hasPermi('taste:add')")
-    @RepeatSubmit(interval = 2000, message = "请求过于频繁")
-    @Log(title = "口味申请单",businessType = BusinessType.INSERT)
+    /**
+     * 新增调香师
+     */
+    //@PreAuthorize("@ss.hasPermi('peifang:peifang:add')")
+    @Log(title = "调香师", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(@RequestBody HxTasteSQL hxTaste)
+    public AjaxResult add(@RequestBody HxPeifang peifang)
     {
-        AjaxResult result = new AjaxResult();
-        //final String id = IdUtil.nanoId(36);
-        // eg:SALEF6DF285BACDC4FEE961D9D63825266D5
-        final String id = "SALE"+ IdUtil.fastSimpleUUID().toUpperCase();
-        hxTaste.setFid(id.toUpperCase());
-        hxTaste.setFbillno(SeqRD.getId());
-        hxTaste.setFlastmodifyby(getUsername());
-        hxTaste.setFsqriqi(DateUtils.getNowDate());
-        hxTaste.setFlastmodifytime(DateUtils.getNowDate());
-        //hxTaste.setFstatus(TatseFolderO.NORMAL.getCode());
-        hxTaste.setFshenqingren(getUsername());
-        result.put("res",hxTasteService.insertHxTaste(hxTaste));
-        result.put("data",id);
-        return result;
+        return toAjax(peifangService.insertPeifang(peifang));
     }
 
-    */
-/**
-     * 修改口味申请单
-     *//*
-
-    @PreAuthorize("@ss.hasPermi('taste:edit')")
-    @RepeatSubmit(interval = 2000, message = "请求过于频繁")
-    @Log(title = "口味申请单", businessType = BusinessType.UPDATE)
+    /**
+     * 修改调香师
+     */
+    //@PreAuthorize("@ss.hasPermi('peifang:peifang:edit')")
+    @Log(title = "调香师", businessType = BusinessType.UPDATE)
     @PutMapping
-    public AjaxResult edit(@RequestBody HxTasteSQL hxTaste)
+    public AjaxResult edit(@RequestBody HxPeifang peifang)
     {
-        return toAjax(hxTasteService.updateHxTaste(hxTaste));
+        return toAjax(peifangService.updatePeifang(peifang));
     }
-*/
 
+    /**
+     * 删除调香师
+     */
+    //@PreAuthorize("@ss.hasPermi('peifang:peifang:remove')")
+    @Log(title = "调香师", businessType = BusinessType.DELETE)
+    @DeleteMapping("/{ids}")
+    public AjaxResult remove(@PathVariable Long[] ids)
+    {
+        return toAjax(peifangService.deletePeifangByIds(ids));
+    }
 }

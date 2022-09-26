@@ -1,18 +1,61 @@
 package com.hx.rd.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import java.util.List;
 import com.hx.rd.domain.HxPeifang;
 
 /**
-* @author RD02
-* @description 针对表【T_R&D_Peifang】的数据库操作Mapper
-* @createDate 2022-09-26 15:29:40
-* @Entity com.hx.rd.domain.HxPeifang
-*/
-public interface HxPeifangMapper extends BaseMapper<HxPeifang> {
+ * 调香师Service接口
+ *
+ * @author lusifer
+ * @date 2022-09-26
+ */
+public interface HxPeifangMapper
+{
+    /**
+     * 查询调香师
+     *
+     * @param id 调香师主键
+     * @return 调香师
+     */
+    public HxPeifang selectPeifangById(Long id);
 
+    /**
+     * 查询调香师列表
+     *
+     * @param peifang 调香师
+     * @return 调香师集合
+     */
+    public List<HxPeifang> selectPeifangList(HxPeifang peifang);
+
+    /**
+     * 新增调香师
+     *
+     * @param peifang 调香师
+     * @return 结果
+     */
+    public int insertPeifang(HxPeifang peifang);
+
+    /**
+     * 修改调香师
+     *
+     * @param peifang 调香师
+     * @return 结果
+     */
+    public int updatePeifang(HxPeifang peifang);
+
+    /**
+     * 批量删除调香师
+     *
+     * @param ids 需要删除的调香师主键集合
+     * @return 结果
+     */
+    public int deletePeifangByIds(Long[] ids);
+
+    /**
+     * 删除调香师信息
+     *
+     * @param id 调香师主键
+     * @return 结果
+     */
+    public int deletePeifangById(Long id);
 }
-
-
-
-
