@@ -1,6 +1,9 @@
 package com.hx.rd.service.impl;
 
 import java.util.List;
+
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.hx.rd.mapper.HxPeifangMapper;
@@ -14,7 +17,7 @@ import com.hx.rd.service.HxPeifangService;
  * @date 2022-09-26
  */
 @Service
-public class HxPeifangServiceImpl implements HxPeifangService
+public class HxPeifangServiceImpl extends ServiceImpl<HxPeifangMapper,HxPeifang> implements HxPeifangService
 {
     @Autowired
     private HxPeifangMapper peifangMapper;
@@ -40,10 +43,11 @@ public class HxPeifangServiceImpl implements HxPeifangService
     @Override
     public List<HxPeifang> selectPeifangList(HxPeifang peifang)
     {
+        //com.github.pagehelper.JSqlParser.class.
         return peifangMapper.selectPeifangList(peifang);
     }
 
-    /**
+        /**
      * 新增调香师
      *
      * @param peifang 调香师

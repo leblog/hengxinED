@@ -1,6 +1,8 @@
 package com.hx.rd.mapper;
 
 import java.util.List;
+
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.hx.rd.domain.HxPeifang;
 
 /**
@@ -9,7 +11,7 @@ import com.hx.rd.domain.HxPeifang;
  * @author lusifer
  * @date 2022-09-26
  */
-public interface HxPeifangMapper
+public interface HxPeifangMapper extends BaseMapper<HxPeifang>
 {
     /**
      * 查询调香师

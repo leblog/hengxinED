@@ -19,7 +19,7 @@ public class gen3 {
 
 
         // 最开始是配置数据源，postgresql还得指定架构，这里我就指定了用test架构
-        FastAutoGenerator.create("jdbc:sqlserver://localhost:1433;DatabaseName=vuesqlserver", "sa", "OcP2020123")
+        FastAutoGenerator.create("jdbc:sqlserver://localhost:1433;DatabaseName=vuesqlserver2", "sa", "OcP2020123")
         //FastAutoGenerator.create(new DataSourceConfig.Builder("jdbc:sqlserver://localhost:1433/vuesqlserver", "sa", "OcP2020123"))
                 // 全局配置
                 .globalConfig(builder -> {
@@ -44,7 +44,7 @@ public class gen3 {
                             .xml("mapper")
                             .other("utils");*/
                             //.disable(TemplateType.ENTITY)
-                            .entity("entity")
+                            .entity("domain")
                             .service("service")
                             .serviceImpl("serviceImpl")
                             .mapper("mapper")

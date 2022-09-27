@@ -2,6 +2,7 @@ package com.hx.rd.service;
 
 import java.util.List;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.hx.rd.domain.HxPeifang;
 
 /**
@@ -10,7 +11,7 @@ import com.hx.rd.domain.HxPeifang;
  * @author lusifer
  * @date 2022-09-26
  */
-public interface HxPeifangService
+public interface HxPeifangService extends IService<HxPeifang>
 {
     /**
      * 查询调香师

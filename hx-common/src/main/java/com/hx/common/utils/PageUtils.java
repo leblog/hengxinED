@@ -7,7 +7,7 @@ import com.hx.common.utils.sql.SqlUtil;
 
 /**
  * 分页工具类
- * 
+ *
  * @author lusifer
  */
 public class PageUtils extends PageHelper
@@ -31,5 +31,6 @@ public class PageUtils extends PageHelper
     public static void clearPage()
     {
         PageHelper.clearPage();
+
     }
 }

@@ -1,5 +1,7 @@
 package com.hx.rd.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.hx.common.core.domain.BaseEntity;
 import lombok.Data;
@@ -14,12 +16,13 @@ import java.util.Date;
  * @TableName T_R&D_Peifang
  */
 @Data
-//@TableName("[T_R&amp;D_Peifang]")
-public class HxPeifang extends BaseEntity{
+@TableName("[T_R&amp;D_Peifang]")
+public class HxPeifang {
     private static final long serialVersionUID = 1L;
     /**
      *
      */
+    @TableId(type=IdType.AUTO)
     private Long id;
 
     /**
