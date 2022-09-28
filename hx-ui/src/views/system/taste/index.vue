@@ -215,7 +215,7 @@
             </el-form-item>
           </el-col>
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
-            <el-form-item label="粘稠度(1-10)" prop="viscosity">
+            <el-form-item label="粘稠度" prop="viscosity">
               <el-input v-model="form.viscosity" type="number" :min="1" />
             </el-form-item>
           </el-col>

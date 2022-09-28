@@ -98,7 +98,7 @@
             <el-form-item label="凉度(1-10)：">{{ form.fliangdu }}</el-form-item>
           </el-col>
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
-            <el-form-item label="粘稠度(1-10)：">{{ form.fnianchoudu }}</el-form-item>
+            <el-form-item label="粘稠度：">{{ form.fnianchoudu }}</el-form-item>
           </el-col>
         </el-row>
         <el-row :gutter="24">
@@ -330,7 +330,7 @@ export default {
               <div class="my-list-col">油环材质类型:&nbsp&nbsp&nbsp${this.form.fyoubeicaizhi}</div>
               <div class="my-list-col">甜度(1-10):&nbsp&nbsp&nbsp${this.form.ftiandu}</div>
               <div class="my-list-col">凉度(1-10):&nbsp&nbsp&nbsp${this.form.fliangdu}</div>
-              <div class="my-list-col">粘稠度(1-10):&nbsp&nbsp&nbsp${this.form.fnianchoudu}</div>
+              <div class="my-list-col">粘稠度:&nbsp&nbsp&nbsp${this.form.fnianchoudu}</div>
               <div class="my-list-col">期望完成时间:&nbsp&nbsp&nbsp${this.parseTime(this.form.fqiwangwanchengshijian, '{y}-{m}-{d} {h}:{i}')}</div>
               <div class="my-list-col">样品数量:&nbsp&nbsp&nbsp${this.form.fyangpinxuqiushuliang}</div>
               <div class="my-list-col">样品需求日期:&nbsp&nbsp&nbsp${this.parseTime(this.form.fyangpinxuqiuriqi, '{y}-{m}-{d} {h}:{i}')}</div>

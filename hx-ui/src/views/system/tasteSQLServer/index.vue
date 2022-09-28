@@ -189,7 +189,7 @@
             </el-form-item>
           </el-col>
           <el-col :xs="{span:24}" :sm="{span:8}" :md="{span:8}" :lg="{span:8}">
-            <el-form-item label="粘稠度(1-10)" prop="fnianchoudu">
+            <el-form-item label="粘稠度" prop="fnianchoudu">
               <el-input v-model="form.fnianchoudu"  :min="1" />
             </el-form-item>
           </el-col>
@@ -419,6 +419,7 @@
             :edit-rules="validRules"
             :tooltip-config="{showAll: true, enterable: true, contentMethod: showTooltipMethod}"
             :edit-config="{trigger: 'click', mode: 'row'}"
+            :export-config="{}"
             @cell-dblclick="doubleClick"
             @edit-actived="editActivedEvent"
           >
@@ -551,7 +552,7 @@
               </template>
             </vxe-column>-->
             <!-- 新增逻辑 END   -->
-            <vxe-column title="操作1" width="120" fixed="right" >
+            <vxe-column title="操作" width="120" fixed="right" >
               <template #default="{ row }">
                 <vxe-button status="warning" size="mini" type="text" content="删除" @click="removeSelectEvent(row)"></vxe-button>
               </template>
@@ -614,14 +615,14 @@
             <i class="el-icon-d-arrow-right el-icon--right"></i>选择调香审核
           </span>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item command="1" icon="el-icon-delete">调香申请-国内业务部《国内业务一组、国内业务二组、销售支持》</el-dropdown-item>
+            <el-dropdown-item command="1" icon="el-icon-delete"><span>调香申请-国内业务部</span><br><span>《国内业务一组、国内 </span><br><span>业务二组、销售支持》</span></el-dropdown-item>
             <el-dropdown-item command="2" icon="el-icon-folder-delete">调香申请-外贸业务部</el-dropdown-item>
             <el-dropdown-item command="3" icon="el-icon-printer">调香申请-产品支持部</el-dropdown-item>
             <el-dropdown-item command="4" icon="el-icon-user">调香申请-测试</el-dropdown-item>
             <el-dropdown-item command="5" icon="el-icon-user">调香申请-测试2</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
-        <el-button style="margin: 5px 10px 5px 10px;" type="primary" size="small" @click="auditDeatil()">查看审批详情</el-button>
+        <el-button style="margin: 5px 10px 5px 10px;"  type="primary" size="small" @click="auditDeatil()">查看审批详情</el-button>
         <el-button type="danger" size="small" @click="auditUpdateList">更新审批结果</el-button>
       </div>
     </div>
@@ -649,6 +650,7 @@ import spStatus from '@/utils/wx/sp_status'
 import spStatusChild from '@/utils/wx/sp_status_child'
 import iFrame from "@/components/iFrame";
 import CountDown from "@/components/CountDown";
+import {parseTime} from "@/utils/ruoyi";
 
 export default {
   name: 'Detail',
@@ -771,11 +773,12 @@ export default {
       }],
       // 通用
       radio: '是',
-      // 明细选择
+      // 明细选择 是否有基础口味
       sexList: [
         {label: '请选择', value: '请选择'},
         {label: '否', value: '否'},
-        {label: '是', value: '是'}
+        {label: '是', value: '是'},
+        {label: '改', value: '改'}
       ],
       fnicdwList: [
         {label: '请选择', value: '请选择'},
@@ -852,7 +855,7 @@ export default {
       form: {},
       // 表单校验
       rules: {
-        /*fyewubumen: [
+        fyewubumen: [
           {required: true, message: '不能为空', trigger: 'change'}
         ],
         fyewuxingming: [
@@ -871,9 +874,9 @@ export default {
         fkouweishuliang: [
           {required: true, message: '不能为空', trigger: 'blur'}
         ],
-        /!* fshangcishenqingdanhao: [
+        /* fshangcishenqingdanhao: [
           { required: true, message: '不能为空', trigger: 'blur' }
-        ], *!/
+        ], */
         fdijicisongyang: [
           {required: true, message: '不能为空', trigger: 'blur'}
         ],
@@ -927,7 +930,7 @@ export default {
         ],
         fyoujixinxi: [
           {required: true, message: '不能为空', trigger: 'blur'}
-        ]*/
+        ]
         /* remark: [
           { required: true, message: '不能为空', trigger: 'blur' }
         ] */
@@ -1022,13 +1025,10 @@ export default {
           // 选择调香师
           this.form.start = "open"
         }
-        console.log("进入状态前",response.data.processNo)
-        if(response.data.processNo == null ){
-          console.log("进入状态中",response.data.processNo)
+        console.log("进入状态前展示审核提交按钮",response.data.fstatus)
+        if(response.data.fstatus < 7 ){
+          console.log("进入状态中",response.data.fstatus)
           this.processNoStatus = true;
-          /*setTimeout(()=>{
-            this.$nextTick(()=>{ })
-          })*/
         }
         console.log("审核按钮状态",this.processNoStatus)
         // 调整
@@ -1098,8 +1098,14 @@ export default {
           },
           fail: (res) => {
             console.log("agent config 失败: ", res);
-            this.$modal.msgError("企业微信  agent config 调用失败: 请联系管理员", res)
-            //alert("agentId失败:" + JSON.stringify(res));
+            // 禁用提交审批
+            this.processNoStatus = false
+            this.$notify.error({
+              title: '错误',
+              message: '请确保在企业微信内打开该应用,还是不行联系管理员',
+              duration: 0
+            });
+
             if (res.errMsg.indexOf("function not exist") > -1) {
               alert("版本过低请升级");
             }
@@ -1159,7 +1165,7 @@ export default {
       this.$refs.xTable.openExport({types: ['csv']})
       setTimeout(() => {
         this.$refs.xTable.exportData({
-          filename: `明细_`+this.$route.params.tasteId+ `_`+new Date().getTime(),
+          filename: `明细_`+this.$route.query.fid+ `_`+parseTime(new Date().getTime()),
           type: 'csv',
           isHeader: true,
           isFooter: true,
@@ -1212,7 +1218,7 @@ export default {
 
         // 校验是否绑定企业微信
         getUserDetail().then(response => {
-          //if (response.data.wxUserId != null) {
+          if (response.data.wxUserId != null && response.data.wxUserId != '') {
           console.log("推送审批")
           // 自建应用审批
           wx.invoke('thirdPartyOpenPage', {
@@ -1262,7 +1268,7 @@ export default {
             function(res) {
               console.log("审批提交成功/输出接口的回调信息:"+JSON.stringify(res));
             });
-          /* wx.ready(function(){
+           wx.ready(function(){
              // 输出接口的回调信息
              console.log("提交成功:"+res);
 
@@ -1271,7 +1277,7 @@ export default {
            wx.error(function(res){
              console.log("提交失败")
              // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
-           });*/
+           });
 
 
           // 自带小程序
@@ -1288,9 +1294,9 @@ export default {
             },500)
           }*/
 
-          /*} else {
-            this.$modal.msgError("未绑定企业微信,请联系管理员申请绑定");
-          }*/
+          } else {
+            this.$modal.msgError("未绑定企业微信,请联系管理员申请绑定",3000);
+          }
         });
 
       }).catch(() => {});

@@ -1,6 +1,14 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch"  label-width="68px">
+      <el-form-item label="Fid" prop="fid">
+        <el-input
+          v-model="queryParams.fid"
+          placeholder="请输入fid"
+          clearable
+          @keyup.enter.native="handleQuery"
+        />
+      </el-form-item>
       <el-form-item label="业务姓名" prop="fyewuxingming">
         <el-input
           v-model="queryParams.fyewuxingming"
@@ -26,6 +34,20 @@
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
     <div>
+      <el-tabs  v-model="activeOA"  @tab-click="handleClick">
+        <el-tab-pane label="分配产品跟进人" name="10"/>
+        <el-tab-pane label="跟进中" name="11"/>
+<!--        <el-tab-pane label="分配调香师" name="12"/>
+        <el-tab-pane label="任务退回" name="13"/>
+        <el-tab-pane label="分配调香师完毕" name="14"/>-->
+        <el-tab-pane label="已推送研发" name="20"/>
+<!--        <el-tab-pane label="配方开发中" name="21"/>
+        <el-tab-pane label="配方完成" name="29"/>
+        <el-tab-pane label="口味确认中" name="30"/>
+        <el-tab-pane label="打印口味确认书" name="38"/>-->
+        <el-tab-pane label="口味确认完毕" name="39"/>
+        <el-tab-pane label="结案" name="99"/>
+      </el-tabs>
       <el-table v-loading="loading" :data="tasteList" @selection-change="handleSelectionChange" show-overflow-tooltip>
         <el-table-column type="selection" width="30" align="center"/>
         <el-table-column  label="序号" type="index" align="center"/>
@@ -147,35 +169,39 @@
             <el-radio :label="true">正序</el-radio>
           </el-radio-group>
         </div>
-        <el-timeline :reverse="reverse" >
-          <el-timeline-item
-            v-for="(item,index) in logList"
-            :key="index"
-            :timestamp="parseTime(item.operTime, '{y}-{m}-{d} {h}:{i}:{s}')"
-            placement="top">
-<!--            <el-card></el-card>-->
-              <el-tabs type="border-card">
-                <el-tab-pane label="操作日志">
-                  <b>{{item.title}}</b>
-                  <p>操作人:{{item.operName}}</p>
-                  <p>操作人部门:{{item.deptName}}</p>
-                  <p>IP: {{item.operIp}}</p>
-                </el-tab-pane>
-                <el-tab-pane label="参数日志">
-                  <p>请求方式:
-                    <el-tag v-if="item.requestMethod = 'GET'" type="success">{{item.requestMethod}}</el-tag>
-                    <el-tag v-else-if="item.requestMethod  = 'DELETE'" type="danger">{{item.requestMethod}}</el-tag>
-                  </p>
-                  <p>请求参数: {{item.operParam}}</p>
-                  <p>api: {{item.operUrl}}</p>
-                  <p>响应结果: {{item.jsonResult}}</p>
-                </el-tab-pane>
-              </el-tabs>
-
-          </el-timeline-item>
-        </el-timeline>
-
+          <div  v-if="logList.length >= 1">
+          <el-timeline :reverse="reverse" >
+            <el-timeline-item
+              v-for="(item,index) in logList"
+              :key="index"
+              :timestamp="parseTime(item.operTime, '{y}-{m}-{d} {h}:{i}:{s}')"
+              placement="top">
+  <!--            <el-card></el-card>-->
+                <el-tabs type="border-card">
+                  <el-tab-pane label="操作日志">
+                    <b>{{item.title}}</b>
+                    <p>操作人:{{item.operName}}</p>
+                    <p>操作人部门:{{item.deptName}}</p>
+                    <p>IP: {{item.operIp}}</p>
+                  </el-tab-pane>
+                  <el-tab-pane label="参数日志">
+                    <p>请求方式:
+                      <el-tag v-if="item.requestMethod = 'GET'" type="success">{{item.requestMethod}}</el-tag>
+                      <el-tag v-else-if="item.requestMethod  = 'DELETE'" type="danger">{{item.requestMethod}}</el-tag>
+                    </p>
+                    <p>请求参数: {{item.operParam}}</p>
+                    <p>api: {{item.operUrl}}</p>
+                    <p>响应结果: {{item.jsonResult}}</p>
+                  </el-tab-pane>
+                </el-tabs>
+            </el-timeline-item >
+          </el-timeline>
+        </div>
+        <div v-else>
+          <el-empty :image-size="200"></el-empty>
+        </div>
       </div>
+
       <div slot="footer" class="dialog-footer">
         <el-button @click="open = false">关 闭</el-button>
       </div>
@@ -203,6 +229,8 @@ export default {
   name: "TasteList",
   data() {
     return {
+      /*流程推进器*/
+      activeOA:'10',
       /*日志倒序*/
       reverse: true,
       /*日志内容*/
@@ -245,7 +273,7 @@ export default {
         pageSize: 10,
         fid: null,
         fbillno: null,
-        fstatus: 7,
+        fstatus: 10,
         fshenqingren: null,
         fsqrid: null,
         fyuanshenqingren: null,
@@ -312,6 +340,18 @@ export default {
 
   },
   methods: {
+    /*OA流转状态监听*/
+    handleClick(tab, event) {
+      console.log("OA流转状态监听",tab, event);
+      if(tab.name == '分配产品跟进人'){
+        this.queryParams.fstatus = null;
+        this.handleQuery();
+      }else{
+        this.queryParams.fstatus = tab.name;
+        this.handleQuery();
+      }
+
+    },
     /*详情*/
     handleDetail(row){
       this.$router.push({ path: '/taste/add',query: {fid: row.fid} });
@@ -367,16 +407,16 @@ export default {
     },
     /*退回分配*/
     handle1(row){
-
-      // 改变为7已审核状态
       let obj = {}
       obj.fid = row.fid
       obj.fstatus = 3
+      obj.remark =  "wxmsg"
       this.$modal.confirm('确认退回分配吗?').then(function() {
 
       }).then(() => {
-        start(obj).then(res=>{})
-        this.$modal.msgSuccess("退回分配完成");
+        start(obj).then(res=>{
+          this.$modal.msgSuccess(res.msg);
+        })
         // 刷新当前页签
         this.$tab.refreshPage();
       }).catch(() => {});
@@ -392,8 +432,9 @@ export default {
         obj.fid = row.fid
         obj.fstatus = 3
         obj.remark =  "wxmsg"
-        start(obj).then(res=>{})
-        this.$modal.msgSuccess("退回分配完成");
+        start(obj).then(res=>{
+          this.$modal.msgSuccess(res.msg);
+        })
         // 刷新当前页签
         this.$tab.refreshPage();
 
@@ -401,13 +442,7 @@ export default {
     },
     /*调整*/
     handle3(row){
-      this.$modal.confirm('温馨提示:确定取消此口味吗?取消后将无法恢复，并且请确定研发没有开始调油: ! !').then(function() {
-      }).then(() => {
-        // 关闭当前tab页签，打开新页签   跳转 adjust   kouwei/taste
-        this.$router.push({ path: '/taste/add',query: {fid: row.fid,adjust: 'adjust'} });
-        /*const obj = { path: "/system/taste-data/index/"+ row.fid + "?adjust=adjust"};
-        this.$tab.refreshPage(obj);*/
-      }).catch(() => {});
+      this.$router.push({ path: '/taste/add',query: {fid: row.fid,adjust: 'adjust'} });
     },
     /*开始  关联研发表*/
     handle4(row){
@@ -415,9 +450,14 @@ export default {
       }).then(() => {
         let obj = {}
         obj.fid = row.fid
-        obj.fstatus = row.fstatus
+        obj.fstatus = 11
         start(obj).then(res=>{
-          console.log("开始跟进:",JSON.stringify(res.data))
+          console.log("开始跟进:",JSON.stringify(res))
+          this.activeOA = '11'
+          let tab = {}
+          tab.name = this.activeOA
+          this.handleClick(tab)
+          this.$modal.msgSuccess(res.msg);
         })
         this.getList()
       }).catch(() => {});
@@ -429,43 +469,54 @@ export default {
       }).then(() => {
         let obj = {}
         obj.fid = row.fid
-        obj.fstatus = row.fstatus
+        obj.fstatus = 20
         start(obj).then(res=>{
           console.log("提交研发:",JSON.stringify(res.data))
+          this.activeOA = '20'
+          let tab = {}
+          tab.name = this.activeOA
+          this.handleClick(tab)
+          this.$modal.msgSuccess(res.msg);
         })
         this.getList()
       }).catch(() => {});
     },
     /*确认配方*/
-    /*确认配方*/
     handle6(row){
       //this.$message.info("确认配方TODO");
-      this.$modal.confirm('确认信息').then(function() {
+      this.$modal.confirm('温馨提示:是否确认配方？').then(function() {
 
       }).then(() => {
         let obj = {}
         obj.fid = row.fid
-        obj.fstatus = 17
+        obj.fstatus = 39
         start(obj).then(res=>{
           console.log("提交研发:",JSON.stringify(res.data))
+          this.activeOA = '39'
+          let tab = {}
+          tab.name = this.activeOA
+          this.handleClick(tab)
+          this.$modal.msgSuccess(res.msg,7000);
         })
         this.getList()
-        this.$tab.refreshPage();
       }).catch(() => {});
     },
     /*反确认配方*/
     handle7(row){
-
-      this.$modal.confirm('确认信息').then(function() {
+      this.$modal.confirm('温馨提示:是否反确认配方？').then(function() {
 
       }).then(() => {
         let obj = {}
         obj.fid = row.fid
-        obj.fstatus = 15
+        obj.fstatus = 19 //这里的步骤是逻辑步骤不是真实的步骤
         start(obj).then(res=>{
+          this.activeOA = '20'
+          let tab = {}
+          tab.name = this.activeOA
+          this.handleClick(tab)
+          this.$modal.msgSuccess(res.msg,3000);
         })
         this.getList()
-        this.$tab.refreshPage();
       }).catch(() => {});
     },
     /*打印配方确认单*/
@@ -506,13 +557,16 @@ export default {
       }).then(() => {
         let obj = {}
         obj.fid = row.fid
-        obj.fstatus = 18
+        obj.fstatus = 99
         start(obj).then(res=>{
           console.log("结案完成:",JSON.stringify(res.data))
+          this.activeOA = '99'
+          let tab = {}
+          tab.name = this.activeOA
+          this.handleClick(tab)
+          this.$modal.msgSuccess(res.msg,3000);
         })
         this.getList()
-        // 刷新当前页签
-        this.$tab.refreshPage();
       }).catch(() => {});
     },
     /*详细日志*/
@@ -659,7 +713,7 @@ export default {
               <div class="my-list-col">客户名称:&nbsp&nbsp&nbsp${this.printList.fkehumingcheng} </div>
               <div class="my-list-col">客户代码:&nbsp&nbsp&nbsp${this.printList.fkehudaima}</div>
               <div class="my-list-col">口味数量:&nbsp&nbsp&nbsp${this.printList.fkouweishuliang}</div>
-              <div class="my-list-col">第几次送样:&nbsp&nbsp&nbsp${this.printList.fdijicisongyang}</div>
+              <div class="my-list-col">项目信息:&nbsp&nbsp&nbsp${this.printList.fxiangmuxinxi}</div>
               <div class="my-list-col">来访日期:&nbsp&nbsp&nbsp${this.parseTime(this.printList.flaifangriqi, '{y}-{m}-{d} {h}:{i}')}</div>
               <div class="my-list-col">发热丝种类:&nbsp&nbsp&nbsp${this.printList.ffaresizhonglei}</div>
               <div class="my-list-col">口味专供:&nbsp&nbsp&nbsp${this.printList.fkouweizhuangong}</div>
@@ -673,7 +727,7 @@ export default {
               <div class="my-list-col">油环材质类型:&nbsp&nbsp&nbsp${this.printList.fyoubeicaizhi}</div>
               <div class="my-list-col">甜度(1-10):&nbsp&nbsp&nbsp${this.printList.ftiandu}</div>
               <div class="my-list-col">凉度(1-10):&nbsp&nbsp&nbsp${this.printList.fliangdu}</div>
-              <div class="my-list-col">粘稠度(1-10):&nbsp&nbsp&nbsp${this.printList.fnianchoudu}</div>
+              <div class="my-list-col">粘稠度:&nbsp&nbsp&nbsp${this.printList.fnianchoudu}</div>
               <div class="my-list-col">期望完成时间:&nbsp&nbsp&nbsp${this.parseTime(this.printList.fqiwangwanchengshijian, '{y}-{m}-{d} {h}:{i}')}</div>
               <div class="my-list-col">样品数量:&nbsp&nbsp&nbsp${this.printList.fyangpinxuqiushuliang}</div>
               <div class="my-list-col">样品需求日期:&nbsp&nbsp&nbsp${this.parseTime(this.printList.fyangpinxuqiuriqi, '{y}-{m}-{d} {h}:{i}')}</div>
@@ -846,7 +900,7 @@ export default {
               <div class="my-list-col">客户名称:&nbsp&nbsp&nbsp${this.printList.fkehumingcheng} </div>
               <div class="my-list-col">客户代码:&nbsp&nbsp&nbsp${this.printList.fkehudaima}</div>
               <div class="my-list-col">口味数量:&nbsp&nbsp&nbsp${this.printList.fkouweishuliang}</div>
-              <div class="my-list-col">第几次送样:&nbsp&nbsp&nbsp${this.printList.fdijicisongyang}</div>
+              <div class="my-list-col">项目信息:&nbsp&nbsp&nbsp${this.printList.fxiangmuxinxi}</div>
               <div class="my-list-col">来访日期:&nbsp&nbsp&nbsp${this.parseTime(this.printList.flaifangriqi, '{y}-{m}-{d} {h}:{i}')}</div>
               <div class="my-list-col">发热丝种类:&nbsp&nbsp&nbsp${this.printList.ffaresizhonglei}</div>
               <div class="my-list-col">口味专供:&nbsp&nbsp&nbsp${this.printList.fkouweizhuangong}</div>
@@ -860,7 +914,7 @@ export default {
               <div class="my-list-col">油环材质类型:&nbsp&nbsp&nbsp${this.printList.fyoubeicaizhi}</div>
               <div class="my-list-col">甜度(1-10):&nbsp&nbsp&nbsp${this.printList.ftiandu}</div>
               <div class="my-list-col">凉度(1-10):&nbsp&nbsp&nbsp${this.printList.fliangdu}</div>
-              <div class="my-list-col">粘稠度(1-10):&nbsp&nbsp&nbsp${this.printList.fnianchoudu}</div>
+              <div class="my-list-col">粘稠度:&nbsp&nbsp&nbsp${this.printList.fnianchoudu}</div>
               <div class="my-list-col">期望完成时间:&nbsp&nbsp&nbsp${this.parseTime(this.printList.fqiwangwanchengshijian, '{y}-{m}-{d} {h}:{i}')}</div>
               <div class="my-list-col">样品数量:&nbsp&nbsp&nbsp${this.printList.fyangpinxuqiushuliang}</div>
               <div class="my-list-col">样品需求日期:&nbsp&nbsp&nbsp${this.parseTime(this.printList.fyangpinxuqiuriqi, '{y}-{m}-{d} {h}:{i}')}</div>

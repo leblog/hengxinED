@@ -3,7 +3,7 @@ import request from '@/utils/request'
 // 查询调香师列表
 export function listPeifang(query) {
   return request({
-    url: '/peifang/peifang/listMP',
+    url: '/open/peifang/listG',
     method: 'get',
     params: query
   })

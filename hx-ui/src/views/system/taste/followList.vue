@@ -662,7 +662,7 @@ export default {
               <div class="my-list-col">油环材质类型:&nbsp&nbsp&nbsp${this.printList.oilRingMaterial}</div>
               <div class="my-list-col">甜度(1-10):&nbsp&nbsp&nbsp${this.printList.sweetness}</div>
               <div class="my-list-col">凉度(1-10):&nbsp&nbsp&nbsp${this.printList.coolness}</div>
-              <div class="my-list-col">粘稠度(1-10):&nbsp&nbsp&nbsp${this.printList.viscosity}</div>
+              <div class="my-list-col">粘稠度:&nbsp&nbsp&nbsp${this.printList.viscosity}</div>
               <div class="my-list-col">期望完成时间:&nbsp&nbsp&nbsp${this.printList.expectedCompletionTime}</div>
               <div class="my-list-col">样品数量:&nbsp&nbsp&nbsp${this.printList.samplesNum}</div>
               <div class="my-list-col">样品需求日期:&nbsp&nbsp&nbsp${this.printList.sampleRequestTime}</div>
@@ -809,7 +809,7 @@ export default {
               <div class="my-list-col">油环材质类型:&nbsp&nbsp&nbsp${this.printList.oilRingMaterial}</div>
               <div class="my-list-col">甜度(1-10):&nbsp&nbsp&nbsp${this.printList.sweetness}</div>
               <div class="my-list-col">凉度(1-10):&nbsp&nbsp&nbsp${this.printList.coolness}</div>
-              <div class="my-list-col">粘稠度(1-10):&nbsp&nbsp&nbsp${this.printList.viscosity}</div>
+              <div class="my-list-col">粘稠度:&nbsp&nbsp&nbsp${this.printList.viscosity}</div>
               <div class="my-list-col">期望完成时间:&nbsp&nbsp&nbsp${this.printList.expectedCompletionTime}</div>
               <div class="my-list-col">样品数量:&nbsp&nbsp&nbsp${this.printList.samplesNum}</div>
               <div class="my-list-col">样品需求日期:&nbsp&nbsp&nbsp${this.printList.sampleRequestTime}</div>

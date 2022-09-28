@@ -3,6 +3,8 @@ package com.hx.rd.controller;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
+import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -40,28 +42,23 @@ public class HxPeifangController extends BaseController {
      * @return
      */
 
-    @ApiOperation(value = "列表")
+    @ApiOperation(value = "列表")//
     @RequestMapping(value = "/listG", method = RequestMethod.GET)
-    public AjaxResult List(
+    public Page List(
             @RequestParam(required = false) HxPeifang peifang,
             @RequestParam(required = true, defaultValue = "1") int pageNum,
-            @RequestParam(required = true, defaultValue = "30") int pageSize) {
-        // throws Exception try {
+            @RequestParam(required = true, defaultValue = "30") int pageSize)
+    {
             final QueryWrapper<HxPeifang> wrapper = new QueryWrapper<>();
-            if (StringUtils.isNotEmpty(peifang.getFid())) {
+            /*if (ObjectUtil.isNotEmpty(peifang.getFid())) {
                 wrapper.lambda().like(HxPeifang::getFid, peifang.getFid());
-            }
-            if (StringUtils.isNotEmpty(peifang.getFbillno())) {
+            }else if (ObjectUtil.isNotEmpty(peifang.getFbillno())) {
                 wrapper.lambda().like(HxPeifang::getFbillno, peifang.getFbillno());
-            }
-            if (StringUtils.isNotEmpty(peifang.getFkouweimingcheng())) {
+            }else if (ObjectUtil.isNotEmpty(peifang.getFkouweimingcheng())) {
                 wrapper.lambda().like(HxPeifang::getFkouweimingcheng, peifang.getFkouweimingcheng());
-            }
+            }*/
             final Page<HxPeifang> page = peifangService.page(new Page<>(pageNum, pageSize), wrapper);
-            return AjaxResult.success("ok", page);
-        /*} catch (Exception e) {
-            return AjaxResult.error(500, "失败");
-        }*/
+            return page;
     }
 
 

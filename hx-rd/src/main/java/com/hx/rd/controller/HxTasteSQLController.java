@@ -259,9 +259,184 @@ public class HxTasteSQLController extends BaseController
         HxTasteSQL hxTaste = hxTasteService.selectHxTasteByTasteId(h.getFid());
         int dataState = h.getFstatus();
         int i = hxTaste.getFstatus();
-        // 校验
+        HxTasteSQL sql = new HxTasteSQL();
+        switch (dataState) {
+            //已作废
+            case -1:
+                System.out.println("1");
+                break;
+            //已保存
+            case 1:
+                System.out.println("1");
+                break;
+            //已撤回
+            case 2:
+                System.out.println("2");
+                break;
+            //退回分配---退回到重新分配调香师 ,如果状态小于分配产品跟进人,可以进行退回产品操作
+            case 3:
+                System.out.println("3:退回分配");
+                if("wxmsg".equals(h.getRemark())){
+                    SysConfig sysConfig = configService.selectConfigById(6L);
+                    String json ="{\n" +
+                            "   \"touser\" : \"hanlele|UserID2|UserID3\",\n" +
+                            "   \"toparty\" : \"PartyID1|PartyID2\",\n" +
+                            "   \"totag\" : \"TagID1 | TagID2\",\n" +
+                            "   \"msgtype\" : \"text\",\n" +
+                            "   \"agentid\" : 1000042,\n" +
+                            "   \"text\" : {\n" +
+                            "   \"content\" : \" "+ DateUtil.format(DateUtils.getNowDate(), "yyyy/MM/dd HH:mm:ss")+"你的单据"+hxTaste.getFid()+"已被产品部退回，请修改后重新提交审核\"\n" +
+                            "   },\n" +
+                            "   \"safe\":0,\n" +
+                            "   \"enable_id_trans\": 0,\n" +
+                            "   \"enable_duplicate_check\": 0,\n" +
+                            "   \"duplicate_check_interval\": 1800\n" +
+                            "}";
+                    String body = HttpRequest.post("https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token="+sysConfig.getConfigValue())
+                            .body(json)
+                            .execute().body();
+                    log.info("请求结果{}",body);
+                }
+                //改变状态为退回,清除分配的跟进人,申请人,设置原申请人
+                sql.setFid(h.getFid());
+                sql.setFstatus(TatseFolderO.STATUS3.getCode());
+                sql.setFfenpeigenjinren(" ");
+                hxTasteService.updateHxTasteStart(sql);
+                break;
+            //已驳回
+            case 4:
+                System.out.println("4");
+                break;
+            //已提交
+            case 5:
+                System.out.println("5");
+                break;
+            //已审核
+            case 7:
+                System.out.println("7");
+                break;
+            //分配产品跟进人
+            case 10:
+                System.out.println("10");
+                if(i==TatseFolderO.STATUS7.getCode()){
+                    hxTaste.setFstatus(TatseFolderO.STATUS10.getCode());
+                    hxTaste.setFfenpeigenjinren(h.getFfenpeigenjinren());
+                    hxTasteService.updateHxTasteStart(hxTaste);
+                }else{
+                    throw new ServiceException("只有已审核状态,才可分配跟进人");
+                }
+                break;
+            //跟进中  (前端点击开始-跟进中)
+            case 11:
+                System.out.println("11");
+                if(i==TatseFolderO.STATUS10.getCode()){
+                    sql.setFid(h.getFid());
+                    sql.setFstatus(TatseFolderO.STATUS11.getCode());
+                    hxTasteService.updateHxTasteStart(sql);
+                }else{
+                    throw new ServiceException("只有分配产品跟进人状态,才可开始");
+                }
+                break;
+            //分配调香师
+            case 12:
+                System.out.println("12");
+                break;
+            //任务退回
+            case 13:
+                System.out.println("13");
+                break;
+            //分配调香师完毕
+            case 14:
+                System.out.println("14");
+                break;
+            //已推送研发
+            case 19:
+                System.out.println("反确认");
+                //已推送研发  流程等于20跟进中 分配跟进人状态下允许操作
+                if(
+                    i == TatseFolderO.STATUS39.getCode()
+                ){
+                    sql.setFid(h.getFid());
+                    sql.setFstatus(TatseFolderO.STATUS20.getCode());
+                    hxTasteService.updateHxTasteStart(sql);
+                }else{
+                    throw new ServiceException("只有口味确认完毕,才可反确认口味");
+                }
+                break;
+            //已推送研发
+            case 20:
+                System.out.println("20");
+                //已推送研发  流程等于20跟进中 分配跟进人状态下允许操作
+                if(
+                    i == TatseFolderO.STATUS11.getCode()
+                    || i == TatseFolderO.STATUS12.getCode()
+                    || i == TatseFolderO.STATUS14.getCode()
+                ){
+                    sql.setFid(h.getFid());
+                    sql.setFstatus(TatseFolderO.STATUS20.getCode());
+                    // TODO 推送研發應該再做一下同步到研發一端中
+                    hxTasteService.updateHxTasteStart(sql);
+                }else{
+                    throw new ServiceException("只有开始(跟进中)或分配调香师、分配调香师完毕状态,才可推送研发");
+                }
+                break;
+            //配方开发中
+            case 21:
+                System.out.println("21");
+                // TODO 调香师要跟进了
+                break;
+            //配方完成  (完成跟进)
+            case 29:
+                System.out.println("29");
+                break;
+            //口味确认中
+            case 30:
+                System.out.println("30");
+                break;
+            //打印口味确认书
+            case 38:
+                System.out.println("38");
+                break;
+            //口味确认完毕
+            case 39:
+                System.out.println("39");
+                if(
+                    i == TatseFolderO.STATUS20.getCode()
+                    || i == TatseFolderO.STATUS21.getCode()
+                    || i == TatseFolderO.STATUS29.getCode()
+                    || i == TatseFolderO.STATUS30.getCode()
+                    || i == TatseFolderO.STATUS38.getCode()
+                ){
+                    sql.setFid(h.getFid());
+                    sql.setFstatus(TatseFolderO.STATUS39.getCode());
+                    // TODO 推送研發應該再做一下同步到研發一端中
+                    hxTasteService.updateHxTasteStart(sql);
+                }else{
+                    throw new ServiceException("只有已推送研发、配方开发中、配方完成、口味确认中、打印口味确认书 状态,才可配方(口味)确认完毕");
+                }
+                break;
+            //结案
+            case 99:
+                System.out.println("99");
+                if(
+                    i == TatseFolderO.STATUS39.getCode()
+                ){
+                    sql.setFid(h.getFid());
+                    sql.setFstatus(TatseFolderO.STATUS99.getCode());
+                    hxTasteService.updateHxTasteStart(sql);
+                }else{
+                    throw new ServiceException("只有口味确认完毕状态,才可结案(完成跟进)");
+                }
+                break;
+            default:
+                System.out.println("默认");
+                break;
+
+        }
+        return AjaxResult.success("ok");
+        /*// 校验
         // 退回分配---退回到重新分配调香师 ,如果状态小于分配产品跟进人,可以进行退回产品操作
-        if(dataState < TatseFolderO.STATUS10.getCode()){
+        if(dataState == TatseFolderO.STATUS3.getCode()){
             //退回业务 -- 发送通知
             if("wxmsg".equals(h.getRemark())){
                 SysConfig sysConfig = configService.selectConfigById(6L);
@@ -293,7 +468,7 @@ public class HxTasteSQLController extends BaseController
         }
 
         //分配跟进人 (状态是已审核可分配跟进人)
-        if(dataState ==(TatseFolderO.STATUS7.getCode())){
+        if(dataState == TatseFolderO.STATUS7.getCode()){
             hxTaste.setFstatus(TatseFolderO.STATUS10.getCode());
             hxTaste.setFfenpeigenjinren(h.getFfenpeigenjinren());
             hxTasteService.updateHxTasteStart(hxTaste);
@@ -308,7 +483,6 @@ public class HxTasteSQLController extends BaseController
             }else {checkOut(hxTaste);}
             hxTaste.setFstatus(TatseFolderO.STATUS11.getCode());
             hxTasteService.updateHxTasteStart(hxTaste);
-
         }
         //已推送研发  流程等于20跟进中 分配跟进人状态下允许操作
         if(dataState ==(TatseFolderO.STATUS11.getCode())){
@@ -349,9 +523,9 @@ public class HxTasteSQLController extends BaseController
             }
             hxTaste.setFstatus(TatseFolderO.STATUS99.getCode());
             hxTasteService.updateHxTasteStart(hxTaste);
-        }
+        }*/
 
-        return AjaxResult.success("ok");
+
     }
 
     //校验工具

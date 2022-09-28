@@ -108,7 +108,7 @@
         <el-tab-pane label="口味确认完毕" name="39"/>
         <el-tab-pane label="结案" name="99"/>
       </el-tabs>
-      <el-table v-loading="loading" :data="tasteList" @selection-change="handleSelectionChange" show-overflow-tooltip>
+      <el-table v-loading="loading" :data="tasteList"  @selection-change="handleSelectionChange" show-overflow-tooltip>
         <el-table-column type="selection" width="30" align="center"/>
         <el-table-column  label="序号" type="index" align="center"/>
         <el-table-column label="单据编码" width="180" align="center" prop="fid" show-overflow-tooltip/>
@@ -484,8 +484,6 @@ export default {
         // 获取以一些数据
         getTaste(row.fid).then((resp)=>{
           this.form = resp.data
-          // 变更为分配跟进人状态
-          this.form.fstatus = 7
         })
         // 系统分配人接口
         getDistribution().then((res)=>{
@@ -500,14 +498,14 @@ export default {
       // 改变为7已审核状态
       let obj = {}
       obj.fid = this.form.fid
-      obj.fstatus = 6
+      obj.fstatus = 10
       obj.ffenpeigenjinren = this.form.ffenpeigenjinren
       this.$modal.confirm('确认分配跟进人吗?').then(function() {
-
       }).then(() => {
-        start(obj).then(res=>{})
-        this.$modal.msgSuccess("分配完成");
-        // 刷新当前页签
+        start(obj).then(res=>{
+          this.$modal.msgSuccess(res.msg);
+
+        })
         this.$tab.refreshPage();
       }).catch(() => {});
     },
@@ -515,10 +513,11 @@ export default {
     handleWaste(row){
       // 作废将 state 字段状态变成 -1
       this.$modal.confirm('是否确认作废口味ID为"' + row.fid + '"的数据项？').then(function() {
-        getWasteTaste(row.fid)
+        getWasteTaste(row.fid).then(res =>{
+          this.$modal.msgSuccess(res.msg);
+        })
       }).then(() => {
-        this.getList();
-        this.$modal.msgSuccess('已作废');
+        this.$tab.refreshPage();
       }).catch(() => {
         this.$modal.msgSuccess('已取消');
       });
@@ -632,7 +631,7 @@ export default {
               <div class="my-list-col">油环材质类型:&nbsp&nbsp&nbsp${this.printList.oilRingMaterial}</div>
               <div class="my-list-col">甜度(1-10):&nbsp&nbsp&nbsp${this.printList.sweetness}</div>
               <div class="my-list-col">凉度(1-10):&nbsp&nbsp&nbsp${this.printList.coolness}</div>
-              <div class="my-list-col">粘稠度(1-10):&nbsp&nbsp&nbsp${this.printList.viscosity}</div>
+              <div class="my-list-col">粘稠度:&nbsp&nbsp&nbsp${this.printList.viscosity}</div>
               <div class="my-list-col">期望完成时间:&nbsp&nbsp&nbsp${this.printList.expectedCompletionTime}</div>
               <div class="my-list-col">样品数量:&nbsp&nbsp&nbsp${this.printList.samplesNum}</div>
               <div class="my-list-col">样品需求日期:&nbsp&nbsp&nbsp${this.printList.sampleRequestTime}</div>

@@ -11,7 +11,7 @@ function stateList(e) {
     case 2:
       return '已撤回'
     case 3:
-      return '产品退回'
+      return '产品/业务退回'
     case 4:
       return '已驳回'
     case 5:
