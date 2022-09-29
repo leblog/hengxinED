@@ -2,6 +2,7 @@ package com.hx.rd.mapper;
 
 import java.util.List;
 
+import com.baomidou.mybatisplus.annotation.InterceptorIgnore;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.hx.rd.domain.HxPeifang;
 
@@ -11,6 +12,7 @@ import com.hx.rd.domain.HxPeifang;
  * @author lusifer
  * @date 2022-09-26
  */
+@InterceptorIgnore(tenantLine = "true")
 public interface HxPeifangMapper extends BaseMapper<HxPeifang>
 {
     /**

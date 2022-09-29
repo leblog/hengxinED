@@ -5,8 +5,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hx.common.annotation.Log;
@@ -19,8 +21,10 @@ import com.hx.common.utils.poi.ExcelUtil;
 import com.hx.rd.domain.HxPeifang;
 import com.hx.rd.service.HxPeifangService;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -30,6 +34,7 @@ import org.springframework.web.bind.annotation.*;
  * @date 2022-09-26
  */
 @RestController
+@Slf4j
 @RequestMapping("/open/peifang")
 public class HxPeifangController extends BaseController {
     @Autowired
@@ -45,50 +50,85 @@ public class HxPeifangController extends BaseController {
     @ApiOperation(value = "列表")//
     @RequestMapping(value = "/listG", method = RequestMethod.GET)
     public Page List(
-            @RequestParam(required = false) HxPeifang peifang,
             @RequestParam(required = true, defaultValue = "1") int pageNum,
-            @RequestParam(required = true, defaultValue = "30") int pageSize)
+            @RequestParam(required = true, defaultValue = "30") int pageSize,
+            HxPeifang peifang)
     {
             final QueryWrapper<HxPeifang> wrapper = new QueryWrapper<>();
-            /*if (ObjectUtil.isNotEmpty(peifang.getFid())) {
-                wrapper.lambda().like(HxPeifang::getFid, peifang.getFid());
-            }else if (ObjectUtil.isNotEmpty(peifang.getFbillno())) {
+            if (StrUtil.isNotBlank(peifang.getFid())) {
+                wrapper.lambda().eq(HxPeifang::getFid, peifang.getFid());
+            }else if (StrUtil.isNotBlank(peifang.getFbillno())) {
                 wrapper.lambda().like(HxPeifang::getFbillno, peifang.getFbillno());
-            }else if (ObjectUtil.isNotEmpty(peifang.getFkouweimingcheng())) {
+            }else if (StrUtil.isNotBlank(peifang.getFkouweimingcheng())) {
                 wrapper.lambda().like(HxPeifang::getFkouweimingcheng, peifang.getFkouweimingcheng());
-            }*/
+            }
             final Page<HxPeifang> page = peifangService.page(new Page<>(pageNum, pageSize), wrapper);
-            return page;
+            log.info("数据1 page:{}",page);
+        return page;
+    }
+
+
+    /**
+     * 根据ID 查询
+     */
+    @RequestMapping(value = "/id", method = RequestMethod.GET)
+    @ApiOperation(value = "详情")
+    public Page  selectById(
+            @RequestParam(required = true, defaultValue = "1") int pageNum,
+            @RequestParam(required = true, defaultValue = "5") int pageSize,
+            @RequestParam(required = true) String fid){
+        QueryWrapper<HxPeifang> wrapper = new QueryWrapper<>();
+        if (StrUtil.isNotBlank(fid)) {
+            wrapper.lambda().eq(HxPeifang::getFid, fid);
+        }
+        final Page<HxPeifang> page = peifangService.page(new Page<>(pageNum, pageSize), wrapper);
+        return page;
+    }
+
+    /**
+     * 根据ID 删除  逻辑删除
+     */
+    @RequestMapping(method = RequestMethod.DELETE)
+    @ApiOperation(value = "根据ID 删除")
+    public AjaxResult  delById(HxPeifang peifang){
+        QueryWrapper<HxPeifang> wrapper = new QueryWrapper<>();
+        if (StrUtil.isNotBlank(peifang.getFid())) {
+            wrapper.lambda().eq(HxPeifang::getFid, peifang.getFid());
+        }
+        wrapper.lambda().eq(HxPeifang::getFisdeleted, -1);
+        peifang.setFisdeleted(-1);
+        boolean update = peifangService.update(peifang, wrapper);
+        return AjaxResult.success("ok",update);
+    }
+
+    /**
+     * 保存 / 修改 TableId 注解存在更新记录，否插入一条记录
+     */
+    @RequestMapping(method = RequestMethod.POST)
+    @ApiOperation(value = "添加一个配方")
+    public AjaxResult  save(@RequestBody HxPeifang peifang){
+        boolean save = peifangService.save(peifang);
+        return AjaxResult.success("ok",save);
+    }
+
+    /**
+     * 修改
+     */
+    @RequestMapping(method = RequestMethod.PUT)
+    @ApiOperation(value = "更新一个配方")
+    public AjaxResult  update(@RequestBody HxPeifang peifang){
+        UpdateWrapper<HxPeifang> wrapper = new UpdateWrapper<>();
+        wrapper.lambda().eq(HxPeifang::getFid,peifang.getFid());
+        //boolean update = peifangService.update(peifang, wrapper);
+        boolean update = peifangService.update(wrapper);
+        return AjaxResult.success("ok",update);
     }
 
 
 
-    /*@PreAuthorize("hasPermit('')")
-    @RequestMapping(value = "/id", method = RequestMethod.POST)
-    @ApiOperation(value = "详情", tags = {"详情", "自己填充"})
-    public Result  ${table.entityPath}Id(@RequestBody ${entity} ${table.entityPath})
-        throws  Exception{
-    try {
-        return   Result.success(${table.entityPath}Service.find${entity}Byid(${table.entityPath}.getId()), ResultCode.成功.getCode());
-    } catch (Exception e) {
-        return   Result.error(ResultCode.失败.getMsg(),ResultCode.失败.getCode(),null);
-    }
-}
+    /*
 
 
-//    @PreAuthorize("hasPermit('')")
-    @RequestMapping(value = "/delete", method = RequestMethod.POST)
-    @ApiOperation(value = "删除", tags = {"删除", "自己填充"})
-    public Result delete${entity}Id(@RequestBody ${entity} ${table.entityPath})
-        throws  Exception{
-    try {
-        ${table.entityPath}Service.delete${entity}Byid(${table.entityPath}.getId());
-        return Result.success(ResultCode.成功, ResultCode.成功.getCode());
-
-    } catch (Exception e) {
-        return   Result.error(ResultCode.失败.getMsg(),ResultCode.失败.getCode(),null);
-    }
-}
 
 
 

@@ -13,7 +13,7 @@ import java.util.Date;
 
 /**
  *
- * @TableName T_R&D_Peifang
+ * @TableName T_R&D_Peifang    [T_R&amp;D_Peifang]   [T_R<![CDATA[&]]>D_Peifang]
  */
 @Data
 @TableName("[T_R&amp;D_Peifang]")
@@ -196,7 +196,7 @@ public class HxPeifang {
     private Integer fisdeleted;
 
     /**
-     *
+     * -1 标识 删除
      */
     private Integer fisupload;
 
