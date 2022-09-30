@@ -55,7 +55,7 @@
                FKouweimingcheng, FBanben, FKongzhishunxu, FShoukongKwmingcheng, FShoukongbianma, FShoukongshijian,
                FKaishishijian, FJieshushijian, FGuanlianPeifangFID, FYanfaqufen, FYanfaYuanFID, FMaterialErpId,
                FKouweidalei, FBOMErpId, FGYBOMErpId, FIsDeleted, FIsUpload, FFinishTime,
-               FTiaocankaoyangTime, FCreateTime, FCreateBy, FLastModifyBy, FLastModifyTime from T_R&amp;D_Peifang
+               FTiaocankaoyangTime, FCreateTime, FCreateBy, FLastModifyBy, FLastModifyTime from [T_R&amp;D_Peifang]
     </sql>
 
     <select id="selectPeifangList" parameterType="HxPeifang" resultMap="PeifangResult">
@@ -113,7 +113,7 @@
     </select>
 
     <insert id="insertPeifang" parameterType="HxPeifang">
-        insert into T_R&amp;D_Peifang
+        insert into [T_R&amp;D_Peifang]
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">ID,</if>
             <if test="fid != null and fid != ''">FID,</if>
@@ -205,7 +205,7 @@
     </insert>
 
     <update id="updatePeifang" parameterType="HxPeifang">
-        update T_R&amp;D_Peifang
+        update [T_R&amp;D_Peifang]
         <trim prefix="SET" suffixOverrides=",">
             <if test="fid != null and fid != ''">FID = #{fid},</if>
             <if test="fbillno != null and fbillno != ''">FBillNo = #{fbillno},</if>
@@ -253,11 +253,11 @@
     </update>
 
     <delete id="deletePeifangById" parameterType="Long">
-        delete from T_R&amp;D_Peifang where ID = #{id}
+        delete from [T_R&amp;D_Peifang] where ID = #{id}
     </delete>
 
     <delete id="deletePeifangByIds" parameterType="String">
-        delete from T_R&amp;D_Peifang where ID in
+        delete from [T_R&amp;D_Peifang] where ID in
         <foreach item="id" collection="array" open="(" separator="," close=")">
             #{id}
         </foreach>

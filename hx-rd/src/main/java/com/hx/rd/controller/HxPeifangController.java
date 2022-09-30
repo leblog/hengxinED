@@ -50,20 +50,20 @@ public class HxPeifangController extends BaseController {
     @ApiOperation(value = "列表")//
     @RequestMapping(value = "/listG", method = RequestMethod.GET)
     public Page List(
-            @RequestParam(required = true, defaultValue = "1") int pageNum,
-            @RequestParam(required = true, defaultValue = "30") int pageSize,
-            HxPeifang peifang)
+        @RequestParam(required = true, defaultValue = "1") int pageNum,
+        @RequestParam(required = true, defaultValue = "30") int pageSize,
+        HxPeifang peifang)
     {
-            final QueryWrapper<HxPeifang> wrapper = new QueryWrapper<>();
-            if (StrUtil.isNotBlank(peifang.getFid())) {
-                wrapper.lambda().eq(HxPeifang::getFid, peifang.getFid());
-            }else if (StrUtil.isNotBlank(peifang.getFbillno())) {
-                wrapper.lambda().like(HxPeifang::getFbillno, peifang.getFbillno());
-            }else if (StrUtil.isNotBlank(peifang.getFkouweimingcheng())) {
-                wrapper.lambda().like(HxPeifang::getFkouweimingcheng, peifang.getFkouweimingcheng());
-            }
-            final Page<HxPeifang> page = peifangService.page(new Page<>(pageNum, pageSize), wrapper);
-            log.info("数据1 page:{}",page);
+        final QueryWrapper<HxPeifang> wrapper = new QueryWrapper<>();
+        if (StrUtil.isNotBlank(peifang.getFid())) {
+            wrapper.lambda().eq(HxPeifang::getFid, peifang.getFid());
+        }else if (StrUtil.isNotBlank(peifang.getFbillno())) {
+            wrapper.lambda().like(HxPeifang::getFbillno, peifang.getFbillno());
+        }else if (StrUtil.isNotBlank(peifang.getFkouweimingcheng())) {
+            wrapper.lambda().like(HxPeifang::getFkouweimingcheng, peifang.getFkouweimingcheng());
+        }
+        final Page<HxPeifang> page = peifangService.page(new Page<>(pageNum, pageSize), wrapper);
+        log.info("数据1 page:{}",page);
         return page;
     }
 
@@ -107,7 +107,7 @@ public class HxPeifangController extends BaseController {
     @RequestMapping(method = RequestMethod.POST)
     @ApiOperation(value = "添加一个配方")
     public AjaxResult  save(@RequestBody HxPeifang peifang){
-        boolean save = peifangService.save(peifang);
+        boolean save = peifangService.saveOrUpdate(peifang);
         return AjaxResult.success("ok",save);
     }
 
@@ -117,20 +117,17 @@ public class HxPeifangController extends BaseController {
     @RequestMapping(method = RequestMethod.PUT)
     @ApiOperation(value = "更新一个配方")
     public AjaxResult  update(@RequestBody HxPeifang peifang){
-        UpdateWrapper<HxPeifang> wrapper = new UpdateWrapper<>();
-        wrapper.lambda().eq(HxPeifang::getFid,peifang.getFid());
-        //boolean update = peifangService.update(peifang, wrapper);
-        boolean update = peifangService.update(wrapper);
+        final UpdateWrapper<HxPeifang> wrapper = new UpdateWrapper<>();
+        if (StrUtil.isNotBlank(peifang.getFid())) {
+            wrapper.lambda().eq(HxPeifang::getFid, peifang.getFid());
+        }
+        boolean update = peifangService.update(peifang, wrapper);
         return AjaxResult.success("ok",update);
     }
 
 
 
     /*
-
-
-
-
 
 //    @PreAuthorize("hasPermit('')")
     @RequestMapping(value = "/update", method = RequestMethod.POST)

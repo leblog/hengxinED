@@ -16,7 +16,8 @@ import java.util.Date;
  * @TableName T_R&D_Peifang    [T_R&amp;D_Peifang]   [T_R<![CDATA[&]]>D_Peifang]
  */
 @Data
-@TableName("[T_R&amp;D_Peifang]")
+@TableName(value = "[T_RD_Peifang]")
+//@TableName(value = "[T_R&amp;D_Peifang]")
 public class HxPeifang {
     private static final long serialVersionUID = 1L;
     /**

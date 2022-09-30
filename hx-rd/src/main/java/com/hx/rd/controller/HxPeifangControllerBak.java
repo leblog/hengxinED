@@ -1,8 +1,11 @@
 package com.hx.rd.controller;
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.github.pagehelper.JSqlParser;
 import com.hx.common.annotation.Log;
 import com.hx.common.core.controller.BaseController;
 import com.hx.common.core.domain.AjaxResult;
@@ -12,6 +15,7 @@ import com.hx.common.utils.StringUtils;
 import com.hx.common.utils.poi.ExcelUtil;
 import com.hx.rd.domain.HxPeifang;
 import com.hx.rd.service.HxPeifangService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,7 +29,7 @@ import java.util.List;
  * @date 2022-09-26
  */
 @RestController
-@RequestMapping("/ope/peifang")
+@RequestMapping("/open/peifang1")
 public class HxPeifangControllerBak extends BaseController
 {
     @Autowired
@@ -38,9 +42,21 @@ public class HxPeifangControllerBak extends BaseController
     @GetMapping("/list")
     public TableDataInfo list(HxPeifang peifang)
     {
+        System.out.println(" ======================================================= " );
         startPage();
         List<HxPeifang> list = peifangService.selectPeifangList(peifang);
         return getDataTable(list);
+    }
+
+    @RequestMapping(value = "/edit",method = RequestMethod.PUT)
+    @ApiOperation(value = "更新一个配方")
+    public AjaxResult  update(@RequestBody HxPeifang peifang){
+        final UpdateWrapper<HxPeifang> wrapper = new UpdateWrapper<>();
+        if (StrUtil.isNotBlank(peifang.getFid())) {
+            wrapper.lambda().eq(HxPeifang::getFid, peifang.getFid());
+        }
+        boolean update = peifangService.update(peifang, wrapper);
+        return AjaxResult.success("ok",update);
     }
 
     @GetMapping("/listMP")
