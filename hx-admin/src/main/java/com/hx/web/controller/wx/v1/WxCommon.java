@@ -35,7 +35,8 @@ public class WxCommon extends BaseController {
      */
 
     @Scheduled(fixedDelay = 3400000)
-    public void getToken(){
+    @GetMapping("/getWXToken")
+    public String getToken(){
         // 优化存在系统配置中,不判断失效,每一小时拉取更新一次,存入数据库中
         // 自带审批应用 lAi8lBjZtLq2h687uoOzy1MaRXPVM1NNi7MGNapOD-w lAi8lBjZtLq2h687uoOzy1MaRXPVM1NNi7MGNapOD-w
         // 自建审批应用 HQ9pPvMX8kZ4DaXBfsadodwoG1mi2aoYt868Z7H-l1E
@@ -60,6 +61,7 @@ public class WxCommon extends BaseController {
         config.setConfigValue(token);
         configService.updateConfig(config);
         log.info("企业微信token:{},更新了{}行",token,configService.updateConfig(config));
+        return token;
     }
 
 
@@ -69,7 +71,8 @@ public class WxCommon extends BaseController {
      */
     @Scheduled(fixedDelay = 3401000)
     @CrossOrigin
-    public void jsapiTicket() {
+    @GetMapping("/getWXjsapiTicket")
+    public String jsapiTicket() {
         // 查询出来企业token  数据缓存
         String accessToken = configService.selectConfigByKey("wx.work.accessToken");
         String url = "https://qyapi.weixin.qq.com/cgi-bin/get_jsapi_ticket?access_token="+accessToken;
@@ -85,6 +88,7 @@ public class WxCommon extends BaseController {
         config.setConfigValue(jsapiTicket);
         configService.updateConfig(config);
         log.info("企业微信票据(获取企业的jsapi_ticket):"+jsapiTicket);
+        return jsapiTicket;
     }
 
 
@@ -93,7 +97,8 @@ public class WxCommon extends BaseController {
      * 每121秒执行一次更新操作
      */
     @Scheduled(fixedDelay = 3402000)
-    public void jsapiAppTicket() {
+    @GetMapping("/getWXjsapiAppTicket")
+    public String jsapiAppTicket() {
         // 查询出来企业token  数据缓存
         String accessToken = configService.selectConfigByKey("wx.work.accessToken");
 
@@ -110,6 +115,7 @@ public class WxCommon extends BaseController {
         config.setConfigValue(jsapiTicket);
         configService.updateConfig(config);
         log.info("企业微信票据(获取应用的jsapi_ticket):"+jsapiTicket);
+        return jsapiTicket;
     }
 
     /**
