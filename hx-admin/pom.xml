@@ -29,6 +29,12 @@
             <artifactId>spring-boot-devtools</artifactId>
             <optional>true</optional> &lt;!&ndash; 表示依赖不会传递 &ndash;&gt;
         </dependency>-->
+        <!--easyexcel-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>easyexcel</artifactId>
+            <version>3.1.1</version>
+        </dependency>
 
         <!-- swagger3-->
         <dependency>
